@@ -3,65 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس - 2026</title>
+    <title>ملحمة التأسيس - نصوص مطورة</title>
     <style>
         :root { --gold: #c1a35f; --green: #064d2b; }
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; background: #052c19; font-family: 'Segoe UI', sans-serif; color: white; overflow-x: hidden; }
-        
-        /* خلفية ملكية متدرجة */
-        .bg-gradient {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #0a6b3d 0%, #052c19 100%);
-            z-index: -1;
-        }
-
-        /* أنيميشن الغيوم عند البداية */
-        .cloud-gate {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #ffffff; z-index: 100; display: flex; justify-content: center; align-items: center;
-            animation: openGate 2s forwards ease-in-out; animation-delay: 0.5s;
-        }
-        @keyframes openGate {
-            0% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; transform: scale(1.2); filter: blur(10px); }
-        }
-
+        .bg-gradient { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #0a6b3d 0%, #052c19 100%); z-index: -1; }
+        .cloud-gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffffff; z-index: 100; display: flex; justify-content: center; align-items: center; animation: openGate 2s forwards ease-in-out; }
+        @keyframes openGate { 0% { opacity: 1; } 100% { opacity: 0; visibility: hidden; transform: scale(1.2); filter: blur(10px); } }
         .container { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; box-sizing: border-box; }
-        .card { 
-            background: rgba(0, 0, 0, 0.85); border: 2px solid var(--gold); 
-            padding: 30px; border-radius: 20px; max-width: 600px; width: 100%; 
-            backdrop-filter: blur(15px); text-align: center; box-shadow: 0 15px 50px rgba(0,0,0,0.8);
-        }
-        
+        .card { background: rgba(0, 0, 0, 0.85); border: 2px solid var(--gold); padding: 30px; border-radius: 20px; max-width: 600px; width: 100%; backdrop-filter: blur(15px); text-align: center; }
         h1 { color: var(--gold); font-size: 1.8rem; margin-bottom: 10px; }
         .story-text { font-size: 1.1rem; line-height: 1.7; margin-bottom: 25px; text-align: justify; }
-        
-        .btn { 
-            background: transparent; border: 1px solid var(--gold); color: var(--gold); 
-            padding: 14px; margin: 8px 0; border-radius: 12px; cursor: pointer; 
-            width: 100%; font-weight: bold; font-size: 1rem; transition: 0.3s;
-        }
-        .btn:hover { background: var(--gold); color: black; transform: translateY(-2px); }
-        
+        .btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 14px; margin: 8px 0; border-radius: 12px; cursor: pointer; width: 100%; font-weight: bold; font-size: 1rem; transition: 0.3s; }
+        .btn:hover { background: var(--gold); color: black; }
         .result-box { display: none; padding: 20px; border-right: 4px solid var(--gold); background: rgba(255,255,255,0.05); margin-top: 20px; text-align: right; }
         .back-btn { background: #444; color: white; border: none; padding: 10px; border-radius: 8px; margin-top: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="cloud-gate"><h2 style="color: #333;">بإسم الوطن...</h2></div>
+    <div class="cloud-gate"><h2 style="color: #333;">أهلاً بك في تاريخنا..</h2></div>
     <div class="bg-gradient"></div>
-
     <div class="container">
         <div class="card" id="game-card">
             <h1 id="title">ملاحم التأسيس</h1>
             <p id="desc" class="story-text">اختر القائد لتبدأ محاكاة القرارات التاريخية وأثرها على واقعنا في عام 2026:</p>
-            
             <div id="options-container">
                 <button class="btn" onclick="loadCharacter('saud')">الإمام محمد بن سعود</button>
                 <button class="btn" onclick="loadCharacter('turki')">الإمام تركي بن عبد الله</button>
                 <button class="btn" onclick="loadCharacter('abdulaziz')">الملك عبد العزيز</button>
             </div>
-
             <div id="result-box" class="result-box"></div>
             <button id="reset-btn" class="back-btn" style="display:none;" onclick="location.reload()">عودة للرئيسية</button>
         </div>
@@ -71,26 +41,29 @@
         const data = {
             saud: {
                 title: "الإمام محمد بن سعود (1727م)",
-                story: "أنت الآن في الدرعية، الدولة ناشئة والتهديدات تحيط بك. ما هو قرارك الاستراتيجي الأول؟",
+                story: "أنت في الدرعية، الدولة في بدايتها والمنطقة تحتاج لتنظيم. ما هو مسار التأسيس الذي ستختاره؟",
                 options: [
-                    { text: "عقد ميثاق الدرعية التاريخي لبناء فكر الدولة", res: "✅ نتيجة 2026: بفضل هذا الميثاق، الدرعية اليوم هي العاصمة الثقافية العالمية، ومشروع 'بوابة الدرعية' يربط ماضيك بمستقبل رؤية 2030." },
-                    { text: "التركيز على التحصينات العسكرية فقط", res: "⚠️ نتيجة 2026: القوة العسكرية مهمة، لكن ميثاق العلم والفكر هو ما جعل الدولة تستمر لثلاثة قرون وتصبح اليوم منارة سياسية عالمية." }
+                    { text: "تأمين طرق التجارة والحج عبر الدرعية", res: "✅ نتيجة 2026: قرارك جعل السعودية اليوم الرائد العالمي في الخدمات اللوجستية، ومطار الملك سلمان الدولي هو ثمرة هذا الفكر في تأمين وربط طرق العالم." },
+                    { text: "عقد ميثاق الدرعية لنشر العلم والفكر", res: "✅ نتيجة 2026: هذا الميثاق هو سبب احتفالنا اليوم بـ 'يوم التأسيس'، وتحول الدرعية لأهم وجهة ثقافية وتراثية في العالم (بوابة الدرعية)." },
+                    { text: "بناء أسوار الدرعية وتحصينها عسكرياً", res: "✅ نتيجة 2026: شجاعتك في التحصين جعلت من الدرعية رمزاً للصمود، واليوم نملك أقوى المنظومات الدفاعية في المنطقة لحماية منجزاتنا." }
                 ]
             },
             turki: {
                 title: "الإمام تركي بن عبد الله (1824م)",
-                story: "استعدت الرياض بسيفك 'الأجرب'. أمامك الآن مهمة إعادة الاستقرار وتحديد العاصمة.",
+                story: "استعدت الرياض، والآن عليك تثبيت أركان الدولة السعودية الثانية. ما هو قرارك؟",
                 options: [
-                    { text: "جعل الرياض عاصمة الدولة السعودية الثانية", res: "✅ نتيجة 2026: قرارك جعل الرياض اليوم واحدة من أكبر 10 اقتصاديات مدن في العالم، ومقر إكسبو 2030 التاريخي." },
-                    { text: "البقاء في المناطق الجبلية للتحصن", res: "⚠️ نتيجة 2026: التحصن الجبلي يوفر أماناً مؤقتاً، لكن شجاعتك في اختيار الرياض جعلتها اليوم مركز القرار العالمي في الشرق الأوسط." }
+                    { text: "إعادة بناء قصر الحكم والجامع الكبير في الرياض", res: "✅ نتيجة 2026: بفضلك ظلت الرياض قلب الحكم النابض، واليوم هي المدينة التي تستعد لاستضافة إكسبو 2030 وتنافس كبرى عواصم العالم." },
+                    { text: "استخدام سيف 'الأجرب' لبسط الأمن في الصحراء", res: "✅ نتيجة 2026: بسطك للأمن هو الأساس الذي جعلنا اليوم نعيش في واحدة من أكثر دول العالم أماناً، حيث تستثمر الشركات العالمية في نيوم وذا لاين بكل طمأنينة." },
+                    { text: "إرسال الرسل للقبائل لتوحيد الصفوف", res: "✅ نتيجة 2026: هذا التلاحم هو سر قوتنا اليوم؛ الشعب السعودي يلتف حول قيادته بروح واحدة، وهو ما نسميه اليوم 'همة السعوديين كجبل طويق'." }
                 ]
             },
             abdulaziz: {
                 title: "الملك عبد العزيز (1902م)",
-                story: "بعد فتح المصمك، بدأت رحلة التوحيد. كيف ستتعامل مع القبائل والمناطق المجاورة؟",
+                story: "بعد فتح المصمك، بدأت رحلة توحيد المملكة العربية السعودية. ما هي الأولوية لديك؟",
                 options: [
-                    { text: "توحيد القلوب وبناء 'دولة المواطنة' تحت راية واحدة", res: "✅ نتيجة 2026: نحن اليوم نعيش في وطن واحد من شماله لجنوبه، نقود الفضاء وننافس القوى العظمى بفضل تلاحم الشعب الذي أسسته." },
-                    { text: "الاعتماد على المعاهدات الخارجية فقط", res: "⚠️ نتيجة 2026: المعاهدات مهمة، لكن 'وحدة الشعب' التي حققتها هي الضمان الحقيقي الذي جعل السعودية اليوم أقوى اقتصاد في المنطقة." }
+                    { text: "توطين البادية وتحويلهم إلى حماة للوطن", res: "✅ نتيجة 2026: قرارك حول المجتمع إلى قوة بناء واستقرار، واليوم أبناء هؤلاء الأبطال هم من يقودون التحول الرقمي ويرتادون الفضاء باسم السعودية." },
+                    { text: "البدء في التنقيب عن النفط والموارد", res: "✅ نتيجة 2026: هذا القرار نقلنا للعالمية، واليوم أرامكو هي عملاق الطاقة، وصندوق الاستثمارات العامة هو المحرك الذي يغير وجه الاقتصاد العالمي." },
+                    { text: "إدخال البرقيات والتقنيات الحديثة للدولة", res: "✅ نتيجة 2026: بصيرتك التقنية جعلت السعودية اليوم في المركز الأول عالمياً في الخدمات الحكومية الرقمية، وتنافس في الذكاء الاصطناعي." }
                 ]
             }
         };
@@ -99,12 +72,10 @@
             const character = data[key];
             document.getElementById('title').innerText = character.title;
             document.getElementById('desc').innerText = character.story;
-            
             let html = "";
             character.options.forEach((opt, index) => {
                 html += `<button class="btn" onclick="showResult('${key}', ${index})">${opt.text}</button>`;
             });
-            
             document.getElementById('options-container').innerHTML = html;
         }
 
@@ -112,10 +83,9 @@
             const result = data[key].options[index].res;
             document.getElementById('options-container').style.display = 'none';
             document.getElementById('desc').style.display = 'none';
-            
             const rb = document.getElementById('result-box');
             rb.style.display = 'block';
-            rb.innerHTML = `<strong>القرار والنتيجة:</strong><br><br>${result}`;
+            rb.innerHTML = `<strong>أثر قرارك في 2026:</strong><br><br>${result}`;
             document.getElementById('reset-btn').style.display = 'inline-block';
         }
     </script>
