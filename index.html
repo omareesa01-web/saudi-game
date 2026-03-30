@@ -3,38 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس - محاكي القرارات</title>
+    <title>ملحمة التأسيس - 3 خيارات عشوائية</title>
     <style>
-        :root { --gold: #c1a35f; --green: #064d2b; --red: #8b0000; }
+        :root { --gold: #c1a35f; --green: #064d2b; --red: #ff4d4d; }
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; background: #052c19; font-family: 'Segoe UI', sans-serif; color: white; overflow-x: hidden; }
         .bg-gradient { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #0a6b3d 0%, #052c19 100%); z-index: -1; }
         .cloud-gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffffff; z-index: 100; display: flex; justify-content: center; align-items: center; animation: openGate 2s forwards ease-in-out; }
         @keyframes openGate { 0% { opacity: 1; } 100% { opacity: 0; visibility: hidden; transform: scale(1.2); filter: blur(10px); } }
         .container { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; box-sizing: border-box; }
-        .card { background: rgba(0, 0, 0, 0.85); border: 2px solid var(--gold); padding: 30px; border-radius: 20px; max-width: 600px; width: 100%; backdrop-filter: blur(15px); text-align: center; }
+        .card { background: rgba(0, 0, 0, 0.85); border: 2px solid var(--gold); padding: 30px; border-radius: 20px; max-width: 600px; width: 100%; backdrop-filter: blur(15px); text-align: center; box-shadow: 0 15px 50px rgba(0,0,0,0.8); }
         h1 { color: var(--gold); font-size: 1.8rem; margin-bottom: 10px; }
         .story-text { font-size: 1.1rem; line-height: 1.7; margin-bottom: 25px; }
         .btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 14px; margin: 8px 0; border-radius: 12px; cursor: pointer; width: 100%; font-weight: bold; font-size: 1rem; transition: 0.3s; }
-        .btn:hover { background: var(--gold); color: black; }
-        .result-box { display: none; padding: 20px; border-right: 4px solid var(--gold); background: rgba(255,255,255,0.05); margin-top: 20px; text-align: right; }
-        .error-res { border-right-color: var(--red) !important; color: #ff6b6b; }
-        .back-btn { background: #444; color: white; border: none; padding: 10px; border-radius: 8px; margin-top: 20px; cursor: pointer; }
+        .btn:hover { background: var(--gold); color: black; transform: scale(1.02); }
+        .result-box { display: none; padding: 20px; border-right: 5px solid var(--gold); background: rgba(255,255,255,0.05); margin-top: 20px; text-align: right; border-radius: 5px; }
+        .lose-style { border-right-color: var(--red); color: var(--red); }
+        .back-btn { background: #333; color: white; border: 1px solid #666; padding: 12px 25px; border-radius: 8px; margin-top: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="cloud-gate"><h2 style="color: #333;">مرحباً بك في ميزان التاريخ..</h2></div>
+    <div class="cloud-gate"><h2 style="color: #333;">قدر الدولة بين يديك..</h2></div>
     <div class="bg-gradient"></div>
+
     <div class="container">
         <div class="card" id="game-card">
             <h1 id="title">ملاحم التأسيس</h1>
-            <p id="desc" class="story-text">كل قرار تتخذه قد يبني مجداً أو يهدم مستقبلاً. اختر القائد لتبدأ:</p>
+            <p id="desc" class="story-text">اختر القائد لتواجه 3 خيارات مصيرية، كل خيار يحمل 3 نهايات عشوائية لعام 2026:</p>
+            
             <div id="options-container">
                 <button class="btn" onclick="loadCharacter('saud')">الإمام محمد بن سعود</button>
                 <button class="btn" onclick="loadCharacter('turki')">الإمام تركي بن عبد الله</button>
                 <button class="btn" onclick="loadCharacter('abdulaziz')">الملك عبد العزيز</button>
             </div>
+
             <div id="result-box" class="result-box"></div>
-            <button id="reset-btn" class="back-btn" style="display:none;" onclick="location.reload()">حاول مرة أخرى</button>
+            <button id="reset-btn" class="back-btn" style="display:none;" onclick="location.reload()">العودة للتاريخ</button>
         </div>
     </div>
 
@@ -42,75 +45,98 @@
         const data = {
             saud: {
                 title: "الإمام محمد بن سعود",
-                story: "الدولة في طور التأسيس بالدرعية، ما هو توجهك؟",
+                story: "الدرعية في بداياتها.. كيف سترسم طريق التأسيس؟",
                 options: [
-                    { text: "بناء تحالفات فكرية وعلمية (ميثاق الدرعية)", res: [
-                        { type: "win", msg: "✅ 2026: أصبحت الدرعية عاصمة الثقافة العالمية، واليوم يزورها الملايين كرمز للفخر والجذور." },
-                        { type: "win", msg: "✅ 2026: بفضل العلم، السعودية اليوم تقود العالم في الابتكار والذكاء الاصطناعي." },
-                        { type: "lose", msg: "❌ قرار خاطئ: انشغلت بالنقاشات الفكرية وأهملت حماية الحدود، مما أدى لغزو خارجي مبكر وتوقف حلم الدولة السعودية قبل أن يبدأ." }
+                    { text: "ميثاق الدرعية الفكري والعلمي", res: [
+                        "✅ 2026: الدرعية هي العاصمة الثقافية للعالم، ومشاريع العلم جعلت شبابنا يقودون ناسا!",
+                        "✅ 2026: بفضل الميثاق، المجتمع السعودي هو الأقوى تلاحماً، ونحتفل بيوم التأسيس كأعظم ذكرى.",
+                        "❌ 2026: انشغلت بالفكر وأهملت السلاح، فضعفت هيبة الدولة واندثر الحلم قبل اكتماله."
                     ]},
-                    { text: "التركيز المطلق على القوة العسكرية فقط", res: [
-                        { type: "win", msg: "✅ 2026: قوتك العسكرية جعلت حدودنا مهابة، واليوم نملك جيشاً يحمي منجزات رؤية 2030 بكل اقتدار." },
-                        { type: "lose", msg: "❌ قرار خاطئ: خلقت دولة عسكرية بلا هوية ثقافية، مما أدى لتفكك المجتمع بعد أول أزمة اقتصادية، وضياع الاستقرار في عام 2026." },
-                        { type: "lose", msg: "❌ قرار خاطئ: استنزفت الموارد في الحروب الدائمة، واليوم نجد أنفسنا في 2026 دولة فقيرة تعاني من صراعات داخلية لا تنتهي." }
+                    { text: "تحصين الدرعية وبناء جيش عظيم", res: [
+                        "✅ 2026: قوتك جعلت حدودنا جداراً منيعاً، واليوم نملك أقوى قوة ردع في الشرق الأوسط.",
+                        "⚠️ 2026: جيشك حمى الدولة، لكن غياب العلم جعلنا نعتمد على التقنيات الخارجية بالكامل.",
+                        "❌ 2026: تحولت الدولة لثكنة عسكرية، فجفّ الاقتصاد وهرب التجار، واليوم تعاني الدولة من الفقر."
+                    ]},
+                    { text: "تأمين طرق التجارة والقوافل", res: [
+                        "✅ 2026: السعودية هي المركز اللوجستي الأول عالمياً، والدرعية ممر يربط قارات الأرض.",
+                        "✅ 2026: ثراء الدولة بفضل التجارة جعل 'صندوق الاستثمارات' الأقوى في التاريخ.",
+                        "❌ 2026: ركزت على المال ونسيت الأمن، فنهبت العصابات القوافل وسقطت هيبة الدولة سريعاً."
                     ]}
                 ]
             },
             turki: {
                 title: "الإمام تركي بن عبد الله",
-                story: "استعدت الرياض بسيفك 'الأجرب'، كيف ستدير الدولة الثانية؟",
+                story: "بعد استعادة الرياض.. ما هي خطتك لتثبيت الدولة الثانية؟",
                 options: [
-                    { text: "جعل الرياض مركزاً للحكم والاستقرار", res: [
-                        { type: "win", msg: "✅ 2026: الرياض أصبحت من أعظم مدن العالم، ومقراً لإكسبو 2030 بفضل أساسك المتين." },
-                        { type: "win", msg: "✅ 2026: استقرارك في الرياض جذب التجارة، واليوم هي المحرك المالي الأكبر في المنطقة." },
-                        { type: "lose", msg: "❌ قرار خاطئ: تقوقعت داخل الرياض وأهملت الأقاليم البعيدة، مما تسبب في ثورات مزقت الدولة ولم نصل لعام 2026 ككيان واحد." }
+                    { text: "إعادة إعمار الرياض كعاصمة دائمة", res: [
+                        "✅ 2026: الرياض هي مدينة المستقبل 'إكسبو 2030'، وواحدة من أكبر اقتصاديات مدن العالم.",
+                        "✅ 2026: قصر الحكم الذي بنيته لا يزال رمزاً للعدل والقوة أمام العالم أجمع.",
+                        "❌ 2026: انغلق العالم داخل الرياض، فاستقلت الأقاليم الأخرى وتمزق شمل الدولة في الطريق لعام 2026."
                     ]},
-                    { text: "التوسع السريع في الأراضي المحيطة", res: [
-                        { type: "win", msg: "✅ 2026: وحدت الجزيرة العربية بوقت قياسي، واليوم نعيش في وطن شاسع وغني بالتنوع." },
-                        { type: "lose", msg: "❌ قرار خاطئ: تمددت بشكل أسرع من قدرتك على الإدارة، مما جعل الدولة تنهار سريعاً بسبب غياب التنظيم الإداري." },
-                        { type: "lose", msg: "❌ قرار خاطئ: أرهقت الجيش في معارك لا تنتهي، مما أضعف الدولة وجعلها لقمة سائغة للمطامع الاستعمارية في المستقبل." }
+                    { text: "بسط الأمن بسيف 'الأجرب' في كل مكان", res: [
+                        "✅ 2026: نحن نعيش في أكثر دول العالم أماناً، حيث يسير المسافر من جدة لنيوم بلا خوف.",
+                        "✅ 2026: هيبة 'الأجرب' جعلت العالم يحترم سيادة المملكة وقراراتها السياسية اليوم.",
+                        "❌ 2026: القسوة في بسط الأمن ولدت ضغينة، فانقلبت القبائل ضد الحكم وضاع الاستقرار للأبد."
+                    ]},
+                    { text: "توطيد العلاقات مع الأقاليم المجاورة", res: [
+                        "✅ 2026: بفضل دبلوماسيتك، السعودية اليوم هي قائدة العالم العربي والإسلامي بلا منازع.",
+                        "✅ 2026: الوحدة الوطنية التي أسستها هي 'جبل طويق' الذي لا يهتز أمام الأزمات العالمية.",
+                        "❌ 2026: وثقت في حلفاء الغدر، فخانو العهود وسقطت الدولة في فخ المؤامرات الخارجية."
                     ]}
                 ]
             },
             abdulaziz: {
                 title: "الملك عبد العزيز",
-                story: "بعد فتح المصمك، كيف ستبدأ بناء المملكة الحديثة؟",
+                story: "المملكة بدأت تتوحد.. ما هي ركيزة الدولة الحديثة؟",
                 options: [
-                    { text: "الاستثمار في التعليم وتوطين البادية", res: [
-                        { type: "win", msg: "✅ 2026: نجحت في خلق شعب متعلم طموح، واليوم يقود أبناؤنا مشاريع نيوم وذا لاين." },
-                        { type: "win", msg: "✅ 2026: التوطين خلق استقراراً اجتماعياً فريداً، مما جعل السعودية اليوم واحة للأمن والأمان." },
-                        { type: "lose", msg: "❌ قرار خاطئ: ركزت على التعليم وأهملت تطوير الموارد الطبيعية، مما جعل الدولة تعتمد على المساعدات الخارجية حتى عام 2026." }
+                    { text: "توطين البادية ونشر التعليم", res: [
+                        "✅ 2026: بفضل التعليم، المواطن السعودي هو الثروة الحقيقية التي تبني نيوم وذا لاين.",
+                        "✅ 2026: تحولنا من حياة البادية إلى ريادة الفضاء في أقل من قرن.. معجزة بشرية!",
+                        "❌ 2026: أهملت الاقتصاد وركزت على التعليم النظري فقط، فخرج جيل عاطل لا يجد ما يأكله."
                     ]},
-                    { text: "فتح الباب للاكتشافات النفطية والتقنية", res: [
-                        { type: "win", msg: "✅ 2026: أرامكو وصندوق الاستثمارات العامة أصبحا القوة الاقتصادية الأولى في العالم بفضل بصيرتك." },
-                        { type: "win", msg: "✅ 2026: بفضلك نحن اليوم دولة تقنية متطورة تنافس القوى العظمى في كل المجالات." },
-                        { type: "lose", msg: "❌ قرار خاطئ: اعتمدت على النفط فقط وأهملت بناء الإنسان، مما أدى لأزمة اقتصادية خانقة في 2026 بعد تحول العالم للطاقة البديلة." }
+                    { text: "استخراج النفط والبحث عن الثروات", res: [
+                        "✅ 2026: أرامكو هي عملاق الطاقة العالمي، وأموال النفط بنت لنا مدناً تضاهي الخيال.",
+                        "✅ 2026: ثروة النفط جعلت السعودية عضو 'G20' والمتحكم في توازن الاقتصاد العالمي.",
+                        "❌ 2026: اعتمدت على النفط ونسيت الزراعة والصناعة، فانهار الاقتصاد عندما ظهرت الطاقة البديلة."
+                    ]},
+                    { text: "جلب التقنية والبرقيات والاتصالات", res: [
+                        "✅ 2026: السعودية هي الرقم 1 في الحكومة الرقمية عالمياً، وكل خدماتنا بلمسة زر.",
+                        "✅ 2026: بصيرتك التقنية جعلتنا اليوم ننافس في الذكاء الاصطناعي ونبني مدناً ذكية كلياً.",
+                        "❌ 2026: أدخلت التقنية بلا حماية، فاخترق الأعداء أنظمة الدولة وعطلوا حياتنا في 2026."
                     ]}
                 ]
             }
         };
 
         function loadCharacter(key) {
-            const character = data[key];
-            document.getElementById('title').innerText = character.title;
-            document.getElementById('desc').innerText = character.story;
+            const char = data[key];
+            document.getElementById('title').innerText = char.title;
+            document.getElementById('desc').innerText = char.story;
             let html = "";
-            character.options.forEach((opt, index) => {
-                html += `<button class="btn" onclick="showResult('${key}', ${index})">${opt.text}</button>`;
+            char.options.forEach((opt, idx) => {
+                html += `<button class="btn" onclick="showResult('${key}', ${idx})">${opt.text}</button>`;
             });
             document.getElementById('options-container').innerHTML = html;
         }
 
-        function showResult(key, index) {
-            const results = data[key].options[index].res;
-            const resObj = results[Math.floor(Math.random() * results.length)];
+        function showResult(key, optIdx) {
+            const results = data[key].options[optIdx].res;
+            const finalRes = results[Math.floor(Math.random() * results.length)];
             
             document.getElementById('options-container').style.display = 'none';
             document.getElementById('desc').style.display = 'none';
+            
             const rb = document.getElementById('result-box');
             rb.style.display = 'block';
-            rb.className = 'result-box' + (resObj.type === 'lose' ? ' error-res' : '');
-            rb.innerHTML = `<strong>النتيجة العشوائية في 2026:</strong><br><br>${resObj.msg}`;
+            rb.innerHTML = `<strong>النتيجة التاريخية (سيناريو 2026):</strong><br><br>${finalRes}`;
+            
+            if (finalRes.includes('❌')) {
+                rb.classList.add('lose-style');
+                document.getElementById('reset-btn').innerText = "لقد سقطت الدولة.. حاول إصلاح التاريخ";
+            } else {
+                rb.classList.remove('lose-style');
+                document.getElementById('reset-btn').innerText = "عودة للقائمة الرئيسية";
+            }
             document.getElementById('reset-btn').style.display = 'inline-block';
         }
     </script>
