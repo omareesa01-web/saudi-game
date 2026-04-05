@@ -3,122 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس - القصص المتغيرة</title>
+    <title>ملحمة التأسيس - النسخة المرئية</title>
     <style>
-        :root { --gold: #c1a35f; --green: #064d2b; --red: #ff4d4d; }
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; background: #052c19; font-family: 'Segoe UI', sans-serif; color: white; overflow-x: hidden; }
-        .bg-gradient { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #0a6b3d 0%, #052c19 100%); z-index: -1; }
-        .container { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; box-sizing: border-box; }
-        .card { background: rgba(0, 0, 0, 0.85); border: 2px solid var(--gold); padding: 30px; border-radius: 20px; max-width: 600px; width: 100%; backdrop-filter: blur(15px); text-align: center; }
-        h1 { color: var(--gold); font-size: 1.8rem; margin-bottom: 10px; }
-        .story-text { font-size: 1.1rem; line-height: 1.7; margin-bottom: 25px; }
-        .btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 14px; margin: 8px 0; border-radius: 12px; cursor: pointer; width: 100%; font-weight: bold; font-size: 1rem; transition: 0.3s; }
-        .btn:hover { background: var(--gold); color: black; }
-        .result-box { display: none; padding: 20px; border-right: 5px solid var(--gold); background: rgba(255,255,255,0.05); margin-top: 20px; text-align: right; }
-        .lose-style { border-right-color: var(--red); color: var(--red); }
-        .back-btn { background: #333; color: white; border: 1px solid #666; padding: 12px 25px; border-radius: 8px; margin-top: 20px; cursor: pointer; }
+        :root { --gold: #c1a35f; --green: #064d2b; --dark: #052c19; }
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; background: var(--dark); font-family: 'Segoe UI', sans-serif; color: white; overflow: hidden; }
+        
+        /* نظام الخلفيات المتغيرة */
+        .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background-size: cover; background-position: center; transition: 1s ease-in-out; filter: brightness(0.4); }
+        .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 20%, var(--dark) 90%); z-index: -1; }
+
+        .screen { display: none; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 20px; text-align: center; box-sizing: border-box; }
+        .active { display: flex; }
+
+        .card { background: rgba(0, 0, 0, 0.7); border: 1px solid var(--gold); padding: 30px; border-radius: 20px; max-width: 600px; width: 100%; backdrop-filter: blur(8px); }
+        
+        h1 { color: var(--gold); font-size: 2rem; margin-bottom: 20px; }
+        .story-text { font-size: 1.1rem; line-height: 1.7; margin-bottom: 20px; }
+
+        .main-btn { background: transparent; border: 2px solid var(--gold); color: var(--gold); padding: 15px 30px; margin: 10px; border-radius: 12px; cursor: pointer; font-size: 1.3rem; font-weight: bold; transition: 0.3s; width: 200px; }
+        .main-btn:hover { background: var(--gold); color: black; box-shadow: 0 0 15px var(--gold); }
+
+        .game-btn { background: rgba(193, 163, 95, 0.1); border: 1px solid var(--gold); color: white; padding: 12px; margin: 8px 0; border-radius: 10px; cursor: pointer; width: 100%; font-size: 1rem; transition: 0.3s; }
+        .game-btn:hover { background: var(--gold); color: black; }
+
+        .back-link { margin-top: 15px; color: var(--gold); cursor: pointer; font-size: 0.9rem; opacity: 0.7; }
+        .back-link:hover { opacity: 1; }
     </style>
 </head>
 <body>
-    <div class="bg-gradient"></div>
-    <div class="container">
-        <div class="card" id="game-card">
-            <h1 id="title">ملاحم التأسيس</h1>
-            <p id="desc" class="story-text">في كل مرة تختار قائداً، سيضعك القدر أمام تحدٍ تاريخي مختلف..</p>
+    <div id="dynamic-bg" class="bg-layer" style="background-image: url('default_bg.jpg');"></div>
+    <div class="bg-overlay"></div>
+
+    <div id="start-screen" class="screen active">
+        <h1>ملاحم التأسيس</h1>
+        <button class="main-btn" onclick="showScreen('game-screen')">لـعـب</button>
+        <button class="main-btn" onclick="showScreen('history-screen')">قـصـة</button>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div class="card">
+            <h1 id="game-title">اختر القائد</h1>
+            <p id="game-desc" class="story-text">كل قرار تتخذه يرسم ملامح عام 2026..</p>
             <div id="options-container">
-                <button class="btn" onclick="loadCharacter('saud')">الإمام محمد بن سعود</button>
-                <button class="btn" onclick="loadCharacter('turki')">الإمام تركي بن عبد الله</button>
-                <button class="btn" onclick="loadCharacter('abdulaziz')">الملك عبد العزيز</button>
+                <button class="game-btn" onclick="loadGame('saud')">الإمام محمد بن سعود</button>
+                <button class="game-btn" onclick="loadGame('turki')">الإمام تركي بن عبد الله</button>
+                <button class="game-btn" onclick="loadGame('abdulaziz')">الملك عبد العزيز</button>
             </div>
-            <div id="result-box" class="result-box"></div>
-            <button id="reset-btn" class="back-btn" style="display:none;" onclick="location.reload()">العودة للتاريخ</button>
+            <div id="result-box" style="display:none;" class="story-text"></div>
+            <div class="back-link" onclick="location.reload()">العودة للقائمة</div>
+        </div>
+    </div>
+
+    <div id="history-screen" class="screen">
+        <div class="card">
+            <h1 id="history-title">قصص الأبطال</h1>
+            <div id="history-content" class="story-text">تعرف على تاريخ أجدادك..</div>
+            <div id="history-menu">
+                <button class="game-btn" onclick="readHistory('saud')">قصة الإمام محمد بن سعود</button>
+                <button class="game-btn" onclick="readHistory('turki')">قصة الإمام تركي بن عبد الله</button>
+                <button class="game-btn" onclick="readHistory('abdulaziz')">قصة الملك عبد العزيز</button>
+            </div>
+            <div class="back-link" onclick="showScreen('start-screen')">رجوع</div>
         </div>
     </div>
 
     <script>
-        const characters = {
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        const gameData = {
             saud: [
-                {
-                    story: "تحدي العلم: الدرعية في بداياتها وتحتاج لأساس فكري قوي، ماذا تفعل؟",
-                    options: [
-                        { text: "عقد ميثاق الدرعية لنشر المعرفة", res: "✅ 2026: الدرعية أصبحت منارة ثقافية عالمية!" },
-                        { text: "إهمال العلم والتركيز على الزراعة فقط", res: "❌ 2026: ضاعت هوية الدولة وأصبحت مجرد واحة منسية." },
-                        { text: "فرض ضرائب قاسية لبناء المدارس", res: "❌ 2026: ثار الشعب وسقطت الدرعية قبل أن يكتمل بناؤها." }
-                    ]
-                },
-                {
-                    story: "تحدي الحدود: القبائل المجاورة تهدد أمن الدرعية، كيف تتصرف؟",
-                    options: [
-                        { text: "بناء أسوار الدرعية العظيمة", res: "✅ 2026: بفضل صمودك، نحن اليوم نعيش في وطن آمن ومستقر." },
-                        { text: "الهجوم المفاجئ على كل الجيران", res: "❌ 2026: دخلت في حروب استنزاف جعلت الدولة فقيرة وضعيفة." },
-                        { text: "ترك الحدود مفتوحة لكسب ثقة التجار", res: "❌ 2026: دخل الأعداء متنكرين ودمروا العاصمة من الداخل." }
-                    ]
-                }
+                { s: "تحدي العلم: الدرعية تحتاج لأساس فكري قوي..", img: "saud_ilm.gif", opt: [{t:"ميثاق الدرعية", r:"✅ 2026: منارة ثقافية عالمية!"}, {t:"تجاهل العلم", r:"⚠️ 2026: تعثر المسار الفكري."}] },
+                { s: "تحدي الحدود: الأعداء يحيطون بالدرعية..", img: "saud_border.gif", opt: [{t:"بناء الأسوار", r:"✅ 2026: وطن آمن ومستقر."}, {t:"ترك الحدود مكشوفة", r:"⚠️ 2026: تأثر استقرار الوطن."}] }
             ],
             turki: [
-                {
-                    story: "تحدي الأمن: بعد استعادة الرياض، الفوضى ما زالت في الطرقات، ما قرارك؟",
-                    options: [
-                        { text: "استخدام سيف الأجرب لبسط العدل", res: "✅ 2026: السعودية اليوم هي الملاذ الآمن لكل العالم." },
-                        { text: "إعطاء الأمان للمجرمين ليتوبوا", res: "❌ 2026: زادت العصابات وسقطت هيبة الدولة في 2026." },
-                        { text: "بناء السجون فقط دون نشر الوعي", res: "❌ 2026: الدولة غارقة في الفساد والظلم." }
-                    ]
-                },
-                {
-                    story: "تحدي العاصمة: الرياض مدمرة وتحتاج إعادة بناء، ماذا تبدأ به؟",
-                    options: [
-                        { text: "بناء قصر الحكم والمسجد الجامع", res: "✅ 2026: الرياض اليوم هي عاصمة القرار العالمي وإكسبو 2030." },
-                        { text: "بناء قصور خاصة للحاشية فقط", res: "❌ 2026: انفصل الشعب عن القيادة وانهارت الدولة." },
-                        { text: "ترك الرياض والانتقال لمكان أبعد", res: "❌ 2026: تشتت الشمل وضاعت العاصمة التاريخية." }
-                    ]
-                }
+                { s: "تحدي الأمن: الفوضى في الطرقات بعد استعادة الرياض..", img: "turki_security.gif", opt: [{t:"سيف الأجرب والعدل", r:"✅ 2026: ملاذ آمن لكل العالم."}, {t:"التهاون في الأمن", r:"⚠️ 2026: تعثر مسار الأمان."}] },
+                { s: "تحدي العاصمة: الرياض تحتاج هوية معمارية..", img: "turki_build.gif", opt: [{t:"بناء قصر الحكم", r:"✅ 2026: عاصمة القرار العالمي."}, {t:"تأجيل البناء", r:"⚠️ 2026: تأخر تطور المدينة."}] }
             ],
             abdulaziz: [
-                {
-                    story: "تحدي التوحيد: القبائل متفرقة والجزيرة ممزقة، كيف تجمعهم؟",
-                    options: [
-                        { text: "توطين البادية وبناء الهجر للتعليم", res: "✅ 2026: بفضل الوحدة، نحن اليوم جبل طويق الذي لا ينكسر." },
-                        { text: "شراء الولاءات بالمال فقط", res: "❌ 2026: عندما نفد المال، انقلب الجميع وضاع الوطن." },
-                        { text: "القوة العسكرية دون تفاهم", res: "❌ 2026: الدولة تعيش في صراعات قبلية مريرة حتى اليوم." }
-                    ]
-                },
-                {
-                    story: "تحدي المستقبل: ظهرت بوادر وجود النفط والتقنيات، ما أولوياتك؟",
-                    options: [
-                        { text: "جلب المهندسين وحفر أول بئر", res: "✅ 2026: أرامكو هي عملاق العالم وصندوقنا الاستثماري هو الأقوى." },
-                        { type: "win", text: "بناء أول خط برقية للاتصالات", res: "✅ 2026: نحن اليوم رواد التقنية والذكاء الاصطناعي." },
-                        { text: "منع التقنيات خوفاً من التغيير", res: "❌ 2026: نعيش في عزلة تكنولوجية وفقر مدقع." }
-                    ]
-                }
+                { s: "تحدي الوحدة: المملكة شاسعة وتحتاج لربط القلوب..", img: "aziz_unity.gif", opt: [{t:"توطين البادية", r:"✅ 2026: مجتمع متلاحم كجبل طويق."}, {t:"تجاهل المناطق البعيدة", r:"⚠️ 2026: تعثر توازن التنمية."}] },
+                { s: "تحدي النهضة: العلم والتكنولوجيا في بدايتها..", img: "aziz_tech.gif", opt: [{t:"حفر آبار النفط", r:"✅ 2026: قوة اقتصادية عظمى."}, {t:"رفض التقنيات", r:"⚠️ 2026: فجوة تقنية مع العالم."}] }
             ]
         };
 
-        function loadCharacter(key) {
-            const characterStories = characters[key];
-            const randomStory = characterStories[Math.floor(Math.random() * characterStories.length)];
+        function loadGame(who) {
+            const stories = gameData[who];
+            const randomStory = stories[Math.floor(Math.random() * stories.length)];
             
-            document.getElementById('title').innerText = randomStory.story.split(':')[0];
-            document.getElementById('desc').innerText = randomStory.story;
+            // تغيير الخلفية
+            document.getElementById('dynamic-bg').style.backgroundImage = `url('${randomStory.img}')`;
             
+            document.getElementById('game-title').innerText = "مهمة التاريخ";
+            document.getElementById('game-desc').innerText = randomStory.s;
             let html = "";
-            randomStory.options.forEach((opt, idx) => {
-                html += `<button class="btn" onclick="showResult('${opt.res.replace(/'/g, "\\'")}')">${opt.text}</button>`;
+            randomStory.opt.forEach(o => {
+                html += `<button class="game-btn" onclick="showResult('${o.r}')">${o.t}</button>`;
             });
             document.getElementById('options-container').innerHTML = html;
         }
 
-        function showResult(resultText) {
+        function showResult(res) {
             document.getElementById('options-container').style.display = 'none';
-            document.getElementById('desc').style.display = 'none';
-            const rb = document.getElementById('result-box');
-            rb.style.display = 'block';
-            rb.innerHTML = `<strong>النتيجة في 2026:</strong><br><br>${resultText}`;
-            
-            if (resultText.includes('❌')) {
-                rb.classList.add('lose-style');
-                document.getElementById('reset-btn').innerText = "لقد سقطت الدولة.. حاول إصلاح التاريخ";
-            }
-            document.getElementById('reset-btn').style.display = 'inline-block';
+            const box = document.getElementById('result-box');
+            box.style.display = 'block';
+            box.innerText = res;
+        }
+
+        function readHistory(who) {
+            // هنا يمكن إضافة نظام الصور للقصة أيضاً بنفس الطريقة
+            const hData = {
+                saud: "بدأ الإمام محمد بن سعود رحلة التأسيس من الدرعية عام 1727...",
+                turki: "استعاد الإمام تركي بن عبد الله الرياض وأرسى قواعد الدولة الثانية...",
+                abdulaziz: "وحد الملك عبد العزيز شتات الجزيرة ليصنع وطناً عظيماً..."
+            };
+            document.getElementById('history-content').innerText = hData[who];
+            document.getElementById('history-menu').style.display = 'none';
         }
     </script>
 </body>
