@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ملحمة التأسيس - النسخة الملكية</title>
+    <title>ملحمة التأسيس - النسخة الملحمية الطويلة</title>
     <style>
-        :root { --gold: #c1a35f; --dark: #05160d; --glass: rgba(0, 0, 0, 0.94); }
+        :root { --gold: #c1a35f; --dark: #05160d; --glass: rgba(0, 0, 0, 0.96); }
 
         body, html { 
             margin: 0; padding: 0; height: 100%; width: 100%; 
@@ -19,66 +19,63 @@
         .screen { display: none; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 20px; text-align: center; }
         .active { display: flex; animation: ultraEntrance 0.8s ease-out forwards; }
 
-        /* أنيميشن الدخول الرئيسي للشاشات */
         @keyframes ultraEntrance {
             0% { opacity: 0; transform: scale(0.95); filter: blur(10px); }
             100% { opacity: 1; transform: scale(1); filter: blur(0); }
         }
 
-        /* أنيميشن خاص للمحتوى المتغير (مثل قائمة القرارات) */
-        .content-fade { animation: fadeInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+        /* أنيميشن المحتوى المتغير */
+        .content-fade { animation: fadeInUp 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
         
         @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; transform: translateY(40px); filter: blur(5px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
         .card { 
             background: var(--glass); border: 1px solid var(--gold); 
-            padding: 40px; border-radius: 35px; max-width: 650px; width: 92%; 
-            box-shadow: 0 0 80px rgba(193, 163, 95, 0.15); backdrop-filter: blur(30px);
-            position: relative; border-bottom: 5px solid var(--gold);
+            padding: 35px; border-radius: 35px; max-width: 750px; width: 92%; 
+            box-shadow: 0 0 80px rgba(193, 163, 95, 0.2); backdrop-filter: blur(40px);
+            position: relative; border-bottom: 6px solid var(--gold);
+            max-height: 85vh; overflow-y: auto;
         }
 
         .option-btn {
-            background: linear-gradient(145deg, rgba(193, 163, 95, 0.1), rgba(0,0,0,0.3));
-            border: 1px solid rgba(193, 163, 95, 0.3);
-            color: white; padding: 22px; margin: 15px 0; border-radius: 20px;
-            cursor: pointer; width: 100%; font-size: 1.25rem; font-weight: bold;
-            transition: all 0.4s ease;
+            background: linear-gradient(145deg, rgba(193, 163, 95, 0.1), rgba(0,0,0,0.4));
+            border: 1px solid rgba(193, 163, 95, 0.4);
+            color: white; padding: 18px; margin: 12px 0; border-radius: 20px;
+            cursor: pointer; width: 100%; font-size: 1.15rem; font-weight: bold;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: block;
         }
 
         .option-btn:hover { 
-            background: var(--gold); color: black; transform: translateY(-5px); 
-            box-shadow: 0 10px 20px rgba(193, 163, 95, 0.3);
+            background: var(--gold); color: black; transform: translateY(-5px) scale(1.01); 
+            box-shadow: 0 12px 25px rgba(193, 163, 95, 0.4);
         }
 
         .result-box { 
             padding: 25px; border-right: 5px solid var(--gold); 
-            background: rgba(255,255,255,0.05); margin-top: 20px; text-align: right;
-            border-radius: 0 15px 15px 0;
+            background: rgba(255,255,255,0.06); margin-top: 20px; text-align: right;
+            border-radius: 10px 0 0 10px; line-height: 1.8;
         }
 
-        .back-link { margin-top: 30px; color: var(--gold); cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; }
+        .back-link { margin-top: 25px; color: var(--gold); cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; font-size: 1.1rem; }
 
-        /* --- تأثير تطاير الرمل من أسفل لأعلى --- */
+        /* --- تأثير الرمل المتطاير --- */
         #game-engine .overlay::before {
             content: "";
             position: absolute;
-            bottom: -50px;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23d4b483' fill-opacity='0.2' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
-            animation: sandFlow 12s linear infinite;
+            bottom: -50px; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6' viewBox='0 0 6 6'%3E%3Cpath fill='%23d4b483' fill-opacity='0.25' d='M1 3h1v1H1V3zm2-2h1v1H3V1zm2 4h1v1H5V5z'%3E%3C/path%3E%3C/svg%3E");
+            animation: sandFlowUp 14s linear infinite;
             z-index: -1;
         }
 
-        @keyframes sandFlow {
+        @keyframes sandFlowUp {
             0% { transform: translateY(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
             100% { transform: translateY(-100vh); opacity: 0; }
         }
     </style>
@@ -89,16 +86,16 @@
     <div class="overlay"></div>
 
     <div id="main-menu" class="screen active">
-        <h1 style="font-size: 3.5rem; color: var(--gold);">ملاحم التأسيس</h1>
-        <div style="margin-top: 20px;">
-            <button class="option-btn" style="width: 320px;" onclick="navigateTo('game-engine')">دخول الملحمة</button>
-            <button class="option-btn" style="width: 320px;" onclick="navigateTo('lore-engine')">سجل الأبطال</button>
-        </div>
+        <h1 style="font-size: 3.5rem; color: var(--gold); letter-spacing: 2px;">ملاحم التأسيس</h1>
+        <p style="color: #aaa; margin-bottom: 30px;">استرجع تاريخ الأبطال بقراراتك المصيرية</p>
+        <button class="option-btn" style="width: 320px;" onclick="navigateTo('game-engine')">دخول الملحمة</button>
+        <button class="option-btn" style="width: 320px;" onclick="navigateTo('lore-engine')">سجل الأبطال</button>
     </div>
 
     <div id="game-engine" class="screen">
         <div class="card content-fade" id="game-card-content">
             <h1 style="color: var(--gold);">اختر قائد الملحمة</h1>
+            <p>حدد القائد لتبدأ في اتخاذ القرارات التي شكلت وجه الوطن..</p>
             <div id="dynamic-action-area">
                 <button class="option-btn" onclick="startHeroLife('saud')">الإمام محمد بن سعود</button>
                 <button class="option-btn" onclick="startHeroLife('turki')">الإمام تركي بن عبد الله</button>
@@ -111,8 +108,8 @@
     <div id="lore-engine" class="screen">
         <div class="card content-fade">
             <h1 id="lore-title" style="color: var(--gold);">سجل الملاحم</h1>
-            <div id="lore-body" style="line-height: 2.2; text-align: justify; font-size: 1.2rem; margin-bottom: 25px;">
-                اختر بطلاً لاستعادة فصول ملحمته..
+            <div id="lore-body" style="line-height: 2.2; text-align: justify; font-size: 1.25rem; margin-bottom: 25px; color: #ddd;">
+                اختر بطلاً لاستعادة فصول ملحمته وقراءة تفاصيل رحلته في بناء هذا الوطن العظيم..
             </div>
             <div id="lore-selector">
                 <button class="option-btn" onclick="openLore('saud')">ملحمة التأسيس</button>
@@ -120,14 +117,13 @@
                 <button class="option-btn" onclick="openLore('aziz')">ملحمة التوحيد</button>
             </div>
             <div id="audio-panel" style="display:none;">
-                <button class="option-btn" style="border-style: dashed;" onclick="executeSpeech()">🔊 استمع للملحمة</button>
+                <button class="option-btn" style="border-style: dashed;" onclick="executeSpeech()">🔊 استمع للملحمة بصوت ملكي</button>
             </div>
-            <a href="javascript:void(0)" class="back-link" onclick="navigateTo('main-menu')">رجوع</a>
+            <a href="javascript:void(0)" class="back-link" onclick="navigateTo('main-menu')">رجوع للسجل</a>
         </div>
     </div>
 
     <script>
-        // --- خلفية الجزيئات ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -143,30 +139,48 @@
         function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
         animate();
 
-        // --- الانتقالات ---
         function navigateTo(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            const target = document.getElementById(id);
-            target.classList.add('active');
+            document.getElementById(id).classList.add('active');
             window.speechSynthesis.cancel();
         }
 
         const DATA = {
-            saud: { q: "تحدي الدرعية: ميثاق التأسيس يحتاج ثباتاً، ماذا تختار؟", opts: [{ t: "عقد ميثاق الدرعية التاريخي", r: "✅ بقرارك هذا، أصبحت الدرعية في 2026 قلب الثقافة النابض." }, { t: "التركيز على التجارة وإهمال العلم", r: "⚠️ في 2026، افتقدت النهضة لعمقها الفكري الراسخ." }, { t: "بناء جيش ضخم وتأجيل الميثاق", r: "⚠️ واجهت الدولة انقسامات داخلية حادة لاحقاً." }] },
-            turki: { q: "تحدي الرياض: الأمن مفقود، كيف تستعيده؟", opts: [{ t: "بسط العدل بسيف الأجرب", r: "✅ في 2026، المملكة واحة الأمان الأولى." }, { t: "التهاون مع الفوضى للتصالح", r: "⚠️ ضاعت هيبة الدولة وانتشرت النزاعات التاريخية." }, { t: "إغلاق العاصمة عن محيطها", r: "⚠️ تأثر النمو الاقتصادي وانعزلت الرياض عن دورها." }] },
-            aziz: { q: "تحدي الوحدة: كيف تجمع شتات القبائل؟", opts: [{ t: "توطين البادية ونشر التعليم", r: "✅ في 2026، نحن شعب واحد تحت راية واحدة." }, { t: "الاعتماد على المعاهدات الورقية", r: "⚠️ تخلخل في ميثاق الوحدة القوي." }, { t: "تجاهل المناطق البعيدة", r: "⚠️ تعثرت التنمية الشاملة في أطراف الوطن." }] }
+            saud: { 
+                q: "تحدي الدرعية: في عام 1727م، أصبحت الدرعية مقصداً للناس، لكنها تحتاج لميثاق يضمن استمرارها كدولة قوية تجمع بين العلم والأمن وتنبذ الفرقة. ماذا تقرر لإرساء القواعد؟", 
+                opts: [
+                    { t: "عقد ميثاق الدرعية التاريخي ونشر العلم", r: "✅ بقرارك الحكيم، وضعت حجر الزاوية لأعظم وحدة في شبه الجزيرة. في عام 2026، الدرعية هي 'جوهرة المملكة' وعاصمة الثقافة التي يقصدها العالم، بفضل ميثاقك الذي جعل العلم والعدل أساس الملك." },
+                    { t: "التركيز على التجارة والقوافل وإهمال ميثاق العلم", r: "⚠️ ازدهرت الدرعية اقتصادياً لفترة، لكن الوحدة افتقدت للروح الفكرية التي تحميها من الهجمات الفكرية الخارجية. في 2026، بقيت الدرعية مجرد سوق تاريخي بدل أن تكون منارة حضارية." },
+                    { t: "بناء جيش ضخم وتأجيل الميثاق السياسي", r: "⚠️ القوة العسكرية بدون ميثاق شرعي وسياسي أدت لنزاعات داخلية بين القبائل الموالية. في 2026، يذكر التاريخ أن الدولة كانت عابرة ولم تستمر طويلاً بسبب غياب الرؤية الفكرية." }
+                ] 
+            },
+            turki: { 
+                q: "تحدي الاستعادة: الرياض عادت تحت حكمك في 1824م، لكن الفوضى ما زالت تهدد أمن الحجاج وطرق التجارة خارج الأسوار. كيف تعيد هيبة الدولة الثانية؟", 
+                opts: [
+                    { t: "بسط العدل والضرب بيد من حديد بسيف الأجرب", r: "✅ أعدت الهيبة والوقار للدولة. بفضل سيفك وعدلك، أصبحت الرياض في 2026 واحدة من أكثر مدن العالم أماناً وطمأنينة، وصار اسمك مرادفاً للحزم الذي يبني الأوطان ويحمي الضعيف." },
+                    { t: "المهادنة الدبلوماسية مع قطاع الطرق", r: "⚠️ أدت المهادنة لزيادة نفوذ المتمردين، وبقيت الدولة الثانية في حالة قلق دائم. في 2026، يظهر التاريخ أن الرياض عانت كثيراً لاستعادة استقرارها بسبب هذا التردد." },
+                    { t: "تحصين العاصمة فقط وترك المناطق البعيدة", r: "⚠️ هذا القرار أدى لانعزال الرياض وضعف مواردها. في 2026، نرى أن الوحدة الوطنية كانت ستتأخر كثيراً لو لم تمد يد الدولة لكل شبر من أرض الوطن." }
+                ] 
+            },
+            aziz: { 
+                q: "تحدي التوحيد العظيم: بعد استعادة الرياض عام 1902م، أمامك مهمة شاقة لجمع شتات القبائل المتناحرة في وطن واحد تحت راية 'لا إله إلا الله'. ما هي استراتيجيتك؟", 
+                opts: [
+                    { t: "مشروع 'الهجر' لتوطين البادية وتعليمهم", r: "✅ عبقري! حولت المحاربين إلى بناة وطن مستقرين. بفضل هذه الرؤية، نرى في 2026 مجتمعاً سعودياً متلاحماً، لا فرق فيه بين حاضرة وبادية، الكل يعمل تحت راية التوحيد والنهضة." },
+                    { t: "الاعتماد على القوة العسكرية الصرفة للتوحيد", r: "⚠️ القوة وحدها لا تبني حباً. في 2026، ندرك أن الوحدة كانت ستكون هشة لو لم تدعمها بمشاريع اجتماعية وتعليمية تلامس حياة الناس اليومية." },
+                    { t: "انتظار المعاهدات الدولية لترسيم الحدود", r: "⚠️ القرار المتأخر كان سيجعل أجزاء كبيرة من الوطن تحت الانتداب أو النفوذ الأجنبي. في 2026، نحمد الله على شجاعتك التي سبقت الطموحات الدولية." }
+                ] 
+            }
         };
 
         function startHeroLife(heroId) {
             const hero = DATA[heroId];
             const container = document.getElementById('game-card-content');
             
-            // إضافة كلاس الأنيميشن يدوياً عند كل تغيير محتوى
             container.classList.remove('content-fade');
-            void container.offsetWidth; // Trigger reflow
+            void container.offsetWidth; 
             container.classList.add('content-fade');
 
-            container.innerHTML = `<h1 style="color:var(--gold);">مهمة القائد</h1><p style="font-size:1.3rem;">${hero.q}</p><div id="options-inject"></div><a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة للرئيسية</a>`;
+            container.innerHTML = `<h1 style="color:var(--gold); font-size:2rem;">مهمة القائد</h1><p style="font-size:1.25rem; line-height:1.8; margin-bottom:30px;">${hero.q}</p><div id="options-inject"></div><a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة لقائمة الأبطال</a>`;
             
             const injectPoint = document.getElementById('options-inject');
             hero.opts.forEach(o => {
@@ -184,23 +198,31 @@
             void container.offsetWidth;
             container.classList.add('content-fade');
 
-            container.innerHTML = `<h1 style="color:var(--gold);">النتيجة التاريخية</h1><div class="result-box" style="display:block;">${txt}</div><br><a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة للرئيسية</a>`;
+            container.innerHTML = `<h1 style="color:var(--gold);">حكم التاريخ</h1><div class="result-box">${txt}</div><br><a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة للقائمة الرئيسية</a>`;
         }
 
+        const LORE_DB = {
+            saud: "في عام 1727م، ومن قلب الدرعية الصامد، أعلن الإمام محمد بن سعود ولادة الدولة السعودية الأولى. لم تكن مجرد إمارة محلية، بل كانت مشروعاً نهضوياً يهدف لنشر العلم وتأمين طرق الحج والتجارة بعد قرون من الفوضى. ميثاق الدرعية التاريخي الذي عقده الإمام كان العهد الذي اجتمعت عليه القلوب، محولاً الدرعية إلى منارة علمية وسياسية مهابة في شبه الجزيرة العربية. اليوم، وحين ننظر لحي الطريف في 2026، نرى جذورنا الراسخة التي لم تهزها الرياح.",
+            turki: "بعد سقوط الدرعية، ظن الكثيرون أن القصة انتهت، لكن الإمام تركي بن عبدالله كان له رأي آخر. في عام 1824م، وبسيفه الشهير 'الأجرب'، شق طريقه ليعيد الرياض ويجعلها عاصمة الدولة السعودية الثانية. وضع الإمام قواعد العدل الصارم والبناء المؤسسي، وأثبت للعالم أن الدولة السعودية فكرة لا تموت، بل تولد من جديد بعزم رجالها. بفضله، بقيت الهوية السعودية حية، ممهدة الطريق لملحمة التوحيد الكبرى.",
+            aziz: "في ليلة لا تُنسى من عام 1902م، وبإيمان راسخ وستة وثلاثين رجلاً، فتح الملك عبدالعزيز بن عبدالرحمن أبواب المصمك ليعلن فجر الدولة السعودية الثالثة. خاض الملك 'صقر الجزيرة' ملاحم بطولية استمرت لثلاثين عاماً، لا لفتح الأراضي فحسب، بل لتوحيد القلوب وجمع شتات القبائل المتناحرة في كيان واحد اسمه 'المملكة العربية السعودية'. وازن بعبقرية بين التمسك بالجذور والانفتاح على العلم الحديث، ليترك لنا وطناً شامخاً نفاخر به العالم اليوم في 2026."
+        };
+
         function openLore(id) {
-            const LORES = {
-                saud: "في عام 1727م، أرسى الإمام محمد بن سعود قواعد الدولة الأولى في الدرعية...",
-                turki: "بإرادة صلبة، استعاد الإمام تركي بن عبدالله الرياض عام 1824م...",
-                aziz: "سطر الملك عبدالعزيز عام 1902م أعظم ملحمة توحيد..."
-            };
-            document.getElementById('lore-body').innerText = LORES[id];
+            const body = document.getElementById('lore-body');
+            body.innerText = LORE_DB[id];
             document.getElementById('lore-selector').style.display = 'none';
             document.getElementById('audio-panel').style.display = 'block';
+            document.getElementById('lore-title').innerText = "تفاصيل الملحمة";
         }
 
         function executeSpeech() {
-            const m = new SpeechSynthesisUtterance(document.getElementById('lore-body').innerText);
-            m.lang = 'ar-SA'; window.speechSynthesis.cancel(); window.speechSynthesis.speak(m);
+            const text = document.getElementById('lore-body').innerText;
+            const m = new SpeechSynthesisUtterance(text);
+            m.lang = 'ar-SA';
+            m.rate = 0.85; 
+            m.pitch = 0.9;
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(m);
         }
     </script>
 </body>
