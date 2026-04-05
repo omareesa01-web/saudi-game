@@ -17,11 +17,20 @@
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 20%, var(--dark) 100%); z-index: -2; }
 
         .screen { display: none; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 20px; text-align: center; }
-        .active { display: flex; animation: ultraEntrance 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+        .active { display: flex; animation: ultraEntrance 0.8s ease-out forwards; }
 
+        /* أنيميشن الدخول الرئيسي للشاشات */
         @keyframes ultraEntrance {
-            0% { opacity: 0; transform: scale(0.9) translateY(50px); filter: blur(20px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+            0% { opacity: 0; transform: scale(0.95); filter: blur(10px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0); }
+        }
+
+        /* أنيميشن خاص للمحتوى المتغير (مثل قائمة القرارات) */
+        .content-fade { animation: fadeInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+        
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         .card { 
@@ -36,65 +45,41 @@
             border: 1px solid rgba(193, 163, 95, 0.3);
             color: white; padding: 22px; margin: 15px 0; border-radius: 20px;
             cursor: pointer; width: 100%; font-size: 1.25rem; font-weight: bold;
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-            display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+            display: block;
         }
 
         .option-btn:hover { 
-            background: var(--gold); color: black; transform: translateY(-8px) scale(1.02); 
-            box-shadow: 0 15px 30px rgba(193, 163, 95, 0.3);
+            background: var(--gold); color: black; transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(193, 163, 95, 0.3);
         }
 
         .result-box { 
-            display: none; padding: 30px; border-right: 6px solid var(--gold); 
-            background: rgba(255,255,255,0.04); margin-top: 25px; text-align: right;
-            border-radius: 0 15px 15px 0; animation: slideInRight 0.8s ease-out forwards;
+            padding: 25px; border-right: 5px solid var(--gold); 
+            background: rgba(255,255,255,0.05); margin-top: 20px; text-align: right;
+            border-radius: 0 15px 15px 0;
         }
 
-        @keyframes slideInRight { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: translateX(0); } }
+        .back-link { margin-top: 30px; color: var(--gold); cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; }
 
-        .back-link { margin-top: 35px; color: var(--gold); cursor: pointer; font-weight: bold; font-size: 1.2rem; text-decoration: none; display: inline-block; }
-
-        /* --- أنيميشن اختبار الشخصية (CSS Only) --- */
-        #dynamic-action-area {
-            animation: bounceInUp 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; 
-        }
-
-        @keyframes bounceInUp {
-            0% { opacity: 0; transform: translateY(100vh) scale(1.1); }
-            60% { opacity: 1; transform: translateY(-30px); }
-            80% { transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- تأثير تطاير الرمل (CSS Only) --- */
-        #game-engine .overlay::before,
-        #game-engine .overlay::after {
+        /* --- تأثير تطاير الرمل من أسفل لأعلى --- */
+        #game-engine .overlay::before {
             content: "";
             position: absolute;
-            bottom: -10vh; /* تبدأ من تحت الشاشة */
+            bottom: -50px;
             left: 0;
             width: 100%;
             height: 100%;
-            /* خلفية SVG خفيفة تشبه ذرات الرمل */
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23d4b483' fill-opacity='0.15' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
-            filter: blur(1px);
-            animation: sandDriftUp 15s linear infinite;
-            z-index: -1; 
-            opacity: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23d4b483' fill-opacity='0.2' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+            animation: sandFlow 12s linear infinite;
+            z-index: -1;
         }
 
-        #game-engine .overlay::after {
-            animation-delay: 7s; 
-            background-size: 6px 6px; 
-            animation-duration: 20s;
-        }
-
-        @keyframes sandDriftUp {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
+        @keyframes sandFlow {
+            0% { transform: translateY(0); opacity: 0; }
             10% { opacity: 1; }
-            80% { opacity: 0.8; }
-            100% { transform: translateY(-100vh) scale(1.1); opacity: 0; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
         }
     </style>
 </head>
@@ -104,7 +89,7 @@
     <div class="overlay"></div>
 
     <div id="main-menu" class="screen active">
-        <h1 style="font-size: 3.5rem; color: var(--gold); text-shadow: 0 0 30px rgba(193, 163, 95, 0.4);">ملاحم التأسيس</h1>
+        <h1 style="font-size: 3.5rem; color: var(--gold);">ملاحم التأسيس</h1>
         <div style="margin-top: 20px;">
             <button class="option-btn" style="width: 320px;" onclick="navigateTo('game-engine')">دخول الملحمة</button>
             <button class="option-btn" style="width: 320px;" onclick="navigateTo('lore-engine')">سجل الأبطال</button>
@@ -112,7 +97,7 @@
     </div>
 
     <div id="game-engine" class="screen">
-        <div class="card" id="game-card-content">
+        <div class="card content-fade" id="game-card-content">
             <h1 style="color: var(--gold);">اختر قائد الملحمة</h1>
             <div id="dynamic-action-area">
                 <button class="option-btn" onclick="startHeroLife('saud')">الإمام محمد بن سعود</button>
@@ -124,7 +109,7 @@
     </div>
 
     <div id="lore-engine" class="screen">
-        <div class="card">
+        <div class="card content-fade">
             <h1 id="lore-title" style="color: var(--gold);">سجل الملاحم</h1>
             <div id="lore-body" style="line-height: 2.2; text-align: justify; font-size: 1.2rem; margin-bottom: 25px;">
                 اختر بطلاً لاستعادة فصول ملحمته..
@@ -142,41 +127,45 @@
     </div>
 
     <script>
-        // --- الأنيميشن الخلفي ---
+        // --- خلفية الجزيئات ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
         function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.addEventListener('resize', resize);
-        resize();
+        window.addEventListener('resize', resize); resize();
         class Particle {
             constructor() { this.reset(); }
             reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.size = Math.random()*2+1; this.speedX = Math.random()*0.4-0.2; this.speedY = Math.random()*0.4-0.2; this.opacity = Math.random()*0.5; }
             update() { this.x += this.speedX; this.y += this.speedY; if(this.x<0||this.x>canvas.width||this.y<0||this.y>canvas.height) this.reset(); }
             draw() { ctx.fillStyle = `rgba(193, 163, 95, ${this.opacity})`; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill(); }
         }
-        for(let i=0; i<100; i++) particles.push(new Particle());
+        for(let i=0; i<80; i++) particles.push(new Particle());
         function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
         animate();
 
-        // --- محرك اللعبة ---
+        // --- الانتقالات ---
         function navigateTo(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            const target = document.getElementById(id);
+            target.classList.add('active');
             window.speechSynthesis.cancel();
         }
 
         const DATA = {
-            saud: { q: "تحدي الفكر: الدرعية تحتاج ميثاقاً يجمع القلوب، ماذا تختار؟", opts: [{ t: "عقد ميثاق الدرعية التاريخي", r: "✅ بقرارك هذا، أصبحت الدرعية في 2026 قلب الثقافة النابض." }, { t: "التركيز على التجارة وإهمال العلم", r: "⚠️ في 2026، افتقدت النهضة لعمقها الفكري الراسخ." }, { t: "بناء جيش ضخم وتأجيل الميثاق", r: "⚠️ واجهت الدولة انقسامات داخلية حادة لاحقاً." }] },
-            turki: { q: "تحدي الأمن: الرياض عادت ولكن الفوضى تهدد الطرق، ماذا تقرر؟", opts: [{ t: "بسط العدل بسيف الأجرب", r: "✅ في 2026، المملكة هي الواحة الأكثر أماناً عالمياً." }, { t: "التهاون مع الفوضى للتصالح", r: "⚠️ ضاعت هيبة الدولة وانتشرت النزاعات التاريخية." }, { t: "إغلاق العاصمة عن محيطها", r: "⚠️ تأثر النمو الاقتصادي وانعزلت الرياض عن دورها." }] },
-            aziz: { q: "تحدي الوحدة: كيف تجمع القبائل تحت راية واحدة؟", opts: [{ t: "توطين البادية ونشر التعليم", r: "✅ في 2026، الشعب السعودي كتلة واحدة صلبة لا تنكسر." }, { t: "الاعتماد على المعاهدات الورقية", r: "⚠️ واجهت الوحدة تصدعات وقت الأزمات الكبرى." }, { t: "تجاهل المناطق البعيدة", r: "⚠️ تعثرت التنمية الشاملة في أطراف الوطن." }] }
+            saud: { q: "تحدي الدرعية: ميثاق التأسيس يحتاج ثباتاً، ماذا تختار؟", opts: [{ t: "عقد ميثاق الدرعية التاريخي", r: "✅ بقرارك هذا، أصبحت الدرعية في 2026 قلب الثقافة النابض." }, { t: "التركيز على التجارة وإهمال العلم", r: "⚠️ في 2026، افتقدت النهضة لعمقها الفكري الراسخ." }, { t: "بناء جيش ضخم وتأجيل الميثاق", r: "⚠️ واجهت الدولة انقسامات داخلية حادة لاحقاً." }] },
+            turki: { q: "تحدي الرياض: الأمن مفقود، كيف تستعيده؟", opts: [{ t: "بسط العدل بسيف الأجرب", r: "✅ في 2026، المملكة واحة الأمان الأولى." }, { t: "التهاون مع الفوضى للتصالح", r: "⚠️ ضاعت هيبة الدولة وانتشرت النزاعات التاريخية." }, { t: "إغلاق العاصمة عن محيطها", r: "⚠️ تأثر النمو الاقتصادي وانعزلت الرياض عن دورها." }] },
+            aziz: { q: "تحدي الوحدة: كيف تجمع شتات القبائل؟", opts: [{ t: "توطين البادية ونشر التعليم", r: "✅ في 2026، نحن شعب واحد تحت راية واحدة." }, { t: "الاعتماد على المعاهدات الورقية", r: "⚠️ تخلخل في ميثاق الوحدة القوي." }, { t: "تجاهل المناطق البعيدة", r: "⚠️ تعثرت التنمية الشاملة في أطراف الوطن." }] }
         };
 
         function startHeroLife(heroId) {
             const hero = DATA[heroId];
             const container = document.getElementById('game-card-content');
             
-            // مسح كلي للمحتوى لمنع التعليق
+            // إضافة كلاس الأنيميشن يدوياً عند كل تغيير محتوى
+            container.classList.remove('content-fade');
+            void container.offsetWidth; // Trigger reflow
+            container.classList.add('content-fade');
+
             container.innerHTML = `<h1 style="color:var(--gold);">مهمة القائد</h1><p style="font-size:1.3rem;">${hero.q}</p><div id="options-inject"></div><a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة للرئيسية</a>`;
             
             const injectPoint = document.getElementById('options-inject');
@@ -191,26 +180,27 @@
 
         function showResult(txt) {
             const container = document.getElementById('game-card-content');
+            container.classList.remove('content-fade');
+            void container.offsetWidth;
+            container.classList.add('content-fade');
+
             container.innerHTML = `<h1 style="color:var(--gold);">النتيجة التاريخية</h1><div class="result-box" style="display:block;">${txt}</div><br><a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة للرئيسية</a>`;
         }
 
-        const LORE = {
-            saud: "في عام 1727م، أرسى الإمام محمد بن سعود قواعد الدولة الأولى في الدرعية، منطلقاً من رؤية تجمع بين العلم والأمان لتوحيد القلوب تحت راية واحدة...",
-            turki: "بإرادة صلبة، استعاد الإمام تركي بن عبدالله الرياض عام 1824م، وبنى قصر الحكم مؤسساً الدولة الثانية كرمز للعدل والاستقرار...",
-            aziz: "سطر الملك عبدالعزيز عام 1902م أعظم ملحمة توحيد، حيث جمع شتات القبائل وبنى وطناً شامخاً يتطلع للمستقبل برؤية لا تعرف المستحيل..."
-        };
-
         function openLore(id) {
-            document.getElementById('lore-body').innerText = LORE[id];
+            const LORES = {
+                saud: "في عام 1727م، أرسى الإمام محمد بن سعود قواعد الدولة الأولى في الدرعية...",
+                turki: "بإرادة صلبة، استعاد الإمام تركي بن عبدالله الرياض عام 1824م...",
+                aziz: "سطر الملك عبدالعزيز عام 1902م أعظم ملحمة توحيد..."
+            };
+            document.getElementById('lore-body').innerText = LORES[id];
             document.getElementById('lore-selector').style.display = 'none';
             document.getElementById('audio-panel').style.display = 'block';
         }
 
         function executeSpeech() {
             const m = new SpeechSynthesisUtterance(document.getElementById('lore-body').innerText);
-            m.lang = 'ar-SA';
-            window.speechSynthesis.cancel();
-            window.speechSynthesis.speak(m);
+            m.lang = 'ar-SA'; window.speechSynthesis.cancel(); window.speechSynthesis.speak(m);
         }
     </script>
 </body>
