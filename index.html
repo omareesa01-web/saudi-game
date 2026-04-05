@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ملحمة التأسيس - النسخة الأسطورية</title>
+    <title>ملحمة التأسيس - النسخة الكاملة</title>
     <style>
         :root { --gold: #c1a35f; --dark: #052c19; --glass: rgba(0, 0, 0, 0.95); --sand: #d4b483; }
 
@@ -11,16 +11,15 @@
         
         #dynamic-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; background-size: cover; background-position: center; transition: 1s; filter: brightness(0.3); }
 
-        /* المجسمات والأرضية */
-        .sand-floor { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: linear-gradient(to top, var(--sand), transparent); z-index: 10; opacity: 0.5; }
-        .monument { position: fixed; bottom: 10px; width: 100px; z-index: 11; filter: drop-shadow(0 0 10px var(--gold)); transition: 5s ease-in-out; }
-        #diriyah-model { right: 20px; animation: cloudR 10s infinite alternate; }
-        #riyadh-model { left: 20px; animation: cloudL 10s infinite alternate; }
+        /* المجسمات المتحركة في الأسفل */
+        .sand-floor { position: fixed; bottom: 0; left: 0; width: 100%; height: 70px; background: linear-gradient(to top, var(--sand), transparent); z-index: 10; opacity: 0.5; }
+        .monument { position: fixed; bottom: 15px; width: 90px; z-index: 11; filter: drop-shadow(0 0 10px var(--gold)); transition: 3s ease-in-out; }
+        #diriyah-model { right: 20px; animation: cloudMoveR 10s infinite alternate; }
+        #riyadh-model { left: 20px; animation: cloudMoveL 10s infinite alternate; }
 
-        @keyframes cloudR { from { transform: translateX(0); } to { transform: translateX(20px); } }
-        @keyframes cloudL { from { transform: translateX(0); } to { transform: translateX(-20px); } }
+        @keyframes cloudMoveR { from { transform: translateX(0); } to { transform: translateX(30px); } }
+        @keyframes cloudMoveL { from { transform: translateX(0); } to { transform: translateX(-30px); } }
 
-        /* الشاشات */
         .screen { display: none; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 20px; text-align: center; }
         .active { display: flex; animation: fadeIn 0.7s forwards; }
 
@@ -32,7 +31,7 @@
         .option-btn:hover { background: var(--gold); color: black; }
 
         .result-box { display: none; padding: 20px; border-right: 5px solid var(--gold); background: rgba(255,255,255,0.05); margin-top: 15px; text-align: right; }
-        .back-link { margin-top: 25px; color: var(--gold); cursor: pointer; font-weight: bold; display: block; }
+        .back-link { margin-top: 25px; color: var(--gold); cursor: pointer; font-weight: bold; display: block; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -40,11 +39,11 @@
     <div id="dynamic-bg"></div>
     <div class="sand-floor"></div>
 
-    <img src="https://cdn-icons-png.flaticon.com/512/3232/3232975.png" id="diriyah-model" class="monument" alt="الدرعية">
-    <img src="https://cdn-icons-png.flaticon.com/512/2533/2533515.png" id="riyadh-model" class="monument" alt="الرياض">
+    <img src="https://cdn-icons-png.flaticon.com/512/8151/8151809.png" id="diriyah-model" class="monument" alt="الدرعية">
+    <img src="https://cdn-icons-png.flaticon.com/512/3233/3233075.png" id="riyadh-model" class="monument" alt="الرياض">
 
     <div id="start-screen" class="screen active">
-        <h1 style="font-size: 3rem; color: var(--gold);">ملاحم التأسيس</h1>
+        <h1 style="font-size: 3rem; color: var(--gold); text-shadow: 0 0 15px var(--gold);">ملاحم التأسيس</h1>
         <button class="option-btn" style="width:280px" onclick="nav('game-screen')">ابدأ اللعب</button>
         <button class="option-btn" style="width:280px" onclick="nav('history-screen')">سجل الأبطال</button>
     </div>
@@ -52,30 +51,30 @@
     <div id="game-screen" class="screen">
         <div class="card">
             <h1 id="g-title">اختر القائد</h1>
-            <div id="g-desc" style="font-size: 1.2rem; margin-bottom: 20px;">مستقبل الوطن بين يديك..</div>
+            <div id="g-desc" style="font-size: 1.2rem; margin-bottom: 20px;">حدد القائد لتبدأ المهمة التاريخية..</div>
             <div id="opt-cont">
                 <button class="option-btn" onclick="playTask('saud')">الإمام محمد بن سعود</button>
                 <button class="option-btn" onclick="playTask('turki')">الإمام تركي بن عبد الله</button>
                 <button class="option-btn" onclick="playTask('abdulaziz')">الملك عبد العزيز</button>
             </div>
             <div id="res-box" class="result-box"></div>
-            <div class="back-link" onclick="location.reload()">العودة للرئيسية</div>
+            <a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة للرئيسية</a>
         </div>
     </div>
 
     <div id="history-screen" class="screen">
         <div class="card">
             <h1 id="h-title" style="color:var(--gold)">سجل الملاحم</h1>
-            <div id="h-content" style="line-height: 1.8; text-align: justify; padding: 10px;">اختر بطلاً لتقرأ قصته الملحمية..</div>
+            <div id="h-content" style="line-height: 1.8; text-align: justify; padding: 10px; font-size: 1.1rem;">اختر بطلاً لتعرف قصته الملحمية..</div>
             <div id="h-menu">
                 <button class="option-btn" onclick="showStory('saud')">ملحمة التأسيس</button>
                 <button class="option-btn" onclick="showStory('turki')">ملحمة الاستعادة</button>
                 <button class="option-btn" onclick="showStory('abdulaziz')">ملحمة التوحيد</button>
             </div>
-            <div id="audio-btn" style="display:none">
-                <button class="option-btn" style="border-style: dashed" onclick="speak()">🔊 استمع للقصة</button>
+            <div id="audio-ui" style="display:none; margin-top:15px;">
+                <button class="option-btn" style="border-style: dashed; background: rgba(255,255,255,0.1);" onclick="speak()">🔊 قراءة القصة صوتياً</button>
             </div>
-            <div class="back-link" onclick="nav('start-screen')">رجوع</div>
+            <a href="javascript:void(0)" class="back-link" onclick="nav('start-screen')">رجوع</a>
         </div>
     </div>
 
@@ -83,23 +82,36 @@
         function nav(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            window.speechSynthesis.cancel();
         }
 
         const db = {
             saud: {
-                q: "تحدي الفكر: الدرعية تحتاج ميثاقاً، ماذا تقرر؟",
+                q: "تحدي الفكر: الدرعية في بدايتها تحتاج لميثاق يجمع القلوب، ماذا تقرر؟",
                 img: "https://images.unsplash.com/photo-1590038767624-dac5740a997b?q=80&w=1000",
-                opt: [{t:"عقد ميثاق الدرعية", r:"✅ 2026: الدرعية أصبحت فخراً للعلم."}, {t:"الاهتمام بالتجارة فقط", r:"⚠️ 2026: ضعف المسار الفكري للدولة."}]
+                opt: [
+                    {t:"عقد ميثاق الدرعية التاريخي", r:"✅ 2026: الدرعية اليوم عاصمة الثقافة بفضل رؤيتك."},
+                    {t:"الاهتمام بالتجارة فقط", r:"⚠️ 2026: تعثرت النهضة الفكرية وافتقدنا الهوية."},
+                    {t:"تأجيل الميثاق لبناء الجيش", r:"⚠️ 2026: واجهت الدولة انقسامات فكرية داخلية."}
+                ]
             },
             turki: {
-                q: "تحدي الأمن: كيف تضبط الرياض بسيفك الأجرب؟",
+                q: "تحدي الأمن: الرياض عادت ولكن الطرق غير آمنة، كيف تبسط العدل؟",
                 img: "https://images.unsplash.com/photo-1512428559083-a401a3039550?q=80&w=1000",
-                opt: [{t:"إعمال السيف والعدل", r:"✅ 2026: نحن نعيش في أمان تام."}, {t:"التهاون مع الفوضى", r:"⚠️ 2026: تأثر الاستقرار الداخلي."}]
+                opt: [
+                    {t:"إعمال سيف الأجرب والعدل", r:"✅ 2026: نحن نعيش في أكثر الأوطان أماناً عالمياً."},
+                    {t:"التهاون مع الفوضى للتصالح", r:"⚠️ 2026: ضاعت هيبة الدولة وانتشرت النزاعات."},
+                    {t:"إغلاق مداخل العاصمة للغرباء", r:"⚠️ 2026: تأثر النمو الاقتصادي وانعزلت الرياض."}
+                ]
             },
             abdulaziz: {
-                q: "تحدي الوحدة: كيف تجمع القبائل تحت راية واحدة؟",
+                q: "تحدي الوحدة: كيف تجمع القبائل تحت راية واحدة في وطن شاسع؟",
                 img: "https://images.unsplash.com/photo-1551041777-ed07f99b6705?q=80&w=1000",
-                opt: [{t:"توطين البادية والتعليم", r:"✅ 2026: الشعب السعودي يد واحدة."}, {t:"الاعتماد على المعاهدات", r:"⚠️ 2026: واجهت الوحدة تصدعات."}]
+                opt: [
+                    {t:"توطين البادية ونشر التعليم", r:"✅ 2026: الشعب السعودي اليوم كتلة واحدة صلبة."},
+                    {t:"الاعتماد على المعاهدات الورقية", r:"⚠️ 2026: واجهت الوحدة تصدعات وقت الأزمات."},
+                    {t:"تجاهل المناطق البعيدة", r:"⚠️ 2026: تعثرت التنمية في الأطراف وأثرت على الاقتصاد."}
+                ]
             }
         };
 
@@ -117,28 +129,32 @@
         }
 
         function finish(r) {
-            document.getElementById('opt-cont').innerHTML = ""; // حذف الأزرار لمنع التعليق
+            document.getElementById('opt-cont').innerHTML = ""; 
             document.getElementById('g-desc').style.display = 'none';
             const rb = document.getElementById('res-box');
             rb.style.display = 'block';
-            rb.innerHTML = `<strong>النتيجة:</strong><br><br>${r}`;
+            rb.innerHTML = `<strong>النتيجة التاريخية:</strong><br><br>${r}`;
         }
 
         const longStories = {
-            saud: "في عام 1727م، أرسى الإمام محمد بن سعود قواعد الدولة الأولى في الدرعية. لم تكن مجرد بلدة، بل كانت مشروعاً لوطن عظيم. بدأ الإمام بتنظيم شؤون الدولة وتأمين الحج، وعقد ميثاقاً تاريخياً غير وجه المنطقة، محولاً الدرعية لعاصمة مهابة استقطبت العلم والفرسان. واليوم في 2026، نرى في حي الطريف وتطور المملكة ثمرة ذلك الإصرار العظيم.",
-            turki: "بعد سقوط الدرعية، عاد الإمام تركي بن عبدالله بسيفه الأجرب عام 1824 ليحرر الرياض. بنى قصر الحكم وأعاد هيبة الدولة والعدل للطرقات، محولاً اليأس إلى أمل، جاعلاً من الرياض عاصمة دائمة للدولة السعودية الثانية. قصته هي قصة العودة من الرماد، واليوم الرياض هي قلب القرار العالمي بفضل تلك العزيمة.",
-            abdulaziz: "بـ 40 رجلاً فقط، فتح الملك عبدالعزيز حصن المصمك في ليلة تاريخية عام 1902. ومن هناك خاض ملحمة 30 عاماً لتوحيد القبائل والمدن، وازن فيها بين الأصالة والتقنية، فجلب النفط والبرقيات وربط القلوب، واضعاً الأساس المتين الذي ننطلق منه اليوم نحو رؤية 2030."
+            saud: "في عام 1727م، أرسى الإمام محمد بن سعود قواعد الدولة الأولى في الدرعية. لم تكن مجرد بلدة عادية، بل كانت مشروعاً لوطن عظيم يهدف لنشر العلم والأمان. بدأ الإمام بتنظيم شؤون الدولة، وتأمين طرق الحج والتجارة، وعقد ميثاقاً تاريخياً غير وجه المنطقة، محولاً الدرعية لعاصمة مهابة استقطبت العلماء والفرسان من كل مكان. واليوم في 2026، نرى في حي الطريف التاريخي وتطور المملكة الشامل ثمرة ذلك الإصرار العظيم الذي بدأ قبل ثلاثة قرون.",
+            turki: "بعد سقوط الدرعية بظروف قاسية، لم يمت الحلم السعودي. عاد الإمام تركي بن عبدالله بسيفه الشهير 'الأجرب' عام 1824 ليحرر الرياض. بذكاء عسكري وحكمة بالغة، بنى قصر الحكم وأعاد هيبة الدولة والعدل للطرقات، محولاً اليأس إلى أمل جديد. لقد جعل من الرياض عاصمة دائمة للدولة السعودية الثانية، مبرهناً للعالم أن هذه الدولة تعود دائماً أقوى مما كانت. واليوم، الرياض هي قلب القرار العالمي بفضل تلك العزيمة الصلبة.",
+            abdulaziz: "في ليلة المصمك التاريخية عام 1902، وبأربعين رجلاً فقط، سطر الملك عبدالعزيز أعظم ملحمة توحيد في العصر الحديث. ومن تلك النقطة، خاض رحلة استمرت ثلاثين عاماً لجمع شتات القبائل والمدن، وازن فيها بعبقرية بين الأصالة والتمسك بالقيم وبين جلب التقنيات الحديثة. استطاع بحكمته أن يربط القلوب قبل أن يوحد الحدود، واضعاً الأساس المتين للمملكة العربية السعودية التي نعيش في عزها اليوم وننطلق منها نحو رؤية 2030."
         };
 
         function showStory(w) {
             document.getElementById('h-content').innerText = longStories[w];
             document.getElementById('h-menu').style.display = 'none';
-            document.getElementById('audio-btn').style.display = 'block';
+            document.getElementById('audio-ui').style.display = 'block';
         }
 
         function speak() {
-            const u = new SpeechSynthesisUtterance(document.getElementById('h-content').innerText);
-            u.lang = 'ar-SA'; window.speechSynthesis.cancel(); window.speechSynthesis.speak(u);
+            const text = document.getElementById('h-content').innerText;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ar-SA';
+            utterance.rate = 0.9;
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(utterance);
         }
     </script>
 </body>
