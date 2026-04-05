@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ملحمة التأسيس - النسخة الملكية</title>
     <style>
-        :root { --gold: #c1a35f; --dark: #05160d; --glass: rgba(0, 0, 0, 0.94); --accent: #1a4d2e; }
+        :root { --gold: #c1a35f; --dark: #05160d; --glass: rgba(0, 0, 0, 0.94); }
 
         body, html { 
             margin: 0; padding: 0; height: 100%; width: 100%; 
@@ -13,9 +13,8 @@
             color: white; overflow: hidden;
         }
 
-        /* أنيميشن الخلفية المتطور جداً */
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, transparent 0%, var(--dark) 100%); z-index: -2; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 20%, var(--dark) 100%); z-index: -2; }
 
         .screen { display: none; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 20px; text-align: center; }
         .active { display: flex; animation: ultraEntrance 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
@@ -47,15 +46,14 @@
         }
 
         .result-box { 
-            display: none; padding: 30px; border-right: 6px solid var(--gold); 
+            padding: 30px; border-right: 6px solid var(--gold); 
             background: rgba(255,255,255,0.04); margin-top: 25px; text-align: right;
             border-radius: 0 15px 15px 0; animation: slideIn 0.8s ease-out forwards;
         }
 
         @keyframes slideIn { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: translateX(0); } }
 
-        .back-link { margin-top: 35px; color: var(--gold); cursor: pointer; font-weight: bold; font-size: 1.2rem; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
-        .back-link:hover { border-bottom-color: var(--gold); letter-spacing: 1px; }
+        .back-link { margin-top: 35px; color: var(--gold); cursor: pointer; font-weight: bold; font-size: 1.2rem; text-decoration: none; display: inline-block; }
     </style>
 </head>
 <body>
@@ -64,46 +62,45 @@
     <div class="overlay"></div>
 
     <div id="main-menu" class="screen active">
-        <h1 style="font-size: 4rem; color: var(--gold); text-shadow: 0 0 30px rgba(193, 163, 95, 0.4); margin-bottom: 10px;">ملاحم التأسيس</h1>
-        <p style="color: #d4b483; font-size: 1.2rem; margin-bottom: 30px;">تاريخ المملكة العظيم بين يديك</p>
-        <button class="option-btn" style="width: 320px;" onclick="navigateTo('game-engine')">دخول الملحمة</button>
-        <button class="option-btn" style="width: 320px;" onclick="navigateTo('lore-engine')">سجل الأبطال</button>
+        <h1 style="font-size: 3.5rem; color: var(--gold); text-shadow: 0 0 30px rgba(193, 163, 95, 0.4);">ملاحم التأسيس</h1>
+        <div style="margin-top: 20px;">
+            <button class="option-btn" style="width: 320px;" onclick="navigateTo('game-engine')">دخول الملحمة</button>
+            <button class="option-btn" style="width: 320px;" onclick="navigateTo('lore-engine')">سجل الأبطال</button>
+        </div>
     </div>
 
     <div id="game-engine" class="screen">
-        <div class="card">
-            <h1 id="engine-title" style="color: var(--gold);">اختر قائد الملحمة</h1>
-            <p id="engine-desc" style="font-size: 1.3rem; line-height: 1.7; color: #eee;">حدد القائد لتبدأ في اتخاذ القرارات المصيرية التي شكلت وجه الوطن..</p>
-            <div id="action-area">
-                <button class="option-btn" onclick="loadHero('saud')">الإمام محمد بن سعود (التأسيس)</button>
-                <button class="option-btn" onclick="loadHero('turki')">الإمام تركي بن عبد الله (الاستعادة)</button>
-                <button class="option-btn" onclick="loadHero('aziz')">الملك عبد العزيز (التوحيد)</button>
+        <div class="card" id="game-card-content">
+            <h1 style="color: var(--gold);">اختر قائد الملحمة</h1>
+            <div id="dynamic-action-area">
+                <button class="option-btn" onclick="startHeroLife('saud')">الإمام محمد بن سعود</button>
+                <button class="option-btn" onclick="startHeroLife('turki')">الإمام تركي بن عبد الله</button>
+                <button class="option-btn" onclick="startHeroLife('aziz')">الملك عبد العزيز</button>
             </div>
-            <div id="outcome-display" class="result-box"></div>
             <a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة للرئيسية</a>
         </div>
     </div>
 
     <div id="lore-engine" class="screen">
         <div class="card">
-            <h1 id="lore-title" style="color: var(--gold);">سجل الملاحم الخالدة</h1>
-            <div id="lore-body" style="line-height: 2.2; text-align: justify; font-size: 1.2rem; margin-bottom: 25px; color: #f0f0f0;">
-                استعرض ملاحم الأبطال الذين سطروا بدمائهم وعزيمتهم تاريخ هذه الأرض الطيبة..
+            <h1 id="lore-title" style="color: var(--gold);">سجل الملاحم</h1>
+            <div id="lore-body" style="line-height: 2.2; text-align: justify; font-size: 1.2rem; margin-bottom: 25px;">
+                اختر بطلاً لاستعادة فصول ملحمته..
             </div>
             <div id="lore-selector">
-                <button class="option-btn" onclick="openLore('saud')">ملحمة تأسيس الدولة الأولى</button>
-                <button class="option-btn" onclick="openLore('turki')">ملحمة استعادة الرياض</button>
-                <button class="option-btn" onclick="openLore('aziz')">ملحمة توحيد المملكة</button>
+                <button class="option-btn" onclick="openLore('saud')">ملحمة التأسيس</button>
+                <button class="option-btn" onclick="openLore('turki')">ملحمة الاستعادة</button>
+                <button class="option-btn" onclick="openLore('aziz')">ملحمة التوحيد</button>
             </div>
             <div id="audio-panel" style="display:none;">
-                <button class="option-btn" style="border-style: dashed; background: rgba(255,255,255,0.05);" onclick="executeSpeech()">🔊 استمع للملحمة بصوت عالٍ</button>
+                <button class="option-btn" style="border-style: dashed;" onclick="executeSpeech()">🔊 استمع للملحمة</button>
             </div>
-            <a href="javascript:void(0)" class="back-link" onclick="navigateTo('main-menu')">رجوع للقائمة</a>
+            <a href="javascript:void(0)" class="back-link" onclick="navigateTo('main-menu')">رجوع</a>
         </div>
     </div>
 
     <script>
-        // --- محرك الجزيئات الفاخر (Particles) ---
+        // --- الأنيميشن الخلفي ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -112,93 +109,64 @@
         resize();
         class Particle {
             constructor() { this.reset(); }
-            reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.size = Math.random()*3+1; this.speedX = Math.random()*0.4-0.2; this.speedY = Math.random()*0.4-0.2; this.opacity = Math.random()*0.5+0.2; }
+            reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.size = Math.random()*2+1; this.speedX = Math.random()*0.4-0.2; this.speedY = Math.random()*0.4-0.2; this.opacity = Math.random()*0.5; }
             update() { this.x += this.speedX; this.y += this.speedY; if(this.x<0||this.x>canvas.width||this.y<0||this.y>canvas.height) this.reset(); }
             draw() { ctx.fillStyle = `rgba(193, 163, 95, ${this.opacity})`; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill(); }
         }
-        for(let i=0; i<120; i++) particles.push(new Particle());
+        for(let i=0; i<100; i++) particles.push(new Particle());
         function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
         animate();
 
-        // --- محرك الملحمة والقرارات ---
+        // --- محرك اللعبة ---
         function navigateTo(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             window.speechSynthesis.cancel();
         }
 
-        const HERO_DATA = {
-            saud: { 
-                q: "تحدي الفكر والسياسة: الدرعية في عام 1727م تحتاج إلى ميثاق صلب يجمع شتات القبائل ويحمي العلم، ماذا تقرر؟", 
-                opts: [
-                    { t: "عقد ميثاق الدرعية التاريخي ونشر العلم", r: "✅ قرار حكيم! بفضل هذا الميثاق، أصبحت الدرعية في 2026 وجهة العالم للثقافة والتراث، وارتفعت راية التوحيد خفاقة." },
-                    { t: "التركيز على حماية القوافل التجارية فقط", r: "⚠️ في 2026، وجدنا أن الدولة افتقدت للعمق الفكري الذي يحميها من التقلبات، مما أضعف هويتها الثقافية الراسخة." },
-                    { t: "تجهيز الجيوش وتأجيل الميثاق السياسي", r: "⚠️ واجهت الدولة انقسامات داخلية حادة؛ لأن السيف وحده لا يكفي لبناء أمة دون فكر يوحدها." }
-                ] 
-            },
-            turki: { 
-                q: "تحدي الاستعادة والأمن: الرياض عادت ولكن الفوضى تضرب الأطراف، كيف تثبت أركان الدولة الثانية؟", 
-                opts: [
-                    { t: "بسط العدل بسيف الأجرب والقانون الصارم", r: "✅ بفضل حزمك، نحن نعيش في 2026 في أكثر بلاد العالم أماناً، حيث يسير الراكب لا يخشى إلا الله." },
-                    { t: "مهادنة الخارجين عن القانون لكسب ولائهم", r: "⚠️ أدى ذلك لانتشار الفوضى في الأقاليم البعيدة وضياع هيبة الدولة، مما جعل الطريق إلى 2026 محفوفاً بالمخاطر." },
-                    { t: "بناء قصر الحكم وإغلاق الرياض عن محيطها", r: "⚠️ تسبب هذا القرار في ركود اقتصادي، وعزل العاصمة عن دورها القيادي في المنطقة." }
-                ] 
-            },
-            aziz: { 
-                q: "تحدي التوحيد والبناء: المملكة شاسعة والقبائل متفرقة، كيف تجمع القلوب قبل الحدود؟", 
-                opts: [
-                    { t: "توطين البادية ونشر التعليم والتقنية", r: "✅ هذه هي المعجزة! في 2026، الشعب السعودي كتلة واحدة صلبة، والوطن يقود العالم في الابتكار والرؤية." },
-                    { t: "الاعتماد على القوة العسكرية فقط للتوحيد", r: "⚠️ واجهت الدولة تحديات اجتماعية كبيرة، ولم تكن الوحدة مستدامة كما نراها اليوم." },
-                    { t: "التركيز على تطوير المدن الكبرى وترك الهجر", r: "⚠️ نشأت فجوة تنموية كبيرة بين المناطق، مما أثر على التوازن الاقتصادي في رؤية المستقبل." }
-                ] 
-            }
+        const DATA = {
+            saud: { q: "تحدي الفكر: الدرعية تحتاج ميثاقاً يجمع القلوب، ماذا تختار؟", opts: [{ t: "عقد ميثاق الدرعية التاريخي", r: "✅ بقرارك هذا، أصبحت الدرعية في 2026 قلب الثقافة النابض." }, { t: "التركيز على التجارة وإهمال العلم", r: "⚠️ في 2026، افتقدت النهضة لعمقها الفكري الراسخ." }, { t: "بناء جيش ضخم وتأجيل الميثاق", r: "⚠️ واجهت الدولة انقسامات داخلية حادة لاحقاً." }] },
+            turki: { q: "تحدي الأمن: الرياض عادت ولكن الفوضى تهدد الطرق، ماذا تقرر؟", opts: [{ t: "بسط العدل بسيف الأجرب", r: "✅ في 2026، المملكة هي الواحة الأكثر أماناً عالمياً." }, { t: "التهاون مع الفوضى للتصالح", r: "⚠️ ضاعت هيبة الدولة وانتشرت النزاعات التاريخية." }, { t: "إغلاق العاصمة عن محيطها", r: "⚠️ تأثر النمو الاقتصادي وانعزلت الرياض عن دورها." }] },
+            aziz: { q: "تحدي الوحدة: كيف تجمع القبائل تحت راية واحدة؟", opts: [{ t: "توطين البادية ونشر التعليم", r: "✅ في 2026، الشعب السعودي كتلة واحدة صلبة لا تنكسر." }, { t: "الاعتماد على المعاهدات الورقية", r: "⚠️ واجهت الوحدة تصدعات وقت الأزمات الكبرى." }, { t: "تجاهل المناطق البعيدة", r: "⚠️ تعثرت التنمية الشاملة في أطراف الوطن." }] }
         };
 
-        function loadHero(id) {
-            const data = HERO_DATA[id];
-            const area = document.getElementById('action-area');
-            const res = document.getElementById('outcome-display');
-            const desc = document.getElementById('engine-desc');
-
-            res.style.display = 'none';
-            desc.style.display = 'block';
-            desc.style.opacity = '1';
-            area.innerHTML = ""; 
-
-            data.opts.forEach((o, i) => {
+        function startHeroLife(heroId) {
+            const hero = DATA[heroId];
+            const container = document.getElementById('game-card-content');
+            
+            // مسح كلي للمحتوى لمنع التعليق
+            container.innerHTML = `<h1 style="color:var(--gold);">مهمة القائد</h1><p style="font-size:1.3rem;">${hero.q}</p><div id="options-inject"></div><a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة للرئيسية</a>`;
+            
+            const injectPoint = document.getElementById('options-inject');
+            hero.opts.forEach(o => {
                 const b = document.createElement('button');
                 b.className = 'option-btn';
                 b.innerText = o.t;
-                b.onclick = () => {
-                    area.style.opacity = "0";
-                    desc.style.opacity = "0";
-                    setTimeout(() => {
-                        area.innerHTML = "";
-                        desc.style.display = 'none';
-                        res.style.display = 'block';
-                        res.innerHTML = `<strong style="color:var(--gold); font-size:1.4rem;">الأثر التاريخي:</strong><br><br>${o.r}`;
-                    }, 400);
-                };
-                area.appendChild(b);
+                b.onclick = () => showResult(o.r);
+                injectPoint.appendChild(b);
             });
         }
 
+        function showResult(txt) {
+            const container = document.getElementById('game-card-content');
+            container.innerHTML = `<h1 style="color:var(--gold);">النتيجة التاريخية</h1><div class="result-box">${txt}</div><br><a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة للرئيسية</a>`;
+        }
+
         const LORE = {
-            saud: "في عام 1727م، أعلن الإمام محمد بن سعود قيام الدولة السعودية الأولى في الدرعية. لم تكن مجرد إمارة، بل كانت انطلاقة لمشروع وطني عظيم قام على ركيزتي العلم والأمن. قام الإمام بتوحيد شطري الدرعية، وتأمين طرق الحج والتجارة، وبناء علاقات استراتيجية جعلت من عاصمته مركز جذب لكل باحث عن الحق والعدل. واليوم، نقف فخراً أمام حي الطريف لنرى كيف تحول حلم الإمام إلى واقع عالمي يبهر الجميع في 2026.",
-            turki: "بعد سنوات من التحديات الجسام، خرج الإمام تركي بن عبدالله من بين الركام ليعلن ولادة الدولة السعودية الثانية في عام 1824م. بسيفه الأجرب الذي صار رمزاً للعدل، استعاد الرياض وجعلها عاصمة الاستقرار. بنى قصر الحكم والجامع الكبير، وأرسى قواعد إدارية أثبتت للعالم أن الدولة السعودية لا تموت، بل تولد من جديد أقوى وأصلب. قصة الإمام تركي هي درس في الإصرار والعودة المظفرة.",
-            aziz: "في ليلة المصمك عام 1902م، وبأربعين رجلاً فقط، سطر الملك عبدالعزيز آل سعود بداية أعظم رحلة توحيد في العصر الحديث. خاض ملاحم استمرت ثلاثين عاماً، لم تكن غايتها السيطرة، بل كانت جمع شتات وطن وتمزيق أغلال الجهل والفرقة. الملك عبدالعزيز لم يوحد الأرض فحسب، بل وحد القلوب وزرع الأمل، وجلب العلم والتقنية ليرسم لنا الطريق نحو العلياء التي نعيشها اليوم بفضل الله ثم بفضل رؤيته الثاقبة."
+            saud: "في عام 1727م، أرسى الإمام محمد بن سعود قواعد الدولة الأولى في الدرعية، منطلقاً من رؤية تجمع بين العلم والأمان لتوحيد القلوب تحت راية واحدة...",
+            turki: "بإرادة صلبة، استعاد الإمام تركي بن عبدالله الرياض عام 1824م، وبنى قصر الحكم مؤسساً الدولة الثانية كرمز للعدل والاستقرار...",
+            aziz: "سطر الملك عبدالعزيز عام 1902م أعظم ملحمة توحيد، حيث جمع شتات القبائل وبنى وطناً شامخاً يتطلع للمستقبل برؤية لا تعرف المستحيل..."
         };
 
         function openLore(id) {
             document.getElementById('lore-body').innerText = LORE[id];
             document.getElementById('lore-selector').style.display = 'none';
             document.getElementById('audio-panel').style.display = 'block';
-            document.getElementById('lore-title').innerText = "فصل من تاريخنا";
         }
 
         function executeSpeech() {
             const m = new SpeechSynthesisUtterance(document.getElementById('lore-body').innerText);
-            m.lang = 'ar-SA'; m.rate = 0.95;
+            m.lang = 'ar-SA';
             window.speechSynthesis.cancel();
             window.speechSynthesis.speak(m);
         }
