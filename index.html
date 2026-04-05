@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ملحمة التأسيس - النسخة القصوى</title>
+    <title>ملحمة التأسيس - النسخة الملكية</title>
     <style>
-        :root { --gold: #c1a35f; --dark: #05160d; --glass: rgba(0, 0, 0, 0.92); }
+        :root { --gold: #c1a35f; --dark: #05160d; --glass: rgba(0, 0, 0, 0.94); --accent: #1a4d2e; }
 
         body, html { 
             margin: 0; padding: 0; height: 100%; width: 100%; 
@@ -13,51 +13,49 @@
             color: white; overflow: hidden;
         }
 
-        /* أنيميشن الخلفية المتطور */
+        /* أنيميشن الخلفية المتطور جداً */
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 20%, var(--dark) 90%); z-index: -2; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, transparent 0%, var(--dark) 100%); z-index: -2; }
 
         .screen { display: none; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 20px; text-align: center; }
-        .active { display: flex; animation: ultraFade 1s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        .active { display: flex; animation: ultraEntrance 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
 
-        @keyframes ultraFade {
-            0% { opacity: 0; transform: scale(1.1) translateY(30px); filter: blur(15px); }
+        @keyframes ultraEntrance {
+            0% { opacity: 0; transform: scale(0.9) translateY(50px); filter: blur(20px); }
             100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
         }
 
         .card { 
             background: var(--glass); border: 1px solid var(--gold); 
-            padding: 40px; border-radius: 30px; max-width: 600px; width: 90%; 
-            box-shadow: 0 0 60px rgba(193, 163, 95, 0.2); backdrop-filter: blur(25px);
-            position: relative; overflow: hidden;
+            padding: 40px; border-radius: 35px; max-width: 650px; width: 92%; 
+            box-shadow: 0 0 80px rgba(193, 163, 95, 0.15); backdrop-filter: blur(30px);
+            position: relative; border-bottom: 5px solid var(--gold);
         }
 
-        /* أنيميشن الأزرار */
         .option-btn {
-            background: rgba(193, 163, 95, 0.05); border: 1px solid rgba(193, 163, 95, 0.4);
-            color: white; padding: 20px; margin: 12px 0; border-radius: 18px;
-            cursor: pointer; width: 100%; font-size: 1.2rem; font-weight: bold;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: block; position: relative; overflow: hidden;
+            background: linear-gradient(145deg, rgba(193, 163, 95, 0.1), rgba(0,0,0,0.3));
+            border: 1px solid rgba(193, 163, 95, 0.3);
+            color: white; padding: 22px; margin: 15px 0; border-radius: 20px;
+            cursor: pointer; width: 100%; font-size: 1.25rem; font-weight: bold;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .option-btn:hover:not(:disabled) { 
-            background: var(--gold); color: black; transform: translateY(-5px); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        .option-btn:hover { 
+            background: var(--gold); color: black; transform: translateY(-8px) scale(1.02); 
+            box-shadow: 0 15px 30px rgba(193, 163, 95, 0.3);
         }
-
-        .option-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .result-box { 
-            display: none; padding: 25px; border-right: 4px solid var(--gold); 
-            background: rgba(255,255,255,0.03); margin-top: 20px; text-align: right;
-            animation: slideInRight 0.6s ease-out forwards;
+            display: none; padding: 30px; border-right: 6px solid var(--gold); 
+            background: rgba(255,255,255,0.04); margin-top: 25px; text-align: right;
+            border-radius: 0 15px 15px 0; animation: slideIn 0.8s ease-out forwards;
         }
 
-        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: translateX(0); } }
 
-        .back-link { margin-top: 30px; color: var(--gold); cursor: pointer; font-weight: bold; font-size: 1.1rem; text-decoration: none; transition: 0.3s; }
-        .back-link:hover { text-shadow: 0 0 10px var(--gold); }
+        .back-link { margin-top: 35px; color: var(--gold); cursor: pointer; font-weight: bold; font-size: 1.2rem; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
+        .back-link:hover { border-bottom-color: var(--gold); letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -66,21 +64,20 @@
     <div class="overlay"></div>
 
     <div id="main-menu" class="screen active">
-        <h1 style="font-size: 3.5rem; color: var(--gold); text-shadow: 0 0 20px rgba(193, 163, 95, 0.5);">ملاحم التأسيس</h1>
-        <div style="margin-top: 20px;">
-            <button class="option-btn" style="width: 300px;" onclick="navigateTo('game-engine')">ابدأ الملحمة</button>
-            <button class="option-btn" style="width: 300px;" onclick="navigateTo('lore-engine')">سجل الأبطال</button>
-        </div>
+        <h1 style="font-size: 4rem; color: var(--gold); text-shadow: 0 0 30px rgba(193, 163, 95, 0.4); margin-bottom: 10px;">ملاحم التأسيس</h1>
+        <p style="color: #d4b483; font-size: 1.2rem; margin-bottom: 30px;">تاريخ المملكة العظيم بين يديك</p>
+        <button class="option-btn" style="width: 320px;" onclick="navigateTo('game-engine')">دخول الملحمة</button>
+        <button class="option-btn" style="width: 320px;" onclick="navigateTo('lore-engine')">سجل الأبطال</button>
     </div>
 
     <div id="game-engine" class="screen">
         <div class="card">
-            <h1 id="engine-title" style="color: var(--gold);">اختر القائد</h1>
-            <p id="engine-desc" style="font-size: 1.2rem; line-height: 1.6;">بقراراتك، نرسم معالم القوة في 2026..</p>
+            <h1 id="engine-title" style="color: var(--gold);">اختر قائد الملحمة</h1>
+            <p id="engine-desc" style="font-size: 1.3rem; line-height: 1.7; color: #eee;">حدد القائد لتبدأ في اتخاذ القرارات المصيرية التي شكلت وجه الوطن..</p>
             <div id="action-area">
-                <button class="option-btn" onclick="loadHero('saud')">الإمام محمد بن سعود</button>
-                <button class="option-btn" onclick="loadHero('turki')">الإمام تركي بن عبد الله</button>
-                <button class="option-btn" onclick="loadHero('aziz')">الملك عبد العزيز</button>
+                <button class="option-btn" onclick="loadHero('saud')">الإمام محمد بن سعود (التأسيس)</button>
+                <button class="option-btn" onclick="loadHero('turki')">الإمام تركي بن عبد الله (الاستعادة)</button>
+                <button class="option-btn" onclick="loadHero('aziz')">الملك عبد العزيز (التوحيد)</button>
             </div>
             <div id="outcome-display" class="result-box"></div>
             <a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة للرئيسية</a>
@@ -89,140 +86,121 @@
 
     <div id="lore-engine" class="screen">
         <div class="card">
-            <h1 id="lore-title" style="color: var(--gold);">سجل الملاحم</h1>
-            <div id="lore-body" style="line-height: 2; text-align: justify; font-size: 1.15rem; margin-bottom: 20px;">
-                اختر بطلاً لاسترجاع فصول ملحمته الطويلة..
+            <h1 id="lore-title" style="color: var(--gold);">سجل الملاحم الخالدة</h1>
+            <div id="lore-body" style="line-height: 2.2; text-align: justify; font-size: 1.2rem; margin-bottom: 25px; color: #f0f0f0;">
+                استعرض ملاحم الأبطال الذين سطروا بدمائهم وعزيمتهم تاريخ هذه الأرض الطيبة..
             </div>
             <div id="lore-selector">
-                <button class="option-btn" onclick="openLore('saud')">ملحمة التأسيس</button>
-                <button class="option-btn" onclick="openLore('turki')">ملحمة الاستعادة</button>
-                <button class="option-btn" onclick="openLore('aziz')">ملحمة التوحيد</button>
+                <button class="option-btn" onclick="openLore('saud')">ملحمة تأسيس الدولة الأولى</button>
+                <button class="option-btn" onclick="openLore('turki')">ملحمة استعادة الرياض</button>
+                <button class="option-btn" onclick="openLore('aziz')">ملحمة توحيد المملكة</button>
             </div>
             <div id="audio-panel" style="display:none;">
-                <button class="option-btn" style="border-style: dotted;" onclick="executeSpeech()">🔊 قراءة القصة صوتياً</button>
+                <button class="option-btn" style="border-style: dashed; background: rgba(255,255,255,0.05);" onclick="executeSpeech()">🔊 استمع للملحمة بصوت عالٍ</button>
             </div>
-            <a href="javascript:void(0)" class="back-link" onclick="navigateTo('main-menu')">رجوع</a>
+            <a href="javascript:void(0)" class="back-link" onclick="navigateTo('main-menu')">رجوع للقائمة</a>
         </div>
     </div>
 
     <script>
-        // --- محرك الجزيئات الخلفي (Particles Engine) ---
+        // --- محرك الجزيئات الفاخر (Particles) ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-
         function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resize);
         resize();
-
         class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.opacity = Math.random();
-            }
-            update() {
-                this.x += this.speedX; this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0; if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0; if (this.y < 0) this.y = canvas.height;
-            }
-            draw() {
-                ctx.fillStyle = `rgba(193, 163, 95, ${this.opacity})`;
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-            }
+            constructor() { this.reset(); }
+            reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.size = Math.random()*3+1; this.speedX = Math.random()*0.4-0.2; this.speedY = Math.random()*0.4-0.2; this.opacity = Math.random()*0.5+0.2; }
+            update() { this.x += this.speedX; this.y += this.speedY; if(this.x<0||this.x>canvas.width||this.y<0||this.y>canvas.height) this.reset(); }
+            draw() { ctx.fillStyle = `rgba(193, 163, 95, ${this.opacity})`; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill(); }
         }
+        for(let i=0; i<120; i++) particles.push(new Particle());
+        function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
+        animate();
 
-        function initParticles() { for (let i = 0; i < 100; i++) particles.push(new Particle()); }
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-        initParticles(); animate();
-
-        // --- منطق التطبيق (Core Logic) ---
-        function navigateTo(screenId) {
+        // --- محرك الملحمة والقرارات ---
+        function navigateTo(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
+            document.getElementById(id).classList.add('active');
             window.speechSynthesis.cancel();
         }
 
         const HERO_DATA = {
-            saud: {
-                q: "تحدي الفكر: الدرعية في مهدها تحتاج لميثاق يحفظ هويتها، ماذا تختار؟",
+            saud: { 
+                q: "تحدي الفكر والسياسة: الدرعية في عام 1727م تحتاج إلى ميثاق صلب يجمع شتات القبائل ويحمي العلم، ماذا تقرر؟", 
                 opts: [
-                    { t: "إبرام ميثاق الدرعية التاريخي", r: "✅ بقرارك هذا، أصبحت الدرعية في 2026 قلب الثقافة النابض." },
-                    { t: "التركيز على القوافل التجارية فقط", r: "⚠️ في 2026، افتقدت النهضة لعمقها الفكري الراسخ." },
-                    { t: "بناء أسوار الدفاع وتأجيل الميثاق", r: "⚠️ تسبب هذا في تأخر الوحدة الثقافية لسنوات طويلة." }
-                ]
+                    { t: "عقد ميثاق الدرعية التاريخي ونشر العلم", r: "✅ قرار حكيم! بفضل هذا الميثاق، أصبحت الدرعية في 2026 وجهة العالم للثقافة والتراث، وارتفعت راية التوحيد خفاقة." },
+                    { t: "التركيز على حماية القوافل التجارية فقط", r: "⚠️ في 2026، وجدنا أن الدولة افتقدت للعمق الفكري الذي يحميها من التقلبات، مما أضعف هويتها الثقافية الراسخة." },
+                    { t: "تجهيز الجيوش وتأجيل الميثاق السياسي", r: "⚠️ واجهت الدولة انقسامات داخلية حادة؛ لأن السيف وحده لا يكفي لبناء أمة دون فكر يوحدها." }
+                ] 
             },
-            turki: {
-                q: "تحدي الأمن: الرياض عادت، ولكن الفوضى تهدد الطرق، كيف تحكم؟",
+            turki: { 
+                q: "تحدي الاستعادة والأمن: الرياض عادت ولكن الفوضى تضرب الأطراف، كيف تثبت أركان الدولة الثانية؟", 
                 opts: [
-                    { t: "بسط العدل بسيف الأجرب", r: "✅ في 2026، المملكة هي الواحة الأكثر أماناً في العالم." },
-                    { t: "التسامح مع قطاع الطرق للاحتواء", r: "⚠️ أدى ذلك لضعف هيبة النظام في الأقاليم البعيدة." },
-                    { t: "عزل العاصمة عن محيطها المضطرب", r: "⚠️ في 2026، عانت الرياض من عزلة اقتصادية تاريخية." }
-                ]
+                    { t: "بسط العدل بسيف الأجرب والقانون الصارم", r: "✅ بفضل حزمك، نحن نعيش في 2026 في أكثر بلاد العالم أماناً، حيث يسير الراكب لا يخشى إلا الله." },
+                    { t: "مهادنة الخارجين عن القانون لكسب ولائهم", r: "⚠️ أدى ذلك لانتشار الفوضى في الأقاليم البعيدة وضياع هيبة الدولة، مما جعل الطريق إلى 2026 محفوفاً بالمخاطر." },
+                    { t: "بناء قصر الحكم وإغلاق الرياض عن محيطها", r: "⚠️ تسبب هذا القرار في ركود اقتصادي، وعزل العاصمة عن دورها القيادي في المنطقة." }
+                ] 
             },
-            aziz: {
-                q: "تحدي الوحدة: كيف تجمع القبائل تحت راية واحدة في مساحة شاسعة؟",
+            aziz: { 
+                q: "تحدي التوحيد والبناء: المملكة شاسعة والقبائل متفرقة، كيف تجمع القلوب قبل الحدود؟", 
                 opts: [
-                    { t: "مشروع توطين البادية والتعليم", r: "✅ في 2026، الشعب السعودي كتلة واحدة لا تنكسر." },
-                    { t: "الاعتماد على الولاءات القبلية المؤقتة", r: "⚠️ واجهت الدولة تحديات في الاستقرار الداخلي لاحقاً." },
-                    { t: "التركيز على المدن الكبرى فقط", r: "⚠️ تعثرت التنمية الشاملة في مناطق الأطراف." }
-                ]
+                    { t: "توطين البادية ونشر التعليم والتقنية", r: "✅ هذه هي المعجزة! في 2026، الشعب السعودي كتلة واحدة صلبة، والوطن يقود العالم في الابتكار والرؤية." },
+                    { t: "الاعتماد على القوة العسكرية فقط للتوحيد", r: "⚠️ واجهت الدولة تحديات اجتماعية كبيرة، ولم تكن الوحدة مستدامة كما نراها اليوم." },
+                    { t: "التركيز على تطوير المدن الكبرى وترك الهجر", r: "⚠️ نشأت فجوة تنموية كبيرة بين المناطق، مما أثر على التوازن الاقتصادي في رؤية المستقبل." }
+                ] 
             }
         };
 
         function loadHero(id) {
             const data = HERO_DATA[id];
-            document.getElementById('engine-title').innerText = "مهمة القائد";
-            document.getElementById('engine-desc').innerText = data.q;
-            
-            let html = "";
-            data.opts.forEach((o, index) => {
-                html += `<button class="option-btn" id="btn-${index}" onclick="processDecision('${o.r.replace(/'/g, "\\")}', ${index})">${o.t}</button>`;
+            const area = document.getElementById('action-area');
+            const res = document.getElementById('outcome-display');
+            const desc = document.getElementById('engine-desc');
+
+            res.style.display = 'none';
+            desc.style.display = 'block';
+            desc.style.opacity = '1';
+            area.innerHTML = ""; 
+
+            data.opts.forEach((o, i) => {
+                const b = document.createElement('button');
+                b.className = 'option-btn';
+                b.innerText = o.t;
+                b.onclick = () => {
+                    area.style.opacity = "0";
+                    desc.style.opacity = "0";
+                    setTimeout(() => {
+                        area.innerHTML = "";
+                        desc.style.display = 'none';
+                        res.style.display = 'block';
+                        res.innerHTML = `<strong style="color:var(--gold); font-size:1.4rem;">الأثر التاريخي:</strong><br><br>${o.r}`;
+                    }, 400);
+                };
+                area.appendChild(b);
             });
-            document.getElementById('action-area').innerHTML = html;
-            document.getElementById('outcome-display').style.display = 'none';
         }
 
-        function processDecision(result, selectedIndex) {
-            // تعطيل كافة الأزرار لمنع التعليق
-            const buttons = document.querySelectorAll('#action-area .option-btn');
-            buttons.forEach((btn, i) => {
-                btn.disabled = true;
-                if(i !== selectedIndex) btn.style.opacity = "0.3";
-            });
-
-            const display = document.getElementById('outcome-display');
-            display.style.display = 'block';
-            display.innerHTML = `<strong>النتيجة التاريخية:</strong><br><br>${result}`;
-        }
-
-        const LORE_TEXTS = {
-            saud: "في عام 1727م، انطلقت شرارة التأسيس من قلب الدرعية على يد الإمام محمد بن سعود. لم يكتفِ بتأسيس كيان سياسي، بل وضع دستوراً فكرياً ارتكز على العلم والأمن. قام بتنظيم موارد الدولة وتأمين طرق القوافل، مما جعل الدرعية مركز جذب للعلماء والفرسان. هذا الغرس هو ما نراه اليوم في 2026 كعاصمة عالمية للثقافة والتراث.",
-            turki: "بعد مرحلة من التحديات الصعبة، نهض الإمام تركي بن عبدالله في عام 1824م ليعيد كتابة التاريخ. بسيفه 'الأجرب' وعقيدته الراسخة، استعاد الرياض وجعلها عاصمة الدولة السعودية الثانية. أرسى قواعد العدل الصارم وقام ببناء قصر الحكم، مبرهناً أن الدولة السعودية قادرة على العودة دائماً بفضل تلاحم قيادتها وشعبها.",
-            aziz: "سطر الملك عبدالعزيز في عام 1902م أعظم ملحمة توحيد في العصر الحديث. انطلق بـ 40 رجلاً ليستعيد المصمك، ومنه انطلقت رحلة الـ 30 عاماً لتوحيد أطراف المملكة. وازن بعبقرية بين التمسك بالثوابت وبين جلب العلم والتقنية، فأسس وطناً شاسعاً يجمع القلوب قبل الحدود، وهو الأساس الذي تنطلق منه رؤية 2030."
+        const LORE = {
+            saud: "في عام 1727م، أعلن الإمام محمد بن سعود قيام الدولة السعودية الأولى في الدرعية. لم تكن مجرد إمارة، بل كانت انطلاقة لمشروع وطني عظيم قام على ركيزتي العلم والأمن. قام الإمام بتوحيد شطري الدرعية، وتأمين طرق الحج والتجارة، وبناء علاقات استراتيجية جعلت من عاصمته مركز جذب لكل باحث عن الحق والعدل. واليوم، نقف فخراً أمام حي الطريف لنرى كيف تحول حلم الإمام إلى واقع عالمي يبهر الجميع في 2026.",
+            turki: "بعد سنوات من التحديات الجسام، خرج الإمام تركي بن عبدالله من بين الركام ليعلن ولادة الدولة السعودية الثانية في عام 1824م. بسيفه الأجرب الذي صار رمزاً للعدل، استعاد الرياض وجعلها عاصمة الاستقرار. بنى قصر الحكم والجامع الكبير، وأرسى قواعد إدارية أثبتت للعالم أن الدولة السعودية لا تموت، بل تولد من جديد أقوى وأصلب. قصة الإمام تركي هي درس في الإصرار والعودة المظفرة.",
+            aziz: "في ليلة المصمك عام 1902م، وبأربعين رجلاً فقط، سطر الملك عبدالعزيز آل سعود بداية أعظم رحلة توحيد في العصر الحديث. خاض ملاحم استمرت ثلاثين عاماً، لم تكن غايتها السيطرة، بل كانت جمع شتات وطن وتمزيق أغلال الجهل والفرقة. الملك عبدالعزيز لم يوحد الأرض فحسب، بل وحد القلوب وزرع الأمل، وجلب العلم والتقنية ليرسم لنا الطريق نحو العلياء التي نعيشها اليوم بفضل الله ثم بفضل رؤيته الثاقبة."
         };
 
         function openLore(id) {
-            document.getElementById('lore-body').innerText = LORE_TEXTS[id];
+            document.getElementById('lore-body').innerText = LORE[id];
             document.getElementById('lore-selector').style.display = 'none';
             document.getElementById('audio-panel').style.display = 'block';
-            document.getElementById('lore-title').innerText = "فصل الملحمة";
+            document.getElementById('lore-title').innerText = "فصل من تاريخنا";
         }
 
         function executeSpeech() {
-            const text = document.getElementById('lore-body').innerText;
-            const msg = new SpeechSynthesisUtterance(text);
-            msg.lang = 'ar-SA';
-            msg.rate = 0.9;
+            const m = new SpeechSynthesisUtterance(document.getElementById('lore-body').innerText);
+            m.lang = 'ar-SA'; m.rate = 0.95;
             window.speechSynthesis.cancel();
-            window.speechSynthesis.speak(msg);
+            window.speechSynthesis.speak(m);
         }
     </script>
 </body>
