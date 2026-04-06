@@ -39,7 +39,7 @@
 
         /* --- نظام الأنيميشن السينمائي (بدون اختصار) --- */
         .screen {
-            display: none; 
+            display: none; /* يتم التحكم بالظهور عبر JS */
             opacity: 0;
             transform: translateY(30px) scale(0.98);
             transition: opacity var(--transition-speed) ease, transform var(--transition-speed) cubic-bezier(0.19, 1, 0.22, 1);
@@ -68,8 +68,8 @@
             transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             margin-bottom: 15px;
             display: block;
-            position: relative; 
-            overflow: hidden; 
+            position: relative; /* مهم للأنيميشن */
+            overflow: hidden; /* مهم للأنيميشن */
         }
 
         /* أنيميشن "لمعة السيف" (Glowing Flash) */
@@ -117,6 +117,16 @@
         /* سكرول بار أنيق */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-thumb { background: var(--gold-main); border-radius: 10px; }
+        
+        /* أزرار اللغة داخل المهمة */
+        .lang-switch {
+            display: flex; gap: 10px; justify-content: center; margin-bottom: 10px;
+        }
+        .btn-lang {
+            background: rgba(193, 163, 95, 0.2); border: 1px solid var(--gold-main);
+            color: white; padding: 5px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;
+        }
+        .btn-lang:hover { background: var(--gold-main); color: black; }
     </style>
 </head>
 <body>
@@ -125,18 +135,11 @@
 
     <div class="app-wrapper" id="scroll-container">
         
-        <div id="scr-lang" class="screen" style="display: block;">
-            <h1>اختر اللغة / Language</h1>
-            <button class="btn-action" onclick="setChoice('ar')">العربية (Arabic)</button>
-            <button class="btn-action" onclick="setChoice('en')">English (إنجليزي)</button>
-        </div>
-
-        <div id="scr-home" class="screen">
+        <div id="scr-home" class="screen" style="display: block;">
             <h1>ملاحم التأسيس</h1>
             <p class="description">سجل تاريخي ناطق يروي أمجاد المملكة العربية السعودية عبر العصور (مشروع تفاعلي)</p>
             <button class="btn-action" onclick="navTo('scr-heroes')">دخول الملحمة الكبرى</button>
             <button class="btn-action" onclick="showLore()">سير الأبطال والخالدين</button>
-            <a class="nav-link" onclick="navTo('scr-lang')">تغيير اللغة / Change Language</a>
         </div>
 
         <div id="scr-heroes" class="screen">
@@ -147,7 +150,12 @@
 
         <div id="scr-mission" class="screen">
             <h1 id="ui-mission-title" style="font-size: 2.2rem;"></h1>
-            <div class="audio-status">🔊 استمع للراوي التاريخي...</div>
+            <div class="audio-status">🔊 استمع للراوي: 
+                <div class="lang-switch">
+                    <button class="btn-lang" id="btn-play-ar">العربية</button>
+                    <button class="btn-lang" id="btn-play-en">English</button>
+                </div>
+            </div>
             <div id="ui-mission-desc" class="story-panel"></div>
             <div id="ui-decision-buttons"></div>
             <a class="nav-link" onclick="stopAudioAndGoBack()">إلغاء والعودة</a>
@@ -176,18 +184,12 @@
     </div>
 
     <script>
-        let currentLang = 'ar';
-
-        function setChoice(lang) {
-            currentLang = lang;
-            navTo('scr-home');
-        }
-
         // --- محرك الانتقالات السينمائي (بدون اختصار) ---
         function navTo(targetId) {
             const container = document.getElementById('scroll-container');
             const screens = document.querySelectorAll('.screen');
             
+            // إخفاء الشاشة الحالية بسلاسة
             screens.forEach(s => {
                 s.classList.remove('fade-in');
                 setTimeout(() => { 
@@ -195,10 +197,12 @@
                 }, 500); 
             });
 
+            // إظهار الشاشة الجديدة بالأنيميشن المطلوب
             setTimeout(() => {
                 const target = document.getElementById(targetId);
-                container.scrollTop = 0; 
+                container.scrollTop = 0; // تصفير السكرول مع كل انتقال
                 target.style.display = 'block';
+                // تأخير بسيط لضمان تفعيل الأنيميشن
                 setTimeout(() => {
                     target.classList.add('fade-in');
                 }, 50);
@@ -207,7 +211,7 @@
 
         let audioPlayer = null;
 
-        // --- القصص الطويلة والتفصيلية (كما هي بالضبط) ---
+        // --- القصص الطويلة والتفصيلية ---
         const FullData = {
             saud: {
                 name: "الإمام محمد بن سعود",
@@ -225,7 +229,7 @@
                 quest: "بعد سقوط الدرعية الأليم، ظن الجميع أن الدولة السعودية قد انتهت للأبد. الرياض والمدن النجدية ترزح تحت وطأة الحاميات الأجنبية. خرجت أنت من مغارة 'عليا' وحيداً، لا تملك إلا إيمانك وسيفك الشهير 'الأجرب'. الناس ينظرون إليك كبصيص أمل أخير. القرار المصيري بيدك الآن: هل تباغت الحصون في الرياض بعملية جريئة وخاطفة رغم قلة رجالك لتعيد إحياء ملك آبائك الآن، أم تبتعد لسنوات طويلة لجمع الأنصار والعتاد خوفاً من قوة العدو وتحصيناته؟",
                 choices: [
                     { t: "باغت الرياض بسيف الأجرب فوراً", r: "✅ عودة الفارس المظفر! بشجاعة أذهلت الأعداء، استعدت الرياض وجعلتها عاصمة للدولة السعودية الثانية. سيفك 'الأجرب' أصبح رمزاً لاسترداد السيادة الوطنية، وبنيت دولة قوية أعادت العدل والهيبة لآل سعود ولأهل نجد كافة." },
-                    { t: "الانسحاب لجمع الأنصار لسنوات", r: "❌ ضياع اللحظة التاريخية. استغل المحتلون تأخرك وقاموا بتحصين الرياض بمدافع وقوات إضافية، مما جعل مهمة التحرير لاحقاً مستحيلة ومحفوفة بالدماء والخسائر الكبيرة." }
+                    { t: "الانتظار لجمع الأنصار لسنوات", r: "❌ ضياع اللحظة التاريخية. استغل المحتلون تأخرك وقاموا بتحصين الرياض بمدافع وقوات إضافية، مما جعل مهمة التحرير لاحقاً مستحيلة ومحفوفة بالدماء والخسائر الكبيرة." }
                 ],
                 bio: "الإمام تركي بن عبدالله بن محمد آل سعود، مؤسس الدولة السعودية الثانية. اشتهر بالعدل والزهد وبسالة نادرة في القتال. استطاع بذكائه العسكري استعادة الرياض وإعادة تجميع شمل الأسرة المالكة والشعب."
             },
@@ -243,6 +247,12 @@
 
         function stopAudioAndGoBack() { if(audioPlayer) audioPlayer.pause(); navTo('scr-heroes'); }
 
+        function playSound(heroKey, lang) {
+            if(audioPlayer) audioPlayer.pause();
+            audioPlayer = new Audio(heroKey + '_' + lang + '.mp3');
+            audioPlayer.play().catch(e => console.log("الصوت بانتظار الملف"));
+        }
+
         function initApp() {
             const list = document.getElementById('hero-list-container');
             list.innerHTML = '';
@@ -254,11 +264,13 @@
                     const h = FullData[key];
                     document.getElementById('ui-mission-title').innerText = h.title;
                     document.getElementById('ui-mission-desc').innerText = h.quest;
-                    if(audioPlayer) audioPlayer.pause();
                     
-                    // هنا التعديل الوحيد لدعم الصوت العربي/الإنجليزي
-                    audioPlayer = new Audio(key + '_' + currentLang + '.mp3');
-                    audioPlayer.play().catch(e => console.log("Missing sound file"));
+                    // تشغيل العربي تلقائياً عند الدخول
+                    playSound(key, 'ar');
+                    
+                    // ربط أزرار اللغة بملفاتها
+                    document.getElementById('btn-play-ar').onclick = () => playSound(key, 'ar');
+                    document.getElementById('btn-play-en').onclick = () => playSound(key, 'en');
 
                     const btnArea = document.getElementById('ui-decision-buttons');
                     btnArea.innerHTML = '';
@@ -277,6 +289,7 @@
                 };
                 list.appendChild(b);
             }
+            // تشغيل أنيميشن الصفحة الأولى
             setTimeout(() => document.getElementById('scr-home').classList.add('fade-in'), 100);
         }
 
