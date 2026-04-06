@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس - الإصدار السينمائي المستقر</title>
+    <title>ملحمة التأسيس - الإصدار السريع المستقر</title>
     
     <style>
-        /* --- الهوية البصرية الملكية (CSS مفصل) --- */
+        /* --- الهوية البصرية الملكية --- */
         :root {
             --gold-main: #c1a35f;
             --gold-light: #f3cf7a;
             --deep-green: #05160d;
-            --glass-bg: rgba(0, 0, 0, 0.6);
-            --glass-border: rgba(193, 163, 95, 0.4);
-            --transition-speed: 0.8s;
+            --glass-bg: rgba(0, 0, 0, 0.65);
+            --glass-border: rgba(193, 163, 95, 0.45);
+            /* --- تعديل السرعة هنا (تم تسريعها من 0.8 إلى 0.4) --- */
+            --transition-speed: 0.4s; 
         }
 
         * {
@@ -44,7 +45,6 @@
             pointer-events: none;
         }
 
-        /* --- الحاوية الرئيسية --- */
         .app-wrapper {
             position: relative;
             z-index: 10;
@@ -63,21 +63,20 @@
             overflow-x: hidden;
         }
 
-        /* --- نظام الأنيميشن الجديد (حل مشكلة الاختفاء المفاجئ) --- */
+        /* --- نظام الأنيميشن السريع --- */
         .screen {
-            display: none; /* مخفي برمجياً */
+            display: none;
             opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            transition: opacity var(--transition-speed) ease, transform var(--transition-speed) cubic-bezier(0.19, 1, 0.22, 1);
+            transform: translateY(20px);
+            transition: opacity var(--transition-speed) ease-out, transform var(--transition-speed) ease-out;
         }
 
-        /* هذه الكلاس يتم إضافتها عبر JS بعد الـ display: block */
         .screen.fade-in {
+            display: block;
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
-        /* --- النصوص --- */
         h1 {
             font-size: 3.8rem;
             color: var(--gold-main);
@@ -93,7 +92,6 @@
             line-height: 1.8;
         }
 
-        /* --- الأزرار الكبيرة --- */
         .btn-action {
             width: 100%;
             background: linear-gradient(145deg, rgba(193, 163, 95, 0.2), rgba(0, 0, 0, 0.8));
@@ -104,7 +102,7 @@
             font-size: 1.6rem;
             font-weight: 800;
             cursor: pointer;
-            transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: 0.3s ease;
             margin-bottom: 25px;
             display: block;
         }
@@ -112,11 +110,10 @@
         .btn-action:hover {
             background: var(--gold-main);
             color: #000;
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(193, 163, 95, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(193, 163, 95, 0.4);
         }
 
-        /* --- لوحة القصة --- */
         .story-panel {
             background: rgba(255, 255, 255, 0.08);
             padding: 45px;
@@ -127,7 +124,6 @@
             border-right: 12px solid var(--gold-main);
             margin: 40px 0;
             color: #f8f8f8;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
         }
 
         .audio-status {
@@ -138,7 +134,6 @@
             color: var(--gold-light);
             font-weight: bold;
             margin-bottom: 15px;
-            font-size: 1.2rem;
         }
 
         .nav-link {
@@ -149,12 +144,8 @@
             font-weight: 800;
             font-size: 1.3rem;
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        .nav-link:hover { color: #fff; letter-spacing: 1px; }
-
-        /* سكرول بار */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-thumb { background: var(--gold-main); border-radius: 10px; }
     </style>
@@ -165,7 +156,7 @@
 
     <div class="app-wrapper" id="scroll-container">
         
-        <div id="scr-home" class="screen" style="display: block;">
+        <div id="scr-home" class="screen" style="display: block; opacity: 1; transform: translateY(0);">
             <h1>ملاحم التأسيس</h1>
             <p class="description">سجل تاريخي ناطق يروي أمجاد المملكة العربية السعودية من التأسيس إلى التوحيد</p>
             <button class="btn-action" onclick="navTo('scr-heroes')">دخول الملحمة التفاعلية</button>
@@ -181,9 +172,7 @@
 
         <div id="scr-mission" class="screen">
             <h1 id="ui-mission-title">المهمة الكبرى</h1>
-            <div class="audio-status">
-                <span>🔊 استمع للراوي الصوتي...</span>
-            </div>
+            <div class="audio-status">🔊 <span>الراوي الصوتي يعمل...</span></div>
             <div id="ui-mission-desc" class="story-panel"></div>
             <div id="ui-decision-buttons"></div>
             <a class="nav-link" onclick="stopAudioAndGoBack()">إيقاف الصوت والرجوع</a>
@@ -213,27 +202,24 @@
     </div>
 
     <script>
-        // --- محرك الأنيميشن المحسن (إصلاح القفزة المفاجئة) ---
+        // دالة التنقل السريعة
         function navTo(targetId) {
             const container = document.getElementById('scroll-container');
             const screens = document.querySelectorAll('.screen');
             
-            // 1. إخفاء الشاشة الحالية
+            // إخفاء فوري تقريباً
             screens.forEach(s => {
                 s.classList.remove('fade-in');
-                setTimeout(() => { if(!s.classList.contains('fade-in')) s.style.display = 'none'; }, 500);
+                s.style.display = 'none';
             });
 
-            // 2. إظهار الشاشة الجديدة بنعومة
+            // إظهار سريع
+            const target = document.getElementById(targetId);
+            container.scrollTop = 0;
+            target.style.display = 'block';
             setTimeout(() => {
-                const target = document.getElementById(targetId);
-                container.scrollTop = 0; // تصفير السكرول
-                target.style.display = 'block';
-                // نحتاج setTimeout ثانية لضمان أن المتصفح سجل الـ block قبل الـ opacity
-                setTimeout(() => {
-                    target.classList.add('fade-in');
-                }, 50);
-            }, 550);
+                target.classList.add('fade-in');
+            }, 20); // تقليل التأخير لسرعة الاستجابة
         }
 
         let audioPlayer = null;
@@ -247,7 +233,7 @@
                     { t: "عقد ميثاق الدرعية والوحدة الشاملة", r: "✅ انتصار تاريخي خالد! بقرارك الحكيم، أسست الدولة السعودية الأولى التي نشرت الأمن والعدل في أنحاء الجزيرة العربية، وصنعت تاريخاً يفتخر به الأحفاد." },
                     { t: "التركيز على حماية الدرعية عسكرياً فقط", r: "⚠️ نجاح محدود. استطعت حماية مدينتك لسنوات، لكن غياب الرؤية الموحدة جعل المنطقة تظل في حالة صراع وتشتت لعقود طويلة." }
                 ],
-                bio: "الإمام محمد بن سعود بن محمد بن مقرن، هو مؤسس الدولة السعودية الأولى. قائد فذ جعل من الدرعية منطلقاً لتوحيد الجزيرة العربية تحت راية واحدة، متميزاً بالحكمة والعدل والرؤية البعيدة."
+                bio: "الإمام محمد بن سعود بن محمد بن مقرن، هو مؤسس الدولة السعودية الأولى. قائد فذ جعل من الدرعية منطلقاً لتوحيد الجزيرة العربية تحت راية واحدة."
             },
             turki: {
                 name: "الإمام تركي بن عبد الله",
@@ -257,17 +243,17 @@
                     { t: "اقتحام الرياض بسيف الأجرب", r: "✅ عودة الأمل! بفضل شجاعتك، استعدت الرياض وأسست الدولة السعودية الثانية. سيفك أصبح رمزاً لاسترداد الحق المسلوب وإحياء ملك الآباء." },
                     { t: "الانسحاب لجمع الأنصار", r: "❌ ضياع اللحظة التاريخية. استغل المحتلون تأخرك لتحصين المدينة، مما جعل مهمة التحرير لاحقاً أكثر صعوبة ودموية." }
                 ],
-                bio: "الإمام تركي بن عبدالله، هو مؤسس الدولة السعودية الثانية. قائد شجاع تمكن بذكائه وسيفه 'الأجرب' من استعادة الرياض وتوحيد نجد بعد سنوات من الاضطراب."
+                bio: "الإمام تركي بن عبدالله، هو مؤسس الدولة السعودية الثانية. قائد شجاع تمكن بسيفه 'الأجرب' من استعادة الرياض وتوحيد نجد."
             },
             aziz: {
                 name: "الملك عبد العزيز",
                 title: "فجر الدولة السعودية الحديثة",
                 quest: "ليلة 15 يناير 1902م: تقف مع 63 بطلاً أمام أسوار المصمك. الفجر يقترب والفرصة قد لا تتكرر. هل تقتحم الحصن الآن بإيمان وثبات لتسترد ملك آبائك، أم تنسحب وتنتظر لسنوات طلباً للمدد؟",
                 choices: [
-                    { t: "اقتحام المصمك مع خيوط الفجر", r: "✅ الله أكبر! بفتحة المصمك، أعلنت فجر الدولة السعودية الحديثة. بدأت رحلة الـ 30 عاماً لتوحيد المملكة العربية السعودية تحت راية التوحيد والنهضة." },
-                    { t: "الانسحاب لانتظار مدد أكبر", r: "❌ ضياع الحلم التاريخي. كشف الأعداء وجودكم وشددوا الحراسة، وظلت الرياض بعيدة المنال لسنوات طويلة من الانتظار المرير." }
+                    { t: "اقتحام المصمك مع خيوط الفجر", r: "✅ الله أكبر! بفتحة المصمك، أعلنت فجر الدولة السعودية الحديثة. بدأت رحلة الـ 30 عاماً لتوحيد المملكة العربية السعودية." },
+                    { t: "الانسحاب لانتظار مدد أكبر", r: "❌ ضياع الحلم التاريخي. كشف الأعداء وجودكم وشددوا الحراسة، وظلت الرياض بعيدة المنال لسنوات طويلة." }
                 ],
-                bio: "الملك عبدالعزيز بن عبدالرحمن آل سعود، هو مؤسس المملكة العربية السعودية الحديثة. قائد تاريخي عبقري وحد القلوب والأرض، وحول الشتات إلى كيان عظيم وقوة عالمية."
+                bio: "الملك عبدالعزيز بن عبدالرحمن آل سعود، هو مؤسس المملكة العربية السعودية الحديثة. قائد تاريخي عبقري وحد القلوب والأرض."
             }
         };
 
@@ -287,11 +273,9 @@
                     const h = FullData[key];
                     document.getElementById('ui-mission-title').innerText = h.title;
                     document.getElementById('ui-mission-desc').innerText = h.quest;
-                    
                     if(audioPlayer) audioPlayer.pause();
                     audioPlayer = new Audio(key + '.mp3');
-                    audioPlayer.play().catch(e => console.log("الصوت ينتظر تفاعلك"));
-
+                    audioPlayer.play().catch(e => {});
                     const btnArea = document.getElementById('ui-decision-buttons');
                     btnArea.innerHTML = '';
                     h.choices.forEach(c => {
@@ -309,8 +293,6 @@
                 };
                 list.appendChild(b);
             }
-            // تشغيل الأنيميشن للشاشة الرئيسية عند الفتح
-            setTimeout(() => document.getElementById('scr-home').classList.add('fade-in'), 100);
         }
 
         function showLore() {
@@ -330,14 +312,13 @@
             navTo('scr-lore');
         }
 
-        // رمال متحركة
         const canvas = document.getElementById('sand-canvas');
         const ctx = canvas.getContext('2d');
         let pts = [];
         function res() {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             pts = [];
-            for(let i=0; i<180; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2, v:Math.random()*0.4+0.1});
+            for(let i=0; i<150; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2, v:Math.random()*0.4+0.1});
         }
         function draw() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
