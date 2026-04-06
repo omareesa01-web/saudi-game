@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس - الإصدار الملكي الكامل</title>
+    <title>ملحمة التأسيس - الإصدار السينمائي الموسع</title>
     
     <style>
-        /* --- إعدادات الألوان والهوية البصرية (CSS مطول جداً) --- */
+        /* --- لوحة الألوان والهوية البصرية --- */
         :root {
-            --gold-primary: #c1a35f;
-            --gold-bright: #f3cf7a;
+            --gold-main: #c1a35f;
+            --gold-light: #f3cf7a;
             --deep-green: #05160d;
-            --emerald-glow: #103a24;
-            --glass-bg: rgba(0, 0, 0, 0.7);
-            --glass-border: rgba(193, 163, 95, 0.45);
-            --white-soft: #f8f8f8;
-            --transition-main: 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+            --glass-bg: rgba(0, 0, 0, 0.65);
+            --glass-border: rgba(193, 163, 95, 0.4);
+            --transition-speed: 0.8s;
+            --text-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
         /* --- تصفير الإعدادات الافتراضية --- */
@@ -24,23 +23,21 @@
             margin: 0;
             padding: 0;
             outline: none;
-            user-select: none;
         }
 
         body, html {
             width: 100%;
             height: 100%;
-            background-color: var(--deep-green);
-            background-image: radial-gradient(circle at center, var(--emerald-glow) 0%, var(--deep-green) 100%);
-            color: var(--white-soft);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: radial-gradient(circle at center, #103a24 0%, #05160d 100%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* --- محرك ذرات الرمل الذهبي --- */
+        /* --- محرك جزيئات الرمل (Sand Particles) --- */
         #sand-canvas {
             position: fixed;
             top: 0;
@@ -51,360 +48,379 @@
             pointer-events: none;
         }
 
-        /* --- الحاوية الرئيسية (التصميم الزجاجي الفخم) --- */
+        /* --- الحاوية الرئيسية (App Wrapper) --- */
         .app-wrapper {
             position: relative;
             z-index: 10;
-            width: 92%;
-            max-width: 850px;
+            width: 95%;
+            max-width: 820px;
             background: var(--glass-bg);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border: 2px solid var(--glass-border);
             border-radius: 45px;
-            padding: 50px;
+            padding: 45px;
             text-align: center;
             box-shadow: 0 60px 150px rgba(0, 0, 0, 0.9);
-            max-height: 88vh;
+            max-height: 92vh;
             overflow-y: auto;
             overflow-x: hidden;
             scrollbar-width: thin;
-            scrollbar-color: var(--gold-primary) transparent;
+            scrollbar-color: var(--gold-main) transparent;
         }
 
-        /* --- نظام الأنيميشن السلس (إصلاح القفزات) --- */
+        /* --- نظام الأنيميشن الناعم (Transitions) --- */
         .screen {
             display: none;
             opacity: 0;
-            transform: translateY(40px) scale(0.97);
-            transition: opacity var(--transition-main), transform var(--transition-main);
-            will-change: transform, opacity;
+            transform: translateY(35px) scale(0.97);
+            transition: opacity var(--transition-speed) ease, 
+                        transform var(--transition-speed) cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        .screen.active-anim {
+        .screen.fade-in {
+            display: block;
             opacity: 1;
             transform: translateY(0) scale(1);
         }
 
-        /* --- تنسيق العناوين والنصوص --- */
+        /* --- العناوين والنصوص --- */
         h1 {
-            font-size: 3.6rem;
-            color: var(--gold-primary);
+            font-size: 3.4rem;
+            color: var(--gold-main);
             margin-bottom: 25px;
             font-weight: 900;
+            text-shadow: var(--text-shadow);
             letter-spacing: -1px;
-            text-shadow: 0 12px 30px rgba(0,0,0,0.6);
         }
 
-        .main-desc {
-            font-size: 1.4rem;
-            color: #d0d0d0;
-            margin-bottom: 50px;
-            line-height: 1.8;
+        .description {
+            font-size: 1.35rem;
+            color: #dcdcdc;
+            margin-bottom: 40px;
+            line-height: 1.7;
             font-weight: 300;
         }
 
-        /* --- الأزرار المصغرة والأنيقة --- */
-        .btn-royal {
+        /* --- تصميم القوائم المصغرة (Buttons) --- */
+        .btn-action {
             width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            background: linear-gradient(135deg, rgba(193, 163, 95, 0.18), rgba(0, 0, 0, 0.85));
-            border: 1.8px solid var(--gold-primary);
-            padding: 18px 30px;
+            background: linear-gradient(145deg, rgba(193, 163, 95, 0.18), rgba(0, 0, 0, 0.85));
+            border: 1.8px solid var(--gold-main);
+            padding: 18px 25px; /* تصغير القائمة حسب طلبك */
             border-radius: 18px;
             color: #ffffff;
-            font-size: 1.25rem;
+            font-size: 1.25rem; /* خط أصغر وأنيق */
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.5s ease;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             margin-bottom: 18px;
             display: block;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        .btn-royal:hover {
-            background: var(--gold-primary);
-            color: #000;
+        .btn-action:hover {
+            background: var(--gold-main);
+            color: #05160d;
             transform: translateY(-6px);
             box-shadow: 0 15px 35px rgba(193, 163, 95, 0.4);
         }
 
-        .btn-royal::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: rgba(255,255,255,0.1);
-            transform: rotate(45deg);
-            transition: 0.5s;
+        .btn-action:active {
+            transform: scale(0.98);
         }
 
-        .btn-royal:hover::after {
-            left: 120%;
-        }
-
-        /* --- لوحة القصة الملحمية (الطويلة) --- */
-        .story-container {
-            background: rgba(255, 255, 255, 0.05);
+        /* --- لوحات القصة الطويلة (Story Panels) --- */
+        .story-panel {
+            background: rgba(255, 255, 255, 0.07);
             padding: 40px;
             border-radius: 30px;
             text-align: justify;
             line-height: 2.3;
             font-size: 1.3rem;
-            border-right: 10px solid var(--gold-primary);
-            margin: 35px 0;
+            border-right: 10px solid var(--gold-main);
+            margin: 30px 0;
             color: #f5f5f5;
             box-shadow: inset 0 0 25px rgba(0,0,0,0.4);
-            animation: innerGlow 3s infinite alternate;
         }
 
-        @keyframes innerGlow {
-            from { border-right-color: var(--gold-primary); }
-            to { border-right-color: var(--gold-bright); }
-        }
-
-        .audio-wave-container {
+        /* --- حالة الصوت --- */
+        .audio-wave-box {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 15px;
-            color: var(--gold-bright);
-            font-weight: 600;
+            gap: 12px;
+            color: var(--gold-light);
+            font-weight: 800;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            animation: pulse-gold 2s infinite;
         }
 
+        @keyframes pulse-gold {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        /* --- الروابط السفلية --- */
         .nav-footer-link {
             display: inline-block;
-            margin-top: 35px;
-            color: var(--gold-bright);
+            margin-top: 30px;
+            color: var(--gold-light);
             text-decoration: none;
             font-weight: 800;
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             cursor: pointer;
             transition: 0.4s;
             border-bottom: 2px solid transparent;
         }
 
         .nav-footer-link:hover {
-            color: #fff;
-            border-bottom-color: #fff;
+            color: #ffffff;
+            border-bottom-color: #ffffff;
             transform: scale(1.05);
         }
 
-        /* تخصيص السكرول بار */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-thumb { background: var(--gold-primary); border-radius: 20px; }
-        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        /* --- تخصيص السكرول بار --- */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-main);
+            border-radius: 12px;
+            border: 3px solid #05160d;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
 
     <canvas id="sand-canvas"></canvas>
 
-    <div class="app-wrapper" id="main-view-container">
+    <div class="app-wrapper" id="main-scroller">
         
-        <div id="scr-start" class="screen" style="display: block;">
+        <div id="scr-home" class="screen">
             <h1>ملاحم التأسيس</h1>
-            <p class="main-desc">سفر تاريخي ناطق يخلد تضحيات وبطولات أئمة وملوك الدولة السعودية العظيمة عبر ثلاثة قرون من المجد والشموخ</p>
-            <button class="btn-royal" onclick="safeNav('scr-selector')">بدء الملحمة التفاعلية</button>
-            <button class="btn-royal" onclick="openLoreArchive()">سجل العظماء والخلود</button>
+            <p class="description">استعرض أمجاد الوطن في تجربة تفاعلية ناطقة تروي قصص الأبطال العظام</p>
+            <button class="btn-action" onclick="navigateTo('scr-heroes')">دخول الملحمة التفاعلية</button>
+            <button class="btn-action" onclick="renderLoreList()">سجل سير الأبطال</button>
         </div>
 
-        <div id="scr-selector" class="screen">
-            <h1>اختر قائد المسيرة</h1>
-            <p class="main-desc">استمع لنداء التاريخ، واختر الحقبة التي تريد أن تعيش غمار قراراتها الصعبة</p>
-            <div id="hero-injection-point"></div>
-            <a class="nav-footer-link" onclick="safeNav('scr-start')">العودة للديوان الملكي</a>
+        <div id="scr-heroes" class="screen">
+            <h1>اختر القائد التاريخي</h1>
+            <p class="description">استمع إلى صوت التاريخ واتخذ القرارات المصيرية</p>
+            <div id="hero-selection-grid"></div>
+            <a class="nav-footer-link" onclick="navigateTo('scr-home')">العودة للرئيسية</a>
         </div>
 
-        <div id="scr-quest" class="screen">
-            <h1 id="quest-header" style="font-size: 2.5rem;"></h1>
-            <div class="audio-wave-container">
-                <span>🔊 نظام الراوي الصوتي قيد العمل...</span>
+        <div id="scr-mission" class="screen">
+            <h1 id="ui-mission-title" style="font-size: 2.3rem; color: var(--gold-light);"></h1>
+            <div class="audio-wave-box">
+                <span>🔊 الراوي التاريخي يتحدث الآن...</span>
             </div>
-            <div id="quest-body" class="story-container"></div>
-            <div id="choice-injection-point"></div>
-            <a class="nav-footer-link" onclick="killAudioAndReturn()">انسحاب من المهمة</a>
+            <div id="ui-mission-desc" class="story-panel"></div>
+            <div id="ui-decision-container"></div>
+            <a class="nav-footer-link" onclick="handleAudioAndBack()">إيقاف والرجوع للخلف</a>
         </div>
 
-        <div id="scr-outcome" class="screen">
-            <h1>رؤية التاريخ</h1>
-            <div id="outcome-body" class="story-container"></div>
-            <div style="display: flex; gap: 25px; justify-content: center;">
-                <button class="nav-footer-link" style="background:none; border:none;" onclick="safeNav('scr-quest')">تغيير القرار</button>
-                <button class="nav-footer-link" style="background:none; border:none;" onclick="safeNav('scr-start')">القائمة الرئيسية</button>
+        <div id="scr-result" class="screen">
+            <h1>حكم التاريخ</h1>
+            <div id="ui-result-desc" class="story-panel"></div>
+            <div style="display: flex; gap: 35px; justify-content: center;">
+                <a class="nav-footer-link" onclick="navigateTo('scr-mission')">تغيير القرار</a>
+                <a class="nav-footer-link" onclick="navigateTo('scr-home')">الرئيسية</a>
             </div>
         </div>
 
-        <div id="scr-archive" class="screen">
-            <h1>ديوان الخالدين</h1>
-            <div id="lore-injection-point"></div>
-            <a class="nav-footer-link" onclick="safeNav('scr-start')">رجوع</a>
+        <div id="scr-lore" class="screen">
+            <h1>سجل العظماء</h1>
+            <div id="ui-lore-grid"></div>
+            <a class="nav-footer-link" onclick="navigateTo('scr-home')">رجوع</a>
         </div>
 
-        <div id="scr-biography" class="screen">
-            <h1 id="bio-title" style="color: var(--gold-bright); font-size: 2.3rem;"></h1>
-            <div id="bio-body" class="story-container"></div>
-            <a class="nav-footer-link" onclick="safeNav('scr-archive')">العودة للأرشيف</a>
+        <div id="scr-bio" class="screen">
+            <h1 id="ui-bio-name" style="color: var(--gold-light); font-size: 2.4rem;"></h1>
+            <div id="ui-bio-body" class="story-panel"></div>
+            <a class="nav-footer-link" onclick="navigateTo('scr-lore')">العودة للسجل</a>
         </div>
 
     </div>
 
     <script>
-        // --- محرك التنقل الناعم (لحل مشكلة الاختفاء المفاجئ) ---
-        function safeNav(targetId) {
-            const scroller = document.getElementById('main-view-container');
+        /**
+         * نظام التنقل المحسن (إصلاح القفزة المفاجئة والقلتش)
+         */
+        function navigateTo(targetId) {
+            const scroller = document.getElementById('main-scroller');
             const screens = document.querySelectorAll('.screen');
             
-            // إخفاء الشاشات الحالية
+            // إخفاء الشاشات الحالية بنعومة
             screens.forEach(s => {
-                s.classList.remove('active-anim');
-                setTimeout(() => { 
-                    if(!s.classList.contains('active-anim')) s.style.display = 'none'; 
-                }, 450); 
+                s.classList.remove('fade-in');
+                // تأخير بسيط لإخفاء الـ display لضمان اكتمال الـ opacity transition
+                setTimeout(() => { if(!s.classList.contains('fade-in')) s.style.display = 'none'; }, 450);
             });
 
-            // إظهار الشاشة المطلوبة بتأخير لضمان السلاسة
+            // إظهار الشاشة المستهدفة بعد المسح
             setTimeout(() => {
                 const target = document.getElementById(targetId);
-                scroller.scrollTop = 0; 
+                scroller.scrollTop = 0; // تصفير السكرول لضمان البداية من الأعلى
                 target.style.display = 'block';
-                // تفعيل الأنيميشن بعد التأكد من أن المتصفح سجل الـ block
-                requestAnimationFrame(() => {
-                    setTimeout(() => {
-                        target.classList.add('active-anim');
-                    }, 50);
-                });
+                
+                // تفعيل الأنيميشن بعد لحظة تقنية بسيطة لضمان استجابة المتصفح
+                setTimeout(() => {
+                    target.classList.add('fade-in');
+                }, 60);
             }, 500);
         }
 
-        let mainAudioPlayer = null;
+        let currentGlobalAudio = null;
 
-        // --- قاعدة البيانات الملحمية (تم تطويل القصص بشكل كبير) ---
-        const EpicDatabase = {
+        /**
+         * قاعدة البيانات التاريخية (القصص الطويلة الموسعة)
+         */
+        const HistoricalDatabase = {
             saud: {
                 name: "الإمام محمد بن سعود",
-                questTitle: "عام التأسيس 1727م",
-                narrative: "نحن في مطلع القرن الثامن عشر الميلادي، الجزيرة العربية تعيش في ظلام دامس من التمزق السياسي، حيث الحروب القبلية لا تهدأ، والفقر والجوع ينهكان القرى والمدن المتناثرة في قلب نجد. توليت مقاليد الحكم في الدرعية، ووجدت نفسك أمام مسؤولية تاريخية لا يحملها إلا العظماء. أدركت ببصيرتك النافذة أن القوة العسكرية وحدها لن تبني أمة تدوم، بل لا بد من 'رؤية' تجمع القلوب. التحدي أمامك الآن هو الأعظم في تاريخك: هل تقرر عقد ميثاق الدرعية التاريخي القائم على نصرة العلم، وتطبيق العدالة الاجتماعية الشاملة، والوحدة السياسية التي لا تعرف التمييز، لتجعل من الدرعية منارة وعاصمة لدولة كبرى تجمع شتات العرب؟ أم تفضل المسار التقليدي بالتركيز على تحصين أسوار الدرعية، وتأمين تجارتك المحلية، وحماية رعاياك عسكرياً من الغزو، دون الدخول في مخاطر بناء كيان سياسي واسع قد يستعدي القوى المحيطة ويغير مجرى التاريخ للأبد؟",
+                title: "ميثاق الدرعية الأصيل",
+                quest: "نحن الآن في رحاب عام 1727م، في قلب نجد النابض بالدرعية. المنطقة تعاني من تمزق سياسي حاد، وصراعات قبلية لا تنتهي، وانتشار للجهل والفقر. بصفتك الحاكم الشاب الذي يمتلك طموحاً لا يحده سماء، أدركت بذكائك أن السيوف وحدها لا تبني أمة مستقرة، بل تحتاج إلى ميثاق عادل يجمع القلوب والعقول. التحدي الكبير أمامك الآن: هل تختار عقد ميثاق تاريخي قائم على العلم والعدل والوحدة لتكون الدرعية منارة لدولة كبرى تجمع شتات العرب تحت راية واحدة، أم تكتفي بتعزيز الأسوار العسكرية وحماية تجارتك وأهل مدينتك لضمان الاستقرار القريب دون الدخول في مخاطر بناء كيان سياسي مترامي الأطراف قد يواجه عواصف الدول الكبرى؟",
                 choices: [
-                    { t: "عقد ميثاق الدرعية وتأسيس الدولة الكبرى", r: "✅ قرارك هذا غير وجه التاريخ! بكلمتك 'أبشر ببلاد خير من بلادك، وأبشر بالعزة والتمكين'، وضعت حجر الأساس للدولة السعودية الأولى. انطلقت جيوش الوحدة والعلم من الدرعية لتطهر الأرض من الظلم والشتت، وعمّ الأمن والأمان من الخليج إلى البحر الأحمر، وسجل التاريخ اسمك كباني أعظم نهضة سياسية شهدتها الجزيرة العربية في العصر الحديث." },
-                    { t: "تأمين أسوار الدرعية وحمايتها محلياً فقط", r: "⚠️ نجاح محدود وقصير الأمد. استطعت حماية أهل الدرعية من الغارات المباشرة لعدة سنوات، لكن الجزيرة العربية ظلت غارقة في فوضى الحروب والتمزق، وضاعت فرصة ذهبية لبناء دولة تجمع الكلمة، وظلت الشعوب تعاني من غياب الأمن والوحدة والسيادة الحقيقية." }
+                    { t: "عقد ميثاق الوحدة وبناء الدولة الشاملة", r: "✅ انتصار تاريخي أصيل! بقرارك الشجاع، انطلق ميثاق الدرعية ليضع حجر الأساس للدولة السعودية الأولى. بفضل رؤيتك الثاقبة، تحولت القرى المتناثرة إلى كيان مهاب الجانب، وعمّ الأمن والأمان أرجاء الجزيرة العربية بعد عقود من الفوضى والشتات، وسجل التاريخ اسمك كمؤسس لأعظم نهضة شهدتها المنطقة في العصر الحديث." },
+                    { t: "التركيز على حماية حدود الدرعية فقط", r: "⚠️ نجاح محدود ومؤقت. استطعت حماية أسوار مدينتك لسنوات، لكن نجد والجزيرة العربية ظلت غارقة في دماء الصراعات، وضاعت الفرصة الذهبية لبناء دولة كبرى تجمع كلمة العرب، وظل الأمن مفقوداً خارج حدود خنادقك العسكرية." }
                 ],
-                bioDetail: "الإمام محمد بن سعود بن محمد بن مقرن، مؤسس الدولة السعودية الأولى. كان حاكماً عادلاً وقائداً حكيماً، عرف برجاحة العقل والقدرة على استيعاب الجميع. في عهده تحولت الدرعية من بلدة صغيرة إلى مركز ثقل سياسي وعلمي واقتصادي في المنطقة، وأرسى قواعد الحكم التي استمرت لقرون."
+                bio: "الإمام محمد بن سعود بن محمد بن مقرن، هو مؤسس الدولة السعودية الأولى وعميد الأسرة المالكة. اتسمت فترة حكمه بالاستقرار السياسي والازدهار الاقتصادي وبناء المؤسسات الإدارية. كان قائداً حكيماً جعل من الدرعية مركزاً للقرار والتوحيد، وكان حجر الزاوية في بناء هذا الكيان العظيم الذي نفخر به اليوم."
             },
             turki: {
                 name: "الإمام تركي بن عبد الله",
-                questTitle: "ملحمة استعادة الرياض",
-                narrative: "بعد السقوط المفجع للدرعية، وانتشار اليأس في نفوس الناس الذين ظنوا أن شمس الدولة السعودية قد غابت للأبد، الرياض ترزح تحت وطأة الحاميات الأجنبية والظلم والاستبداد. خرجت أنت يا تركي من مخبئك في مغارة 'عليا' وحيداً، لا تملك في يدك سوى إيمان راسخ بعدالة قضيتك وسيفك الأسطوري 'الأجرب' الذي صار حديث الركبان. الناس يراقبونك كبصيص أمل أخير في ليل دامس. القرار المصيري الآن بين يديك: هل تقرر مباغتة الحصون في الرياض الآن، وقيادة عملية فدائية جريئة مع قلة من رجالك المخلصين لاسترداد ملك آبائك وأجدادك في لحظة خاطفة؟ أم ترى أن الحكمة تقتضي الانسحاب بعيداً إلى الصحراء العميقة لجمع المزيد من الأنصار والعتاد لسنوات طويلة، خوفاً من قوة العدو وتحصيناته التي تبدو منيعة ومستحيلة الاختراق في الوقت الحالي؟",
+                title: "سيف الأجرب واستعادة السيادة",
+                quest: "بعد سقوط الدرعية الأليم في مشهد حزين، ظن الأعداء أن الدولة السعودية قد طويت صفحتها للأبد. الرياض والمدن النجدية كانت ترزح تحت وطأة الحاميات الأجنبية والظلم. خرجت أنت يا إمام من مغارة 'عليا' وحيداً، لا تملك في يدك إلا إيمانك الراسخ وسيفك الشهير 'الأجرب'. الناس في القرى والبوادي يرقبون تحركاتك كبصيص أمل أخير لاستعادة العزة. القرار المصيري بيدك الآن: هل تباغت الحصون والقلاع في الرياض بعملية فدائية جريئة وخاطفة رغم قلة عدد رجالك لتعيد إحياء ملك آبائك في هذه اللحظة، أم تبتعد لسنوات طويلة لجمع المزيد من الأنصار والعتاد خوفاً من البطش وقوة تحصينات العدو؟",
                 choices: [
-                    { t: "اقتحام الرياض بسيف الأجرب فوراً", r: "✅ عودة الحق المسلوب! بشجاعة نادرة أذهلت المحتلين، استطعت استعادة الرياض وجعلها عاصمة منيعة للدولة السعودية الثانية. سيفك 'الأجرب' لم يكن مجرد سلاح، بل صار رمزاً وطنياً لاسترداد السيادة وإحياء الأمل في نفوس الشعب، وبنيت عهداً جديداً من الاستقرار والعدل والقوة العسكرية." },
-                    { t: "الانسحاب لجمع الأنصار لسنوات إضافية", r: "❌ ضياع اللحظة المفصلية. استغل الأعداء ترددت وقاموا بتحصين الرياض بمدافع إضافية وجنود مدربين، مما جعل أي محاولة لاحقة للتحرير تكلف الكثير من الدماء والخسائر المروعة، وبقيت الرياض تحت قبضة الغرباء لفترة أطول بكثير مما كنت تطمح إليه." }
+                    { t: "مباغتة الرياض بسيف الأجرب فوراً", r: "✅ عودة الفارس المظفر! بشجاعة أذهلت القريب والبعيد، استعدت الرياض وجعلتها عاصمة شامخة للدولة السعودية الثانية. سيفك 'الأجرب' أصبح رمزاً وطنياً لاسترداد الحق المسلوب وإعادة السيادة، وبنيت دولة قوية أعادت العدل والهيبة لآل سعود ولأهل الجزيرة العربية كافة بعد شتات مرير." },
+                    { t: "الانسحاب لجمع الأنصار لسنوات إضافية", r: "❌ ضياع اللحظة التاريخية الكبرى. استغل المحتلون تأخرك وقاموا بتحصين الرياض بمدافع وقوات إضافية، مما جعل أي محاولة لاحقة للتحرير تكلف الكثير من الدماء والخسائر، وبقي الحلم السعودي معطلاً تحت وطأة الأعداء لفترة أطول." }
                 ],
-                bioDetail: "الإمام تركي بن عبدالله بن محمد آل سعود، مؤسس الدولة السعودية الثانية. اشتهر بالعدل والتقوى والبسالة الفائقة. استطاع بحنكته العسكرية استعادة الحكم وإعادة توحيد معظم أجزاء نجد، وقصيدته في سيفه 'الأجرب' تعتبر من مفاخر الشعر الشعبي السعودي."
+                bio: "الإمام تركي بن عبدالله بن محمد آل سعود، هو مؤسس الدولة السعودية الثانية وبطل الملحمة الوطنية لاستعادة الرياض. اشتهر بالعدل والزهد وبسالة نادرة في القتال. استطاع بحنكته السياسية والعسكرية إعادة تجميع شمل الأسرة المالكة والشعب، وإحياء نظام الدولة في وقت كانت تعيش فيه المنطقة أصعب فتراتها."
             },
             aziz: {
                 name: "الملك عبد العزيز",
-                questTitle: "ليلة فتح المصمك 1902م",
-                narrative: "في ليلة الخامس عشر من يناير لعام 1902م، والبرد القارس يلف رمال الصحراء المحيطة بالرياض، والهدوء المريب يطبق على أسوار قصر المصمك المنيع، تقف أنت يا عبدالعزيز بن عبدالرحمن مع ستين بطلاً من رجالك الذين بايعوك على الموت. الحلم باستعادة الرياض وتوحيد الوطن يكبر في صدرك، لكن المخاطر تحيط بك من كل جانب. الفجر يوشك على البزوغ، وهذه اللحظة هي الفاصلة بين المجد الأبدي أو النهاية المأساوية. هل تختار اقتحام الحصن الآن بإيمان لا يتزعزع وعزيمة صلبة لتعلن استعادة حكم آبائك وأجدادك وتصنع التاريخ بيديك؟ أم تختار التراجع الحذر لانتظار مدد أكبر من القبائل المجاورة، أو عقد تحالفات خارجية تضمن لك تفوقاً عددياً قبل المغامرة بدمائك ودماء رجالك في هجوم قد يبدو انتحارياً في نظر الكثيرين؟",
+                title: "فجر المصمك وملحمة التوحيد",
+                quest: "ليلة الخامس عشر من يناير لعام 1902م، البرد قارس والهدوء المريب يلف أسوار الرياض القديمة. تقف أنت يا عبدالعزيز مع 63 بطلاً من رجالك المخلصين أمام قصر المصمك الحصين. الحلم كبير والمخاطر تفوق الوصف. الفجر يوشك على البزوغ والفرصة التاريخية قد لا تتكرر أبداً في حياتك. هل تقتحم الحصن الآن بإيمان وعزيمة لا تلين لتسترد ملك أجدادك وتعلن فجر عهد جديد، أم تتراجع بانتظار مدد أكبر من القبائل والتحالفات الخارجية بعيداً عن الرياض لتأمين الهجوم؟",
                 choices: [
-                    { t: "اقتحام المصمك مع خيوط الفجر الأولى", r: "✅ الله أكبر! بفتحة المصمك الأسطورية، أعلنت للعالم أجمع أن 'الملك لله ثم لعبدالعزيز'. كانت هذه اللحظة هي الانطلاقة الكبرى لملحمة التوحيد التي استمرت 30 عاماً، حيث بنيت المملكة العربية السعودية الحديثة على أسس من العلم والأمن والتطوير، وحولت الشتات إلى كيان عظيم وقوة عالمية يفتخر بها كل سعودي." },
-                    { t: "الانسحاب وتأمين مدد خارجي أكبر", r: "❌ تبدد الحلم التاريخي الكبير. اكتشف حراس المصمك تحركاتكم السرية وشددوا الرقابة على كل مداخل الرياض، وضاعت فرصة استعادة العاصمة في ذلك العهد، وبقي الوطن يعاني من التمزق والفقر والانقسامات لسنوات طويلة أخرى قبل أن تلوح فرصة جديدة في الأفق البعيد." }
+                    { t: "اقتحام المصمك مع خيوط الفجر الأولى", r: "✅ الله أكبر! بفتحة المصمك التاريخية، أعلنت للعالم أجمع أن 'الملك لله ثم لعبدالعزيز'. بدأت أعظم ملحمة توحيد في العصر الحديث استمرت 30 عاماً، وحولت الشتات إلى وطن عظيم وقوة عالمية يشار لها بالبنان، وبنيت نهضة حديثة جبارة نفخر بها اليوم تحت راية التوحيد الشامخة." },
+                    { t: "التراجع لانتظار المدد والتحالفات", r: "❌ تبدد الحلم التاريخي الكبير. كشف الأعداء أمركم وشددوا الحراسة على القصر والرياض، وظلت العاصمة بعيدة المنال لسنوات طويلة من الانتظار والترقب، وبقي الوطن يعاني من الانقسام والفقر والشتات لفترة أطول تحت حكم الغرباء." }
                 ],
-                bioDetail: "الملك عبدالعزيز بن عبدالرحمن آل سعود، المؤسس الموحد للمملكة العربية السعودية. قائد تاريخي فذ، جمع بين العبقرية العسكرية والحكمة السياسية. استطاع بإيمانه وعزيمته توحيد القلوب قبل الأرض، وبنى دولة عصرية وضعت حجر الأساس للنهضة الشاملة التي تعيشها المملكة اليوم."
+                bio: "الملك عبدالعزيز بن عبدالرحمن آل سعود، هو مؤسس المملكة العربية السعودية الحديثة وموحد أرجائها. القائد العبقري الذي وحد القلوب قبل الأرض، وبنى دولة عصرية تقوم على مبادئ الشريعة والتطوير، واضعاً المملكة في مصاف الدول العظمى، ومخلفاً إرثاً من الأمن والاستقرار والنهضة لا يزال ينمو ويزدهر."
             }
         };
 
-        function killAudioAndReturn() { if(mainAudioPlayer) mainAudioPlayer.pause(); safeNav('scr-selector'); }
+        function handleAudioAndBack() {
+            if(currentGlobalAudio) {
+                currentGlobalAudio.pause();
+                currentGlobalAudio.currentTime = 0;
+            }
+            navigateTo('scr-heroes');
+        }
 
-        function startAppEngine() {
-            const container = document.getElementById('hero-injection-point');
-            container.innerHTML = '';
-            for(let key in EpicDatabase) {
+        /**
+         * بناء واجهة اختيار الأبطال
+         */
+        function initHeroGrid() {
+            const grid = document.getElementById('hero-selection-grid');
+            grid.innerHTML = '';
+            for(let key in HistoricalDatabase) {
+                const btn = document.createElement('button');
+                btn.className = 'btn-action';
+                btn.innerText = HistoricalDatabase[key].name;
+                btn.onclick = () => startMissionFlow(key);
+                grid.appendChild(btn);
+            }
+        }
+
+        /**
+         * بدء المهمة التاريخية وتشغيل الصوت
+         */
+        function startMissionFlow(key) {
+            const data = HistoricalDatabase[key];
+            document.getElementById('ui-mission-title').innerText = data.title;
+            document.getElementById('ui-mission-desc').innerText = data.quest;
+
+            // تشغيل ملف الصوت (saud.mp3, turki.mp3, aziz.mp3)
+            if(currentGlobalAudio) currentGlobalAudio.pause();
+            currentGlobalAudio = new Audio(key + '.mp3');
+            currentGlobalAudio.play().catch(err => console.log("بانتظار تفاعل المستخدم لتشغيل الصوت"));
+
+            const decisionBox = document.getElementById('ui-decision-container');
+            decisionBox.innerHTML = '';
+            data.choices.forEach(choice => {
                 const b = document.createElement('button');
-                b.className = 'btn-royal';
-                b.innerText = EpicDatabase[key].name;
+                b.className = 'btn-action';
+                b.innerText = choice.t;
                 b.onclick = () => {
-                    const data = EpicDatabase[key];
-                    document.getElementById('quest-header').innerText = data.questTitle;
-                    document.getElementById('quest-body').innerText = data.narrative;
-                    
-                    if(mainAudioPlayer) mainAudioPlayer.pause();
-                    mainAudioPlayer = new Audio(key + '.mp3');
-                    mainAudioPlayer.play().catch(e => console.warn("انتظار تفاعل المستخدم للصوت"));
+                    document.getElementById('ui-result-desc').innerText = choice.r;
+                    if(currentGlobalAudio) currentGlobalAudio.pause();
+                    navigateTo('scr-result');
+                };
+                decisionBox.appendChild(b);
+            });
+            navigateTo('scr-mission');
+        }
 
-                    const choicesCon = document.getElementById('choice-injection-point');
-                    choicesCon.innerHTML = '';
-                    data.choices.forEach(ch => {
-                        const cb = document.createElement('button');
-                        cb.className = 'btn-royal';
-                        cb.innerText = ch.t;
-                        cb.onclick = () => {
-                            document.getElementById('outcome-body').innerText = ch.r;
-                            if(mainAudioPlayer) mainAudioPlayer.pause();
-                            safeNav('scr-outcome');
-                        };
-                        choicesCon.appendChild(cb);
-                    });
-                    safeNav('scr-quest');
+        /**
+         * عرض سجل سير العظماء
+         */
+        function renderLoreList() {
+            const container = document.getElementById('ui-lore-grid');
+            container.innerHTML = '';
+            for(let key in HistoricalDatabase) {
+                const b = document.createElement('button');
+                b.className = 'btn-action';
+                b.innerText = HistoricalDatabase[key].name;
+                b.onclick = () => {
+                    document.getElementById('ui-bio-name').innerText = HistoricalDatabase[key].name;
+                    document.getElementById('ui-bio-body').innerText = HistoricalDatabase[key].bio;
+                    navigateTo('scr-bio');
                 };
                 container.appendChild(b);
             }
-            // تشغيل الأنيميشن للشاشة الرئيسية
-            setTimeout(() => document.getElementById('scr-start').classList.add('active-anim'), 150);
+            navigateTo('scr-lore');
         }
 
-        function openLoreArchive() {
-            const list = document.getElementById('lore-injection-point');
-            list.innerHTML = '';
-            for(let key in EpicDatabase) {
-                const b = document.createElement('button');
-                b.className = 'btn-royal';
-                b.innerText = EpicDatabase[key].name;
-                b.onclick = () => {
-                    document.getElementById('bio-title').innerText = EpicDatabase[key].name;
-                    document.getElementById('bio-body').innerText = EpicDatabase[key].bioDetail;
-                    safeNav('scr-biography');
-                };
-                list.appendChild(b);
-            }
-            safeNav('scr-archive');
-        }
-
-        // --- محرك خلفية ذرات الرمال الفني ---
+        /**
+         * محرك خلفية الرمل المتحرك (Canvas Engine)
+         */
         const canvas = document.getElementById('sand-canvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
+        let sandParticles = [];
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            particles = [];
+            sandParticles = [];
             for(let i=0; i<200; i++) {
-                particles.push({
+                sandParticles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    size: Math.random() * 2.5 + 0.5,
-                    speed: Math.random() * 0.4 + 0.1,
-                    alpha: Math.random() * 0.5 + 0.2
+                    radius: Math.random() * 2.2,
+                    velocity: Math.random() * 0.4 + 0.1,
+                    alpha: Math.random() * 0.4 + 0.2
                 });
             }
         }
 
         function animateSand() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "rgba(193, 163, 95, 0.4)";
-            particles.forEach(p => {
-                p.y -= p.speed;
+            sandParticles.forEach(p => {
+                ctx.fillStyle = `rgba(193, 163, 95, ${p.alpha})`;
+                p.y -= p.velocity;
                 if(p.y < 0) {
                     p.y = canvas.height;
                     p.x = Math.random() * canvas.width;
                 }
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fill();
             });
             requestAnimationFrame(animateSand);
@@ -413,7 +429,16 @@
         window.onresize = resizeCanvas;
         resizeCanvas();
         animateSand();
-        startAppEngine();
+        initHeroGrid();
+
+        // تفعيل الشاشة الرئيسية عند التحميل
+        window.onload = () => {
+            setTimeout(() => {
+                const home = document.getElementById('scr-home');
+                home.style.display = 'block';
+                setTimeout(() => home.classList.add('fade-in'), 50);
+            }, 100);
+        };
     </script>
 </body>
 </html>
