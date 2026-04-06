@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس - نسخة العرض المدرسي</title>
+    <title>ملحمة التأسيس - نسخة العرض الملكي الجبار</title>
     <style>
         :root {
             --gold: #c1a35f;
             --gold-bright: #f3cf7a;
-            --glass: rgba(0, 0, 0, 0.75);
+            /* زجاج شفاف بالكامل للخلفية */
+            --glass-transparent: rgba(0, 0, 0, 0); 
+            /* خلفية زجاجية داكنة لباقي الشاشات */
+            --glass-panel: rgba(0, 0, 0, 0.75); 
             --glow: 0 0 35px rgba(193, 163, 95, 0.5);
         }
 
@@ -42,7 +45,6 @@
         }
         
         .glass-panel {
-            background: var(--glass);
             backdrop-filter: blur(35px);
             border: 2px solid var(--gold);
             border-radius: 40px;
@@ -51,6 +53,19 @@
             box-shadow: var(--glow);
             text-align: center;
             max-height: 85vh; overflow-y: auto;
+        }
+
+        /* تنسيق خاص للشاشة الرئيسية لتكون شفافة */
+        #home.glass-panel {
+            background: var(--glass-transparent) !important;
+            border: none !important; /* إزالة الحدود الذهبية من على الشفافية لزيادة الشفافية */
+            box-shadow: none !important; /* إزالة الظل المشع من على الشفافية */
+            backdrop-filter: blur(5px); /* تعتيم بسيط جداً للخلفية المتحركة خلف الأزرار */
+        }
+
+        /* تنسيق لباقي الشاشات لتكون داكنة */
+        .glass-panel:not(#home) {
+            background: var(--glass-panel);
         }
 
         h1 { font-size: 3.8rem; color: var(--gold); margin-bottom: 15px; text-shadow: 0 0 20px black; }
@@ -147,7 +162,7 @@
 
         <div id="lore-det" class="screen glass-panel">
             <h1 id="det-title"></h1>
-            <div id="det-content" style="font-size: 1.4rem; line-height: 2.3; text-align: justify; margin: 30px 0;"></div>
+            <div id="det-content" style="font-size: 1.4rem; line-height: 2.3; text-align: justify; margin: 20px 0;"></div>
             <button class="action-btn" id="L-audio" onclick="playVoice()">🔊 استمع للرواية الكاملة</button>
             <a class="back-link" id="L-back4" onclick="showScreen('lore-list')">العودة للسجل</a>
         </div>
@@ -164,7 +179,7 @@
                         d: [
                             { t: "عقد ميثاق الدرعية ونشر العلم والعدل", r: "✅ انتصار خالد! بقرارك هذا، لم تؤسس مدينة بل أسست أمة عظيمة. ميثاق الدرعية أصبح الدستور الذي جذب القبائل ووحد القلوب. لقد تحولت الدرعية في عهدك إلى عاصمة لدولة كبرى نشرت الأمن في أرجاء الجزيرة العربية، وأعادت للعلم هيبته وللإنسان كرامته، لتنطلق من هنا أعظم وحدة شهدها التاريخ الحديث." },
                             { t: "تجهيز جيش ضخم وتجاهل الميثاق الفكري", r: "⚠️ نجاح عسكري مؤقت. القوة العسكرية استطاعت حماية الحدود وردع الغزاة لفترة، ولكن غياب الوحدة الفكرية والمبادئ المشتركة جعل الدولة تواجه صعوبات داخلية أمام القوى الإقليمية، مما أخر حلم الوحدة الشاملة والاستقرار المستدام لسنوات طويلة." },
-                            { t: "التركيز على تأمين طرق التجارة والأسواق فقط", r: "❌ فشل استراتيجي خطير. تحولت الدرعية بالفعل إلى مركز تجاري غني، لكن الثروة بدون سيادة وبدون ميثاق يوحد الناس جعلتها لقمة سائغة للأطماع الخارجية. القوى المجاورة لم تحترم إلا القوة والوحدة، وضاعت مكتسباتك المالية سريعاً أمام أول غزو خارجي منظم." }
+                            { t: "التركيز على تأمين طرق التجارة والأسواق فقط", r: "❌ فشل استراتيجي خطير. تحولت الدرعية بالفعل إلى مركز تجاري غني، لكن الثروة بدون سيادة وبدون ميثاق يوحد الناس جعلتها لقمة ساقرة للأطماع الخارجية. القوى المجاورة لم تحترم إلا القوة والوحدة، وضاعت مكتسباتك المالية سريعاً أمام أول غزو خارجي منظم." }
                         ],
                         long: "الإمام محمد بن سعود، هو مؤسس الدولة السعودية الأولى عام 1727م. ولد في الدرعية وتولى إمارتها في ظروف بالغة التعقيد. تميز بحسه السياسي العالي وقدرته على استشراف المستقبل. عقد ميثاقاً تاريخياً وضع فيه اللبنات الأولى لوحدة الجزيرة العربية، وجعل من الدرعية منارة للعلم وملاذاً لكل باحث عن الأمان والعدل."
                     },
@@ -197,137 +212,56 @@
                         name: "Imam Muhammad bin Saud",
                         q: "In 1727 AD, you assumed leadership in Diriyah. The Arabian Peninsula was in total chaos, with warring tribes and external threats surrounding your small emirate. The city needs a vision beyond just survival. Do you establish a historic pact based on knowledge, justice, and unity, or focus purely on military force to protect the walls?",
                         d: [
-                            { t: "Establish the Diriyah Pact and spread Justice", r: "✅ Eternal Victory! With this decision, you didn't just found a city, you founded a great nation. The Diriyah Pact became the spiritual constitution that united the tribes' hearts. Diriyah transformed into the capital of a major state that brought security to Arabia, restoring dignity to its people and starting the greatest unification in modern history." },
-                            { t: "Build a massive army and ignore the pact", r: "⚠️ Temporary military success. Your forces protected the borders and deterred enemies for a while, but the lack of an ideological foundation and shared principles caused internal fractures. History shows that while swords define borders, only great principles build stable and enduring nations for generations." },
-                            { t: "Focus only on trade and securing markets", r: "❌ Strategic failure. Diriyah became wealthy, but wealth without sovereignty and a strong unifying creed made it an easy target for invaders. Surrounding powers only respected strength and unity, and your financial gains were quickly lost during the first organized external invasion." }
+                            { t: "Establish the Diriyah Pact and spread Justice", r: "✅ Eternal Victory! With this decision, you didn't just found a city, you founded a great nation. The Diriyah Pact became the spiritual constitution that united the tribes' hearts. Diriyah transformed into the capital of a major state that brought security to Arabia, initiating the greatest unification in modern history." },
+                            { t: "Build a massive army and ignore the pact", r: "⚠️ Temporary military success. Your forces protected the borders and deterred enemies for a while, but the lack of an ideological foundation and shared principles caused internal fractures. History shows that while swords define borders, only great principles build stable nations." },
+                            { t: "Focus only on trade and securing markets", r: "❌ Strategic failure. Diriyah became wealthy, but wealth without sovereignty made it an easy target for invaders. Surrounding powers only respected strength and unity, and financial gains were quickly lost during the invasion." }
                         ],
-                        long: "Imam Muhammad bin Saud is the founder of the First Saudi State in 1727. Born in Diriyah, he took leadership during extremely complex historical times. He possessed great political insight and foresight, establishing a historic pact that laid the first bricks for the unity of the Arabian Peninsula, making Diriyah a sanctuary for justice."
+                        long: "Imam Muhammad bin Saud is the founder of the First Saudi State in 1727. Born in Diriyah, he took leadership during extremely complex historical times. He possessed great political insight, establishing a historic pact that laid the first bricks for the unity of the Arabian Peninsula."
                     },
                     turki: {
                         name: "Imam Turki bin Abdullah",
-                        q: "After the fall of Diriyah, darkness and despair fell over the land, and Riyadh came under the grip of occupiers. You emerge from the 'Alia' cave alone, armed only with your faith and your legendary sword 'Al-Ajrab'. People are waiting for a leader to reclaim the throne of their ancestors. Do you surprise the occupiers in Riyadh now, or retreat to gather more followers?",
+                        q: "After the fall of Diriyah, Riyadh came under the grip of occupiers. You emerge from the cave alone, armed only with your faith and your sword 'Al-Ajrab'. People are waiting. Do you surprise the occupiers in Riyadh now with few men, or retreat and wait years to gather more followers?",
                         d: [
-                            { t: "Storm Riyadh immediately with Al-Ajrab", r: "✅ The Hero Returns! You restored hope to broken hearts that thought the state was gone forever. Imam Turki didn't just reclaim Riyadh; he restored the prestige of the Second Saudi State. Your sword 'Al-Ajrab' became a symbol of justice and power, and you succeeded in establishing a stable rule that lasted for decades." },
-                            { t: "Wait in the desert to gather more support", r: "⚠️ Surprise advantage lost. The occupiers used your delay to reinforce Riyadh's walls and increase their troop count, making the liberation battle much longer and more painful. You regained the throne eventually, but at the cost of many loyal men whose lives could have been saved with a surprise strike." },
-                            { t: "Attempt political negotiations with occupiers", r: "❌ Bitter disappointment. The occupiers only saw negotiation as a sign of weakness. You wasted precious time that could have been used to settle the battle. You discovered too late that those who take land by force only return it by the sword, and the glory of 'Al-Ajrab' was lost in failed diplomacy." }
+                            { t: "Storm Riyadh immediately with Al-Ajrab", r: "✅ The Hero Returns! You restored hope and theSecond Saudi State. Your sword 'Al-Ajrab' became a symbol of justice and power, and you established a stable rule." },
+                            { t: "Wait to gather more support", r: "⚠️ Surprise lost. Occupiers reinforced Riyadh, making the battle much longer and deadlier. You regained power eventually, but after sacrifices." },
+                            { t: "Try political negotiations", r: "❌ Failure. The enemy only understands force. You lost precious time. Land taken by force is only returned by the sword, and 'Al-Ajrab' was lost in failed diplomacy." }
                         ],
-                        long: "Imam Turki bin Abdullah is the hero of restoration and founder of the Second Saudi State in 1824. Famous for his sword 'Al-Ajrab' and his immense courage, he rebuilt the state from the ruins. He established strict justice and made Riyadh a permanent capital for Saudi rule."
+                        long: "Imam Turki bin Abdullah is the hero of restoration and founder of the Second Saudi State in 1824. Famous for his sword 'Al-Ajrab' and his courage, he rebuilt the state from the ruins."
                     },
                     aziz: {
                         name: "King Abdulaziz",
-                        q: "On the night of January 15, 1902, you stand with only 63 loyal men before the high walls of Masmak Fort in Riyadh. Failure means the permanent end of the dream. Dawn is approaching, and this historic window may never open again. Do you storm the fort now with a brave heart, or retreat to wait for a larger army to secure the victory?",
+                        q: "On the night of January 15, 1902, you stand with 63 men before Masmak walls in Riyadh. Dawn is near, and this window may never repeat. Do you storm the fort now or retreat to wait for a larger army?",
                         d: [
-                            { t: "Storm Masmak at dawn and trust in God", r: "✅ God is Great! By capturing Masmak, you didn't just take Riyadh; you announced the dawn of the Third Saudi State (Kingdom of Saudi Arabia). This bold decision was the spark that ignited the hearts of the peninsula, leading to a 30-year journey of unification that created the greatest Arab unity of the modern age." },
-                            { t: "Wait behind the walls to monitor guards", r: "⚠️ Partial success at a high cost. The advantage of nighttime surprise was lost as the sun rose. You were forced into a bloody street battle inside Riyadh, leading to the loss of many of your most loyal men before reaching the throne. This weakened your military position in the early days of the conquest." },
-                            { t: "Temporary retreat to secure more supplies", r: "❌ Historic moment lost. The enemy learned of your presence in the area and doubled the security on Masmak and Riyadh. The return to Riyadh became an impossible dream that required many years of painful waiting. You lost the moment where history was waiting for you to lead." }
+                            { t: "Storm Masmak at dawn and trust in God", r: "✅ Victory! You announced the dawn of the Kingdom. This bold move led to a 30-year journey of unification that created the modern Saudi state." },
+                            { t: "Wait to monitor guards", r: "⚠️ Partial success. Surprise was lost, leading to a bloody street battle inside Riyadh, losing many loyal men." },
+                            { t: "Temporary retreat", r: "❌ Lost Dream. The enemy learned of you and doubled security. Riyadh became impossible to return for many painful years." }
                         ],
-                        long: "King Abdulaziz Al Saud is the founder of the modern Kingdom of Saudi Arabia. He set out to reclaim his ancestors' throne in a heroic saga that began with the capture of Riyadh in 1902. Known for his wisdom and courage, he united hearts and lands under one flag, building a modern state that balances heritage and progress."
+                        long: "King Abdulaziz Al Saud is the founder of the modern Kingdom of Saudi Arabia. He captured Masmak in 1902 and united hearts and lands, building a modern state balancing heritage and progress."
                     }
                 }
             },
             es: {
-                dir: 'ltr', title: "Epopeyas Fundacionales", desc: "Escribe la historia con tus manos a través de los siglos", start: "Entrar en la Epopeya", lore: "Registro de Héroes", hTitle: "Elige tu Leyenda", mTitle: "Misión de Liderazgo", vTitle: "Veredicto de la Historia", retry: "Cambiar Decisión", home: "Menú Principal", audio: "🔊 Escuchar Historia Completa",
+                dir: 'ltr', title: "Epopeyas Fundacionales", desc: "Escribe la historia con tus decisiones", start: "Entrar", lore: "Héroes", hTitle: "Elige Líder", mTitle: "Misión", vTitle: "Veredicto", retry: "Reintentar", home: "Inicio", audio: "🔊 Escuchar",
                 heroes: {
-                    saud: {
-                        name: "Imán Muhammad bin Saud",
-                        q: "En 1727 d.C., asumes el mando en Diriyah. Arabia está en caos total y las amenazas externas rodean tu pequeño emirato. La ciudad necesita una visión más allá de la supervivencia. ¿Estableces un pacto histórico basado en el conocimiento y la justicia, o te centras puramente en la fuerza militar para proteger los muros?",
-                        d: [
-                            { t: "Establecer el Pacto de Diriyah y la Justicia", r: "✅ ¡Victoria Eterna! Con esta decisión, no solo fundaste una ciudad, sino una gran nación. El Pacto de Diriyah se convirtió en la constitución espiritual que unió a las tribus. Diriyah se transformó en la capital de un estado importante que trajo seguridad a Arabia, iniciando la mayor unificación de la historia moderna." },
-                            { t: "Ejército masivo e ignorar el pacto", r: "⚠️ Éxito militar temporal. Tus fuerzas protegieron las fronteras por un tiempo, pero la falta de una base ideológica causó fracturas internas ante las potencias regionales. La historia demuestra que mientras las espadas definen fronteras, solo los grandes principios construyen naciones estables para las generaciones futuras." },
-                            { t: "Centrarse solo en el comercio y mercados", r: "❌ Fracaso estratégico grave. Diriyah se enriqueció, pero la riqueza sin soberanía la convirtió en un blanco fácil para los invasores. Los vecinos solo respetaban la fuerza y la unidad, y tus ganancias financieras se perdieron rápidamente ante la primera invasión externa organizada." }
-                        ],
-                        long: "El Imán Muhammad bin Saud es el fundador del Primer Estado Saudí en 1727. Convirtió a Diriyah en un faro de conocimiento y justicia, unificando a las tribus dispersas bajo una sola visión de futuro."
-                    },
-                    turki: {
-                        name: "Imán Turki bin Abdullah",
-                        q: "Tras la caída de Diriyah, la oscuridad cayó sobre la tierra y Riad quedó bajo el mando de los ocupantes. Sales de la cueva 'Alia' solo con tu fe y tu espada 'Al-Ajrab'. El pueblo espera un líder. ¿Sorprendes a los ocupantes en Riad ahora con pocos hombres, o te retiras para reunir más seguidores y esperas años?",
-                        d: [
-                            { t: "Atacar Riad inmediatamente con Al-Ajrab", r: "✅ ¡El Héroe Regresa! Restauraste la esperanza en los corazones que creían que el estado había terminado. El Imán Turki no solo recuperó Riad, sino que restauró el prestigio del Segundo Estado Saudí. Tu espada 'Al-Ajrab' se convirtió en símbolo de justicia y lograste establecer un gobierno estable por décadas." },
-                            { t: "Esperar en el desierto por más apoyo", r: "⚠️ Ventaja de sorpresa perdida. Los ocupantes reforzaron los muros de Riad, haciendo que la batalla de liberación fuera mucho más larga y dolorosa. Recuperaste el trono finalmente, pero al costo de muchos hombres leales cuyas vidas podrían haberse salvado con un ataque sorpresa." },
-                            { t: "Intentar negociaciones políticas", r: "❌ Decepción amarga. Los ocupantes solo vieron la negociación como debilidad. Perdiste un tiempo valioso que podría haberse usado para ganar la batalla. Descubriste tarde que quienes toman la tierra por la fuerza solo la devuelven por la espada, y la gloria se perdió en la diplomacia." }
-                        ],
-                        long: "El Imán Turki bin Abdullah es el héroe de la restauración y fundador del Segundo Estado Saudí en 1824. Reconstruyó el estado desde las ruinas con inmenso valor."
-                    },
-                    aziz: {
-                        name: "Rey Abdulaziz",
-                        q: "Noche del 15 de enero de 1902. Estás ante los muros del fuerte Masmak en Riad con 63 hombres leales. El fracaso significa el fin del sueño. El amanecer se acerca. ¿Atacas el fuerte ahora con un corazón valiente o te retiras para esperar un ejército más grande para asegurar la victoria?",
-                        d: [
-                            { t: "Atacar Masmak al amanecer y confiar en Dios", r: "✅ ¡Dios es Grande! Al capturar Masmak, anunciaste el amanecer del Tercer Estado Saudí (Reino de Arabia Saudita). Esta decisión audaz fue la chispa que unió a la península, liderando un viaje de 30 años que creó la mayor unidad árabe de la era moderna." },
-                            { t: "Esperar para vigilar a los guardias", r: "⚠️ Éxito parcial a alto costo. La ventaja de la sorpresa nocturna se perdió al salir el sol. Te viste obligado a luchar en una sangrienta batalla callejera en Riad, perdiendo a muchos hombres leales antes de llegar al trono, debilitando tu posición inicial." },
-                            { t: "Retirada temporal por suministros", r: "❌ Momento histórico perdido. El enemigo supo de tu presencia y duplicó la seguridad. El regreso a Riad se convirtió en un sueño imposible que requirió muchos años de espera dolorosa. Perdiste el momento exacto en que la historia te esperaba." }
-                        ],
-                        long: "El Rey Abdulaziz Al Saud es el fundador de la moderna Arabia Saudita. Unificó corazones y tierras bajo una bandera, construyendo un estado moderno que equilibra herencia y progreso."
-                    }
+                    saud: { name: "Imán Muhammad bin Saud", q: "1727. ¿Pacto de Justicia o solo defensa militar?", d: [{t: "Pacto de Justicia y Conocimiento", r: "✅ ¡Victoria! Fundaste una gran nación bajo un pacto espiritual y político."}, {t: "Solo Militar", r: "⚠️ Éxito temporal. Sin unidad ideológica, el estado enfrentó grietas internas."}, {t: "Solo Comercio", r: "❌ Fracaso estratégico. La riqueza sin soberanía hizo a Diriyah vulnerable."}], long: "Fundador del primer estado saudí en 1727, unificó tribus bajo la justicia." },
+                    turki: { name: "Imán Turki bin Abdullah", q: "Riad ocupada. ¿Atacas ahora con tu espada 'Al-Ajrab' o esperas?", d: [{t: "Atacar Riad inmediatamente", r: "✅ ¡Regresa la esperanza! Restauraste el Segundo Estado Saudí y la dignidad."}, {t: "Esperar más apoyo", r: "⚠️ Pérdida de sorpresa. La batalla fue más larga y sangrienta."}, {t: "Negociar", r: "❌ Fracaso total. Solo entienden la fuerza, y el tiempo se perdió en vano."}], long: "Fundador del segundo estado saudí en 1824, famoso por su espada." },
+                    aziz: { name: "Rey Abdulaziz", q: "1902. ¿Atacas Masmak con 63 hombres al amanecer o te retiras?", d: [{t: "Atacar Masmak al amanecer", r: "✅ ¡Victoria! Recuperaste Riad y fundaste la Arabia Saudita moderna."}, {t: "Vigilar guards", r: "⚠️ Éxito parcial. Se perdió la sorpresa y hubo muchas bajas."}, {t: "Retirarse temporalmente", r: "❌ Sueño perdido. El enemigo reforzó el fuerte por años."}], long: "Unificador del Reino moderno, comenzó su epopeya capturando Masmak." }
                 }
             },
             ru: {
-                dir: 'ltr', title: "Эпопея Основания", desc: "Пишите историю своими руками сквозь века", start: "Начать Эпопею", lore: "Реестр Героев", hTitle: "Выберите Легенду", mTitle: "Миссия Лидера", vTitle: "Вердикт Истории", retry: "Изменить Решение", home: "Главное Меню", audio: "🔊 Слушать Полную Историю",
+                dir: 'ltr', title: "Эпопея Основания", desc: "Пишите историю", start: "Начать", lore: "Герои", hTitle: "Выбор героя", mTitle: "Миссия", vTitle: "Вердикт", retry: "Назад", home: "Меню", audio: "🔊 Слушать",
                 heroes: {
-                    saud: {
-                        name: "Имам Мухаммад бин Сауд",
-                        q: "В 1727 году вы приняли власть в Дирии. Аравия в хаосе, внешние угрозы повсюду. Городу нужно видение будущего. Заключите ли вы исторический пакт, основанный на знаниях и справедливости, или сосредоточитесь только на военной силе для защиты стен?",
-                        d: [
-                            { t: "Заключить Пакт Дирии и Справедливости", r: "✅ Вечная Победа! Этим решением вы основали не просто город, а великую нацию. Пакт Дирии стал духовной конституцией, объединившей сердца племен. Дирия превратилась в столицу мощного государства, принесшего безопасность в Аравию и начавшего величайшее объединение в истории." },
-                            { t: "Создать огромную армию без пакта", r: "⚠️ Временный военный успех. Ваша сила защитила границы на время, но отсутствие идеологической основы привело к внутренним трещинам перед лицом региональных держав. История доказывает, что мечи строят границы, но только великие принципы создают стабильные нации." },
-                            { t: "Только торговля и рынки", r: "❌ Стратегический провал. Дирия стала богатой, но богатство без суверенитета сделало её легкой добычей. Соседи уважали только силу и единство, и ваши финансовые достижения были потеряны при первом же организованном внешнем вторжении." }
-                        ],
-                        long: "Имам Мухаммад бин Сауд — основатель Первого Саудовского государства в 1727 году. Он сделал Дирию центром знаний и справедливости, объединив племена."
-                    },
-                    turki: {
-                        name: "Имам Турки бин Абдалла",
-                        q: "После падения Дирии Эр-Рияд оказался в руках оккупантов. Вы выходите из пещеры 'Алия' один, веря только в Бога и свой меч «Аль-Аджраб». Народ ждет лидера. Штурмуете ли вы Рияд сейчас с горсткой людей или отступите, чтобы собрать больше сторонников?",
-                        d: [
-                            { t: "Немедленный штурм Рияда с «Аль-Аджраб»", r: "✅ Возвращение Героя! Вы вернули надежду сердцам, которые думали, что всё кончено. Имам Турки восстановил престиж Второго Саудовского государства. Ваш меч стал символом справедливости, и вы успешно установили стабильное правление на десятилетия." },
-                            { t: "Ждать в пустыне большей поддержки", r: "⚠️ Эффект внезапности потерян. Оккупанты укрепили стены Рияда, сделав битву за освобождение долгой и мучительной. Вы вернули трон позже, но ценой жизни многих верных людей, которых можно было спасти внезапным ударом." },
-                            { t: "Попытка политических переговоров", r: "❌ Горькое разочарование. Оккупанты видели в переговорах только слабость. Вы потеряли драгоценное время. Позже вы поняли, что те, кто забирает землю силой, возвращают её только мечом, и слава была потеряна в провальной дипломатии." }
-                        ],
-                        long: "Имам Турки бин Абдалла — герой восстановления и основатель Второго Саудовского государства в 1824 году. Он возродил страну из руин своим мужеством."
-                    },
-                    aziz: {
-                        name: "Король Абдул-Азиз",
-                        q: "Ночь 15 января 1902 года. Вы перед стенами крепости Масмак в Рияде с 63 бойцами. Провал означает конец мечты. Рассвет близок. Штурмуете крепость сейчас или отступаете, чтобы дождаться большой армии для гарантированной победы?",
-                        d: [
-                            { t: "Штурм Масмака на рассвете с верой", r: "✅ Победа! Взяв Масмак, вы провозгласили рассвет Третьего Саудовского государства (Королевства). Это смелое решение стало искрой, объединившей полуостров за 30 лет в величайшее арабское единство современности." },
-                            { t: "Ждать и следить за стражей", r: "⚠️ Частичный успех дорогой ценой. Внезапность была потеряна с восходом солнца. Вам пришлось вести кровавый уличный бой в Рияде, потеряв многих верных людей до того, как вы достигли трона. Это ослабило ваши позиции в первые дни." },
-                            { t: "Временное отступление", r: "❌ Исторический момент упущен. Враг узнал о вашем присутствии и удвоил охрану. Возвращение в Рияд стало невозможной мечтой на долгие годы мучительного ожидания. Вы потеряли миг, когда история ждала именно вас." }
-                        ],
-                        long: "Король Абдул-Азиз Аль Сауд — основатель современной Саудовской Аравии. Он объединил сердца и земли под одним флагом, построив процветающее государство."
-                    }
+                    saud: { name: "Имам Мухаммад бин Сауд", q: "1727. Пакт или только армия для защиты?", d: [{t: "Пакт Дирии", r: "✅ Вечная победа! Вы основали великую нацию."}, {t: "Армия", r: "⚠️ Временный успех. Без идеологии государство было хрупким."}, {t: "Торговля", r: "❌ Провал. Богатство без защиты сделало город легкой добычей."}], long: "Основатель первого государства в 1727 году." },
+                    turki: { name: "Имам Турки бин Абдалла", q: "Эр-Рияд захвачен. Штурмуете с «Аль-Аджраб»?", d: [{t: "Штурм сейчас", r: "✅ Возвращение героя! Восстановили государство."}, {t: "Ждать", r: "⚠️ Шанс упущен. Враги укрепили город."}, {t: "Переговоры", r: "❌ Провал. Понимают только силу."}], long: "Основатель второго государства в 1824 году." },
+                    aziz: { name: "Король Абдул-Азиз", q: "1902. Масмак. Штурм на рассвете?", d: [{t: "Штурм сейчас", r: "✅ Победа! Вы провозгласили рассвет Королевства."}, {t: "Ждать", r: "⚠️ Тяжелый бой. Потерян сюрприз."}, {t: "Отступить", r: "❌ Мечта потеряна. Эр-Рияд недоступен."}], long: "Основатель Королевства Саудовская Аравия." }
                 }
             },
             ko: {
-                dir: 'ltr', title: "건국 서사시", desc: "시대를 초월하여 당신의 손으로 역사를 쓰십시오", start: "서사시 시작", lore: "영웅 기록", hTitle: "전설을 선택하십시오", mTitle: "지도자 미션", vTitle: "역사의 판결", retry: "결정 변경", home: "메인 메뉴", audio: "🔊 전체 이야기 듣기",
+                dir: 'ltr', title: "건국 이야기", desc: "역사를 쓰세요", start: "시작", lore: "기록", hTitle: "선택", mTitle: "미션", vTitle: "판결", retry: "다시 시도", home: "홈", audio: "🔊 듣기",
                 heroes: {
-                    saud: {
-                        name: "이맘 무함마드 빈 사우드",
-                        q: "1727년, 당신은 디리야에서 권력을 잡았습니다. 아라비아는 혼란에 빠졌고 외부 위협이 도처에 있습니다. 도시는 생존 이상의 비전이 필요합니다. 지식과 정의에 기초한 역사적 조약을 맺겠습니까, 아니면 오직 군사력에만 집중하여 성벽을 지키겠습니까?",
-                        d: [
-                            { t: "디리야 조약 체결 및 정의 전파", r: "✅ 영원한 승리! 이 결정으로 당신은 단순한 도시가 아니라 위대한 국가를 세웠습니다. 디리야 조약은 부족의 마음을 하나로 묶는 영적 헌법이 되었습니다. 디리야는 아라비아에 안보를 가져온 주요 국가의 수도로 변모하여 현대 역사상 가장 위대한 통일을 시작했습니다." },
-                            { t: "대규모 군대 양성 및 조약 무시", r: "⚠️ 일시적인 군사적 성공. 당신의 군대는 잠시 국경을 보호했지만, 사상적 기초와 공유된 원칙의 부재로 내부적인 균열이 생겼습니다. 역사는 칼이 국경을 만들지만, 위대한 원칙만이 미래 세대를 위한 안정적인 국가를 건설한다는 것을 증명합니다." },
-                            { t: "무역 및 시장 보안에만 집중", r: "❌ 전략적 실패. 디리야는 부유해졌지만, 주권과 통일된 신념이 없는 부는 침략자들의 쉬운 목표가 되었습니다. 주변 세력은 오직 힘과 단결만을 존중했으며, 당신의 경제적 이익은 첫 번째 조직적인 외부 침공 때 순식간에 사라졌습니다." }
-                        ],
-                        long: "이맘 무함마드 빈 사우드는 1727년 제1차 사우디 국가의 설립자입니다. 그는 디리야를 지식과 정의의 등대로 만들어 흩어진 부족들을 하나의 비전 아래 통합했습니다."
-                    },
-                    turki: {
-                        name: "이맘 투르키 빈 압둘라",
-                        q: "디리야가 함락된 후, 리야드는 점령당했습니다. 당신은 신념과 전설적인 검 '알-아지랍'만을 가지고 '알리아' 동굴에서 나옵니다. 백성들은 지도자를 기다리고 있습니다. 소수의 인원으로 지금 리야드를 기습하시겠습니까, 아니면 후퇴하여 세력을 더 모으시겠습니까?",
-                        d: [
-                            { t: "알-아지랍과 함께 즉시 리야드 습격", r: "✅ 영웅의 귀환! 국가가 영원히 사라졌다고 생각한 절망적인 마음에 희망을 되찾아주었습니다. 이맘 투르키는 리야드를 탈환했을 뿐만 아니라 제2차 사우디 국가의 위상을 회복했습니다. 당신의 검은 정의와 힘의 상징이 되었으며, 수십 년 동안 지속된 안정적인 통치를 확립하는 데 성공했습니다." },
-                            { t: "지원을 더 모으기 위해 사막에서 대기", r: "⚠️ 기습의 이점 상실. 점령군이 리야드의 성벽을 보강하고 병력을 늘려 해방 전쟁이 훨씬 더 길고 고통스러워졌습니다. 결국 왕좌를 되찾았지만, 기습 한 번으로 구할 수 있었던 많은 충성스러운 부하들의 생명을 대가로 치러야 했습니다." },
-                            { t: "점령군과 정치적 협상 시도", r: "❌ 쓰라린 실패. 점령군은 협상을 약함의 신호로만 보았습니다. 전투를 끝낼 수 있었던 소중한 시간을 낭비했습니다. 무력으로 땅을 빼앗은 자들은 오직 칼로만 땅을 돌려준다는 사실을 너무 늦게 깨달았고, 영광은 실패한 외교 속에서 사라졌습니다." }
-                        ],
-                        long: "이맘 투르키 빈 압둘라는 1824년 제2차 사우디 국가를 재건한 영웅입니다. 전설적인 검으로 폐허 속에서 국가를 다시 일으켜 세웠습니다."
-                    },
-                    aziz: {
-                        name: "압둘아지즈 국왕",
-                        q: "1902년 1월 15일 밤, 당신은 63명의 충성스러운 부하들과 함께 리야드의 마스막 요새 성벽 앞에 서 있습니다. 실패는 꿈의 종말을 의미합니다. 새벽이 다가오고 있습니다. 용기 있게 지금 요새를 습격하시겠습니까, 아니면 승리를 보장하기 위해 더 큰 군대를 기다리시겠습니까?",
-                        d: [
-                            { t: "새벽에 마스막을 습격하고 신을 신뢰", r: "✅ 대승리! 마스막을 점령함으로써 당신은 제3차 사우디 국가(사우디아라비아 왕국)의 서막을 알렸습니다. 이 대담한 결정은 반도의 심장에 불을 지폈고, 30년 동안의 통일 여정으로 이어져 현대사에서 가장 위대한 아랍 통일을 이룩했습니다." },
-                            { t: "성벽 뒤에서 경비병들을 감시하며 대기", r: "⚠️ 높은 대가를 치른 부분적 성공. 해가 뜨면서 야간 기습의 이점이 사라졌습니다. 리야드 시내에서 혈전을 벌여야 했고, 왕좌에 오르기 전 많은 충성스러운 부하들을 잃었습니다. 이는 건국 초기 군사적 입지를 약화시켰습니다." },
-                            { t: "일시적 후퇴 후 보급 및 군대 확보", r: "❌ 역사적 순간을 놓침. 적들이 당신의 존재를 알아채고 요새의 경비를 두 배로 강화했습니다. 리야드로의 귀환은 수년간의 고통스러운 기다림이 필요한 불가능한 꿈이 되었습니다. 역사가 당신을 기다리던 그 순간을 영영 놓쳐버렸습니다." }
-                        ],
-                        long: "압둘아지즈 알 사우드 국왕은 현대 사우디아라비아의 건국자입니다. 1902년 리야드 탈환을 시작으로 30년 동안 마음과 땅을 하나로 모아 현대적인 국가를 건설했습니다."
-                    }
+                    saud: { name: "사우드", q: "1727: 정의의 조약입니까, 아니면 군대입니까?", d: [{t: "디리야 조약 체결", r: "✅ 영원한 승리! 당신은 단순한 도시가 아닌 국가를 세웠습니다."}, {t: "군대만", r: "⚠️ 일시적 성공. 통합이 부족해 불안정했습니다."}, {t: "무역", r: "❌ 전략적 실패. 주권 없는 부는 침략의 표적이 되었습니다."}], long: "1727년 제1차 사우디 국가 건국자." },
+                    turki: { name: "투르키", q: "리야드가 점령되었습니다. 검으로 탈환하시겠습니까?", d: [{t: "즉시 공격", r: "✅ 영웅의 귀환! 제2차 사우디 국가를 재건했습니다."}, {t: "지원군 대기", r: "⚠️ 기회 상실. 적들이 방어선을 강화했습니다."}, {t: "협상 시도", r: "❌ 실패. 힘의 논리만이 통합니다."}], long: "1824년 제2차 사우디 국가 설립자." },
+                    aziz: { name: "압둘아지즈", q: "1902: 63명과 마스막. 공격?", d: [{t: "새벽 공격", r: "✅ 대승리! 사우디 왕국의 서막을 열었습니다."}, {t: "감시", r: "⚠️ 부분적 성공. 거리 전투에서 많은 이들을 잃었습니다."}, {t: "후퇴", r: "❌ 꿈이 사라짐. 요새가 강화되어 탈환 기회를 잃었습니다."}], long: "사우디 왕국 건국자." }
                 }
             }
         };
@@ -372,11 +306,10 @@
         function renderHeroes() {
             const list = document.getElementById('hero-btns');
             list.innerHTML = '';
-            const heroes = DB[lang].heroes;
-            for(let key in heroes) {
+            for(let key in DB[lang].heroes) {
                 const b = document.createElement('button');
                 b.className = 'action-btn';
-                b.innerText = heroes[key].name;
+                b.innerText = DB[lang].heroes[key].name;
                 b.onclick = () => startPlay(key);
                 list.appendChild(b);
             }
@@ -423,9 +356,7 @@
             const content = document.getElementById('det-content').innerText;
             const m = new SpeechSynthesisUtterance(content);
             const voiceMap = { 'ar': 'ar-SA', 'en': 'en-US', 'es': 'es-ES', 'ru': 'ru-RU', 'ko': 'ko-KR' };
-            m.lang = voiceMap[lang];
-            m.pitch = 0.8;
-            m.rate = 0.9;
+            m.lang = voiceMap[lang]; m.pitch = 0.85; m.rate = 0.85;
             window.speechSynthesis.speak(m);
         }
 
@@ -442,14 +373,14 @@
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
                     r: Math.random() * 2.5,
-                    s: Math.random() * 0.5
+                    s: Math.random() * 0.6
                 });
             }
         }
 
         function drawBg() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle = "rgba(193, 163, 95, 0.4)";
+            ctx.fillStyle = "rgba(193, 163, 95, 0.45)";
             pts.forEach(p => {
                 p.y -= p.s;
                 if(p.y < 0) p.y = canvas.height;
