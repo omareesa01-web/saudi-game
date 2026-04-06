@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> ملحمة التأسيس </title>
+    <title>ملحمة التأسيس </title>
     
     <style>
-        /* --- الهوية البصرية والقواعد العامة (CSS مفصل) --- */
         :root {
             --gold-main: #c1a35f;
             --gold-light: #f3cf7a;
             --deep-green: #05160d;
-            --glass-bg: rgba(0, 0, 0, 0.65);
+            --glass-bg: rgba(0, 0, 0, 0.7);
             --glass-border: rgba(193, 163, 95, 0.4);
             --transition-speed: 0.8s;
         }
@@ -27,7 +26,6 @@
 
         #sand-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
-        /* --- الحاوية الرئيسية --- */
         .app-wrapper {
             position: relative; z-index: 10; width: 95%; max-width: 800px;
             background: var(--glass-bg); backdrop-filter: blur(25px);
@@ -37,9 +35,9 @@
             max-height: 90vh; overflow-y: auto; overflow-x: hidden;
         }
 
-        /* --- نظام الأنيميشن السينمائي (بدون اختصار) --- */
+        /* --- أنيميشن الانتقال السينمائي --- */
         .screen {
-            display: none; /* يتم التحكم بالظهور عبر JS */
+            display: none;
             opacity: 0;
             transform: translateY(30px) scale(0.98);
             transition: opacity var(--transition-speed) ease, transform var(--transition-speed) cubic-bezier(0.19, 1, 0.22, 1);
@@ -50,29 +48,28 @@
             transform: translateY(0) scale(1);
         }
 
-        /* --- العناوين والنصوص --- */
-        h1 { font-size: 3rem; color: var(--gold-main); margin-bottom: 20px; font-weight: 900; text-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        .description { font-size: 1.3rem; color: #e0e0e0; margin-bottom: 40px; line-height: 1.6; }
+        h1 { font-size: 2.8rem; color: var(--gold-main); margin-bottom: 20px; font-weight: 900; text-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .description { font-size: 1.2rem; color: #e0e0e0; margin-bottom: 35px; line-height: 1.6; }
 
-        /* --- تصميم القوائم المصغرة وأنيميشن "لمعة السيف" --- */
+        /* --- الأزرار المصغرة مع "لمعة السيف" --- */
         .btn-action {
             width: 100%;
             background: linear-gradient(145deg, rgba(193, 163, 95, 0.15), rgba(0, 0, 0, 0.8));
             border: 1.5px solid var(--gold-main);
-            padding: 18px;
-            border-radius: 15px;
+            padding: 16px;
+            border-radius: 12px;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 700;
             cursor: pointer;
             transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             display: block;
-            position: relative; /* مهم للأنيميشن */
-            overflow: hidden; /* مهم للأنيميشن */
+            position: relative;
+            overflow: hidden;
         }
 
-        /* أنيميشن "لمعة السيف" (Glowing Flash) */
+        /* تأثير لمعة السيف عند التمرير */
         .btn-action::after {
             content: '';
             position: absolute;
@@ -80,42 +77,39 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.6s;
         }
 
         .btn-action:hover {
             background: var(--gold-main); color: #000;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(193, 163, 95, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(193, 163, 95, 0.3);
         }
 
         .btn-action:hover::after {
             left: 100%;
         }
 
-        /* --- لوحة القصة الطويلة --- */
         .story-panel {
             background: rgba(255, 255, 255, 0.06);
-            padding: 35px; border-radius: 25px;
-            text-align: justify; line-height: 2.2;
-            font-size: 1.25rem; border-right: 8px solid var(--gold-main);
-            margin: 25px 0; color: #f0f0f0;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+            padding: 30px; border-radius: 20px;
+            text-align: justify; line-height: 2;
+            font-size: 1.2rem; border-right: 6px solid var(--gold-main);
+            margin: 20px 0; color: #f0f0f0;
         }
 
-        .audio-status { color: var(--gold-light); font-weight: bold; margin-bottom: 10px; font-size: 1rem; }
+        .audio-status { color: var(--gold-light); font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; }
 
         .nav-link {
-            display: inline-block; margin-top: 25px; color: var(--gold-light);
-            text-decoration: none; font-weight: 800; font-size: 1.1rem;
+            display: inline-block; margin-top: 20px; color: var(--gold-light);
+            text-decoration: none; font-weight: 800; font-size: 1rem;
             cursor: pointer; transition: 0.3s;
         }
 
-        .nav-link:hover { color: #fff; letter-spacing: 1px; }
+        .nav-link:hover { color: #fff; }
 
-        /* سكرول بار أنيق */
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: var(--gold-main); border-radius: 10px; }
     </style>
 </head>
@@ -127,9 +121,9 @@
         
         <div id="scr-home" class="screen" style="display: block;">
             <h1>ملاحم التأسيس</h1>
-            <p class="description">سجل تاريخي ناطق يروي أمجاد المملكة العربية السعودية عبر العصور (مشروع تفاعلي)</p>
-            <button class="btn-action" onclick="navTo('scr-heroes')">دخول الملحمة الكبرى</button>
-            <button class="btn-action" onclick="showLore()">سير الأبطال  </button>
+            <p class="description">سجل تاريخي ناطق يروي أمجاد المملكة العربية السعودية</p>
+            <button class="btn-action" onclick="navTo('scr-heroes')">دخول الملحمة التفاعلية</button>
+            <button class="btn-action" onclick="showLore()">سير الأبطال</button>
         </div>
 
         <div id="scr-heroes" class="screen">
@@ -139,8 +133,8 @@
         </div>
 
         <div id="scr-mission" class="screen">
-            <h1 id="ui-mission-title" style="font-size: 2.2rem;"></h1>
-            <div class="audio-status">🔊 استمع للراوي التاريخي...</div>
+            <h1 id="ui-mission-title" style="font-size: 2rem;"></h1>
+            <div class="audio-status" id="audio-ui-text">🔊 الراوي التاريخي جاهز...</div>
             <div id="ui-mission-desc" class="story-panel"></div>
             <div id="ui-decision-buttons"></div>
             <a class="nav-link" onclick="stopAudioAndGoBack()">إلغاء والعودة</a>
@@ -162,41 +156,33 @@
         </div>
 
         <div id="scr-bio" class="screen">
-            <h1 id="ui-bio-name" style="color: var(--gold-light); font-size: 2.2rem;"></h1>
+            <h1 id="ui-bio-name" style="color: var(--gold-light); font-size: 2rem;"></h1>
             <div id="ui-bio-body" class="story-panel"></div>
             <a class="nav-link" onclick="navTo('scr-lore')">العودة للسجل</a>
         </div>
     </div>
 
     <script>
-        // --- محرك الانتقالات السينمائي (بدون اختصار) ---
+        // --- محرك الانتقالات (إصلاح مشكلة التعليق) ---
         function navTo(targetId) {
             const container = document.getElementById('scroll-container');
             const screens = document.querySelectorAll('.screen');
             
-            // إخفاء الشاشة الحالية بسلاسة
             screens.forEach(s => {
                 s.classList.remove('fade-in');
-                setTimeout(() => { 
-                    if(!s.classList.contains('fade-in')) s.style.display = 'none'; 
-                }, 500); 
+                setTimeout(() => { if(!s.classList.contains('fade-in')) s.style.display = 'none'; }, 450);
             });
 
-            // إظهار الشاشة الجديدة بالأنيميشن المطلوب
             setTimeout(() => {
                 const target = document.getElementById(targetId);
-                container.scrollTop = 0; // تصفير السكرول مع كل انتقال
+                container.scrollTop = 0;
                 target.style.display = 'block';
-                // تأخير بسيط لضمان تفعيل الأنيميشن
-                setTimeout(() => {
-                    target.classList.add('fade-in');
-                }, 50);
-            }, 550);
+                setTimeout(() => target.classList.add('fade-in'), 50);
+            }, 500);
         }
 
         let audioPlayer = null;
 
-        // --- القصص الطويلة والتفصيلية ---
         const FullData = {
             saud: {
                 name: "الإمام محمد بن سعود",
@@ -221,7 +207,7 @@
             aziz: {
                 name: "الملك عبد العزيز",
                 title: "فجر المصمك والتوحيد",
-                quest: "ليلة 15 يناير 1902م، البرد قارس والهدوء يلف أسوار الرياض. تقف أنت يا عبدالعزيز مع 63 رجلاً من أخلص أتباعك أمام قصر المصمك. الحلم كبير والمخاطر أكبر. الفجر يوشك على البزوغ والفرصة التاريخية قد تضيع للأبد. هل تقتحم الحصن الآن بإيمان وعزيمة لتسترد ملك أجدادك وتعلن فجر عهد جديد، أم تنسحب وتنتظر لسنوات أخرى طلباً للمدد والتحالفات الخارجية بعيداً عن الرياض؟",
+                quest: "ليلة 15 يناير 1902م، البرد قارس والهدوء يلف أسوار الرياض. تقف أنت يا عبدالعزيز مع 63 بطلاً من أخلص أتباعك أمام قصر المصمك. الحلم كبير والمخاطر أكبر. الفجر يوشك على البزوغ والفرصة التاريخية قد تضيع للأبد. هل تقتحم الحصن الآن بإيمان وعزيمة لتسترد ملك أجدادك وتعلن فجر عهد جديد، أم تنسحب وتنتظر لسنوات أخرى طلباً للمدد والتحالفات الخارجية بعيداً عن الرياض؟",
                 choices: [
                     { t: "اقتحم المصمك مع خيوط الفجر", r: "✅ الله أكبر! بفتحة المصمك، أعلنت للعالم أجمع أن 'الملك لله ثم لعبدالعزيز'. بدأت ملحمة الـ 30 عاماً لتوحيد المملكة العربية السعودية، وحولت الشتات إلى وطن عظيم وقوة عالمية يشار لها بالبنان، وبنيت نهضة حديثة نفخر بها اليوم." },
                     { t: "التراجع لانتظار المدد الخارجي", r: "❌ تبدد الحلم. كشف الأعداء أمركم وشددوا الحراسة، وظلت الرياض بعيدة المنال لسنوات طويلة، وبقي الوطن يعاني من الانقسام والفقر لفترة أطول تحت حكم الغرباء." }
@@ -232,6 +218,40 @@
 
         function stopAudioAndGoBack() { if(audioPlayer) audioPlayer.pause(); navTo('scr-heroes'); }
 
+        // --- إصلاح تشغيل القصة (حتى لو مافيه صوت) ---
+        function startMission(key) {
+            const h = FullData[key];
+            document.getElementById('ui-mission-title').innerText = h.title;
+            document.getElementById('ui-mission-desc').innerText = h.quest;
+            document.getElementById('audio-ui-text').innerText = "🔊 جاري محاولة تشغيل الصوت...";
+
+            // محاولة تشغيل الصوت
+            if(audioPlayer) audioPlayer.pause();
+            audioPlayer = new Audio(key + '.mp3');
+            audioPlayer.play().then(() => {
+                document.getElementById('audio-ui-text').innerText = "🔊 الراوي يتحدث الآن...";
+            }).catch(e => {
+                // إذا فشل الصوت (غير موجود) الكود بيكمل عادي
+                document.getElementById('audio-ui-text').innerText = "⚠️ لم يتم العثور على ملف الصوت (العرض مستمر بدون صوت)";
+                console.log("Audio file not found, moving on...");
+            });
+
+            const btnArea = document.getElementById('ui-decision-buttons');
+            btnArea.innerHTML = '';
+            h.choices.forEach(c => {
+                const cb = document.createElement('button');
+                cb.className = 'btn-action';
+                cb.innerText = c.t;
+                cb.onclick = () => {
+                    document.getElementById('ui-result-desc').innerText = c.r;
+                    if(audioPlayer) audioPlayer.pause();
+                    navTo('scr-result');
+                };
+                btnArea.appendChild(cb);
+            });
+            navTo('scr-mission');
+        }
+
         function initApp() {
             const list = document.getElementById('hero-list-container');
             list.innerHTML = '';
@@ -239,31 +259,9 @@
                 const b = document.createElement('button');
                 b.className = 'btn-action';
                 b.innerText = FullData[key].name;
-                b.onclick = () => {
-                    const h = FullData[key];
-                    document.getElementById('ui-mission-title').innerText = h.title;
-                    document.getElementById('ui-mission-desc').innerText = h.quest;
-                    if(audioPlayer) audioPlayer.pause();
-                    audioPlayer = new Audio(key + '.mp3');
-                    audioPlayer.play().catch(e => console.log("الصوت بانتظار الملف"));
-                    const btnArea = document.getElementById('ui-decision-buttons');
-                    btnArea.innerHTML = '';
-                    h.choices.forEach(c => {
-                        const cb = document.createElement('button');
-                        cb.className = 'btn-action';
-                        cb.innerText = c.t;
-                        cb.onclick = () => {
-                            document.getElementById('ui-result-desc').innerText = c.r;
-                            if(audioPlayer) audioPlayer.pause();
-                            navTo('scr-result');
-                        };
-                        btnArea.appendChild(cb);
-                    });
-                    navTo('scr-mission');
-                };
+                b.onclick = () => startMission(key);
                 list.appendChild(b);
             }
-            // تشغيل أنيميشن الصفحة الأولى
             setTimeout(() => document.getElementById('scr-home').classList.add('fade-in'), 100);
         }
 
@@ -276,7 +274,7 @@
                 b.innerText = FullData[key].name;
                 b.onclick = () => {
                     document.getElementById('ui-bio-name').innerText = FullData[key].name;
-                    document.getElementById('ui-bio-body').innerText = FullData[bio];
+                    document.getElementById('ui-bio-body').innerText = FullData[key].bio;
                     navTo('scr-bio');
                 };
                 list.appendChild(b);
@@ -284,7 +282,6 @@
             navTo('scr-lore');
         }
 
-        // --- محرك خلفية الرمال ---
         const canvas = document.getElementById('sand-canvas');
         const ctx = canvas.getContext('2d');
         let pts = [];
