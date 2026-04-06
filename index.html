@@ -3,41 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس التفاعلية - الإصدار الناطق الكامل</title>
+    <title>ملحمة التأسيس - النسخة الاحترافية المستقرة</title>
     
     <style>
-        /* --- إعدادات الألوان والخطوط (CSS مفصل) --- */
+        /* --- الأساسيات الملكية --- */
         :root {
             --gold-main: #c1a35f;
             --gold-light: #f3cf7a;
             --deep-green: #05160d;
-            --glass-bg: rgba(0, 0, 0, 0.5);
-            --glass-border: rgba(193, 163, 95, 0.4);
-            --text-white: #ffffff;
-            --text-gray: #e0e0e0;
+            --glass-bg: rgba(0, 0, 0, 0.55);
+            --glass-border: rgba(193, 163, 95, 0.45);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            -webkit-tap-highlight-color: transparent;
+            outline: none;
         }
 
         body, html {
             width: 100%;
             height: 100%;
-            background-color: var(--deep-green);
-            background-image: radial-gradient(circle at center, #103a24 0%, #05160d 100%);
-            color: var(--text-white);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at center, #103a24 0%, #05160d 100%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* --- محرك جزيئات الرمل --- */
+        /* --- محرك جزيئات الرمل (بدون لاق) --- */
         #sand-canvas {
             position: fixed;
             top: 0;
@@ -48,382 +45,324 @@
             pointer-events: none;
         }
 
-        /* --- الحاوية الرئيسية (تصميم زجاجي فخم) --- */
+        /* --- الحاوية الرئيسية (إصلاح القلتش) --- */
         .app-wrapper {
             position: relative;
             z-index: 10;
-            width: 95%;
-            max-width: 850px;
+            width: 92%;
+            max-width: 800px;
             background: var(--glass-bg);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 2px solid var(--glass-border);
-            border-radius: 50px;
-            padding: 60px;
+            border-radius: 40px;
+            padding: 50px;
             text-align: center;
-            box-shadow: 0 50px 120px rgba(0, 0, 0, 0.8);
-            max-height: 90vh;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+            max-height: 85vh;
             overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--gold-main) transparent;
+            overflow-x: hidden; /* لمنع القلتش الجانبي */
+            transition: all 0.5s ease;
         }
 
-        /* --- أنيميشن ظهور الشاشات --- */
+        /* --- أنيميشن الانتقال الناعم (إصلاح القلتش البصري) --- */
         .screen {
             display: none;
             opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
         .screen.active {
             display: block;
-            animation: slideUpFade 1.4s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        @keyframes slideUpFade {
-            0% {
-                opacity: 0;
-                transform: translateY(80px) scale(0.95);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* --- تنسيق النصوص --- */
+        /* --- النصوص والعناوين --- */
         h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             color: var(--gold-main);
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             font-weight: 900;
-            letter-spacing: -1px;
-            text-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
-        .sub-description {
-            font-size: 1.6rem;
-            color: var(--text-gray);
-            margin-bottom: 55px;
-            line-height: 1.8;
-            font-weight: 300;
+        .sub-text {
+            font-size: 1.4rem;
+            color: #e0e0e0;
+            margin-bottom: 45px;
+            line-height: 1.7;
         }
 
-        /* --- تصميم الأزرار (Verbose CSS) --- */
-        .btn-action {
+        /* --- الأزرار التفاعلية --- */
+        .btn-gold {
             width: 100%;
-            background: linear-gradient(145deg, rgba(193, 163, 95, 0.25), rgba(0, 0, 0, 0.85));
-            border: 2.5px solid var(--gold-main);
-            padding: 30px;
-            border-radius: 25px;
-            color: #ffffff;
-            font-size: 1.7rem;
+            background: linear-gradient(145deg, rgba(193, 163, 95, 0.2), rgba(0, 0, 0, 0.7));
+            border: 2px solid var(--gold-main);
+            padding: 25px;
+            border-radius: 20px;
+            color: white;
+            font-size: 1.5rem;
             font-weight: 800;
             cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            margin-bottom: 25px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 20px;
             display: block;
-            text-align: center;
         }
 
-        .btn-action:hover {
+        .btn-gold:hover {
             background: var(--gold-main);
             color: #000;
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 25px 45px rgba(193, 163, 95, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(193, 163, 95, 0.3);
         }
 
-        .btn-action:active {
-            transform: scale(0.98);
-        }
-
-        /* --- لوحة المحتوى الصوتي والتاريخي --- */
-        .story-panel {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 45px;
-            border-radius: 35px;
+        /* --- لوحات المحتوى --- */
+        .story-box {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 35px;
+            border-radius: 25px;
             text-align: justify;
-            line-height: 2.4;
-            font-size: 1.4rem;
-            border-right: 12px solid var(--gold-main);
-            margin-top: 40px;
-            margin-bottom: 40px;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.3);
-            color: #f8f8f8;
+            line-height: 2.2;
+            font-size: 1.25rem;
+            border-right: 8px solid var(--gold-main);
+            margin: 30px 0;
         }
 
-        .audio-indicator {
+        /* --- مؤشر الصوت --- */
+        .audio-wave {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 15px;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
             color: var(--gold-light);
             font-weight: bold;
-            margin-top: 20px;
-            font-size: 1.1rem;
-            animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
+        .dot {
+            width: 8px; height: 8px; background: var(--gold-light);
+            border-radius: 50%; animation: wave 1.2s infinite ease-in-out;
+        }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes wave {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.5); opacity: 1; }
         }
 
-        .nav-footer {
-            margin-top: 50px;
-            display: block;
+        .back-link {
+            display: inline-block;
+            margin-top: 35px;
             color: var(--gold-light);
-            text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 800;
             cursor: pointer;
-            transition: 0.4s;
-            border-bottom: 2px solid transparent;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
         }
 
-        .nav-footer:hover {
-            color: #fff;
-            border-bottom-color: #fff;
-            letter-spacing: 2px;
-        }
+        .back-link:hover { border-bottom-color: #fff; color: #fff; }
 
-        /* --- تخصيص السكرول بار --- */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--gold-main);
-            border-radius: 15px;
-            border: 3px solid var(--deep-green);
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.3);
-        }
+        /* --- سكرول بار أنيق --- */
+        .app-wrapper::-webkit-scrollbar { width: 8px; }
+        .app-wrapper::-webkit-scrollbar-thumb { background: var(--gold-main); border-radius: 10px; }
     </style>
 </head>
 <body>
 
     <canvas id="sand-canvas"></canvas>
 
-    <div class="app-wrapper">
+    <div class="app-wrapper" id="main-scroller">
         
         <div id="scr-home" class="screen active">
             <h1>ملاحم التأسيس</h1>
-            <p class="sub-description">تجربة تاريخية ناطقة تروي أمجاد المملكة العربية السعودية عبر العصور</p>
-            <button class="btn-action" onclick="goTo('scr-heroes')">دخول الملحمة التفاعلية</button>
-            <button class="btn-action" onclick="loadLore()">سجل سير الأبطال</button>
+            <p class="sub-text">مشروع ناطق وتفاعلي يروي تاريخ الأجداد للأجيال القادمة</p>
+            <button class="btn-gold" onclick="smoothNav('scr-heroes')">دخول الملحمة التفاعلية</button>
+            <button class="btn-gold" onclick="loadLoreData()">سجل سير الأبطال</button>
         </div>
 
         <div id="scr-heroes" class="screen">
             <h1>اختر القائد التاريخي</h1>
-            <p class="sub-description" style="margin-bottom:30px;">اختر بطلاً لتستمع لقصته وتتخذ قراراته</p>
-            <div id="hero-selection-area"></div>
-            <a class="nav-footer" onclick="goTo('scr-home')">العودة للرئيسية</a>
+            <p class="sub-text">استمع لصوت التاريخ واختر بطلك</p>
+            <div id="hero-list"></div>
+            <a class="back-link" onclick="smoothNav('scr-home')">العودة للرئيسية</a>
         </div>
 
-        <div id="scr-task" class="screen">
-            <h1 id="task-title">المهمة الكبرى</h1>
-            <div class="audio-indicator">
-                <span>🔊 جاري تشغيل الراوي الصوتي...</span>
+        <div id="scr-mission" class="screen">
+            <h1 id="mission-title-ui">المهمة</h1>
+            <div class="audio-wave">
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                <span>الراوي الصوتي يعمل الآن...</span>
             </div>
-            <div id="task-desc" class="story-panel"></div>
-            <div id="decision-buttons"></div>
-            <a class="nav-footer" onclick="stopAudioAndBack()">انسحاب من المهمة</a>
+            <div id="mission-desc-ui" class="story-box"></div>
+            <div id="decision-list-ui"></div>
+            <a class="back-link" onclick="killAudioAndBack()">إيقاف الصوت والرجوع</a>
         </div>
 
         <div id="scr-result" class="screen">
             <h1>حكم التاريخ</h1>
-            <div id="result-desc" class="story-panel"></div>
-            <div style="display: flex; gap: 30px; justify-content: center;">
-                <button class="nav-footer" style="background:none; border:none;" onclick="goTo('scr-task')">تغيير القرار</button>
-                <button class="nav-footer" style="background:none; border:none;" onclick="goTo('scr-home')">الرئيسية</button>
+            <div id="result-desc-ui" class="story-box"></div>
+            <div style="display: flex; gap: 20px; justify-content: center;">
+                <a class="back-link" onclick="smoothNav('scr-mission')">تغيير القرار</a>
+                <a class="back-link" onclick="smoothNav('scr-home')">الرئيسية</a>
             </div>
         </div>
 
         <div id="scr-lore" class="screen">
-            <h1>سجل الخالدين</h1>
-            <div id="lore-selection-area"></div>
-            <a class="nav-footer" onclick="goTo('scr-home')">رجوع</a>
+            <h1>سجل الأبطال</h1>
+            <div id="lore-list"></div>
+            <a class="back-link" onclick="smoothNav('scr-home')">رجوع</a>
         </div>
 
         <div id="scr-bio" class="screen">
-            <h1 id="bio-name" style="color: var(--gold-light);"></h1>
-            <div id="bio-content" class="story-panel"></div>
-            <a class="nav-footer" onclick="goTo('scr-lore')">العودة للسجل</a>
+            <h1 id="bio-name-ui"></h1>
+            <div id="bio-desc-ui" class="story-box"></div>
+            <a class="back-link" onclick="smoothNav('scr-lore')">العودة للسجل</a>
         </div>
 
     </div>
 
     <script>
-        // --- متغيرات النظام الصوتي ---
-        let globalAudio = null;
+        // --- متغيرات النظام المحسن ---
+        let currentAudioInstance = null;
 
-        // --- قاعدة البيانات التاريخية (موسعة جداً) ---
-        const HistoryData = {
+        const FullData = {
             saud: {
                 name: "الإمام محمد بن سعود",
-                missionTitle: "تأسيس الدولة الأولى",
-                quest: "في عام 1727م، توليت مقاليد الحكم في الدرعية. الجزيرة العربية كانت تعاني من تمزق سياسي وحروب قبلية طاحنة. أمامك خياران سيشكلان مستقبل المنطقة لقرون: هل تعقد ميثاقاً تاريخياً مع العلماء والقبائل لتأسيس دولة تقوم على الوحدة العلمية والشرعية والعدل ليكون الأمن شاملاً، أم تكتفي بتعزيز القوة العسكرية لحماية حدود الدرعية فقط دون الالتفات لتوحيد المناطق المجاورة؟",
-                decisions: [
-                    { 
-                        text: "عقد ميثاق الدرعية ونشر الوحدة الشاملة", 
-                        result: "✅ انتصار تاريخي عظيم! بقرارك هذا، لم تؤسس مجرد مدينة، بل وضعت حجر الأساس للدولة السعودية الأولى. ميثاق الدرعية أصبح المنطلق لتوحيد معظم أرجاء الجزيرة العربية تحت راية واحدة، ونشرت الأمن بعد خوف، والعلم بعد جهل، لتمتد الدولة من الخليج إلى البحر الأحمر." 
-                    },
-                    { 
-                        text: "التركيز على القوة العسكرية لحماية الدرعية فقط", 
-                        result: "⚠️ نجاح محدود ومؤقت. استطعت حماية أسوار الدرعية ببراعة عسكرية، ولكن غياب مشروع الوحدة الكبرى جعل المناطق المجاورة تظل في حالة فوضى، وتأخر حلم تأسيس الدولة السعودية القوية لعدة عقود." 
-                    }
+                title: "فجر الدولة الأولى",
+                story: "في عام 1727م، وفي قلب الدرعية، الجزيرة العربية تعيش في شتات وخوف. أمامك يا إمام خيار مفصلي: هل تعقد ميثاق الدرعية التاريخي القائم على العدل والعلم لتوحيد القلوب وبناء دولة قوية، أم تركز على التحصينات العسكرية لمدينتك فقط وتترك جيرانك في صراعاتهم؟",
+                options: [
+                    { t: "عقد ميثاق الدرعية والوحدة", r: "✅ قرار حكيم! بفضلك تأسست الدولة السعودية الأولى، وانتشر الأمن والعلم في أرجاء الجزيرة العربية، وأصبحت الدرعية منارة للعز." },
+                    { t: "حماية أسوار الدرعية فقط", r: "⚠️ نجاح محدود. حفظت أمن مدينتك، ولكن الجزيرة ظلت في حالة تمزق وصراع لعقود طويلة أخرى." }
                 ],
-                biography: "الإمام محمد بن سعود بن محمد بن مقرن (توفي عام 1765م). هو مؤسس الدولة السعودية الأولى وعميد أسرة آل سعود. حول الدرعية من إمارة صغيرة إلى عاصمة لدولة مترامية الأطراف، تميزت فترة حكمه بالاستقرار وبناء القوة السياسية والاقتصادية والتعليمية."
+                bio: "الإمام محمد بن سعود هو المؤسس الأول، رجل الحكمة والرؤية الذي وضع اللبنة الأولى لهذا الكيان العظيم."
             },
             turki: {
                 name: "الإمام تركي بن عبد الله",
-                missionTitle: "استعادة المجد",
-                quest: "بعد سقوط الدرعية وانتشار اليأس في النفوس، الرياض تقع تحت قبضات المحتلين والظلم يملأ الأرجاء. خرجت من مغارة 'عليا' وحيداً ومعك سيفك الشهير 'الأجرب'. الناس يرقبونك كأمل أخير. هل تباغت الحصون في الرياض الآن بعملية جريئة وخاطفة رغم قلة عدد فرسانك، أم تنسحب بعيداً لجمع المزيد من الأنصار والعتاد لعدة سنوات أخرى؟",
-                decisions: [
-                    { 
-                        text: "اقتحام الرياض بسيف الأجرب فوراً", 
-                        result: "✅ عودة الفارس المظفر! بشجاعتك الأسطورية، استعدت الرياض وأسست الدولة السعودية الثانية من قلب الرماد. سيفك 'الأجرب' أصبح رمزاً وطنياً لاسترداد الحق المسلوب، وأعدت هيبة الحكم السعودي والعدل للناس." 
-                    },
-                    { 
-                        text: "الانسحاب لجمع الأنصار لسنوات طويلة", 
-                        result: "❌ ضياع الفرصة التاريخية. استغل المحتلون تأخرك في الهجوم وقاموا بتحصين الرياض بشكل مضاعف، مما جعل أي محاولة لاحقة للتحرير تكلف الكثير من الدماء والوقت والجهد المرير." 
-                    }
+                title: "استعادة المجد والرياض",
+                story: "بعد سنوات من سقوط الدرعية، الرياض تحت الاحتلال. خرجت ومعك سيفك 'الأجرب'. هل تباغت الحصن الآن بعملية فدائية مع ثلة من أبطالك، أم تنسحب وتنتظر سنوات لجمع جيش ضخم؟",
+                options: [
+                    { t: "اقتحام الرياض بسيف الأجرب", r: "✅ عاد الحق! بفضل شجاعتك استعدت الرياض وأسست الدولة السعودية الثانية وأعدت الأمل للناس." },
+                    { t: "الانتظار لجمع جيش أكبر", r: "❌ ضياع الفرصة. حصن الأعداء أنفسهم أكثر، وظلت الرياض محتلة لفترة أطول بكثير." }
                 ],
-                biography: "الإمام تركي بن عبدالله بن محمد آل سعود (1183هـ - 1249هـ). مؤسس الدولة السعودية الثانية وبطل استعادة الرياض. اشتهر بعدله وشجاعته النادرة، وقصيدته الشهيرة في سيفه 'الأجرب' تدرس حتى اليوم كرمز للفخر والقوة."
+                bio: "الإمام تركي بن عبدالله، بطل الصمود ومؤسس الدولة الثانية، صاحب السيف الأجرب الشهير."
             },
             aziz: {
                 name: "الملك عبد العزيز",
-                missionTitle: "فجر التوحيد",
-                quest: "ليلة 15 يناير 1902م: تقف مع 63 رجلاً من أخلص أتباعك أمام أسوار قصر المصمك في الرياض. الفجر يوشك على البزوغ، والفرصة التاريخية قد لا تتكرر أبداً في حياتك. هل تقتحم الحصن الآن بإيمان راسخ وعزيمة لا تلين لتسترد ملك آبائك وأجدادك، أم تتراجع لطلب مدد أكبر من القبائل المجاورة لتأمين الهجوم؟",
-                decisions: [
-                    { 
-                        text: "اقتحام المصمك مع خيوط الفجر الأولى", 
-                        result: "✅ الله أكبر! بفتحة المصمك التاريخية، أعلنت فجر الدولة السعودية الثالثة (المملكة العربية السعودية). بدأت رحلة الـ 30 عاماً الملحمية لتوحيد هذا الكيان العظيم، وتحويل الشتات إلى وطن واحد قوي ومزدهر تحت راية التوحيد." 
-                    },
-                    { 
-                        text: "الانسحاب وتأمين مدد أكبر من الخارج", 
-                        result: "❌ تبدد الحلم التاريخي. كشف الأعداء تحركاتكم وشددوا الحراسة على المصمك والرياض، وظلت العاصمة بعيدة المنال لسنوات طويلة من الانتظار والترقب الصعب." 
-                    }
+                title: "توحيد المملكة الحديثة",
+                story: "ليلة 15 يناير 1902م، أنت و63 رجلاً أمام أسوار المصمك. الفجر يوشك على البزوغ. هل تقتحم الحصن الآن لتسترد ملك آبائك، أم تتراجع بانتظار مدد من القبائل؟",
+                options: [
+                    { t: "اقتحام المصمك مع الفجر", r: "✅ الله أكبر! بفتحة المصمك أعلنت فجر الدولة السعودية الحديثة، وبدأت أعظم ملحمة توحيد في العصر الحديث." },
+                    { t: "التراجع لطلب المدد", r: "❌ ضياع اللحظة. كشف الأعداء أمركم، وبقيت الرياض بعيدة المنال لسنوات طويلة." }
                 ],
-                biography: "الملك عبدالعزيز بن عبدالرحمن آل سعود (1293هـ - 1373هـ). القائد العبقري وموحد المملكة العربية السعودية الحديثة. رمز الحكمة والشجاعة، استطاع بحنكته السياسية وبأسه العسكري بناء دولة عصرية أصبحت ثقلاً عالمياً."
+                bio: "الملك عبدالعزيز بن عبدالرحمن آل سعود، المؤسس الموحد وباني نهضة المملكة العربية السعودية الحديثة."
             }
         };
 
-        // --- وظائف التنقل (Navigation) ---
-        function goTo(id) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        }
+        // --- وظيفة التنقل المستقرة (إصلاح القلتش) ---
+        function smoothNav(targetId) {
+            // 1. تصفير السكرول فوراً
+            document.getElementById('main-scroller').scrollTop = 0;
 
-        function stopAudioAndBack() {
-            if(globalAudio) {
-                globalAudio.pause();
-                globalAudio.currentTime = 0;
-            }
-            goTo('scr-heroes');
-        }
-
-        // --- بناء واجهة الأبطال ---
-        function buildHeroInterface() {
-            const container = document.getElementById('hero-selection-area');
-            container.innerHTML = '';
-            for(let key in HistoryData) {
-                const btn = document.createElement('button');
-                btn.className = 'btn-action';
-                btn.innerText = HistoryData[key].name;
-                btn.onclick = () => launchMission(key);
-                container.appendChild(btn);
-            }
-        }
-
-        // --- إطلاق المهمة وتشغيل الصوت ---
-        function launchMission(key) {
-            const hero = HistoryData[key];
-            document.getElementById('task-title').innerText = hero.missionTitle;
-            document.getElementById('task-desc').innerText = hero.quest;
-
-            // تشغيل الملف الصوتي (يجب تسمية الملفات saud.mp3, turki.mp3, aziz.mp3)
-            if(globalAudio) globalAudio.pause();
-            globalAudio = new Audio(key + '.mp3');
-            globalAudio.play().catch(e => console.log("الصوت بانتظار تفاعل المستخدم أو الملف غير موجود"));
-
-            const btnContainer = document.getElementById('decision-buttons');
-            btnContainer.innerHTML = '';
-            hero.decisions.forEach(dec => {
-                const b = document.createElement('button');
-                b.className = 'btn-action';
-                b.innerText = dec.text;
-                b.onclick = () => {
-                    document.getElementById('result-desc').innerText = dec.result;
-                    if(globalAudio) globalAudio.pause();
-                    goTo('scr-result');
-                };
-                btnContainer.appendChild(b);
+            // 2. إخفاء كل الشاشات بنعومة
+            const allScreens = document.querySelectorAll('.screen');
+            allScreens.forEach(s => {
+                s.classList.remove('active');
             });
-            goTo('scr-task');
+
+            // 3. تفعيل الشاشة المطلوبة
+            setTimeout(() => {
+                document.getElementById(targetId).classList.add('active');
+            }, 50); // تأخير بسيط جداً لضمان سلاسة المتصفح
         }
 
-        // --- بناء واجهة السجل ---
-        function loadLore() {
-            const container = document.getElementById('lore-selection-area');
-            container.innerHTML = '';
-            for(let key in HistoryData) {
-                const b = document.createElement('button');
-                b.className = 'btn-action';
-                b.innerText = HistoryData[key].name;
-                b.onclick = () => {
-                    document.getElementById('bio-name').innerText = HistoryData[key].name;
-                    document.getElementById('bio-content').innerText = HistoryData[key].biography;
-                    goTo('scr-bio');
-                };
-                container.appendChild(b);
+        function killAudioAndBack() {
+            if(currentAudioInstance) {
+                currentAudioInstance.pause();
+                currentAudioInstance.currentTime = 0;
             }
-            goTo('scr-lore');
+            smoothNav('scr-heroes');
         }
 
-        // --- محرك خلفية الرمل (كود مفصل) ---
+        function initHeroes() {
+            const list = document.getElementById('hero-list');
+            list.innerHTML = '';
+            for(let key in FullData) {
+                const b = document.createElement('button');
+                b.className = 'btn-gold';
+                b.innerText = FullData[key].name;
+                b.onclick = () => startTheMission(key);
+                list.appendChild(b);
+            }
+        }
+
+        function startTheMission(key) {
+            const hero = FullData[key];
+            document.getElementById('mission-title-ui').innerText = hero.title;
+            document.getElementById('mission-desc-ui').innerText = hero.story;
+
+            // الصوت
+            if(currentAudioInstance) currentAudioInstance.pause();
+            currentAudioInstance = new Audio(key + '.mp3');
+            currentAudioInstance.play().catch(e => console.log("الصوت جاهز للعمل"));
+
+            const btnArea = document.getElementById('decision-list-ui');
+            btnArea.innerHTML = '';
+            hero.options.forEach(opt => {
+                const b = document.createElement('button');
+                b.className = 'btn-gold';
+                b.innerText = opt.t;
+                b.onclick = () => {
+                    document.getElementById('result-desc-ui').innerText = opt.r;
+                    if(currentAudioInstance) currentAudioInstance.pause();
+                    smoothNav('scr-result');
+                };
+                btnArea.appendChild(b);
+            });
+            smoothNav('scr-mission');
+        }
+
+        function loadLoreData() {
+            const list = document.getElementById('lore-list');
+            list.innerHTML = '';
+            for(let key in FullData) {
+                const b = document.createElement('button');
+                b.className = 'btn-gold';
+                b.innerText = FullData[key].name;
+                b.onclick = () => {
+                    document.getElementById('bio-name-ui').innerText = FullData[key].name;
+                    document.getElementById('bio-desc-ui').innerText = FullData[key].bio;
+                    smoothNav('scr-bio');
+                };
+                list.appendChild(b);
+            }
+            smoothNav('scr-lore');
+        }
+
+        // --- محرك الرمل (كود مفصل للجمالية) ---
         const canvas = document.getElementById('sand-canvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function initParticles() {
+        let dots = [];
+        function setup() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            particles = [];
-            for(let i=0; i<220; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 2.5 + 0.5,
-                    speed: Math.random() * 0.6 + 0.1,
-                    opacity: Math.random() * 0.5 + 0.2
-                });
-            }
+            dots = [];
+            for(let i=0; i<180; i++) dots.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, s: Math.random()*0.5+0.1});
         }
-
-        function drawParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                ctx.fillStyle = `rgba(193, 163, 95, ${p.opacity})`;
-                p.y -= p.speed;
-                if(p.y < 0) {
-                    p.y = canvas.height;
-                    p.x = Math.random() * canvas.width;
-                }
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
+        function loop() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle = "rgba(193, 163, 95, 0.4)";
+            dots.forEach(d => {
+                d.y -= d.s; if(d.y < 0) d.y = canvas.height;
+                ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI*2); ctx.fill();
             });
-            requestAnimationFrame(drawParticles);
+            requestAnimationFrame(loop);
         }
-
-        window.onresize = initParticles;
-        initParticles();
-        drawParticles();
-        buildHeroInterface();
-
+        window.onresize = setup;
+        setup(); loop(); initHeroes();
     </script>
 </body>
 </html>
