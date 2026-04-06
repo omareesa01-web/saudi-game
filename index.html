@@ -16,6 +16,16 @@
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 20%, var(--dark) 100%); z-index: -2; }
 
+        /* زر اختيار اللغة العلوي */
+        .lang-bar {
+            position: fixed; top: 10px; left: 10px; z-index: 100;
+            display: flex; gap: 5px; background: rgba(0,0,0,0.5); padding: 5px; border-radius: 10px;
+        }
+        .lang-bar button { 
+            background: transparent; border: 1px solid var(--gold); color: white; 
+            font-size: 0.7rem; cursor: pointer; border-radius: 5px; padding: 3px 8px;
+        }
+
         .screen { display: none; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 20px; text-align: center; }
         .active { display: flex; animation: ultraEntrance 0.8s ease-out forwards; }
 
@@ -24,7 +34,6 @@
             100% { opacity: 1; transform: scale(1); filter: blur(0); }
         }
 
-        /* أنيميشن المحتوى المتغير */
         .content-fade { animation: fadeInUp 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
         
         @keyframes fadeInUp {
@@ -62,7 +71,6 @@
 
         .back-link { margin-top: 25px; color: var(--gold); cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; font-size: 1.1rem; }
 
-        /* --- تأثير الرمل المتطاير --- */
         #game-engine .overlay::before {
             content: "";
             position: absolute;
@@ -82,44 +90,52 @@
 </head>
 <body>
 
+    <div class="lang-bar">
+        <button onclick="setLang('ar')">AR</button>
+        <button onclick="setLang('en')">EN</button>
+        <button onclick="setLang('es')">ES</button>
+        <button onclick="setLang('ru')">RU</button>
+        <button onclick="setLang('ko')">KO</button>
+    </div>
+
     <canvas id="bg-canvas"></canvas>
     <div class="overlay"></div>
 
     <div id="main-menu" class="screen active">
-        <h1 style="font-size: 3.5rem; color: var(--gold); letter-spacing: 2px;">ملاحم التأسيس</h1>
-        <p style="color: #aaa; margin-bottom: 30px;">استرجع تاريخ الأبطال بقراراتك المصيرية</p>
-        <button class="option-btn" style="width: 320px;" onclick="navigateTo('game-engine')">دخول الملحمة</button>
-        <button class="option-btn" style="width: 320px;" onclick="navigateTo('lore-engine')">سجل الأبطال</button>
+        <h1 id="txt-main-title" style="font-size: 3.5rem; color: var(--gold); letter-spacing: 2px;">ملاحم التأسيس</h1>
+        <p id="txt-main-desc" style="color: #aaa; margin-bottom: 30px;">استرجع تاريخ الأبطال بقراراتك المصيرية</p>
+        <button id="btn-start" class="option-btn" style="width: 320px;" onclick="navigateTo('game-engine')">دخول الملحمة</button>
+        <button id="btn-lore" class="option-btn" style="width: 320px;" onclick="navigateTo('lore-engine')">سجل الأبطال</button>
     </div>
 
     <div id="game-engine" class="screen">
         <div class="card content-fade" id="game-card-content">
-            <h1 style="color: var(--gold);">اختر قائد الملحمة</h1>
-            <p>حدد القائد لتبدأ في اتخاذ القرارات التي شكلت وجه الوطن..</p>
+            <h1 id="txt-game-title" style="color: var(--gold);">اختر قائد الملحمة</h1>
+            <p id="txt-game-desc">حدد القائد لتبدأ في اتخاذ القرارات التي شكلت وجه الوطن..</p>
             <div id="dynamic-action-area">
                 <button class="option-btn" onclick="startHeroLife('saud')">الإمام محمد بن سعود</button>
                 <button class="option-btn" onclick="startHeroLife('turki')">الإمام تركي بن عبد الله</button>
                 <button class="option-btn" onclick="startHeroLife('aziz')">الملك عبد العزيز</button>
             </div>
-            <a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة للرئيسية</a>
+            <a id="link-back-main" href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة للرئيسية</a>
         </div>
     </div>
 
     <div id="lore-engine" class="screen">
         <div class="card content-fade">
-            <h1 id="lore-title" style="color: var(--gold);">سجل الملاحم</h1>
+            <h1 id="txt-lore-title" style="color: var(--gold);">سجل الملاحم</h1>
             <div id="lore-body" style="line-height: 2.2; text-align: justify; font-size: 1.25rem; margin-bottom: 25px; color: #ddd;">
                 اختر بطلاً لاستعادة فصول ملحمته وقراءة تفاصيل رحلته في بناء هذا الوطن العظيم..
             </div>
             <div id="lore-selector">
-                <button class="option-btn" onclick="openLore('saud')">ملحمة التأسيس</button>
-                <button class="option-btn" onclick="openLore('turki')">ملحمة الاستعادة</button>
-                <button class="option-btn" onclick="openLore('aziz')">ملحمة التوحيد</button>
+                <button id="btn-lore-saud" class="option-btn" onclick="openLore('saud')">ملحمة التأسيس</button>
+                <button id="btn-lore-turki" class="option-btn" onclick="openLore('turki')">ملحمة الاستعادة</button>
+                <button id="btn-lore-aziz" class="option-btn" onclick="openLore('aziz')">ملحمة التوحيد</button>
             </div>
             <div id="audio-panel" style="display:none;">
-                <button class="option-btn" style="border-style: dashed;" onclick="executeSpeech()">🔊 استمع للملحمة بصوت ملكي</button>
+                <button id="btn-listen" class="option-btn" style="border-style: dashed;" onclick="executeSpeech()">🔊 استمع للملحمة بصوت ملكي</button>
             </div>
-            <a href="javascript:void(0)" class="back-link" onclick="navigateTo('main-menu')">رجوع للسجل</a>
+            <a id="link-back-lore" href="javascript:void(0)" class="back-link" onclick="navigateTo('main-menu')">رجوع للسجل</a>
         </div>
     </div>
 
@@ -138,6 +154,31 @@
         for(let i=0; i<80; i++) particles.push(new Particle());
         function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
         animate();
+
+        // --- نظام اللغات ---
+        let currentLang = 'ar';
+        const LANGS = {
+            ar: { mainT: "ملاحم التأسيس", mainD: "استرجع تاريخ الأبطال بقراراتك المصيرية", start: "دخول الملحمة", lore: "سجل الأبطال", gTitle: "اختر قائد الملحمة", gDesc: "حدد القائد لتبدأ..", back: "العودة للرئيسية", heroes: ["الإمام محمد بن سعود", "الإمام تركي بن عبد الله", "الملك عبد العزيز"] },
+            en: { mainT: "Founding Epics", mainD: "Relive history with your decisions", start: "Enter Epic", lore: "Heroes Record", gTitle: "Choose Leader", gDesc: "Select a leader to start..", back: "Back Home", heroes: ["Imam Muhammad bin Saud", "Imam Turki bin Abdullah", "King Abdulaziz"] },
+            es: { mainT: "Epopeyas", mainD: "Revive la historia con tus decisiones", start: "Entrar", lore: "Héroes", gTitle: "Elegir Líder", gDesc: "Selecciona un líder..", back: "Volver", heroes: ["Imam Muhammad", "Imam Turki", "Rey Abdulaziz"] },
+            ru: { mainT: "Эпопеи", mainD: "Оживите историю своими решениями", start: "Войти", lore: "Герои", gTitle: "Выбрать лидера", gDesc: "Выберите лидера..", back: "Назад", heroes: ["Имам Мухаммад", "Имам Турки", "Король Абдулазиз"] },
+            ko: { mainT: "건국 서사시", mainD: "결정으로 역사를 재현하세요", start: "시작하다", lore: "영웅 기록", gTitle: "리더 선택", gDesc: "리더를 선택하십시오..", back: "홈으로", heroes: ["이맘 무함마드", "이맘 투르키", "압둘아지즈 국왕"] }
+        };
+
+        function setLang(l) {
+            currentLang = l;
+            const t = LANGS[l];
+            document.body.dir = (l === 'ar' ? 'rtl' : 'ltr');
+            document.getElementById('txt-main-title').innerText = t.mainT;
+            document.getElementById('txt-main-desc').innerText = t.mainD;
+            document.getElementById('btn-start').innerText = t.start;
+            document.getElementById('btn-lore').innerText = t.lore;
+            document.getElementById('txt-game-title').innerText = t.gTitle;
+            document.getElementById('txt-game-desc').innerText = t.gDesc;
+            document.getElementById('link-back-main').innerText = t.back;
+            const hBtns = document.querySelectorAll('#dynamic-action-area button');
+            hBtns.forEach((b, i) => b.innerText = t.heroes[i]);
+        }
 
         function navigateTo(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -175,13 +216,10 @@
         function startHeroLife(heroId) {
             const hero = DATA[heroId];
             const container = document.getElementById('game-card-content');
-            
             container.classList.remove('content-fade');
             void container.offsetWidth; 
             container.classList.add('content-fade');
-
             container.innerHTML = `<h1 style="color:var(--gold); font-size:2rem;">مهمة القائد</h1><p style="font-size:1.25rem; line-height:1.8; margin-bottom:30px;">${hero.q}</p><div id="options-inject"></div><a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة لقائمة الأبطال</a>`;
-            
             const injectPoint = document.getElementById('options-inject');
             hero.opts.forEach(o => {
                 const b = document.createElement('button');
@@ -197,14 +235,13 @@
             container.classList.remove('content-fade');
             void container.offsetWidth;
             container.classList.add('content-fade');
-
             container.innerHTML = `<h1 style="color:var(--gold);">حكم التاريخ</h1><div class="result-box">${txt}</div><br><a href="javascript:void(0)" class="back-link" onclick="location.reload()">العودة للقائمة الرئيسية</a>`;
         }
 
         const LORE_DB = {
-            saud: "في عام 1727م، ومن قلب الدرعية الصامد، أعلن الإمام محمد بن سعود ولادة الدولة السعودية الأولى. لم تكن مجرد إمارة محلية، بل كانت مشروعاً نهضوياً يهدف لنشر العلم وتأمين طرق الحج والتجارة بعد قرون من الفوضى. ميثاق الدرعية التاريخي الذي عقده الإمام كان العهد الذي اجتمعت عليه القلوب، محولاً الدرعية إلى منارة علمية وسياسية مهابة في شبه الجزيرة العربية. اليوم، وحين ننظر لحي الطريف في 2026، نرى جذورنا الراسخة التي لم تهزها الرياح.",
-            turki: "بعد سقوط الدرعية، ظن الكثيرون أن القصة انتهت، لكن الإمام تركي بن عبدالله كان له رأي آخر. في عام 1824م، وبسيفه الشهير 'الأجرب'، شق طريقه ليعيد الرياض ويجعلها عاصمة الدولة السعودية الثانية. وضع الإمام قواعد العدل الصارم والبناء المؤسسي، وأثبت للعالم أن الدولة السعودية فكرة لا تموت، بل تولد من جديد بعزم رجالها. بفضله، بقيت الهوية السعودية حية، ممهدة الطريق لملحمة التوحيد الكبرى.",
-            aziz: "في ليلة لا تُنسى من عام 1902م، وبإيمان راسخ وستة وثلاثين رجلاً، فتح الملك عبدالعزيز بن عبدالرحمن أبواب المصمك ليعلن فجر الدولة السعودية الثالثة. خاض الملك 'صقر الجزيرة' ملاحم بطولية استمرت لثلاثين عاماً، لا لفتح الأراضي فحسب، بل لتوحيد القلوب وجمع شتات القبائل المتناحرة في كيان واحد اسمه 'المملكة العربية السعودية'. وازن بعبقرية بين التمسك بالجذور والانفتاح على العلم الحديث، ليترك لنا وطناً شامخاً نفاخر به العالم اليوم في 2026."
+            saud: "في عام 1727م، ومن قلب الدرعية الصامد، أعلن الإمام محمد بن سعود ولادة الدولة السعودية الأولى...",
+            turki: "بعد سقوط الدرعية، ظن الكثيرون أن القصة انتهت، لكن الإمام تركي بن عبدالله كان له رأي آخر...",
+            aziz: "في ليلة لا تُنسى من عام 1902م، وبإيمان راسخ وستة وثلاثين رجلاً، فتح الملك عبدالعزيز بن عبدالرحمن أبواب المصمك..."
         };
 
         function openLore(id) {
@@ -212,7 +249,7 @@
             body.innerText = LORE_DB[id];
             document.getElementById('lore-selector').style.display = 'none';
             document.getElementById('audio-panel').style.display = 'block';
-            document.getElementById('lore-title').innerText = "تفاصيل الملحمة";
+            document.getElementById('txt-lore-title').innerText = "تفاصيل الملحمة";
         }
 
         function executeSpeech() {
@@ -220,8 +257,6 @@
             const m = new SpeechSynthesisUtterance(text);
             m.lang = 'ar-SA';
             m.rate = 0.85; 
-            m.pitch = 0.9;
-            window.speechSynthesis.cancel();
             window.speechSynthesis.speak(m);
         }
     </script>
