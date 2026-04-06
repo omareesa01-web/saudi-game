@@ -3,132 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ملحمة التأسيس - نسخة الجوال السريعة</title>
+    <title>ملاحم التأسيس - النسخة الاحترافية</title>
     <style>
-        :root { --gold: #c1a35f; --dark: #05160d; --glass: rgba(0, 0, 0, 0.9); }
+        :root { --gold: #c1a35f; --dark: #05160d; --glass: rgba(0, 0, 0, 0.95); }
 
-        /* تحسين الأداء للجوال: تقليل عمليات التنعيم المعقدة */
         body, html { 
             margin: 0; padding: 0; height: 100%; width: 100%; 
-            background: var(--dark); font-family: sans-serif; 
+            background: var(--dark); font-family: 'Segoe UI', Tahoma, sans-serif; 
             color: white; overflow: hidden;
-            -webkit-tap-highlight-color: transparent;
         }
 
-        .overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: radial-gradient(circle at center, #0a2a18 0%, var(--dark) 100%); 
-            z-index: -2; 
+        /* خلفية فخمة ثابتة بدلاً من الكانفاس لتجنب التعليق */
+        .bg-gradient {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #0a2a18 0%, #05160d 100%);
+            z-index: -3;
         }
 
-        .screen { display: none; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 15px; text-align: center; }
-        .active { display: flex; animation: mobileFade 0.4s ease-out forwards; }
+        /* تأثير الرمل المتطاير (خفيف جداً على المعالج) */
+        .sand-particles {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23d4b483' fill-opacity='0.1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+            animation: sandMove 20s linear infinite;
+            z-index: -2; opacity: 0.5;
+        }
 
-        @keyframes mobileFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes sandMove { from { transform: translateY(0); } to { transform: translateY(-100vh); } }
+
+        .screen { display: none; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 20px; text-align: center; }
+        .active { display: flex; animation: fadeIn 0.6s ease-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .card { 
             background: var(--glass); border: 1px solid var(--gold); 
-            padding: 25px; border-radius: 25px; width: 90%; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            max-height: 80vh; overflow-y: auto;
-            -webkit-overflow-scrolling: touch; /* سلاسة التمرير في الآيفون */
+            padding: 30px; border-radius: 30px; max-width: 600px; width: 90%; 
+            box-shadow: 0 0 50px rgba(193, 163, 95, 0.1); backdrop-filter: blur(20px);
+            border-bottom: 4px solid var(--gold);
         }
 
         .option-btn {
-            background: #1a1a1a; border: 1px solid var(--gold);
-            color: white; padding: 15px; margin: 10px 0; border-radius: 15px;
-            cursor: pointer; width: 100%; font-size: 1.1rem; font-weight: bold;
-            transition: transform 0.1s; /* تقليل وقت التحول للاستجابة السريعة */
+            background: linear-gradient(145deg, rgba(193, 163, 95, 0.1), rgba(0,0,0,0.5));
+            border: 1px solid rgba(193, 163, 95, 0.4);
+            color: white; padding: 18px; margin: 12px 0; border-radius: 20px;
+            cursor: pointer; width: 100%; font-size: 1.2rem; font-weight: bold;
+            transition: 0.3s all; display: block;
         }
 
-        .option-btn:active { transform: scale(0.98); background: var(--gold); color: black; }
+        .option-btn:active { transform: scale(0.96); background: var(--gold); color: black; }
 
-        /* --- تأثير الرمل الخفيف جداً للجوال --- */
-        .sand-layer {
-            position: fixed; bottom: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: -1;
-            background-image: radial-gradient(var(--gold) 1px, transparent 1px);
-            background-size: 40px 40px; /* ذرات متباعدة لراحة المعالج */
-            animation: sandMove 20s linear infinite;
-            opacity: 0.2;
-        }
-
-        @keyframes sandMove {
-            from { transform: translateY(0); }
-            to { transform: translateY(-100vh); }
-        }
-
-        .back-link { margin-top: 20px; color: var(--gold); display: inline-block; text-decoration: none; font-size: 0.9rem; }
+        .lore-text { line-height: 2; text-align: justify; font-size: 1.15rem; color: #ddd; margin-bottom: 20px; }
+        
+        .back-link { margin-top: 25px; color: var(--gold); cursor: pointer; font-weight: bold; text-decoration: none; display: block; }
     </style>
 </head>
 <body>
 
-    <div class="overlay"></div>
-    <div class="sand-layer"></div>
+    <div class="bg-gradient"></div>
+    <div class="sand-particles"></div>
 
-    <div id="main-menu" class="screen active">
-        <h1 style="color: var(--gold); font-size: 2.5rem;">ملاحم التأسيس</h1>
-        <button class="option-btn" onclick="go('game-engine')">دخول الملحمة</button>
-        <button class="option-btn" onclick="go('lore-engine')">سجل الأبطال</button>
-    </div>
-
-    <div id="game-engine" class="screen">
-        <div class="card" id="game-content">
-            <h2 style="color: var(--gold);">اختر القائد</h2>
-            <button class="option-btn" onclick="play('saud')">الإمام محمد بن سعود</button>
-            <button class="option-btn" onclick="play('turki')">الإمام تركي بن عبد الله</button>
-            <button class="option-btn" onclick="play('aziz')">الملك عبد العزيز</button>
-            <a href="#" class="back-link" onclick="location.reload()">رجوع</a>
+    <div id="menu" class="screen active">
+        <h1 style="font-size: 3rem; color: var(--gold); text-shadow: 0 0 20px rgba(193, 163, 95, 0.3);">ملاحم التأسيس</h1>
+        <div style="width: 100%; max-width: 350px;">
+            <button class="option-btn" onclick="show('game')">دخول الملحمة</button>
+            <button class="option-btn" onclick="show('lore')">سجل الأبطال</button>
         </div>
     </div>
 
-    <div id="lore-engine" class="screen">
+    <div id="game" class="screen">
+        <div class="card" id="game-card">
+            <h2 style="color: var(--gold);">اختر القائد</h2>
+            <button class="option-btn" onclick="start('saud')">الإمام محمد بن سعود</button>
+            <button class="option-btn" onclick="start('turki')">الإمام تركي بن عبد الله</button>
+            <button class="option-btn" onclick="start('aziz')">الملك عبد العزيز</button>
+            <a class="back-link" onclick="show('menu')">العودة للرئيسية</a>
+        </div>
+    </div>
+
+    <div id="lore" class="screen">
         <div class="card">
-            <h2 id="l-title" style="color: var(--gold);">السجل التاريخي</h2>
-            <p id="l-text" style="line-height: 1.8; text-align: justify;"></p>
-            <div id="l-btns">
-                <button class="option-btn" onclick="read('saud')">عهد التأسيس</button>
-                <button class="option-btn" onclick="read('turki')">عهد الاستعادة</button>
-                <button class="option-btn" onclick="read('aziz')">عهد التوحيد</button>
+            <h2 id="l-title" style="color: var(--gold);">سجل الأبطال</h2>
+            <div id="l-body" class="lore-text">اختر بطلاً لاستعادة فصول ملحمته..</div>
+            <div id="l-choices">
+                <button class="option-btn" onclick="read('saud')">ملحمة التأسيس</button>
+                <button class="option-btn" onclick="read('turki')">ملحمة الاستعادة</button>
+                <button class="option-btn" onclick="read('aziz')">ملحمة التوحيد</button>
             </div>
-            <a href="#" class="back-link" onclick="go('main-menu')">رجوع</a>
+            <a class="back-link" onclick="show('menu')">رجوع</a>
         </div>
     </div>
 
     <script>
-        // دالة التنقل السريع
-        function go(id) {
+        function show(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
         }
 
-        const STORIES = {
-            saud: { q: "ميثاق الدرعية: كيف تجمع الناس على كلمة واحدة في عام 1727م؟", r: "عقدت الميثاق ونشرت العلم؛ فأصبحت الدرعية قلب الجزيرة النابض ومصدر قوتها." },
-            turki: { q: "سيف الأجرب: الرياض عادت، كيف تثبت أركان الحكم؟", r: "بالعدل والحزم أعدت الهيبة، وصارت الرياض واحة للأمن بعد سنين من الاضطراب." },
-            aziz: { q: "وحدة الوطن: كيف توحد القبائل تحت راية واحدة؟", r: "بنيت 'الهجر' وعلمت الناس، فصنعت شعباً واحداً مخلصاً لوطنه ودينه." }
+        const DATA = {
+            saud: { 
+                q: "تحدي الدرعية: في عام 1727م، الدرعية تحتاج ميثاقاً يجمع القلوب ويحمي الأرض، ماذا تقرر؟",
+                r: "✅ بقرارك الحكيم، وضعت حجر الزاوية لأعظم وحدة. في عام 2026، الدرعية هي 'جوهرة المملكة' وعاصمة الثقافة العالمية."
+            },
+            turki: { 
+                q: "تحدي الاستعادة: الرياض عادت في 1824م، لكن الفوضى تهدد الأمن. كيف تعيد هيبة الدولة؟",
+                r: "✅ بسيفك 'الأجرب' وعدلك، أصبحت الرياض في 2026 واحة للأمان، وصار اسمك رمزاً للحزم الذي يبني الأوطان."
+            },
+            aziz: { 
+                q: "تحدي التوحيد: كيف تجمع شتات القبائل المتناحرة في وطن واحد وتحت راية واحدة؟",
+                r: "✅ توطين البادية والتعليم صنع شعباً واحداً صلباً. في 2026، المملكة العربية السعودية تقود العالم برؤية لا تعرف المستحيل."
+            }
         };
 
-        function play(id) {
-            const s = STORIES[id];
-            const div = document.getElementById('game-content');
-            div.innerHTML = `<h2 style="color:var(--gold)">القرار المصيري</h2><p>${s.q}</p>
-            <button class="option-btn" onclick="res('${s.r}')">اتخاذ القرار</button>
-            <a href="#" class="back-link" onclick="location.reload()">تراجع</a>`;
+        function start(id) {
+            const hero = DATA[id];
+            document.getElementById('game-card').innerHTML = `
+                <h2 style="color:var(--gold)">مهمة القائد</h2>
+                <p class="lore-text">${hero.q}</p>
+                <button class="option-btn" onclick="result('${hero.r}')">اتخاذ القرار المصيري</button>
+                <a class="back-link" onclick="location.reload()">تراجع</a>
+            `;
         }
 
-        function res(txt) {
-            document.getElementById('game-content').innerHTML = `<h2 style="color:var(--gold)">حكم التاريخ</h2><p>${txt}</p>
-            <a href="#" class="back-link" onclick="location.reload()">العودة للبداية</a>`;
+        function result(txt) {
+            document.getElementById('game-card').innerHTML = `
+                <h2 style="color:var(--gold)">حكم التاريخ</h2>
+                <div class="lore-text" style="border-right:3px solid var(--gold); padding-right:15px;">${txt}</div>
+                <a class="back-link" onclick="location.reload()">العودة للبداية</a>
+            `;
         }
 
         function read(id) {
-            const texts = {
-                saud: "في 1727م، وضع الإمام محمد بن سعود لبنة الدولة الأولى، جاعلاً من الدرعية منارة للعلم والحضارة، لتمتد جذورنا لثلاثة قرون من العز.",
-                turki: "بشجاعة نادرة، استعاد الإمام تركي الرياض في 1824م، وأثبت بسيفه 'الأجرب' أن الدولة السعودية لا تنكسر أبداً.",
-                aziz: "في 1902م، انطلقت ملحمة التوحيد بقيادة الملك عبدالعزيز، الذي جمع القلوب قبل الأراضي، ليبني مملكة شامخة نعتز بها اليوم."
+            const stories = {
+                saud: "في عام 1727م، أرسى الإمام محمد بن سعود قواعد الدولة الأولى في الدرعية، منطلقاً من رؤية تجمع بين العلم والأمان. ميثاق الدرعية التاريخي كان العهد الذي اجتمعت عليه القلوب، محولاً إياها إلى منارة علمية مهابة.",
+                turki: "بإرادة صلبة، استعاد الإمام تركي بن عبدالله الرياض عام 1824م، وبنى قصر الحكم مؤسساً الدولة الثانية كرمز للعدل والاستقرار، مبرهناً أن الدولة السعودية فكرة لا تموت بل تولد من جديد.",
+                aziz: "سطر الملك عبدالعزيز عام 1902م أعظم ملحمة توحيد في العصر الحديث. جمع القلوب قبل الأراضي، وبنى وطناً شامخاً يوازن بين الأصالة والتقنية، ليضع حجر الأساس للمملكة العظمى التي نفاخر بها اليوم."
             };
-            document.getElementById('l-text').innerText = texts[id];
-            document.getElementById('l-btns').style.display = 'none';
+            document.getElementById('l-body').innerText = stories[id];
+            document.getElementById('l-choices').style.display = 'none';
         }
     </script>
 </body>
