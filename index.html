@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس - الإصدار ثنائي اللغة</title>
+    <title>ملحمة التأسيس - الإصدار الناطق ثنائي اللغة</title>
     
     <style>
+        /* --- الهوية البصرية والقواعد العامة --- */
         :root {
             --gold-main: #c1a35f;
             --gold-light: #f3cf7a;
@@ -26,6 +27,7 @@
 
         #sand-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
+        /* --- الحاوية الرئيسية --- */
         .app-wrapper {
             position: relative; z-index: 10; width: 95%; max-width: 800px;
             background: var(--glass-bg); backdrop-filter: blur(25px);
@@ -35,40 +37,79 @@
             max-height: 90vh; overflow-y: auto; overflow-x: hidden;
         }
 
+        /* --- نظام الأنيميشن السينمائي --- */
         .screen {
-            display: none; opacity: 0;
+            display: none; 
+            opacity: 0;
             transform: translateY(30px) scale(0.98);
             transition: opacity var(--transition-speed) ease, transform var(--transition-speed) cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        .screen.fade-in { opacity: 1; transform: translateY(0) scale(1); }
+        .screen.fade-in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
 
-        h1 { font-size: 2.8rem; color: var(--gold-main); margin-bottom: 20px; font-weight: 900; }
-        .description { font-size: 1.2rem; color: #e0e0e0; margin-bottom: 30px; line-height: 1.6; }
+        h1 { font-size: 3rem; color: var(--gold-main); margin-bottom: 20px; font-weight: 900; text-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .description { font-size: 1.3rem; color: #e0e0e0; margin-bottom: 40px; line-height: 1.6; }
 
+        /* --- تصميم الأزرار مع لمعة السيف --- */
         .btn-action {
-            width: 100%; background: linear-gradient(145deg, rgba(193, 163, 95, 0.15), rgba(0, 0, 0, 0.8));
-            border: 1.5px solid var(--gold-main); padding: 18px; border-radius: 15px;
-            color: white; font-size: 1.1rem; font-weight: 700; cursor: pointer;
-            transition: 0.4s; margin-bottom: 12px; display: block; position: relative; overflow: hidden;
+            width: 100%;
+            background: linear-gradient(145deg, rgba(193, 163, 95, 0.15), rgba(0, 0, 0, 0.8));
+            border: 1.5px solid var(--gold-main);
+            padding: 18px;
+            border-radius: 15px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            margin-bottom: 15px;
+            display: block;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-action::after {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             transition: 0.5s;
         }
 
-        .btn-action:hover { background: var(--gold-main); color: #000; transform: translateY(-5px); }
-        .btn-action:hover::after { left: 100%; }
-
-        .story-panel {
-            background: rgba(255, 255, 255, 0.06); padding: 30px; border-radius: 20px;
-            text-align: justify; line-height: 2.1; font-size: 1.2rem;
-            border-right: 8px solid var(--gold-main); margin: 20px 0; color: #f0f0f0;
+        .btn-action:hover {
+            background: var(--gold-main); color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(193, 163, 95, 0.3);
         }
 
-        .nav-link { display: inline-block; margin-top: 20px; color: var(--gold-light); cursor: pointer; font-weight: 800; }
+        .btn-action:hover::after {
+            left: 100%;
+        }
+
+        .story-panel {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 35px; border-radius: 25px;
+            text-align: justify; line-height: 2.2;
+            font-size: 1.25rem; border-right: 8px solid var(--gold-main);
+            margin: 25px 0; color: #f0f0f0;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+        }
+
+        .audio-status { color: var(--gold-light); font-weight: bold; margin-bottom: 10px; font-size: 1rem; }
+
+        .nav-link {
+            display: inline-block; margin-top: 25px; color: var(--gold-light);
+            text-decoration: none; font-weight: 800; font-size: 1.1rem;
+            cursor: pointer; transition: 0.3s;
+        }
+
+        .nav-link:hover { color: #fff; letter-spacing: 1px; }
 
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-thumb { background: var(--gold-main); border-radius: 10px; }
@@ -81,79 +122,85 @@
     <div class="app-wrapper" id="scroll-container">
         
         <div id="scr-lang" class="screen" style="display: block;">
-            <h1 style="font-size: 2.2rem;">اختر لغة الملحمة<br><span style="font-size: 1.5rem; color: #fff;">Choose Language</span></h1>
-            <button class="btn-action" onclick="setLang('ar')">العربية (Arabic)</button>
-            <button class="btn-action" onclick="setLang('en')">English (إنجليزي)</button>
+            <h1>اختر اللغة <br> <span style="font-size: 1.5rem; color: #fff;">Choose Language</span></h1>
+            <p class="description">يرجى اختيار لغة سرد الملحمة</p>
+            <button class="btn-action" onclick="setLang('ar')">العربية</button>
+            <button class="btn-action" onclick="setLang('en')">English</button>
         </div>
 
         <div id="scr-home" class="screen">
-            <h1 id="txt-home-title">ملاحم التأسيس</h1>
-            <p id="txt-home-desc" class="description"></p>
-            <button class="btn-action" id="btn-start" onclick="navTo('scr-heroes')"></button>
-            <button class="btn-action" id="btn-lore" onclick="showLore()"></button>
-            <a class="nav-link" onclick="navTo('scr-lang')">Change Language / تغيير اللغة</a>
+            <h1 id="ui-home-title">ملاحم التأسيس</h1>
+            <p id="ui-home-desc" class="description"></p>
+            <button class="btn-action" id="ui-btn-start" onclick="navTo('scr-heroes')"></button>
+            <button class="btn-action" id="ui-btn-lore" onclick="showLore()"></button>
         </div>
 
         <div id="scr-heroes" class="screen">
-            <h1 id="txt-choose-hero"></h1>
+            <h1 id="ui-hero-select-title">اختر القائد</h1>
             <div id="hero-list-container"></div>
-            <a class="nav-link" id="lnk-back-home" onclick="navTo('scr-home')"></a>
+            <a class="nav-link" id="ui-nav-back" onclick="navTo('scr-home')"></a>
         </div>
 
         <div id="scr-mission" class="screen">
-            <h1 id="ui-mission-title" style="font-size: 2rem;"></h1>
-            <div class="story-panel" id="ui-mission-desc"></div>
+            <h1 id="ui-mission-title" style="font-size: 2.2rem;"></h1>
+            <div class="audio-status" id="ui-audio-tag">🔊 استمع للراوي التاريخي...</div>
+            <div id="ui-mission-desc" class="story-panel"></div>
             <div id="ui-decision-buttons"></div>
-            <a class="nav-link" id="lnk-cancel" onclick="stopAudioAndGoBack()"></a>
+            <a class="nav-link" id="ui-nav-cancel" onclick="stopAudioAndGoBack()"></a>
         </div>
 
         <div id="scr-result" class="screen">
-            <h1 id="txt-history-verdict"></h1>
+            <h1 id="ui-result-title">حكم التاريخ</h1>
             <div id="ui-result-desc" class="story-panel"></div>
-            <a class="nav-link" id="lnk-retry" onclick="navTo('scr-mission')"></a>
-            <a class="nav-link" id="lnk-final-home" onclick="navTo('scr-home')"></a>
+            <div style="display: flex; gap: 20px; justify-content: center;">
+                <a class="nav-link" id="ui-nav-retry" onclick="navTo('scr-mission')"></a>
+                <a class="nav-link" id="ui-nav-home" onclick="navTo('scr-home')"></a>
+            </div>
         </div>
 
         <div id="scr-lore" class="screen">
-            <h1 id="txt-lore-title"></h1>
+            <h1 id="ui-lore-title">سجل العظماء</h1>
             <div id="ui-lore-list"></div>
-            <a class="nav-link" id="lnk-lore-back" onclick="navTo('scr-home')"></a>
+            <a class="nav-link" id="ui-nav-lore-back" onclick="navTo('scr-home')"></a>
         </div>
 
         <div id="scr-bio" class="screen">
-            <h1 id="ui-bio-name" style="color: var(--gold-light);"></h1>
+            <h1 id="ui-bio-name" style="color: var(--gold-light); font-size: 2.2rem;"></h1>
             <div id="ui-bio-body" class="story-panel"></div>
-            <a class="nav-link" id="lnk-bio-back" onclick="navTo('scr-lore')"></a>
+            <a class="nav-link" id="ui-nav-bio-back" onclick="navTo('scr-lore')"></a>
         </div>
     </div>
 
     <script>
-        let currentLang = 'ar';
-        let audioPlayer = null;
+        let currentLang = 'ar'; // القيمة الافتراضية
 
         const UI_TEXT = {
             ar: {
                 homeTitle: "ملاحم التأسيس",
-                homeDesc: "سجل تاريخي ناطق يروي أمجاد المملكة العربية السعودية",
-                start: "دخول الملحمة التفاعلية",
-                lore: "سير الأبطال والخالدين",
-                choose: "اختر القائد التاريخي",
+                homeDesc: "سجل تاريخي ناطق يروي أمجاد المملكة العربية السعودية عبر العصور",
+                btnStart: "دخول الملحمة الكبرى",
+                btnLore: "سير الأبطال والخالدين",
+                heroSelect: "اختر القائد",
                 back: "العودة للرئيسية",
+                audioTag: "🔊 استمع للراوي التاريخي...",
+                cancel: "إلغاء والعودة",
                 verdict: "حكم التاريخ",
                 retry: "تغيير القرار",
-                cancel: "إلغاء والعودة",
+                home: "الرئيسية",
                 loreTitle: "سجل العظماء"
             },
             en: {
                 homeTitle: "Founding Epics",
-                homeDesc: "A spoken historical record of the Kingdom of Saudi Arabia's glories",
-                start: "Enter Interactive Epic",
-                lore: "Biography of Heroes",
-                choose: "Choose Your Leader",
+                homeDesc: "A spoken historical record of the glories of the Kingdom of Saudi Arabia",
+                btnStart: "Enter the Great Epic",
+                btnLore: "Biographies of Heroes",
+                heroSelect: "Choose Your Leader",
                 back: "Back to Home",
+                audioTag: "🔊 Listen to the Historical Narrator...",
+                cancel: "Cancel and Return",
                 verdict: "History's Verdict",
                 retry: "Change Decision",
-                cancel: "Cancel & Return",
+                home: "Home",
                 loreTitle: "Hall of Heroes"
             }
         };
@@ -163,63 +210,63 @@
                 name: {ar: "الإمام محمد بن سعود", en: "Imam Muhammad bin Saud"},
                 title: {ar: "ميثاق الدرعية الخالد", en: "The Eternal Diriyah Pact"},
                 quest: {
-                    ar: "نحن في عام 1727م، الدرعية واحة في قلب نجد تعيش في عالم يملؤه التشتت. هل تختار عقد ميثاق تاريخي قائم على العلم والوحدة لتكون الدرعية عاصمة لدولة كبرى، أم تكتفي بحماية أسوار مدينتك فقط؟",
-                    en: "It's 1727, Diriyah is an oasis in Najd facing tribal conflicts. Do you choose to form a historic pact for unity and knowledge to build a great state, or just defend your city walls?"
+                    ar: "نحن في عام 1727م، الدرعية واحة خضراء في قلب نجد، لكنها تعيش في عالم يملؤه التشتت والصراعات القبلية والفقر. بصفتك الحاكم الشاب الطموح، أدركت أن القوة وحدها لا تبني أمة. التحدي أمامك الآن: هل تختار عقد ميثاق تاريخي قائم على الدعوة للعلم والعدل والوحدة لتكون الدرعية عاصمة لدولة كبرى تجمع شتات العرب، أم تكتفي بتعزيز الأسوار وحماية تجارتك وأهل مدينتك عسكرياً لضمان الاستقرار القريب دون الدخول في مخاطر بناء دولة مترامية الأطراف؟",
+                    en: "It is 1727 AD, Diriyah is an oasis in the heart of Najd, but it lives in a world filled with fragmentation and poverty. As the ambitious young ruler, you realized that strength alone does not build a nation. Your challenge now: Do you choose to form a historic pact based on knowledge, justice, and unity to make Diriyah the capital of a great state, or do you suffice with reinforcing the walls and protecting your people militarily?"
                 },
                 choices: [
-                    { t: {ar: "عقد ميثاق الوحدة", en: "Form the Unity Pact"}, r: {ar: "✅ انتصار! تأسست الدولة السعودية الأولى وعمّ الأمن أرجاء الجزيرة.", en: "✅ Victory! The First Saudi State was founded, bringing security to the peninsula."} },
-                    { t: {ar: "حماية الدرعية فقط", en: "Protect Diriyah Only"}, r: {ar: "⚠️ نجاح محدود. ظلت المنطقة في صراعات وضاعت فرصة بناء دولة كبرى.", en: "⚠️ Limited Success. The region remained in conflict, missing the chance for a great state."} }
+                    { t: {ar: "عقد ميثاق الوحدة وبناء الدولة", en: "Form the Unity Pact"}, r: {ar: "✅ انتصار تاريخي! بقرارك الشجاع، انطلق ميثاق الدرعية ليؤسس الدولة السعودية الأولى.", en: "✅ Historic Victory! With your brave decision, the Diriyah Pact launched the First Saudi State."} },
+                    { t: {ar: "التركيز على حماية الدرعية فقط", en: "Focus on Protecting Diriyah Only"}, r: {ar: "⚠️ نجاح محدود. ظلت نجد غارقة في الصراعات، وضاعت فرصة بناء دولة كبرى تجمع الكلمة.", en: "⚠️ Limited Success. Najd remained steeped in conflict, and the chance to build a great state was lost."} }
                 ],
-                bio: {ar: "مؤسس الدولة السعودية الأولى، وضع حجر الزاوية للوحدة.", en: "Founder of the First Saudi State, he laid the cornerstone for unity."}
+                bio: {ar: "مؤسس الدولة السعودية الأولى. اتسمت فترة حكمه بالاستقرار وبناء المؤسسات.", en: "Founder of the First Saudi State. His reign was characterized by stability and institution-building."}
             },
             turki: {
                 name: {ar: "الإمام تركي بن عبد الله", en: "Imam Turki bin Abdullah"},
-                title: {ar: "سيف الأجرب واستعادة الحق", en: "The Al-Ajrab Sword"},
+                title: {ar: "سيف الأجرب واستعادة الحق", en: "Al-Ajrab Sword and Reclaiming the Right"},
                 quest: {
-                    ar: "بعد سقوط الدرعية، الرياض تحت الاحتلال. خرجت بسيفك 'الأجرب' وحيداً. هل تباغت الحصون الآن رغم قلة رجالك، أم تنسحب وتنتظر سنوات لجمع الأنصار؟",
-                    en: "After Diriyah fell, Riyadh is occupied. You emerged alone with 'Al-Ajrab' sword. Do you surprise the fortresses now, or wait years to gather more followers?"
+                    ar: "بعد سقوط الدرعية الأليم، ظن الجميع أن الدولة السعودية قد انتهت للأبد. الرياض والمدن النجدية ترزح تحت وطأة الحاميات الأجنبية. خرجت أنت من مغارة 'عليا' وحيداً، لا تملك إلا إيمانك وسيفك الشهير 'الأجرب'. الناس ينظرون إليك كبصيص أمل أخير. القرار المصيري بيدك الآن: هل تباغت الحصون في الرياض بعملية جريئة وخاطفة رغم قلة رجالك لتعيد إحياء ملك آبائك الآن، أم تبتعد لسنوات طويلة لجمع الأنصار والعتاد خوفاً من قوة العدو وتحصيناته؟",
+                    en: "After the painful fall of Diriyah, everyone thought the Saudi state had ended forever. You emerged from the cave of 'Alya' alone, with nothing but your faith and your famous sword 'Al-Ajrab'. The people look to you as a final glimmer of hope. The decision is in your hands: Do you surprise the fortresses in Riyadh with a bold and swift operation now, or do you stay away for many years to gather supporters and equipment?"
                 },
                 choices: [
-                    { t: {ar: "مباغتة الرياض فوراً", en: "Surprise Riyadh Now"}, r: {ar: "✅ عودة الأمل! استعدت الرياض وأسست الدولة السعودية الثانية.", en: "✅ Hope Restored! You recaptured Riyadh and founded the Second Saudi State."} },
-                    { t: {ar: "الانتظار لسنوات", en: "Wait for Years"}, r: {ar: "❌ ضياع اللحظة. تحصن العدو أكثر وصارت المهمة مستحيلة.", en: "❌ Opportunity Lost. The enemy fortified further, making it impossible later."} }
+                    { t: {ar: "باغت الرياض بسيف الأجرب فوراً", en: "Surprise Riyadh with Al-Ajrab Now"}, r: {ar: "✅ عودة الفارس المظفر! استعدت الرياض وجعلتها عاصمة للدولة السعودية الثانية.", en: "✅ The Triumphant Knight Returns! You recaptured Riyadh and made it the capital of the Second Saudi State."} },
+                    { t: {ar: "الانسحاب لجمع الأنصار لسنوات", en: "Withdraw to Gather Supporters for Years"}, r: {ar: "❌ ضياع اللحظة التاريخية. استغل المحتلون تأخرك وقاموا بتحصين الرياض بمدافع إضافية.", en: "❌ Historical Moment Lost. The occupiers took advantage of your delay and fortified Riyadh further."} }
                 ],
-                bio: {ar: "مؤسس الدولة السعودية الثانية، رمز الشجاعة والإصرار.", en: "Founder of the Second Saudi State, a symbol of bravery and persistence."}
+                bio: {ar: "مؤسس الدولة السعودية الثانية. استطاع بذكائه العسكري استعادة الرياض.", en: "Founder of the Second Saudi State. He was able to recapture Riyadh with his military intelligence."}
             },
             aziz: {
                 name: {ar: "الملك عبد العزيز", en: "King Abdulaziz"},
-                title: {ar: "فجر المصمك والتوحيد", en: "Dawn of Masmak & Unification"},
+                title: {ar: "فجر المصمك والتوحيد", en: "Dawn of Masmak and Unification"},
                 quest: {
-                    ar: "ليلة 15 يناير 1902م، تقف مع رجالك أمام أسوار المصمك. الفجر يقترب. هل تقتحم الحصن الآن لتسترد ملك أجدادك، أم تتراجع لانتظار مدد خارجي؟",
-                    en: "January 15, 1902. You stand before Masmak walls. Dawn is near. Do you storm the fortress now to reclaim your legacy, or retreat for external support?"
+                    ar: "ليلة 15 يناير 1902م، البرد قارس والهدوء يلف أسوار الرياض. تقف أنت يا عبدالعزيز مع 63 رجلاً من أخلص أتباعك أمام قصر المصمك. الحلم كبير والمخاطر أكبر. الفجر يوشك على البزوغ والفرصة التاريخية قد تضيع للأبد. هل تقتحم الحصن الآن بإيمان وعزيمة لتسترد ملك أجدادك وتعلن فجر عهد جديد، أم تنسحب وتنتظر لسنوات أخرى طلباً للمدد والتحالفات الخارجية بعيداً عن الرياض؟",
+                    en: "On the night of January 15, 1902, the cold is bitter and silence surrounds the walls of Riyadh. You, Abdulaziz, stand with 63 of your most loyal followers in front of the Masmak Palace. The dream is big and the risks are bigger. Dawn is about to break. Do you storm the fortress now with faith and determination to reclaim your ancestors' kingdom, or do you withdraw and wait for years seeking external support?"
                 },
                 choices: [
-                    { t: {ar: "اقتحام المصمك بالفجر", en: "Storm Masmak at Dawn"}, r: {ar: "✅ الله أكبر! بدأت ملحمة توحيد المملكة العربية السعودية الحديثة.", en: "✅ Allahu Akbar! The unification of the modern Kingdom of Saudi Arabia began."} },
-                    { t: {ar: "التراجع والانتظار", en: "Retreat and Wait"}, r: {ar: "❌ تبدد الحلم. كشف الأعداء أمركم وظلت الرياض بعيدة لسنوات.", en: "❌ Dream Vanished. The enemy discovered you, and Riyadh remained out of reach."} }
+                    { t: {ar: "اقتحم المصمك مع خيوط الفجر", en: "Storm Masmak at the Break of Dawn"}, r: {ar: "✅ الله أكبر! بفتحة المصمك، أعلنت للعالم أجمع أن 'الملك لله ثم لعبدالعزيز'.", en: "✅ Allahu Akbar! With the opening of Masmak, you announced to the world: 'The Kingdom belongs to Allah, then to Abdulaziz.'"} },
+                    { t: {ar: "التراجع لانتظار المدد الخارجي", en: "Retreat to Wait for External Support"}, r: {ar: "❌ تبدد الحلم. كشف الأعداء أمركم وشددوا الحراسة، وظلت الرياض بعيدة المنال.", en: "❌ The Dream Vanished. The enemies discovered your plan and Riyadh remained out of reach."} }
                 ],
-                bio: {ar: "مؤسس المملكة العربية السعودية الحديثة، القائد الذي وحد القلوب والأرض.", en: "Founder of modern Saudi Arabia, the leader who united hearts and land."}
+                bio: {ar: "مؤسس المملكة العربية السعودية الحديثة. القائد العبقري الذي وحد القلوب قبل الأرض.", en: "Founder of the modern Kingdom of Saudi Arabia. The genius leader who united hearts before the land."}
             }
         };
 
         function setLang(lang) {
             currentLang = lang;
-            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar' ? 'rtl' : 'ltr');
             
-            // تحديث نصوص الواجهة
+            // تحديث نصوص الواجهة الثابتة
             const ui = UI_TEXT[lang];
-            document.getElementById('txt-home-title').innerText = ui.homeTitle;
-            document.getElementById('txt-home-desc').innerText = ui.homeDesc;
-            document.getElementById('btn-start').innerText = ui.start;
-            document.getElementById('btn-lore').innerText = ui.lore;
-            document.getElementById('txt-choose-hero').innerText = ui.choose;
-            document.getElementById('lnk-back-home').innerText = ui.back;
-            document.getElementById('txt-history-verdict').innerText = ui.verdict;
-            document.getElementById('lnk-retry').innerText = ui.retry;
-            document.getElementById('lnk-final-home').innerText = ui.back;
-            document.getElementById('lnk-cancel').innerText = ui.cancel;
-            document.getElementById('txt-lore-title').innerText = ui.loreTitle;
-            document.getElementById('lnk-lore-back').innerText = ui.back;
-            document.getElementById('lnk-bio-back').innerText = ui.back;
+            document.getElementById('ui-home-title').innerText = ui.homeTitle;
+            document.getElementById('ui-home-desc').innerText = ui.homeDesc;
+            document.getElementById('ui-btn-start').innerText = ui.btnStart;
+            document.getElementById('ui-btn-lore').innerText = ui.btnLore;
+            document.getElementById('ui-hero-select-title').innerText = ui.heroSelect;
+            document.getElementById('ui-nav-back').innerText = ui.back;
+            document.getElementById('ui-audio-tag').innerText = ui.audioTag;
+            document.getElementById('ui-nav-cancel').innerText = ui.cancel;
+            document.getElementById('ui-result-title').innerText = ui.verdict;
+            document.getElementById('ui-nav-retry').innerText = ui.retry;
+            document.getElementById('ui-nav-home').innerText = ui.home;
+            document.getElementById('ui-lore-title').innerText = ui.loreTitle;
+            document.getElementById('ui-nav-lore-back').innerText = ui.back;
+            document.getElementById('ui-nav-bio-back').innerText = ui.back;
 
             initApp();
             navTo('scr-home');
@@ -230,14 +277,14 @@
             const screens = document.querySelectorAll('.screen');
             screens.forEach(s => {
                 s.classList.remove('fade-in');
-                setTimeout(() => { if(!s.classList.contains('fade-in')) s.style.display = 'none'; }, 400);
+                setTimeout(() => { if(!s.classList.contains('fade-in')) s.style.display = 'none'; }, 500); 
             });
             setTimeout(() => {
                 const target = document.getElementById(targetId);
                 container.scrollTop = 0;
                 target.style.display = 'block';
                 setTimeout(() => target.classList.add('fade-in'), 50);
-            }, 450);
+            }, 550);
         }
 
         function initApp() {
@@ -253,8 +300,9 @@
                     document.getElementById('ui-mission-desc').innerText = h.quest[currentLang];
                     
                     if(audioPlayer) audioPlayer.pause();
-                    audioPlayer = new Audio(`${key}_${currentLang}.mp3`);
-                    audioPlayer.play().catch(e => console.log("Audio file missing"));
+                    // تشغيل ملف الصوت حسب البطل واللغة المختارة
+                    audioPlayer = new Audio(key + '_' + currentLang + '.mp3');
+                    audioPlayer.play().catch(e => console.log("الصوت بانتظار الملف: " + key + '_' + currentLang + ".mp3"));
 
                     const btnArea = document.getElementById('ui-decision-buttons');
                     btnArea.innerHTML = '';
@@ -294,17 +342,18 @@
 
         function stopAudioAndGoBack() { if(audioPlayer) audioPlayer.pause(); navTo('scr-heroes'); }
 
+        // --- محرك خلفية الرمال ---
         const canvas = document.getElementById('sand-canvas');
         const ctx = canvas.getContext('2d');
         let pts = [];
         function res() {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             pts = [];
-            for(let i=0; i<150; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2, v:Math.random()*0.3+0.1});
+            for(let i=0; i<180; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2, v:Math.random()*0.3+0.1});
         }
         function draw() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle = "rgba(193, 163, 95, 0.3)";
+            ctx.fillStyle = "rgba(193, 163, 95, 0.35)";
             pts.forEach(p => { p.y -= p.v; if(p.y<0) p.y=canvas.height; ctx.beginPath(); ctx.arc(p.x,p.y,p.s,0,Math.PI*2); ctx.fill(); });
             requestAnimationFrame(draw);
         }
