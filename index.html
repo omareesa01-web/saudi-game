@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس | النسخة المختصرة</title>
+    <title>ملحمة التأسيس | الإصدار النهائي الفخم</title>
     
     <style>
+        /* --- 1. المحرك البصري والألوان --- */
         :root {
             --gold-primary: #c1a35f;
             --gold-light: #f3cf7a;
             --bg-dark: #05160d;
-            --glass: rgba(0, 0, 0, 0.96);
+            --glass-strong: rgba(0, 0, 0, 0.94);
             --sword-fx: linear-gradient(90deg, transparent, #fff, var(--gold-light), transparent);
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
@@ -24,48 +25,61 @@
             overflow: hidden; display: flex; justify-content: center; align-items: center;
         }
 
+        /* --- 2. محرك الرمل عالي الجودة --- */
         #sand-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none; opacity: 0.7;
+            z-index: 1; pointer-events: none; opacity: 0.85;
         }
 
+        /* --- 3. تبديل اللغات الاحترافي --- */
         .lang-switcher {
-            position: fixed; top: 15px; left: 15px; z-index: 5000; display: flex; gap: 8px;
+            position: fixed; top: 20px; left: 20px; z-index: 5000; display: flex; gap: 10px;
         }
 
         .lang-node {
-            background: var(--glass); border: 1.5px solid var(--gold-primary);
-            color: var(--gold-light); padding: 6px 15px; border-radius: 20px;
-            cursor: pointer; font-weight: 700; font-size: 0.85rem;
-            transition: 0.3s; backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.6); border: 1.5px solid var(--gold-primary);
+            color: var(--gold-light); padding: 8px 18px; border-radius: 30px;
+            cursor: pointer; font-weight: 800; font-size: 0.85rem;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(15px); box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
-        .lang-node.active { background: var(--gold-primary); color: #000; box-shadow: 0 0 15px var(--gold-primary); }
+        .lang-node:hover { transform: scale(1.1); background: var(--gold-primary); color: #000; }
+        .lang-node.active { background: var(--gold-primary); color: #000; box-shadow: 0 0 20px var(--gold-primary); }
 
+        /* --- 4. الحاوية الرئيسية (تصميم رشيق وعالي الجودة) --- */
         .app-container {
-            position: relative; z-index: 100; width: 90%; max-width: 600px;
-            background: var(--glass); backdrop-filter: blur(40px);
-            border: 1.5px solid var(--gold-primary); border-radius: 25px;
-            padding: 25px; text-align: center; box-shadow: 0 50px 150px rgba(0, 0, 0, 1);
-            max-height: 85vh; overflow-y: auto; border-top: 5px solid var(--gold-primary);
+            position: relative; z-index: 100; width: 92%; max-width: 650px;
+            background: var(--glass-strong); backdrop-filter: blur(50px);
+            border: 1.5px solid var(--gold-primary); border-radius: 30px;
+            padding: 30px; text-align: center; 
+            box-shadow: 0 40px 120px rgba(0, 0, 0, 1), inset 0 0 20px rgba(193, 163, 95, 0.1);
+            max-height: 88vh; overflow-y: auto; border-top: 6px solid var(--gold-primary);
         }
 
-        .app-container::-webkit-scrollbar { width: 4px; }
+        .app-container::-webkit-scrollbar { width: 5px; }
         .app-container::-webkit-scrollbar-thumb { background: var(--gold-primary); border-radius: 10px; }
 
-        .screen { display: none; opacity: 0; transform: translateY(20px); transition: 0.5s ease; }
+        /* --- 5. منطق الشاشات --- */
+        .screen { display: none; opacity: 0; transform: translateY(25px); transition: 0.6s ease-out; }
         .screen.active { display: block; opacity: 1; transform: translateY(0); }
 
-        .hero-title { font-size: 1.8rem; color: var(--gold-primary); margin-bottom: 12px; font-weight: 900; }
-        .sub-text { font-size: 1rem; color: #ccc; margin-bottom: 25px; line-height: 1.6; }
+        .hero-title { 
+            font-size: 2.2rem; color: var(--gold-primary); margin-bottom: 15px; 
+            font-weight: 900; text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+        }
 
+        .sub-text { font-size: 1.05rem; color: #dcdcdc; margin-bottom: 30px; line-height: 1.8; }
+
+        /* --- 6. أزرار ضربة السيف (عالية الجودة) --- */
         .action-btn {
             position: relative; width: 100%;
-            background: rgba(193, 163, 95, 0.05); border: 1px solid var(--gold-primary);
-            padding: 12px; border-radius: 10px; color: #fff;
-            font-size: 0.95rem; font-weight: 700; cursor: pointer;
-            transition: 0.3s; margin-bottom: 10px; overflow: hidden;
+            background: linear-gradient(135deg, rgba(193, 163, 95, 0.1), rgba(0,0,0,0.4));
+            border: 1px solid var(--gold-primary); padding: 14px; border-radius: 12px;
+            color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer;
+            transition: 0.3s; margin-bottom: 12px; overflow: hidden;
             display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .action-btn::after {
@@ -73,22 +87,29 @@
             width: 100%; height: 100%; background: var(--sword-fx); transform: skewX(-45deg);
         }
 
-        .action-btn:hover::after { left: 150%; transition: 0.5s; }
-        .action-btn:hover { background: rgba(193, 163, 95, 0.2); transform: scale(1.01); }
-
-        .story-panel {
-            background: rgba(255, 255, 255, 0.03); padding: 18px; border-radius: 15px;
-            text-align: justify; line-height: 1.8; font-size: 1.05rem;
-            border-right: 5px solid var(--gold-primary); margin: 15px 0;
-            color: #eee; white-space: pre-line;
+        .action-btn:hover::after { left: 150%; transition: 0.6s ease-in-out; }
+        .action-btn:hover { 
+            background: rgba(193, 163, 95, 0.25); transform: translateY(-2px);
+            border-color: #fff; box-shadow: 0 8px 20px rgba(193, 163, 95, 0.3);
         }
 
-        [dir="ltr"] .story-panel { border-right: 0; border-left: 5px solid var(--gold-primary); }
+        /* --- 7. لوحة القصة الموسعة --- */
+        .story-panel {
+            background: rgba(255, 255, 255, 0.04); padding: 25px; border-radius: 20px;
+            text-align: justify; line-height: 2.1; font-size: 1.15rem;
+            border-right: 6px solid var(--gold-primary); margin: 20px 0;
+            color: #f5f5f5; white-space: pre-line;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.6);
+        }
+
+        [dir="ltr"] .story-panel { border-right: 0; border-left: 6px solid var(--gold-primary); }
 
         .footer-nav {
-            display: inline-block; margin-top: 15px; color: var(--gold-light);
-            text-decoration: none; font-weight: 700; cursor: pointer; font-size: 0.9rem;
+            display: inline-block; margin-top: 20px; color: var(--gold-light);
+            text-decoration: none; font-weight: 800; cursor: pointer; font-size: 0.95rem;
+            transition: 0.3s;
         }
+        .footer-nav:hover { color: #fff; text-shadow: 0 0 10px var(--gold-primary); }
     </style>
 </head>
 <body>
@@ -101,9 +122,10 @@
     </div>
 
     <div class="app-container" id="scroll-top">
+        
         <div id="scr-home" class="screen active">
             <h1 id="ui-title" class="hero-title">ملاحم التأسيس</h1>
-            <p id="ui-desc" class="sub-text">استكشف تاريخ المملكة عبر محاكاة قرارات الأبطال.</p>
+            <p id="ui-desc" class="sub-text">استكشف تاريخ المملكة العربية السعودية من خلال محاكاة قرارات الأبطال الذين بنوا هذا الوطن العظيم.</p>
             <button id="ui-btn-start" class="action-btn" onclick="navTo('scr-heroes')">دخول الملحمة التفاعلية</button>
             <button id="ui-btn-lore" class="action-btn" onclick="initLore()">سير الأبطال التاريخية</button>
         </div>
@@ -115,7 +137,7 @@
         </div>
 
         <div id="scr-quest" class="screen">
-            <h1 id="q-head" style="color: var(--gold-light); font-size: 1.3rem;"></h1>
+            <h1 id="q-head" style="color: var(--gold-light);"></h1>
             <div id="q-body" class="story-panel"></div>
             <div id="q-choices"></div>
             <a id="ui-cancel" class="footer-nav" onclick="navTo('scr-heroes')">تراجع</a>
@@ -139,88 +161,88 @@
             <div id="bio-content" class="story-panel"></div>
             <a id="ui-bio-back" class="footer-nav" onclick="navTo('scr-lore')">العودة للسجل</a>
         </div>
+
     </div>
 
     <script>
-        // دمج البيانات التاريخية الموسعة (نفس النسخة السابقة تماماً)
         const HISTORICAL_DATA = {
             saud: {
                 ar: {
                     name: "الإمام محمد بن سعود",
                     title: "ميثاق الدرعية (1727م)",
-                    quest: "عام 1139هـ، الدرعية بلدة صغيرة في قلب نجد، والمنطقة تعاني من فوضى عارمة. بصفتك حاكماً للدرعية، يأتيك خبر وصول الشيخ محمد بن عبدالوهاب باحثاً عن مكان ينشر فيه العلم والتوحيد. كيف ستبني أساس الدولة؟",
+                    quest: "عام 1139هـ، الدرعية بلدة صغيرة في قلب نجد، والمنطقة تعاني من فوضى عارمة، حروب قبلية لا تنتهي، وطرق تجارة غير آمنة. بصفتك حاكماً للدرعية، طموحك يتجاوز حدود الأسوار. \n\n يأتيك خبر وصول الشيخ محمد بن عبدالوهاب باحثاً عن مكان ينشر فيه العلم والتوحيد. كيف ستبني أساس الدولة؟",
                     paths: [
-                        { t: "عقد ميثاق تاريخي لنشر العلم والوحدة", r: "✅ قرار فاصل! بلقائك مع الشيخ في 'حي الطريف'، قلت: 'أبشر بالعزة والمنعة'. تأسست الدولة السعودية الأولى، وتوحدت نجد تحت راية واحدة لأول مرة منذ قرون." },
-                        { t: "التركيز على القوة العسكرية وتحصين الدرعية فقط", r: "⚠️ قرار حذر. حماية الدرعية تمت، لكن بدون مشروع فكري، ظلت القبائل الأخرى ترى فيك مجرد منافس، وتأخر حلم الدولة الكبرى لعقود." },
-                        { t: "عقد معاهدات سلام مؤقتة مع جيرانك", r: "❌ قرار ضعيف. المعاهدات مع حكام متنازعين جعلت الدرعية رهينة لمصالحهم. بمجرد شعورهم بقوتك، نقضوا العهود وهاجموا الدرعية." }
+                        { t: "عقد ميثاق تاريخي لنشر العلم والوحدة", r: "✅ قرار تاريخي! بلقائك مع الشيخ في 'حي الطريف'، قلت جملتك الشهيرة: 'أبشر ببلاد خير من بلادك، وأبشر بالعزة والمنعة'. \n\n النتيجة: تأسست الدولة السعودية الأولى، وتوحدت نجد تحت راية واحدة لأول مرة منذ قرون، وتحولت الدرعية إلى عاصمة سياسية وعلمية يهابها الجميع." },
+                        { t: "التركيز على القوة العسكرية وتحصين الدرعية فقط", r: "⚠️ قرار حذر لكنه محدود. استطعت حماية الدرعية وجعلها قلعة منيعة، لكن بدون مشروع فكري وعلمي يجمع القلوب، ظلت القبائل الأخرى ترى فيك مجرد منافس على السلطة، وتأخر حلم الدولة الكبرى لعقود طويلة." },
+                        { t: "عقد معاهدات سلام مؤقتة مع حكام الأقاليم المجاورة", r: "❌ قرار أضعف هيبتك. المعاهدات مع حكام متنازعين جعلت الدرعية رهينة لمصالحهم المتقلبة. بمجرد شعورهم بقوتك، نقضوا العهود وهاجموا الدرعية، مما أدى لضياع فرصة التأسيس في ذلك الوقت." }
                     ],
-                    bio: "الإمام محمد بن سعود (توفي 1765م). مؤسس الدولة السعودية الأولى. وحّد الدرعية وبنى سورها واستضاف الشيخ محمد بن عبدالوهاب، مما خلق كياناً سياسياً وعلمياً قوياً أمن طرق الحج والتجارة."
+                    bio: "الإمام محمد بن سعود بن محمد بن مقرن (توفي 1765م). \n\n هو مؤسس الدولة السعودية الأولى. تولى الحكم في ظروف استثنائية، لكنه كان يملك رؤية واضحة لبناء كيان سياسي مستقل. أهم إنجازاته: \n 1. توحيد شطري الدرعية. \n 2. بناء سور الدرعية الكبير. \n 3. استضافة الشيخ محمد بن عبدالوهاب وتوقيع 'اتفاق الدرعية' التاريخي. \n 4. تأمين طرق الحج والتجارة في قلب الجزيرة العربية."
                 },
                 en: {
                     name: "Imam Muhammad bin Saud",
                     title: "The Diriyah Pact (1727)",
-                    quest: "In 1727, Najd was in chaos. As the ruler of Diriyah, Sheikh Muhammad bin Abdulwahab arrives seeking a home for knowledge. How will you build your state?",
+                    quest: "In 1727, Diriyah was a small town. The region was in chaos. As the ruler, Sheikh Muhammad bin Abdulwahab arrived seeking a home for knowledge. How will you build the foundation of your state?",
                     paths: [
-                        { t: "Establish a Pact for Knowledge and Unity", r: "✅ The defining moment! The First Saudi State was born. For the first time in centuries, Najd was unified under one banner." },
-                        { t: "Focus solely on military fortifications", r: "⚠️ Cautious but limited. Diriyah was safe, but without a unifying ideology, the grand state was delayed." },
-                        { t: "Form temporary peace treaties", r: "❌ Weak strategy. Neighbors broke treaties as soon as you grew strong, losing the chance to establish the state." }
+                        { t: "Establish a Pact for Knowledge and Unity", r: "✅ The defining moment! In At-Turaif, you founded the First Saudi State. Najd was unified, and Diriyah became a political and educational capital." },
+                        { t: "Focus solely on military fortifications", r: "⚠️ A cautious move. You protected Diriyah, but without a unifying ideology, the dream of a grand state was delayed for decades." },
+                        { t: "Form temporary peace treaties with neighbors", r: "❌ A weak strategy. These rulers changed minds quickly. Once they felt your growing power, they broke the treaties and attacked." }
                     ],
-                    bio: "Imam Muhammad bin Saud (d. 1765). Founder of the First Saudi State. He unified Diriyah and signed the historic pact that formed the foundation of the Saudi nation."
+                    bio: "Imam Muhammad bin Saud (died 1765). \n\n The founder of the First Saudi State. Key Achievements: \n 1. Unified the districts of Diriyah. \n 2. Built the great wall of Diriyah. \n 3. Signed the 'Diriyah Pact', the state's foundation. \n 4. Secured pilgrimage and trade routes."
                 }
             },
             turki: {
                 ar: {
                     name: "الإمام تركي بن عبد الله",
                     title: "استعادة المجد (1824م)",
-                    quest: "الرياض تحت احتلال باطش بعد سقوط الدرعية. أنت الآن في 'خلوة الحلوة' بسيفك 'الأجرب'. هل ستنتظر أم تصنع المعجزة؟",
+                    quest: "بعد سقوط الدرعية، الرياض تحت احتلال حاميات أجنبية باطشة. أنت الآن في 'خلوة الحلوة'، ليس معك سوى إيمانك وسيفك الشهير 'الأجرب' وعدد قليل من المخلصين. التاريخ يناديك لاستعادة إرث أجدادك.",
                     paths: [
-                        { t: "قيادة عملية فدائية لتطهير الرياض ليلاً", r: "✅ نصر أسطوري! بذكاء عسكري، استعدت الرياض وجعلتها عاصمة للدولة السعودية الثانية، وأعدت الأمل والسيادة للجزيرة العربية." },
-                        { t: "الانتظار لجمع جيش ضخم من القبائل", r: "⚠️ فرصة ضائعة. انتظارك أعطى المحتل وقتاً لترميم الأسوار وجلب المدافع. الانتصار لاحقاً كلفك الكثير من الدماء." },
-                        { t: "إرسال رسائل للقبائل للثورة من الداخل", r: "❌ فشل الخطة. المحتل اكتشف الرسائل واعتقل الوجهاء، مما نشر الخوف وظلت الرياض محتلة لسنوات إضافية." }
+                        { t: "قيادة عملية فدائية لتطهير الرياض ليلاً", r: "✅ نصر أسطوري! بذكاء عسكري فذ، استطعت التسلل للرياض وطرد الحاميات الأجنبية بجيش صغير جداً. \n\n النتيجة: أعلنت الرياض عاصمة للدولة السعودية الثانية، وأعدت الأمل والسيادة للجزيرة العربية، وأثبتّ أن الحق لا يموت." },
+                        { t: "الانتظار في جنوب نجد لجمع جيش ضخم", r: "⚠️ فرصة ضائعة. انتظارك الطويل أعطى المحتل وقتاً لترميم أسوار الرياض وجلب المدافع. عندما هاجمت لاحقاً، واجهت مقاومة عنيفة جداً كلفتك أعز رجالك." },
+                        { t: "إرسال رسائل للقبائل للثورة من الداخل أولاً", r: "❌ فشل الخطة. المحتل اكتشف الرسائل وقام بحملة اعتقالات واسعة للوجهاء، مما جعل الناس يخشون الانضمام إليك، وظلت الرياض تحت الاحتلال لسنوات إضافية." }
                     ],
-                    bio: "الإمام تركي بن عبد الله (1755-1834م). مؤسس الدولة السعودية الثانية. استرد الرياض عام 1240هـ بسيفه 'الأجرب' وجعلها العاصمة الدائمة للدولة."
+                    bio: "الإمام تركي بن عبد الله آل سعود (1755-1834م). \n\n مؤسس الدولة السعودية الثانية وبطل استعادة المجد. أهم إنجازاته: \n 1. استعادة الرياض عام 1240هـ وتطهيرها من الاحتلال. \n 2. اختيار الرياض عاصمة للدولة بدلاً من الدرعية. \n 3. إعادة بناء الجامع الكبير وقصر الحكم. \n 4. صاحب السيف الأسطوري 'الأجرب'."
                 },
                 en: {
                     name: "Imam Turki bin Abdullah",
                     title: "The Restoration (1824)",
-                    quest: "Riyadh is occupied. You are in hiding with your legendary sword 'Al-Ajrab'. Will you reclaim your legacy?",
+                    quest: "Riyadh is occupied. You are in hiding with your faith, your sword 'Al-Ajrab', and a few loyal men. Will you wait or reclaim your legacy?",
                     paths: [
-                        { t: "Lead a surprise night raid on Riyadh", r: "✅ Heroic Victory! You reclaimed Riyadh and established the Second Saudi State, restoring sovereignty to the land." },
-                        { t: "Wait to gather a massive army first", r: "⚠️ Delay. The enemy fortified the city further, making the eventual liberation very costly in lives." },
-                        { t: "Send letters to stir an internal revolt", r: "❌ Failed. The occupiers intercepted letters and arrested leaders, extending the occupation for years." }
+                        { t: "Lead a surprise night raid on Riyadh", r: "✅ A legendary victory! Riyadh became the capital of the Second Saudi State, restoring hope and sovereignty to the land." },
+                        { t: "Wait to gather a massive army first", r: "⚠️ A lost opportunity. Your long wait allowed the occupiers to fortify Riyadh, making the liberation very costly." },
+                        { t: "Send letters to stir an internal revolution", r: "❌ Plan failed. The occupiers intercepted the letters and arrested local leaders, extending the occupation for years." }
                     ],
-                    bio: "Imam Turki bin Abdullah. Founder of the Second Saudi State. He reclaimed Riyadh with his famous sword and rebuilt the Great Mosque."
+                    bio: "Imam Turki bin Abdullah (1755-1834). \n\n Founder of the Second Saudi State. He reclaimed Riyadh and made it the permanent capital, rebuilding the city's heart."
                 }
             },
             aziz: {
                 ar: {
                     name: "الملك عبد العزيز",
                     title: "فتح الرياض (1902م)",
-                    quest: "ليلة 5 شوال. أمامك حصن المصمك ومعك 63 رجلاً فقط. خروج 'عجلان' من الحصن فجراً هي فرصتك. ماذا ستقرر؟",
+                    quest: "ليلة 5 شوال 1319هـ. الجو بارد جداً، وأنت تقف على مشارف الرياض معك 63 رجلاً فقط، وأمامك حصن المصمك المنيع. أنت الآن في بيت قريب من الحصن تنتظر بزوغ الفجر وخروج الحاكم 'عجلان'. ماذا ستقرر؟",
                     paths: [
-                        { t: "اقتحام المصمك فور خروج عجلان", r: "✅ 'الملك لله ثم لعبد العزيز!'.. نجحت الخطة واسترددت ملك آبائك، ومن هنا انطلقت رحلة الـ 30 عاماً لتوحيد المملكة." },
-                        { t: "الانتظار حتى يبتعد عجلان عن الحصن", r: "⚠️ مخاطرة كبرى. تنبه الحراس وأغلقوا البوابة. خضت معركة شوارع مكشوفة وتأخر النصر كثيراً." },
-                        { t: "محاولة استمالة حراس البوابة بالوعود", r: "❌ قرار كارثي. أبلغ الحراس عجلان فوراً بمحاولتكم، وحوصرت أنت ورجالك داخل البيوت وكدتم أن تُقتلوا." }
+                        { t: "اقتحام المصمك فور خروج عجلان من البوابة", r: "✅ 'الملك لله ثم لعبد العزيز!'.. نجحت الخطة ببراعة، واسترددت ملك آبائك، ومن تلك اللحظة انطلقت رحلة الـ 30 عاماً لتوحيد كافة أرجاء المملكة العربية السعودية الحديثة." },
+                        { t: "الانتظار حتى يبتعد عجلان عن الحصن لمهاجمته", r: "⚠️ مخاطرة كبرى. تنبه الحراس لوجودكم وأغلقوا أبواب المصمك. اضطررت لخوض معركة شوارع مكشوفة، وظل الحصن صامداً في تلك الليلة وتأخر النصر." },
+                        { t: "محاولة استمالة حراس البوابة بالمال أو الوعود", r: "❌ قرار كارثي. الحراس أبلغوا عجلان فوراً بمحاولتكم. تعرضت أنت ورجالك للحصار داخل البيوت، وكدتم أن تُقتلوا لولا فضل الله ثم انسحابكم السريع." }
                     ],
-                    bio: "الملك عبد العزيز (1876-1953م). مؤسس المملكة العربية السعودية الحديثة. وحد الحجاز وعسير والإحساء ونجد، واكتشف النفط في عهده لتبدأ النهضة الكبرى."
+                    bio: "الملك عبد العزيز آل سعود (1876-1953م). \n\n مؤسس المملكة العربية السعودية الحديثة. أهم إنجازاته: \n 1. استعادة الرياض في عمر الـ 26 عاماً. \n 2. توحيد كافة مناطق المملكة عام 1932م. \n 3. اكتشاف النفط وبداية النهضة الكبرى. \n 4. توطين البادية وبناء مؤسسات الدولة."
                 },
                 en: {
                     name: "King Abdulaziz",
                     title: "Conquest of Riyadh (1902)",
-                    quest: "With only 63 men against Masmak Fort, dawn is approaching. Will you storm the fort now?",
+                    quest: "With only 63 men against Masmak Fort, dawn is approaching. The Governor leaves the fort daily. This is your only chance. What is your call?",
                     paths: [
-                        { t: "Storm the fort as the gate opens", r: "✅ Success! You reclaimed the throne and began the journey to unify the modern Kingdom of Saudi Arabia." },
-                        { t: "Wait for the Governor to move away", r: "⚠️ Risk. The guards shut the gates, forcing an open street fight and delaying the victory." },
-                        { t: "Try to bribe or persuade the guards", r: "❌ Disastrous. Loyal guards reported you immediately. You and your men barely escaped with your lives." }
+                        { t: "Storm the fort as soon as the gate opens", r: "✅ Success! You reclaimed the throne, starting a 30-year journey to unify the modern Kingdom of Saudi Arabia." },
+                        { t: "Wait for the Governor to move away", r: "⚠️ High risk. The guards noticed you and shut the gates. You were forced into a street fight, delaying the victory." },
+                        { t: "Try to bribe or persuade the gate guards", r: "❌ A disastrous decision. The guards reported you immediately. You and your men barely escaped with your lives." }
                     ],
-                    bio: "King Abdulaziz Al Saud. Founder of modern Saudi Arabia. He unified the nation and established the state's modern institutions."
+                    bio: "King Abdulaziz Al Saud (1876-1953). \n\n The founder of modern Saudi Arabia. He unified the nation and established the state's modern era of prosperity."
                 }
             }
         };
 
         const INTERFACE_TEXTS = {
-            ar: { title: "ملاحم التأسيس", desc: "تاريخ المملكة بقرارات الأبطال.", start: "دخول الملحمة", lore: "سير الأبطال", choose: "اختر القائد", home: "الرئيسية", cancel: "تراجع", verdict: "حكم التاريخ", retry: "تجربة مسار آخر", main: "الرئيسية", records: "سجل الخالدين", bioBack: "رجوع", dir: "rtl" },
-            en: { title: "Founding Epics", desc: "Saudi history via hero decisions.", start: "Enter Epic", lore: "Bio Records", choose: "Select Leader", home: "Home", cancel: "Back", verdict: "Verdict", retry: "Retry Path", main: "Home", records: "Immortal Records", bioBack: "Back", dir: "ltr" }
+            ar: { title: "ملاحم التأسيس", desc: "تاريخ المملكة بقرارات الأبطال.", start: "دخول الملحمة التفاعلية", lore: "سير الأبطال التاريخية", choose: "اختر القائد", home: "الرئيسية", cancel: "تراجع", verdict: "حكم التاريخ", retry: "تجربة مسار آخر", main: "الرئيسية", records: "سجل الخالدين", bioBack: "رجوع", dir: "rtl" },
+            en: { title: "Founding Epics", desc: "Saudi history via hero decisions.", start: "Enter Interactive Epic", lore: "Historical Bio Records", choose: "Select Leader", home: "Home", cancel: "Back", verdict: "Verdict", retry: "Retry Path", main: "Home", records: "Immortal Records", bioBack: "Back", dir: "ltr" }
         };
 
         let currentLang = 'ar';
@@ -239,8 +261,8 @@
         }
 
         function navTo(id) {
-            document.querySelectorAll('.screen').forEach(s => { s.classList.remove('active'); setTimeout(() => s.style.display = 'none', 300); });
-            setTimeout(() => { const t = document.getElementById(id); t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 50); document.getElementById('scroll-top').scrollTop = 0; }, 350);
+            document.querySelectorAll('.screen').forEach(s => { s.classList.remove('active'); setTimeout(() => s.style.display = 'none', 400); });
+            setTimeout(() => { const t = document.getElementById(id); t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 50); document.getElementById('scroll-top').scrollTop = 0; }, 450);
         }
 
         function initHeroButtons() {
@@ -265,9 +287,17 @@
             }); navTo('scr-lore');
         }
 
+        /* --- محرك الرمل النهائي --- */
         const canvas = document.getElementById('sand-canvas'); const ctx = canvas.getContext('2d'); let dots = [];
-        function createDots() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; dots = []; for (let i = 0; i < 200; i++) dots.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, size: Math.random() * 1.5, speed: Math.random() * 0.3 + 0.1, op: Math.random() * 0.5 }); }
-        function render() { ctx.clearRect(0, 0, canvas.width, canvas.height); dots.forEach(d => { ctx.fillStyle = `rgba(193, 163, 95, ${d.op})`; d.y -= d.speed; if (d.y < 0) d.y = canvas.height; ctx.beginPath(); ctx.arc(d.x, d.y, d.size, 0, Math.PI * 2); ctx.fill(); }); requestAnimationFrame(render); }
+        function createDots() { 
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight; dots = []; 
+            for (let i = 0; i < 320; i++) dots.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, size: Math.random() * 2 + 0.3, speed: Math.random() * 0.4 + 0.1, op: Math.random() * 0.6 + 0.2 }); 
+        }
+        function render() { 
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+            dots.forEach(d => { ctx.fillStyle = `rgba(193, 163, 95, ${d.op})`; d.y -= d.speed; if (d.y < 0) d.y = canvas.height; ctx.beginPath(); ctx.arc(d.x, d.y, d.size, 0, Math.PI * 2); ctx.fill(); }); 
+            requestAnimationFrame(render); 
+        }
         window.onresize = createDots; createDots(); render(); setLanguage('ar');
     </script>
 </body>
