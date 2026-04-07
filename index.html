@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس | الإصدار الأخضر الملكي</title>
+    <title>ملحمة التأسيس | الرمال الذهبية</title>
     
     <style>
         /* [1] CSS ROOT - مصفوفة الألوان والخطوط */
@@ -11,13 +11,14 @@
             --gold-primary: #c1a35f;
             --gold-glow: #f3cf7a;
             --gold-deep: #8e733b;
+            --sand-dark: #664d2e; /* لون الرمال الغامق الجديد */
+            --bg-golden: #a67c52; /* لون الخلفية الذهبي الصحراوي الجديد */
             --deep-black: #010402;
-            --royal-green: #0d2e1c; /* اللون الأخضر المطلوب للخلفية */
-            --glass-bg: rgba(13, 46, 28, 0.95); /* خلفية خضراء بلمسة زجاجية */
-            --glass-border: rgba(193, 163, 95, 0.5);
+            --glass-bg: rgba(13, 46, 28, 0.98); /* خلفية القوائم الخضراء الملكية */
+            --glass-border: rgba(193, 163, 95, 0.6);
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             --transition-smooth: 0.8s cubic-bezier(0.2, 1, 0.3, 1);
-            --pure-white: #ffffff; /* اللون الأبيض للنصوص */
+            --pure-white: #ffffff;
         }
 
         /* [2] GLOBAL STYLES - تصفير الإعدادات */
@@ -32,7 +33,7 @@
         body, html {
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, #0a1f13 0%, var(--deep-black) 100%);
+            background: radial-gradient(circle at center, var(--bg-golden) 0%, #825e3a 100%); /* الخلفية ذهبية عميقة */
             color: var(--pure-white);
             font-family: var(--font-main);
             overflow: hidden;
@@ -41,8 +42,8 @@
             align-items: center;
         }
 
-        /* [3] TITAN ENGINE CANVAS - خلفية المحرك */
-        #titan-engine-canvas {
+        /* [3] SAND ENGINE CANVAS - خلفية تأثير الرمال */
+        #sand-engine-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -50,6 +51,7 @@
             height: 100%;
             z-index: 5;
             pointer-events: none;
+            opacity: 0.7; /* لشفافية الرمل */
         }
 
         /* [4] LANGUAGE HUB - واجهة اللغات */
@@ -63,7 +65,7 @@
         }
 
         .lang-btn {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             border: 1px solid var(--gold-primary);
             color: var(--gold-primary);
             padding: 10px 20px;
@@ -82,7 +84,7 @@
             box-shadow: 0 0 30px var(--gold-primary);
         }
 
-        /* [5] MAIN COMPACT APP - القائمة الرشيقة باللون الأخضر */
+        /* [5] MAIN COMPACT APP - القائمة الرشيقة باللون الأخضر الملكي */
         .app-container {
             position: relative;
             z-index: 100;
@@ -95,7 +97,7 @@
             border-radius: 40px;
             padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 100px 200px rgba(0,0,0,0.8), inset 0 0 40px rgba(255,255,255,0.02);
+            box-shadow: 0 100px 200px rgba(0,0,0,0.8);
             max-height: 85vh;
             overflow-y: auto;
             scrollbar-width: none;
@@ -145,7 +147,7 @@
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(0,0,0,0.4));
             border: 1px solid var(--gold-primary);
             border-radius: 20px;
-            color: var(--pure-white); /* كلام الأزرار أبيض */
+            color: var(--pure-white);
             font-size: 1rem;
             font-weight: 800;
             cursor: pointer;
@@ -187,7 +189,7 @@
             text-align: justify;
             line-height: 2.2;
             font-size: 1.05rem;
-            color: var(--pure-white); /* نصوص القصص بيضاء */
+            color: var(--pure-white);
             border-right: 8px solid var(--gold-primary);
             box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
             white-space: pre-line;
@@ -218,7 +220,7 @@
 </head>
 <body>
 
-    <canvas id="titan-engine-canvas"></canvas>
+    <canvas id="sand-engine-canvas"></canvas>
 
     <div class="language-hub">
         <div id="btn-ar" class="lang-btn active" onclick="setGlobalLang('ar')">AR</div>
@@ -248,7 +250,7 @@
         </div>
 
         <div id="screen-result" class="screen">
-            <h1 class="main-title" id="t-res-h">حكم التاريخ</h1>
+            <h1 id="main-title" class="main-title" id="t-res-h">حكم التاريخ</h1>
             <div id="result-text-box" class="lore-box"></div>
             <button class="btn-epic" onclick="navigateTo('screen-selection')">تجربة مسار جديد</button>
             <a class="back-nav" onclick="navigateTo('screen-gate')">الرئيسية</a>
@@ -311,13 +313,13 @@
                     ],
                     biography: "الملك عبد العزيز آل سعود. المؤسس العظيم الذي وحد البلاد تحت راية التوحيد وبدأ عصر النهضة."
                 },
-                en: { name: "King Abdulaziz", epic_title: "The Conquest", story_full: "63 men vs the fort. Dawn is near. Your plan?", decisions: [{ label: "Storm at dawn", feedback: "✅ Triumph! Modern Kingdom born." },{ label: "Besiege the city", feedback: "⚠️ Delayed victory." },{ label: "Ambush governor", feedback: "❌ Element of surprise lost." }], biography: "The Great Unifier." }
+                en: { name: "King Abdulaziz", epic_title: "The Conquest", story_full: "63 men vs the fort. Dawn is near. Your plan?", decisions: [{ label: "Storm the fort", feedback: "✅ Triumph! Modern Kingdom born." },{ label: "Besiege the city", feedback: "⚠️ Delayed victory." },{ label: "Ambush governor", feedback: "❌ Element of surprise lost." }], biography: "The Great Unifier." }
             }
         };
 
         const LOCALIZATION = {
-            ar: { g_h: "ملاحم التأسيس", g_d: "بوابتك التفاعلية لتجربة التاريخ السعودي العظيم بقراراتك القيادية.", s_h: "اختر القائد", r_h: "حكم التاريخ", a_h: "سجل الخالدين", b_h: "العودة", dir: "rtl" },
-            en: { g_h: "Founding Epics", g_d: "Experience the grand Saudi history through your leadership.", s_h: "Select Leader", r_h: "The Verdict", a_h: "Immortal Archive", b_h: "Back", dir: "ltr" }
+            ar: { g_h: "ملاحم التأسيس", g_d: "بوابتك التفاعلية لتجربة التاريخ السعودي العظيم بقراراتك القيادية.", s_h: "اختر القائد", r_h: "حكم التاريخ", a_h: "سجل الخالدين", dir: "rtl" },
+            en: { g_h: "Founding Epics", g_d: "Experience the grand Saudi history through your leadership.", s_h: "Select Leader", r_h: "The Verdict", a_h: "Immortal Archive", dir: "ltr" }
         };
 
         /* [S2] APP LOGIC */
@@ -385,8 +387,8 @@
             navigateTo('screen-biography');
         }
 
-        /* [S3] TITAN PHYSICS ENGINE - المحرك الفيزيائي المتطور */
-        const canvas = document.getElementById('titan-engine-canvas');
+        /* [S3] SAND ENGINE - محرك الرمال الذهبية الداكنة */
+        const canvas = document.getElementById('sand-engine-canvas');
         const ctx = canvas.getContext('2d');
         let particlesArray = [];
 
@@ -394,16 +396,21 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.1;
-                this.speedX = (Math.random() - 0.5) * 0.4;
-                this.speedY = (Math.random() - 0.5) * 0.4;
-                this.color = Math.random() > 0.8 ? '#f3cf7a' : '#c1a35f';
-                this.opacity = Math.random() * 0.4 + 0.1;
+                this.size = Math.random() * 2.5 + 0.1; // حجم حبات الرمل
+                this.speedX = (Math.random() - 0.5) * 0.3; // حركة جانبية خفيفة
+                this.speedY = (Math.random() * 0.5) + 0.1; // حركة لأسفل (تساقط)
+                this.color = '#664d2e'; // لون ذهبي غامق (بني صحراوي)
+                this.opacity = Math.random() * 0.6 + 0.1;
             }
             update() {
                 this.x += this.speedX; this.y += this.speedY;
+                // إعادة التدوير من الأعلى عند الوصول للأسفل
+                if (this.y > canvas.height) {
+                    this.y = -5;
+                    this.x = Math.random() * canvas.width;
+                }
+                // الارتداد من الجوانب
                 if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
             }
             draw() {
                 ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -414,24 +421,12 @@
         function initEngine() {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             particlesArray = [];
-            for (let i = 0; i < 400; i++) particlesArray.push(new Particle());
+            for (let i = 0; i < 350; i++) particlesArray.push(new Particle()); // كثافة رمل عالية
         }
 
         function handleParticles() {
             for (let i = 0; i < particlesArray.length; i++) {
                 particlesArray[i].update(); particlesArray[i].draw();
-                for (let j = i + 1; j < particlesArray.length; j++) {
-                    const dx = particlesArray[i].x - particlesArray[j].x;
-                    const dy = particlesArray[i].y - particlesArray[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 70) {
-                        ctx.beginPath(); ctx.strokeStyle = particlesArray[i].color;
-                        ctx.lineWidth = 0.15; ctx.globalAlpha = (1 - dist/70) * 0.2;
-                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-                        ctx.stroke();
-                    }
-                }
             }
         }
 
