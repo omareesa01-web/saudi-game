@@ -10,8 +10,8 @@
         :root {
             --primary-gold: #c1a35f;
             --light-gold: #f3cf7a;
-            --dark-green: #05160d;
-            --overlay-black: rgba(0, 0, 0, 0.95);
+            --deep-green: #05160d;
+            --overlay-black: rgba(0, 0, 0, 0.94);
             --border-glow: rgba(193, 163, 95, 0.6);
             --sword-slash-color: linear-gradient(90deg, transparent, #fff, var(--light-gold), transparent);
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -29,11 +29,11 @@
         body, html {
             width: 100%;
             height: 100%;
-            background-color: var(--dark-green);
+            background-color: var(--deep-green);
             background-image: radial-gradient(circle at center, #103a24 0%, #05160d 100%);
             color: #ffffff;
             font-family: var(--font-main);
-            overflow: hidden; /* يمنع السكرول الخارجي للحفاظ على هيبة التصميم */
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -48,121 +48,115 @@
             height: 100%;
             z-index: 1;
             pointer-events: none;
-            opacity: 0.8; /* لزيادة وضوح حبات الرمل */
+            opacity: 0.9;
         }
 
-        /* --- 4. واجهة تبديل اللغات (Lang Switcher) --- */
+        /* --- 4. واجهة تبديل اللغات --- */
         .language-container {
             position: fixed;
-            top: 30px;
-            left: 30px;
+            top: 25px;
+            left: 25px;
             z-index: 2000;
             display: flex;
             gap: 15px;
         }
 
         .lang-node {
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             border: 2px solid var(--primary-gold);
             color: var(--light-gold);
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 900;
             transition: var(--transition-smooth);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6);
         }
 
         .lang-node:hover {
             background: var(--primary-gold);
             color: #000;
-            transform: translateY(-3px);
+            transform: scale(1.1);
         }
 
         .lang-node.active {
             background: var(--primary-gold);
             color: #000;
-            box-shadow: 0 0 20px var(--primary-gold);
+            box-shadow: 0 0 25px var(--primary-gold);
         }
 
         /* --- 5. الحاوية الزجاجية الكبرى (Main App Wrapper) --- */
         .glass-box {
             position: relative;
             z-index: 100;
-            width: 90%;
-            max-width: 700px;
+            width: 92%;
+            max-width: 720px;
             background: var(--overlay-black);
-            backdrop-filter: blur(30px);
-            border: 2px solid var(--glass-border);
-            border-image: linear-gradient(to bottom, var(--primary-gold), transparent) 1;
-            border-radius: 40px; /* لن تظهر مع border-image لكنها كود احتياطي */
-            padding: 50px;
+            backdrop-filter: blur(35px);
+            border: 2px solid var(--primary-gold);
+            border-radius: 30px;
+            padding: 45px;
             text-align: center;
-            box-shadow: 0 100px 200px rgba(0, 0, 0, 1);
-            max-height: 85vh;
+            box-shadow: 0 80px 180px rgba(0, 0, 0, 1);
+            max-height: 88vh;
             overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary-gold) transparent;
         }
 
-        /* --- 6. تأثير السكرول بار المخصص --- */
+        /* --- 6. تخصيص السكرول بار --- */
         .glass-box::-webkit-scrollbar { width: 6px; }
-        .glass-box::-webkit-scrollbar-track { background: transparent; }
         .glass-box::-webkit-scrollbar-thumb { background: var(--primary-gold); border-radius: 10px; }
 
         /* --- 7. أنظمة الشاشات والتحريك --- */
         .app-screen {
             display: none;
             opacity: 0;
-            transform: scale(0.95) translateY(20px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: all 0.7s ease;
         }
 
         .app-screen.visible {
             display: block;
             opacity: 1;
-            transform: scale(1) translateY(0);
+            transform: translateY(0);
         }
 
         /* --- 8. العناوين والنصوص --- */
         .royal-title {
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             color: var(--primary-gold);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-weight: 900;
-            text-shadow: 0 10px 20px rgba(0,0,0,0.8);
+            text-shadow: 0 5px 15px rgba(0,0,0,0.9);
         }
 
         .royal-desc {
-            font-size: 1.25rem;
-            color: #d1d1d1;
-            margin-bottom: 50px;
-            line-height: 2;
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 40px;
+            line-height: 1.9;
         }
 
         /* --- 9. أزرار الأكشن مع تأثير "ضربة السيف" --- */
         .sword-btn {
             position: relative;
             width: 100%;
-            background: rgba(255, 255, 255, 0.03);
+            background: linear-gradient(145deg, rgba(193, 163, 95, 0.1), rgba(0,0,0,0.4));
             border: 1.5px solid var(--primary-gold);
-            padding: 22px;
+            padding: 20px;
             border-radius: 15px;
             color: #ffffff;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             transition: 0.4s ease;
-            margin-bottom: 20px;
-            overflow: hidden; /* ضروري جداً لقص تأثير السيف */
+            margin-bottom: 15px;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            letter-spacing: 1px;
         }
 
-        /* كود تأثير السيف (Sword Slash Effect) */
         .sword-btn::after {
             content: '';
             position: absolute;
@@ -176,54 +170,46 @@
 
         .sword-btn:hover::after {
             left: 150%;
-            transition: 0.5s ease-in-out;
+            transition: 0.45s ease-in-out;
         }
 
         .sword-btn:hover {
-            background: rgba(193, 163, 95, 0.2);
-            box-shadow: 0 0 30px rgba(193, 163, 95, 0.4);
-            transform: translateY(-2px);
-            border-color: #fff;
+            background: rgba(193, 163, 95, 0.25);
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(193, 163, 95, 0.3);
         }
 
         /* --- 10. لوحات النصوص التاريخية --- */
         .history-panel {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 35px;
-            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 30px;
+            border-radius: 20px;
             text-align: justify;
             line-height: 2.2;
-            font-size: 1.2rem;
-            border-right: 10px solid var(--primary-gold);
-            margin: 40px 0;
+            font-size: 1.15rem;
+            border-right: 8px solid var(--primary-gold);
+            margin: 30px 0;
             color: #f0f0f0;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
             white-space: pre-line;
         }
 
         [dir="ltr"] .history-panel {
             border-right: 0;
-            border-left: 10px solid var(--primary-gold);
+            border-left: 8px solid var(--primary-gold);
         }
 
         /* --- 11. الروابط الملاحية --- */
         .back-link {
             display: inline-block;
-            margin-top: 40px;
+            margin-top: 30px;
             color: var(--light-gold);
             text-decoration: none;
             font-weight: 800;
             cursor: pointer;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            transition: 0.3s;
             border-bottom: 2px solid transparent;
         }
 
-        .back-link:hover {
-            color: #fff;
-            border-bottom-color: var(--primary-gold);
-        }
+        .back-link:hover { color: #fff; border-bottom-color: var(--primary-gold); }
 
     </style>
 </head>
@@ -233,39 +219,40 @@
 
     <div class="language-container">
         <div id="lang-ar" class="lang-node active" onclick="switchSystemLanguage('ar')">العربية</div>
-        <div id="lang-en" class="lang-node" onclick="switchSystemLanguage('en')">ENGLISH</div>
+        <div id="lang-en" class="lang-node" onclick="switchSystemLanguage('en')">English</div>
     </div>
 
     <div class="glass-box" id="main-view">
         
         <div id="screen-home" class="app-screen visible">
             <h1 class="royal-title" id="ui-title">ملاحم التأسيس</h1>
-            <p class="royal-desc" id="ui-welcome">مشروع تفاعلي يروي قصة الأمجاد السعودية، من الدرعية إلى الرياض، حيث صنع الأبطال تاريخاً لا يُنسى.</p>
-            <button class="sword-btn" id="btn-enter" onclick="navigateTo('screen-heroes')">بدء الملحمة الكبرى</button>
-            <button class="sword-btn" id="btn-history" onclick="renderLoreList()">سجل العظماء (Bios)</button>
+            <p class="royal-desc" id="ui-welcome">مشروع الطالب: عمر - تقنية رقمية</p>
+            <button class="sword-btn" id="btn-enter" onclick="navigateTo('screen-heroes')">دخول الملحمة</button>
+            <button class="sword-btn" id="btn-history" onclick="renderLoreList()">سير الأبطال والخالدين</button>
         </div>
 
         <div id="screen-heroes" class="app-screen">
             <h1 class="royal-title" id="ui-choose">اختر القائد</h1>
             <div id="hero-injection-point"></div>
-            <a class="back-link" id="ui-home-link" onclick="navigateTo('screen-home')">العودة للرئيسية</a>
+            <a class="back-link" onclick="navigateTo('screen-home')">رجوع</a>
         </div>
 
         <div id="screen-quest" class="app-screen">
             <h1 id="quest-header" style="color: var(--light-gold);"></h1>
             <div id="quest-text" class="history-panel"></div>
             <div id="quest-options"></div>
-            <a class="back-link" id="ui-cancel" onclick="navigateTo('screen-heroes')">انسحاب</a>
+            <a class="back-link" onclick="navigateTo('screen-heroes')">انسحاب</a>
         </div>
 
         <div id="screen-result" class="app-screen">
             <h1 class="royal-title" id="ui-verdict">حكم التاريخ</h1>
             <div id="result-text" class="history-panel"></div>
-            <button class="sword-btn" id="ui-try-again" onclick="navigateTo('screen-heroes')">تجربة مسار آخر</button>
+            <button class="sword-btn" onclick="navigateTo('screen-heroes')">جرب قراراً آخر</button>
+            <a class="back-link" onclick="navigateTo('screen-home')">الرئيسية</a>
         </div>
 
         <div id="screen-lore" class="app-screen">
-            <h1 class="royal-title" id="ui-records">سجل الخالدين</h1>
+            <h1 class="royal-title">سجل الخالدين</h1>
             <div id="lore-injection-point"></div>
             <a class="back-link" onclick="navigateTo('screen-home')">رجوع</a>
         </div>
@@ -279,152 +266,111 @@
     </div>
 
     <script>
-        /**
-         * نظام إدارة البيانات والسيناريوهات
-         * تم تفصيل البيانات لزيادة المحتوى البرمجي
-         */
         let currentLanguage = 'ar';
 
-        const UI_TEXTS = {
-            ar: {
-                title: "ملاحم التأسيس", welcome: "استعد لخوض تجربة تاريخية فريدة تضعك في قلب صناعة القرار مع أئمة وملوك المملكة.",
-                enter: "بدء الملحمة الكبرى", history: "سجل العظماء (Bios)", choose: "اختر القائد",
-                home: "العودة للرئيسية", cancel: "انسحاب", verdict: "حكم التاريخ",
-                try: "تجربة مسار آخر", records: "سجل الخالدين", back: "رجوع", dir: "rtl"
-            },
-            en: {
-                title: "Founding Epics", welcome: "Prepare to live a unique historical experience, placing you at the heart of decision-making with the Saudi leaders.",
-                enter: "Enter the Epic", history: "Great Leaders (Bios)", choose: "Select Your Leader",
-                home: "Back to Home", cancel: "Withdraw", verdict: "History's Verdict",
-                try: "Try Another Path", records: "Immortal Records", back: "Back", dir: "ltr"
-            }
-        };
-
+        /**
+         * قاعدة البيانات الكاملة - 3 خيارات لكل بطل
+         */
         const DATA_STORE = {
             saud: {
                 ar: {
                     name: "الإمام محمد بن سعود",
-                    title: "مرحلة التأسيس (1727م)",
-                    quest: "الدرعية في خطر من الانقسامات والقبائل المتناحرة. بصفتك الحاكم، كيف ستبني أساساً لدولة تدوم لقرون؟",
+                    title: "ميثاق الدرعية (1727م)",
+                    quest: "أنت الآن حاكم الدرعية، نجد تعاني من التشتت والحروب. التاريخ يسألك: كيف ستبدأ رحلة بناء الدولة؟",
                     options: [
-                        { t: "تأسيس ميثاق الدرعية للوحدة والعلم", r: "✅ قرار عبقري! هذا الميثاق لم يوحد السلاح فقط، بل وحد القلوب والعقول، وبسببه انطلقت الدولة السعودية الأولى كأقوى كيان في المنطقة." },
-                        { t: "الاعتماد على القوة العسكرية المحضة فقط", r: "⚠️ نجاح مؤقت. القوة العسكرية دون فكر يوحد الناس جعلت السيطرة صعبة، واضطررت لخوض حروب استنزاف طويلة جداً." },
-                        { t: "عقد تحالفات مع القوى الإقليمية المحيطة", r: "❌ قرار خاطئ. التحالفات الخارجية جعلت الدرعية رهينة لمصالح الآخرين، وضاعت استقلالية القرار الوطني في مهب الريح." }
+                        { t: "عقد ميثاق تاريخي مع الشيخ محمد بن عبدالوهاب", r: "✅ قرار عبقري! بهذا الميثاق جمعت بين القوة السياسية والدعوة العلمية، مما أسس الدولة السعودية الأولى لتكون أقوى كيان في تاريخ الجزيرة العربية." },
+                        { t: "التركيز على تحصين أسوار الدرعية وتطوير الجيش فقط", r: "⚠️ قرار حذر. الدرعية أصبحت قلعة حصينة، لكنها ظلت مدينة مستقلة ولم تتحول إلى دولة كبرى تجمع شتات القبائل، فتأخرت الوحدة لسنوات." },
+                        { t: "الانسحاب من النزاعات القبلية لضمان أمن مدينتك", r: "❌ قرار خاطئ. الانعزال جعل الدرعية هدفاً سهلاً للقوى المجاورة، وضاعت فرصة ذهبية لقيادة العرب نحو الوحدة والاستقرار." }
                     ],
-                    bio: "هو الإمام محمد بن سعود بن محمد بن مقرن. ولد في الدرعية عام 1697م. يعتبر المؤسس الحقيقي للدولة السعودية الأولى. تميز ببعد نظره السياسي وحرصه على الاستقرار. جعل من الدرعية عاصمة للعلم والأمن وقبلة لطلبة العلم والقادة."
+                    bio: "مؤسس الدولة السعودية الأولى. جعل من الدرعية عاصمة للعلم والسياسة وبنى أول وحدة حقيقية في نجد منذ قرون."
                 },
                 en: {
                     name: "Imam Muhammad bin Saud",
-                    title: "The Founding Phase (1727)",
-                    quest: "Diriyah is threatened by divisions. As the leader, how will you build a foundation for a lasting state?",
+                    title: "Diriyah Pact (1727)",
+                    quest: "You are the ruler of Diriyah. Najd is fragmented. How will you build a lasting state?",
                     options: [
-                        { t: "Establish the Diriyah Pact for Unity", r: "✅ Brilliant! This pact united hearts and minds, launching the First Saudi State as a regional power." },
-                        { t: "Rely Solely on Military Might", r: "⚠️ Temporary Success. Without a unifying ideology, control remained difficult and led to exhaustion." },
-                        { t: "Form Alliances with Regional Powers", r: "❌ Wrong Move. Foreign alliances compromised independence, leaving national decisions in the hands of outsiders." }
+                        { t: "Sign the Pact of Unity and Knowledge", r: "✅ Brilliant! This pact united politics and faith, launching the powerful First Saudi State." },
+                        { t: "Focus solely on fortifying Diriyah", r: "⚠️ Cautious. Diriyah became safe, but the dream of a grand united nation was delayed." },
+                        { t: "Withdraw from tribal conflicts", r: "❌ Mistake. Isolation made Diriyah vulnerable and lost the chance to lead the region's unity." }
                     ],
-                    bio: "Imam Muhammad bin Saud (1697-1765) is the founder of the First Saudi State. He transformed Diriyah into a beacon of stability, knowledge, and security."
+                    bio: "Founder of the First Saudi State. He established Diriyah as a center for leadership and security."
                 }
             },
             turki: {
                 ar: {
                     name: "الإمام تركي بن عبد الله",
-                    title: "استعادة السيادة (1824م)",
-                    quest: "بعد سقوط الدرعية، الرياض تحت الاحتلال. خرجت من خلوتك بسيفك 'الأجرب'. ما هي استراتيجيتك لاستعادة ملك آبائك؟",
+                    title: "استعادة الرياض (1824م)",
+                    quest: "الرياض تحت الاحتلال الأجنبي. خرجت من مخبئك بسيفك 'الأجرب' ومعك عدد قليل من الرجال. ما هي خطتك؟",
                     options: [
-                        { t: "تسلل فدائي لقلب حصن الرياض ليلاً", r: "✅ نصر مؤزر! بذكائك الفذ وشجاعتك، استعدت الرياض بـ 40 رجلاً فقط، وأسست الدولة السعودية الثانية التي أعادت الأمل للجميع." },
-                        { t: "الانتظار لسنوات لجمع جيش من قبائل نجد", r: "⚠️ فرصة ضائعة. انتظارك الطويل سمح للعدو بتحصين الرياض بالمدافع، مما جعل استعادتها لاحقاً تكلف آلاف الأرواح." },
-                        { t: "محاولة التفاوض مع الحامية الأجنبية للخروج", r: "❌ فشل ذريع. اعتبر العدو تفاوضك ضعفاً، وقاموا بزيادة الضرائب والتنكيل بالأهالي رداً على طلبك." }
+                        { t: "مباغتة الحامية الأجنبية داخل الرياض ليلاً", r: "✅ انتصار مذهل! استعدت الرياض بشجاعتك، وأعلنت تأسيس الدولة السعودية الثانية التي أعادت السيادة والحق لآل سعود." },
+                        { t: "الانتظار لسنوات في الجبال لجمع جيش ضخم", r: "⚠️ فرصة ضائعة. العدو استغل وقتك لتحصين الرياض بالمدافع، مما جعل استعادتها لاحقاً تكلف الكثير من الدماء." },
+                        { t: "إرسال رسائل استمالة لزعماء الحامية للتفاوض", r: "❌ فشل ذريع. الحامية اعتبرت الرسائل ضعفاً، وقامت بتشديد الرقابة على الأهالي ونفيك بعيداً عن أرض أجدادك." }
                     ],
-                    bio: "مؤسس الدولة السعودية الثانية. صاحب سيف 'الأجرب' الشهير. استطاع بذكائه العسكري استعادة الرياض وجعلها العاصمة الدائمة للدولة، وهو جد الملوك الذين جاءوا من بعده."
+                    bio: "مؤسس الدولة السعودية الثانية. استرد ملك آبائه بسيفه الأسطوري 'الأجرب' وجعل الرياض عاصمة دائمة."
                 },
                 en: {
                     name: "Imam Turki bin Abdullah",
-                    title: "Restoring Sovereignty (1824)",
-                    quest: "After the fall of Diriyah, Riyadh is occupied. You emerged with your sword 'Al-Ajrab'. What is your strategy?",
+                    title: "Restoring Riyadh (1824)",
+                    quest: "Riyadh is occupied. You have your sword 'Al-Ajrab'. What is your plan?",
                     options: [
-                        { t: "A Stealth Attack on Riyadh's Fort", r: "✅ Victorious! With only 40 men, you reclaimed Riyadh and founded the Second Saudi State, restoring hope to the nation." },
-                        { t: "Wait Years to Gather a Massive Army", r: "⚠️ Missed Opportunity. The delay allowed the enemy to fortify Riyadh, making the eventual liberation very costly." },
-                        { t: "Negotiate with the Foreign Garrison", r: "❌ Failure. The enemy saw negotiation as weakness and increased their oppression of the local people." }
+                        { t: "Launch a surprise night raid", r: "✅ Victory! With courage, you reclaimed Riyadh and established the Second Saudi State." },
+                        { t: "Wait for years to gather a massive army", r: "⚠️ Late. The enemy fortified the city, making the eventual liberation very costly." },
+                        { t: "Negotiate with the occupiers", r: "❌ Failure. They saw it as weakness and tightened their grip on the people." }
                     ],
-                    bio: "The founder of the Second Saudi State and owner of the legendary sword 'Al-Ajrab'. He established Riyadh as the permanent capital."
+                    bio: "Founder of the Second Saudi State. He reclaimed his ancestors' throne with his legendary sword."
                 }
             },
             aziz: {
                 ar: {
                     name: "الملك عبد العزيز",
-                    title: "توحيد المملكة (1902م)",
-                    quest: "أنت الآن أمام أسوار المصمك مع رجالك المخلصين. الفجر يقترب.. التاريخ ينتظرك، فماذا أنت فاعل؟",
+                    title: "فتح المصمك (1902م)",
+                    quest: "أنت ورجالك الـ 63 أمام أسوار المصمك. التاريخ ينتظر كلمة منك قبل طلوع الفجر. ماذا ستقرر؟",
                     options: [
-                        { t: "اقتحام المصمك فوراً وبكل قوة", r: "✅ 'الملك لله ثم لعبد العزيز!'.. بقرارك الشجاع استعدت الرياض، وبدأت أعظم ملحمة توحيد شهدها العصر الحديث، لتولد المملكة العربية السعودية." },
-                        { t: "التراجع للكويت والانتظار لفرصة أخرى", r: "⚠️ تأجيل الحلم. تراجعك جعل الأعداء يعرفون تحركاتك، واستغرق الأمر 10 سنوات إضافية لتحصل على فرصة مشابهة." },
-                        { t: "إرسال رسائل استمالة لزعماء القبائل أولاً", r: "❌ كشف الخطة. الرسائل وقعت في يد حاكم الرياض، مما أدى لملاحقة رجالك في الصحراء وافشال العملية قبل بدايتها." }
+                        { t: "اقتحام المصمك مباشرة مع خيوط الفجر", r: "✅ 'الملك لله ثم لعبد العزيز!'.. بقرارك الجريء استعدت الرياض، وبدأت ملحمة توحيد المملكة العربية السعودية الحديثة." },
+                        { t: "التراجع لمشارف الرياض وطلب مدد إضافي", r: "⚠️ قرار متأخر. كشف الأعداء أمركم في الصحراء، واضطررت للعودة للكويت والانتظار لفرصة أخرى بعد سنوات." },
+                        { t: "فرض حصار على القصر لعدة أيام لإجبارهم على الاستسلام", r: "❌ خطة فاشلة. الحامية داخل المصمك تملك مؤناً لشهور، بينما رجالك في العراء بلا ماء، مما أدى لانسحابكم." }
                     ],
-                    bio: "الملك عبد العزيز بن عبد الرحمن آل سعود. مؤسس المملكة العربية السعودية الحديثة. قائد فذ جمع بين الشجاعة والدهاء السياسي. وحد القلوب قبل الأرض وبنى وطناً شامخاً."
+                    bio: "المؤسس العظيم للمملكة العربية السعودية. وحد القلوب والأرض وبنى وطناً شامخاً نفتخر به اليوم."
                 },
                 en: {
                     name: "King Abdulaziz",
-                    title: "The Unification (1902)",
-                    quest: "You are before the walls of Masmak with your loyal men. Dawn is approaching... History awaits. What will you do?",
+                    title: "Opening of Masmak (1902)",
+                    quest: "You are at the Masmak walls with 63 men. Dawn is coming. What is your call?",
                     options: [
-                        { t: "Storm the Masmak Fort Immediately", r: "✅ 'The Kingdom is for Allah, then Abdulaziz!' Your bravery reclaimed Riyadh and birthed the modern Kingdom of Saudi Arabia." },
-                        { t: "Retreat and Wait for Another Chance", r: "⚠️ Dream Delayed. Your retreat exposed your movements, and it took 10 more years to find another opening." },
-                        { t: "Send Envoys to Tribal Leaders First", r: "❌ Plan Exposed. Your letters were intercepted, leading to a pursuit in the desert and the failure of the mission." }
+                        { t: "Storm the fortress at dawn", r: "✅ Success! You reclaimed Riyadh and started the unification of the modern Kingdom." },
+                        { t: "Withdraw and wait for more support", r: "⚠️ Delayed. The enemy discovered your tracks, and the opportunity was lost for years." },
+                        { t: "Besiege the palace for days", r: "❌ Failed. The fort had supplies for months, while your men had none, forcing a retreat." }
                     ],
-                    bio: "King Abdulaziz Al Saud. The founder of the modern Kingdom of Saudi Arabia. A brilliant leader who unified the nation with courage and wisdom."
+                    bio: "The Great Founder of Saudi Arabia. He unified the nation with wisdom and bravery."
                 }
             }
         };
 
-        /**
-         * محرك الملاحة والتبديل (Navigation Engine)
-         */
-        function navigateTo(screenId) {
-            const allScreens = document.querySelectorAll('.app-screen');
-            allScreens.forEach(s => {
+        // --- محرك الوظائف ---
+        function navigateTo(id) {
+            document.querySelectorAll('.app-screen').forEach(s => {
                 s.classList.remove('visible');
-                setTimeout(() => s.style.display = 'none', 600);
+                setTimeout(() => s.style.display = 'none', 500);
             });
-
             setTimeout(() => {
-                const target = document.getElementById(screenId);
+                const target = document.getElementById(id);
                 target.style.display = 'block';
-                setTimeout(() => {
-                    target.classList.add('visible');
-                    document.getElementById('main-view').scrollTop = 0;
-                }, 50);
-            }, 650);
+                setTimeout(() => target.classList.add('visible'), 50);
+            }, 550);
         }
 
         function switchSystemLanguage(lang) {
             currentLanguage = lang;
-            const t = UI_TEXTS[lang];
-            
-            // تحديث الواجهة
             document.documentElement.lang = lang;
-            document.documentElement.dir = t.dir;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
             document.getElementById('lang-ar').classList.toggle('active', lang === 'ar');
             document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-            
-            // نصوص الواجهة
-            document.getElementById('ui-title').innerText = t.title;
-            document.getElementById('ui-welcome').innerText = t.welcome;
-            document.getElementById('btn-enter').innerText = t.enter;
-            document.getElementById('btn-history').innerText = t.history;
-            document.getElementById('ui-choose').innerText = t.choose;
-            document.getElementById('ui-home-link').innerText = t.home;
-            document.getElementById('ui-cancel').innerText = t.cancel;
-            document.getElementById('ui-verdict').innerText = t.verdict;
-            document.getElementById('ui-try-again').innerText = t.try;
-            document.getElementById('ui-records').innerText = t.records;
-
-            // إعادة بناء القوائم
             renderHeroList();
         }
 
         function renderHeroList() {
             const container = document.getElementById('hero-injection-point');
             container.innerHTML = '';
-            
             Object.keys(DATA_STORE).forEach(key => {
                 const btn = document.createElement('button');
                 btn.className = 'sword-btn';
@@ -438,10 +384,8 @@
             const data = DATA_STORE[key][currentLanguage];
             document.getElementById('quest-header').innerText = data.title;
             document.getElementById('quest-text').innerText = data.quest;
-            
             const optionsBox = document.getElementById('quest-options');
             optionsBox.innerHTML = '';
-            
             data.options.forEach(opt => {
                 const b = document.createElement('button');
                 b.className = 'sword-btn';
@@ -452,14 +396,12 @@
                 };
                 optionsBox.appendChild(b);
             });
-            
             navigateTo('screen-quest');
         }
 
         function renderLoreList() {
             const container = document.getElementById('lore-injection-point');
             container.innerHTML = '';
-            
             Object.keys(DATA_STORE).forEach(key => {
                 const btn = document.createElement('button');
                 btn.className = 'sword-btn';
@@ -474,56 +416,29 @@
             navigateTo('screen-lore');
         }
 
-        /**
-         * محرك الأنيميشن: الرمل الكثيف (Advanced Particles)
-         */
+        // Particle Engine
         const canvas = document.getElementById('sand-canvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function initPhysics() {
+        let dots = [];
+        function initParticles() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            particles = [];
-            for (let i = 0; i < 300; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 2.5 + 0.5,
-                    speedY: Math.random() * 0.5 + 0.1,
-                    speedX: (Math.random() - 0.5) * 0.2,
-                    opacity: Math.random() * 0.6 + 0.2
-                });
+            dots = [];
+            for(let i=0; i<300; i++) {
+                dots.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2.5, v: Math.random()*0.4+0.1, o: Math.random()*0.7 });
             }
         }
-
-        function animatePhysics() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.y -= p.speedY;
-                p.x += p.speedX;
-                if (p.y < 0) p.y = canvas.height;
-                if (p.x < 0) p.x = canvas.width;
-                if (p.x > canvas.width) p.x = 0;
-
-                ctx.fillStyle = `rgba(193, 163, 95, ${p.opacity})`;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            dots.forEach(d => {
+                ctx.fillStyle=`rgba(193, 163, 95, ${d.o})`;
+                d.y -= d.v; if(d.y < 0) d.y = canvas.height;
+                ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI*2); ctx.fill();
             });
-            requestAnimationFrame(animatePhysics);
+            requestAnimationFrame(draw);
         }
-
-        // إطلاق النظام
-        window.addEventListener('resize', initPhysics);
-        initPhysics();
-        animatePhysics();
-        switchSystemLanguage('ar');
-
-        /* نهاية الكود الملحمي. 
-           تمت كتابة هذا الكود بعناية ليتجاوز 400 سطر مع التفصيل الممل 
-           ليكون مشروعاً مشرفاً لعمر أمام المعلمين.
-        */
+        window.onresize = initParticles;
+        initParticles(); draw(); renderHeroList();
     </script>
 </body>
 </html>
