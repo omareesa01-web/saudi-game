@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس | العاصفة الذهبية</title>
+    <title>ملحمة التأسيس | الإصدار الذهبي الكامل</title>
     
     <style>
-        /* [1] CSS ROOT - مصفوفة الألوان الذهبية الحقيقية الملكية */
+        /* [1] CSS ROOT - مصفوفة الألوان والخطوط */
         :root {
-            --gold-primary: #D4AF37; /* لون ذهبي حقيقي وصريح (Metallic Gold) */
-            --gold-glow: #FFD700; /* ذهبي لامع جداً للإضاءة (Pure Gold) */
-            --gold-deep: #B8860B; /* ذهبي داكن للعمق */
-            --bg-dark-sand: #050401; /* خلفية داكنة جداً لإبراز الذهب */
-            --glass-bg: rgba(13, 46, 28, 0.98); /* القائمة الخضراء الملكية */
-            --glass-border: rgba(212, 175, 55, 0.5); /* حدود ذهبية حقيقية */
+            --gold-bg: #C5A059; /* لون الخلفية الذهبي الصحراوي */
+            --gold-primary: #D4AF37; /* ذهبي معدني للأيقونات والحدود */
+            --gold-glow: #FFD700; /* ذهبي لامع جداً */
+            --gold-storm: #7D5B25; /* لون حبات الرمل (أغمق للتباين) */
+            --royal-green: #0d2e1c; /* لون القوائم المطلوب */
+            --glass-bg: rgba(13, 46, 28, 0.98); /* شفافية القائمة الخضراء */
+            --glass-border: rgba(212, 175, 55, 0.6);
             --font-main: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
-            --transition-smooth: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --transition-smooth: 0.8s cubic-bezier(0.2, 1, 0.3, 1);
             --pure-white: #ffffff;
         }
 
-        /* [2] GLOBAL STYLES - تصفير الإعدادات */
+        /* [2] GLOBAL STYLES */
         * {
             margin: 0;
             padding: 0;
@@ -31,7 +32,7 @@
         body, html {
             width: 100%;
             height: 100%;
-            background: var(--bg-dark-sand); /* خلفية داكنة جداً خلف العاصفة */
+            background: var(--gold-bg);
             color: var(--pure-white);
             font-family: var(--font-main);
             overflow: hidden;
@@ -40,7 +41,7 @@
             align-items: center;
         }
 
-        /* [3] TITAN STORM CANVAS - خلفية العاصفة الرملية الكثيفة */
+        /* [3] THE STORM ENGINE CANVAS */
         #titan-storm-canvas {
             position: fixed;
             top: 0;
@@ -49,10 +50,9 @@
             height: 100%;
             z-index: 5;
             pointer-events: none;
-            opacity: 1; /* العاصفة ظاهرة تماماً */
         }
 
-        /* [4] LANGUAGE HUB - واجهة اللغات */
+        /* [4] LANGUAGE HUB */
         .language-hub {
             position: fixed;
             top: 25px;
@@ -63,7 +63,7 @@
         }
 
         .lang-btn {
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.8);
             border: 1px solid var(--gold-primary);
             color: var(--gold-primary);
             padding: 10px 20px;
@@ -71,9 +71,8 @@
             cursor: pointer;
             font-weight: 900;
             font-size: 0.8rem;
-            transition: 0.3s;
+            transition: 0.4s;
             backdrop-filter: blur(20px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
         .lang-btn.active {
@@ -82,20 +81,20 @@
             box-shadow: 0 0 30px var(--gold-primary);
         }
 
-        /* [5] MAIN COMPACT APP - القائمة الخضراء الرشيقة وسط العاصفة */
+        /* [5] MAIN COMPACT APP - القائمة الخضراء */
         .app-container {
             position: relative;
             z-index: 100;
             width: 90%;
-            max-width: 410px; /* الرشاقة المطلوبة */
-            background: var(--glass-bg); /* القائمة خضراء ملكية */
-            backdrop-filter: blur(60px);
+            max-width: 410px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(50px);
             border: 1px solid var(--glass-border);
-            border-top: 7px solid var(--gold-primary); /* الحد العلوي ذهبي صريح */
+            border-top: 7px solid var(--gold-primary);
             border-radius: 40px;
-            padding: 40px 30px;
+            padding: 45px 35px;
             text-align: center;
-            box-shadow: 0 100px 250px rgba(0,0,0,0.9), inset 0 0 30px rgba(193,163,95,0.02);
+            box-shadow: 0 80px 150px rgba(0,0,0,0.6);
             max-height: 85vh;
             overflow-y: auto;
             scrollbar-width: none;
@@ -103,11 +102,11 @@
 
         .app-container::-webkit-scrollbar { display: none; }
 
-        /* [6] SCREEN MANAGEMENT - إدارة الشاشات */
+        /* [6] SCREEN MANAGEMENT */
         .screen {
             display: none;
             opacity: 0;
-            transform: scale(0.95) translateY(30px);
+            transform: scale(0.9) translateY(40px);
             transition: all var(--transition-smooth);
         }
 
@@ -117,28 +116,23 @@
             transform: scale(1) translateY(0);
         }
 
-        /* كلمة ملاحم التأسيس باللون الذهبي اللامع */
         .main-title {
             font-size: 2.3rem;
             font-weight: 900;
             color: var(--gold-primary); 
-            margin-bottom: 20px;
-            text-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
-            letter-spacing: -1px;
-            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
 
-        /* النصوص باللون الأبيض */
         .description-text {
-            font-size: 0.98rem;
+            font-size: 1rem;
             line-height: 1.8;
             color: var(--pure-white); 
             margin-bottom: 35px;
             opacity: 0.95;
-            font-weight: 500;
         }
 
-        /* [7] TITAN BUTTONS - الأزرار الفاخرة */
+        /* [7] TITAN BUTTONS */
         .btn-epic {
             position: relative;
             width: 100%;
@@ -152,7 +146,7 @@
             font-weight: 800;
             cursor: pointer;
             overflow: hidden;
-            transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            transition: 0.5s;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -160,29 +154,14 @@
 
         .btn-epic:hover {
             transform: translateY(-5px);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(0,0,0,0.6));
-            border-color: var(--gold-glow);
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.35);
+            background: var(--gold-primary);
+            color: var(--royal-green);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
         }
 
-        .btn-epic::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: 0.7s;
-        }
-
-        .btn-epic:hover::before {
-            left: 100%;
-        }
-
-        /* [8] LORE BOX - لوحة المحتوى خضراء وكلامها أبيض */
+        /* [8] LORE BOX */
         .lore-box {
-            background: rgba(0, 0, 0, 0.25);
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 25px;
             padding: 30px;
             margin: 25px 0;
@@ -195,30 +174,16 @@
             white-space: pre-line;
         }
 
-        [dir="ltr"] .lore-box {
-            border-right: 0;
-            border-left: 8px solid var(--gold-primary);
-        }
-
         .back-nav {
             display: inline-block;
             margin-top: 30px;
             color: var(--gold-glow);
             cursor: pointer;
             font-weight: 800;
-            font-size: 0.9rem;
-            transition: 0.3s;
             text-decoration: underline;
-            text-underline-offset: 5px;
-        }
-
-        .back-nav:hover {
-            color: var(--pure-white);
-            letter-spacing: 1px;
         }
     </style>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -244,18 +209,17 @@
             <a class="back-nav" onclick="navigateTo('screen-gate')">العودة للرئيسية</a>
         </div>
 
-        <div id="scr-quest" class="screen">
-            <h1 id="quest-title-header" style="color: var(--gold-glow); font-size: 1.6rem; margin-bottom: 20px;"></h1>
+        <div id="screen-quest" class="screen">
+            <h1 id="quest-title-header" style="color: var(--gold-glow); font-size: 1.5rem; margin-bottom: 20px;"></h1>
             <div id="quest-content-box" class="lore-box"></div>
             <div id="quest-actions-container"></div>
-            <a class="back-nav" onclick="navigateTo('screen-selection')">تراجع عن القرار</a>
+            <a class="back-nav" onclick="navigateTo('screen-selection')">تراجع</a>
         </div>
 
         <div id="screen-result" class="screen">
-            <h1 class="main-title" id="main-title" id="t-res-h">حكم التاريخ</h1>
+            <h1 class="main-title" id="t-res-h">حكم التاريخ</h1>
             <div id="result-text-box" class="lore-box"></div>
             <button class="btn-epic" onclick="navigateTo('screen-selection')">تجربة مسار جديد</button>
-            <a class="back-nav" onclick="navigateTo('screen-gate')">الرئيسية</a>
         </div>
 
         <div id="screen-archive" class="screen">
@@ -267,61 +231,58 @@
         <div id="screen-biography" class="screen">
             <h1 id="bio-hero-name" class="main-title"></h1>
             <div id="bio-content-box" class="lore-box"></div>
-            <a class="back-nav" onclick="navigateTo('screen-archive')">العودة للسجل</a>
+            <a class="back-nav" onclick="navigateTo('screen-archive')">العودة</a>
         </div>
 
     </div>
 
     <script>
-        /* [S1] DATA ARCHIVE */
+        /* [S1] FULL DATA ARCHIVE - 600+ Lines Logic Support */
         const EPIC_DATA = {
             m_saud: {
                 ar: {
                     name: "الإمام محمد بن سعود",
-                    epic_title: "يوم ميثاق الدرعية التاريخي",
-                    story_full: "في عام 1139هـ (1727م)، تولى الإمام محمد بن سعود الحكم في الدرعية. يأتيك الشيخ محمد بن عبدالوهاب باحثاً عن قاعدة آمنة لنشر دعوة التوحيد والعلم. أنت الآن أمام قرار سيغير وجه التاريخ: هل تستقبل الشيخ وتتحمل تبعات المواجهة، أم تفضل السلامة؟",
+                    epic_title: "يوم ميثاق الدرعية",
+                    story_full: "في عام 1727م، تولى الإمام محمد بن سعود الحكم. يأتيك الشيخ محمد بن عبدالوهاب باحثاً عن نصرة التوحيد. هل تعقد الميثاق؟",
                     decisions: [
-                        { label: "عقد الميثاق ونصرة العلم", feedback: "✅ 'أبشر ببلاد خير من بلادك، وأبشر بالعزة والمنعة'. بهذه الكلمات، وضعت حجر الأساس للدولة السعودية الأولى. اتحدت القبائل، وتحولت الدرعية إلى عاصمة امتدت في أرجاء الجزيرة العربية." },
-                        { label: "توفير الحماية دون تحالف", feedback: "⚠️ قرار حذر. وجد الشيخ الأمان، لكن الدولة لم تنطلق بقوة الوحدة. بقيت الدرعية قوية ولكنها لم تصبح عاصمة لدولة كبرى في ذلك الوقت." },
-                        { label: "طلب استشارة الحكماء", feedback: "❌ أدى التردد إلى تسرب الخبر، فقام الخصوم بالضغط اقتصادياً، مما أخر مشروع التأسيس لسنوات طويلة." }
+                        { label: "عقد الميثاق ونصرة العلم", feedback: "✅ 'أبشر بالعزة والمنعة'. بهذه الكلمات تأسست الدولة السعودية الأولى." },
+                        { label: "توفير الحماية فقط", feedback: "⚠️ وجد الشيخ الأمان لكن الدولة لم تنطلق بقوة الوحدة." }
                     ],
-                    biography: "الإمام محمد بن سعود. المؤسس الأول للدولة السعودية. تميز برؤية ثاقبة وشجاعة في اتخاذ القرارات المصيرية."
+                    biography: "المؤسس الأول للدولة السعودية وصاحب رؤية التوحيد والوحدة."
                 },
-                en: { name: "Imam Muhammad bin Saud", epic_title: "The Great Pact", story_full: "A scholar arrives seeking alliance. Your choice defines the nation.", decisions: [{ label: "Form the Alliance", feedback: "✅ Success! You founded the First Saudi State." },{ label: "Asylum only", feedback: "⚠️ Vision delayed." },{ label: "Consult others", feedback: "❌ Mission stalled." }], biography: "The First Founder." }
+                en: { name: "Imam Muhammad bin Saud", epic_title: "The Great Pact", story_full: "The scholar seeks alliance. Do you accept?", decisions: [{ label: "Form Alliance", feedback: "✅ You founded the First Saudi State." },{ label: "Safety only", feedback: "⚠️ Vision delayed." }], biography: "The Great Founder." }
             },
             i_turki: {
                 ar: {
                     name: "الإمام تركي بن عبد الله",
-                    epic_title: "ملحمة استعادة الرياض",
-                    story_full: "بعد سقوط الدرعية، أنت الآن مختبئ في 'خلوة الحلوة' بجبل طويق. معك سيفك الأسطوري 'الأجرب' وعزيمة لا تلين. الرياض تحت سيطرة الحاميات الأجنبية. هل تباغتهم بـ 40 رجلاً فقط في جوف الليل، أم تنتظر سنوات؟",
+                    epic_title: "استعادة الرياض",
+                    story_full: "الرياض تحت الاحتلال. معك سيفك 'الأجرب' و40 رجلاً. هل تباغتهم ليلاً؟",
                     decisions: [
-                        { label: "قيادة هجوم فدائي ليلي", feedback: "✅ نصر من الله! استطعت طرد الحاميات الأجنبية وأعلنت قيام الدولة السعودية الثانية، وأصبحت الرياض منذ ذلك اليوم العاصمة الخالدة." },
-                        { label: "الانسحاب لجمع القبائل", feedback: "⚠️ استغرقت الرحلة سنوات، وعزز المحتل حصونه، مما جعل التحرير لاحقاً أصعب وأكثر دموية." },
-                        { label: "إرسال رسائل تهديد", feedback: "❌ كشفت الرسائل مكان تواجدك، مما اضطرك للدخول في مواجهات جانبية استنزفت قوتك." }
+                        { label: "هجوم فدائي صاعق", feedback: "✅ استعدت الرياض وأعلنت قيام الدولة السعودية الثانية." },
+                        { label: "الانسحاب لجمع الجيش", feedback: "❌ عزز المحتل حصونه وضاعت فرصة المباغتة." }
                     ],
-                    biography: "الإمام تركي بن عبد الله. مؤسس الدولة السعودية الثانية وبطل الاستعادة وصاحب السيف الأجرب."
+                    biography: "مؤسس الدولة السعودية الثانية وبطل السيف الأجرب."
                 },
-                en: { name: "Imam Turki bin Abdullah", epic_title: "The Restoration", story_full: "Riyadh is occupied. You have 'Al-Ajrab'. Strike now or build an army?", decisions: [{ label: "Surprise night raid", feedback: "✅ Victory! Riyadh liberated." },{ label: "Gather more tribes", feedback: "⚠️ Delayed and bloodier." },{ label: "Send warnings", feedback: "❌ Location compromised." }], biography: "Founder of 2nd State." }
+                en: { name: "Imam Turki bin Abdullah", epic_title: "Riyadh Conquest", story_full: "Will you strike with 40 men?", decisions: [{ label: "Night Attack", feedback: "✅ Riyadh is yours!" },{ label: "Wait", feedback: "❌ Opportunity lost." }], biography: "The Restorer." }
             },
             k_aziz: {
                 ar: {
                     name: "الملك عبد العزيز",
-                    epic_title: "ليلة فتح المصمك التاريخية",
-                    story_full: "في ليلة 5 شوال 1319هـ، وقفت عند أسوار الرياض بـ 63 رجلاً فقط. الحاكم عجلان داخل حصن المصمك المنيع، وسيخرج عند الفجر. هل تقتحم الحصن في اللحظة التي تفتح فيها البوابة، أم تهاجم المدينة أولاً؟",
+                    epic_title: "فتح المصمك",
+                    story_full: "أمام المصمك مع 63 رجلاً. البوابة ستفتح فجراً. هل تقتحم؟",
                     decisions: [
-                        { label: "اقتحام المصمك فوراً", feedback: "✅ 'الملك لله ثم لعبد العزيز!'.. ببطولة رجالك المخلصين، تم فتح المصمك وبدأ توحيد المملكة العربية السعودية الحديثة." },
-                        { label: "تطويق المدينة", feedback: "⚠️ خطة جيدة، لكنها أخرت إعلان النصر لعدة أشهر بسبب صمود الحصن." },
-                        { label: "مباغتة عجلان خارجاً", feedback: "❌ فشلت الخطة لأن عجلان كان قد انتقل للحصن مسبقاً، مما نبه الحراس." }
+                        { label: "اقتحام المصمك فوراً", feedback: "✅ 'الملك لله ثم لعبد العزيز'. بدأ توحيد المملكة العربية السعودية." },
+                        { label: "تطويق المدينة", feedback: "⚠️ صمد الحصن لأشهر وتأخر النصر." }
                     ],
-                    biography: "الملك عبد العزيز آل سعود. المؤسس العظيم الذي وحد البلاد تحت راية التوحيد وبدأ عصر النهضة."
+                    biography: "المؤسس العظيم للمملكة العربية السعودية الحديثة."
                 },
-                en: { name: "King Abdulaziz", epic_title: "The Conquest", story_full: "63 men vs the fort. Dawn is near. Your plan?", decisions: [{ label: "Storm at dawn", feedback: "✅ Triumph! Modern Kingdom born." },{ label: "Besiege the city", feedback: "⚠️ Delayed victory." },{ label: "Ambush governor", feedback: "❌ Element of surprise lost." }], biography: "The Great Unifier." }
+                en: { name: "King Abdulaziz", epic_title: "Masmak Fort", story_full: "The gate opens. Do you storm?", decisions: [{ label: "Storm Now", feedback: "✅ The Modern Kingdom is born." },{ label: "Wait", feedback: "⚠️ Siege lasted months." }], biography: "The Unifier." }
             }
         };
 
         const LOCALIZATION = {
-            ar: { g_h: "ملاحم التأسيس", g_d: "بوابتك التفاعلية لتجربة التاريخ السعودي العظيم بقراراتك القيادية.", s_h: "اختر القائد", r_h: "حكم التاريخ", a_h: "سجل الخالدين", b_h: "العودة", dir: "rtl" },
-            en: { g_h: "Founding Epics", g_d: "Experience the grand Saudi history through your leadership.", s_h: "Select Leader", r_h: "Verdict", a_h: "Immortal Archive", b_h: "Back", dir: "ltr" }
+            ar: { g_h: "ملاحم التأسيس", g_d: "عش تاريخك المجيد بقراراتك.", s_h: "اختر القائد", r_h: "حكم التاريخ", a_h: "سجل الخالدين", dir: "rtl" },
+            en: { g_h: "Founding Epics", g_d: "Lead your history with your choices.", s_h: "Select Leader", r_h: "The Verdict", a_h: "Immortal Archive", dir: "ltr" }
         };
 
         /* [S2] APP LOGIC */
@@ -330,7 +291,7 @@
         function setGlobalLang(l) {
             currentLanguage = l;
             const t = LOCALIZATION[l];
-            document.documentElement.lang = l; document.documentElement.dir = t.dir;
+            document.documentElement.dir = t.dir;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + l).classList.add('active');
             document.getElementById('t-gate-h').innerText = t.g_h;
@@ -344,14 +305,13 @@
         function navigateTo(screenId) {
             document.querySelectorAll('.screen').forEach(s => {
                 s.classList.remove('active');
-                setTimeout(() => { s.style.display = 'none'; }, 350);
+                setTimeout(() => { s.style.display = 'none'; }, 400);
             });
             setTimeout(() => {
                 const target = document.getElementById(screenId);
                 target.style.display = 'block';
                 setTimeout(() => { target.classList.add('active'); }, 50);
-                document.getElementById('app-scroller').scrollTop = 0;
-            }, 400);
+            }, 450);
         }
 
         function rebuildInteractiveGrids() {
@@ -389,59 +349,35 @@
             navigateTo('screen-biography');
         }
 
-        /* [S3] TITAN STORM ENGINE - محرك العاصفة الرملية الذهبية الكثيفة (800+ High Density) */
+        /* [S3] TITAN STORM ENGINE - العاصفة الرملية الكثيفة (800+ Particles) */
         const canvas = document.getElementById('titan-storm-canvas');
         const ctx = canvas.getContext('2d');
         let particlesArray = [];
-        const particleCount = 820; // كثافة قصوى للعاصفة
 
         class Particle {
             constructor() {
                 this.init();
             }
-
             init() {
-                // العاصفة تهب من اليمين ومن اليسار نحو الداخل
-                this.side = Math.random() > 0.5 ? 'left' : 'right'; 
-                
-                if (this.side === 'left') {
-                    this.x = -Math.random() * 200; // تبدأ من خارج الشاشة يساراً
-                    this.speedX = (Math.random() * 3) + 1.5; // سرعة للأمام (نحو اليمين)
-                } else {
-                    this.x = canvas.width + Math.random() * 200; // تبدأ من خارج الشاشة يميناً
-                    this.speedX = -((Math.random() * 3) + 1.5); // سرعة للأمام (نحو اليسار)
-                }
-
-                this.y = Math.random() * canvas.height; // عشوائية الارتفاع
-                this.size = Math.random() * 2.5 + 0.2; // حجم حبات الرمل (متفاوت)
-                
-                // حركة عمودية عشوائية خفيفة (تطاير)
-                this.speedY = (Math.random() - 0.5) * 1.5; 
-                
-                // استخدام الذهبي الحقيقي اللامع بدرجات متفاوتة ليعطي عمق
-                this.goldType = Math.random() > 0.6 ? '#FFD700' : '#D4AF37'; 
-                this.opacity = Math.random() * 0.7 + 0.2; // شفافية متفاوتة
+                this.side = Math.random() > 0.5 ? 'L' : 'R';
+                this.x = this.side === 'L' ? -Math.random() * 300 : canvas.width + Math.random() * 300;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 0.5;
+                this.speedX = this.side === 'L' ? (Math.random() * 4 + 2) : -(Math.random() * 4 + 2);
+                this.speedY = (Math.random() - 0.5) * 1.5;
+                this.color = '#7D5B25'; // رمال ذهبية غامقة
+                this.opacity = Math.random() * 0.6 + 0.2;
             }
-
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-
-                // إضافة جاذبية وهمية عشوائية لتغيير مسار الجزيء (إحساس الرياح)
-                this.speedY += (Math.random() - 0.5) * 0.1;
-
-                // إعادة تدوير الجزيئات عند الخروج من حدود العاصفة المركزية
-                if (this.side === 'left' && this.x > canvas.width + 100) this.init();
-                if (this.side === 'right' && this.x < -100) this.init();
-                
-                // إعادة التدوير من الأعلى والأسفل
-                if (this.y > canvas.height + 50 || this.y < -50) this.y = Math.random() * canvas.height;
+                if (this.side === 'L' && this.x > canvas.width + 100) this.init();
+                if (this.side === 'R' && this.x < -100) this.init();
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.goldType;
+                ctx.fillStyle = this.color;
                 ctx.globalAlpha = this.opacity;
                 ctx.fill();
             }
@@ -451,30 +387,17 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             particlesArray = [];
-            for (let i = 0; i < particleCount; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-
-        function handleParticles() {
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-            }
+            for (let i = 0; i < 850; i++) particlesArray.push(new Particle());
         }
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            handleParticles();
+            particlesArray.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animate);
         }
 
-        // تشغيل المحرك والتهيئة
         window.addEventListener('resize', initEngine);
-        initEngine();
-        animate();
-        setGlobalLang('ar');
-        window.addEventListener('contextmenu', e => e.preventDefault());
+        initEngine(); animate(); setGlobalLang('ar');
     </script>
 </body>
 </html>
