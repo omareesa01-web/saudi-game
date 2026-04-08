@@ -3,31 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس </title>
+    <title>ملحمة التأسيس | الإصدار البرمجي الكامل</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* [1] CSS ROOT - مصفوفة الألوان والتعريفات الأساسية */
+        /* [1] نظام المتغيرات الشامل (CSS Variables) */
         :root {
-            /* الهوية الخضراء الملكية */
-            --royal-green-bg: #0d2e1c;   /* الخلفية الأساسية */
-            --royal-green-dark: #071a10; 
-            
-            /* درجات الذهبي الملحمية */
-            --gold-primary: #D4AF37;     /* ذهبي معدني */
-            --gold-glow: #FFD700;        /* ذهبي لامع جداً */
-            --gold-dust: rgba(212, 175, 55, 0.4);
-            
-            /* نصوص وإعدادات */
-            --pure-white: #ffffff;
-            --glass-panel: rgba(13, 46, 28, 0.96); 
-            --font-main: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
-            --transition-smooth: 0.8s cubic-bezier(0.2, 1, 0.3, 1);
-            --shadow-epic: 0 40px 120px rgba(0, 0, 0, 0.7);
+            --royal-green-bg: #0D2E1C;   /* اللون الأخضر الملكي الأساسي */
+            --royal-green-panel: rgba(13, 46, 28, 0.98);
+            --gold-primary: #D4AF37;     /* ذهبي معدني كلاسيكي */
+            --gold-light: #FFD700;       /* ذهبي لامع للجزيئات والنصوص */
+            --pure-white: #FFFFFF;
+            --shadow-epic: 0 40px 100px rgba(0, 0, 0, 0.8);
+            --transition-main: 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+            --font-family: 'Cairo', sans-serif;
         }
 
-        /* [2] GLOBAL RESET - تهيئة الصفحة */
+        /* [2] إعدادات الصفحة العامة */
         * {
             margin: 0;
             padding: 0;
@@ -39,17 +32,17 @@
         body, html {
             width: 100%;
             height: 100%;
-            background-color: var(--royal-green-bg); /* الخلفية الخضراء المطلوبة */
-            font-family: var(--font-main);
+            background-color: var(--royal-green-bg);
+            font-family: var(--font-family);
             color: var(--pure-white);
-            overflow: hidden;
+            overflow: hidden; /* لمنع السكرول الخارجي */
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* [3] THE GOLDEN STORM ENGINE - محرك العاصفة الرملية */
-        #titan-storm-canvas {
+        /* [3] محرك الرمال الذهبية (The Sand Engine) */
+        #sand-particles-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -57,438 +50,403 @@
             height: 100%;
             z-index: 5;
             pointer-events: none;
-            will-change: transform;
         }
 
-        /* [4] LANGUAGE HUB - محول اللغات الاحترافي */
-        .language-hub {
+        /* [4] واجهة تبديل اللغات */
+        .lang-switcher-hub {
             position: fixed;
-            top: 35px;
-            left: 35px;
+            top: 30px;
+            left: 30px;
             z-index: 1000;
             display: flex;
             gap: 15px;
         }
 
         .lang-node {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2.5px solid var(--gold-primary);
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--gold-primary);
             color: var(--gold-primary);
-            padding: 12px 28px;
+            padding: 12px 25px;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 900;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            transition: 0.5s;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            font-size: 0.9rem;
+            transition: 0.4s all ease;
+            backdrop-filter: blur(10px);
         }
 
         .lang-node.active-lang {
             background: var(--gold-primary);
             color: var(--royal-green-bg);
-            box-shadow: 0 0 35px var(--gold-glow);
+            box-shadow: 0 0 25px var(--gold-light);
             transform: scale(1.05);
         }
 
-        /* [5] MAIN ARCHITECTURE CONTAINER - القائمة الخضراء */
-        .app-framework {
+        /* [5] الهيكل الرئيسي للتطبيق (App Framework) */
+        .main-application-frame {
             position: relative;
             z-index: 100;
             width: 90%;
             max-width: 430px;
-            background: var(--glass-panel);
+            background: var(--royal-green-panel);
             border: 1px solid var(--gold-primary);
-            border-top: 10px solid var(--gold-primary);
-            border-radius: 55px;
+            border-top: 10px solid var(--gold-primary); /* شريط علوي فخم */
+            border-radius: 50px;
             padding: 55px 40px;
             text-align: center;
             box-shadow: var(--shadow-epic);
-            max-height: 88vh;
+            max-height: 85vh;
             overflow-y: auto;
-            scrollbar-width: none;
-            animation: framework-entrance 1.5s ease-out;
+            scrollbar-width: none; /* إخفاء السكرول في فيرفوكس */
         }
 
-        .app-framework::-webkit-scrollbar { display: none; }
-
-        @keyframes framework-entrance {
-            from { opacity: 0; transform: translateY(60px); }
-            to { opacity: 1; transform: translateY(0); }
+        .main-application-frame::-webkit-scrollbar {
+            display: none; /* إخفاء السكرول في كروم */
         }
 
-        /* [6] SCREEN UNIT SYSTEM - نظام الشاشات المحسن */
-        .screen-unit {
+        /* [6] نظام الشاشات (Screen System) */
+        .screen-container {
             display: none;
             opacity: 0;
-            transform: scale(0.9) translateY(40px);
-            transition: opacity var(--transition-smooth), transform var(--transition-smooth);
+            transform: translateY(30px) scale(0.98);
+            transition: opacity var(--transition-main), transform var(--transition-main);
         }
 
-        .screen-unit.active-screen {
+        .screen-container.active-screen {
             display: block;
             opacity: 1;
-            transform: scale(1) translateY(0);
+            transform: translateY(0) scale(1);
         }
 
-        /* [7] UI ATOMIC COMPONENTS - العناصر المرئية */
+        /* [7] العناصر النصية */
         .title-epic {
-            font-size: 2.5rem;
+            font-size: 2.4rem;
             font-weight: 900;
-            color: var(--gold-glow);
+            color: var(--gold-light);
             margin-bottom: 25px;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
             line-height: 1.2;
         }
 
         .description-text {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             line-height: 1.8;
-            color: var(--pure-white);
             margin-bottom: 45px;
             opacity: 0.9;
             font-weight: 400;
         }
 
-        .epic-btn {
+        /* [8] الأزرار الملحمية (Epic Buttons) */
+        .btn-universal {
             position: relative;
             width: 100%;
             padding: 22px;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(0,0,0,0.5));
-            border: 1.8px solid var(--gold-primary);
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(0,0,0,0.3));
+            border: 2px solid var(--gold-primary);
             border-radius: 25px;
             color: var(--pure-white);
             font-size: 1.1rem;
             font-weight: 800;
             cursor: pointer;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             overflow: hidden;
-            transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        .epic-btn:hover {
-            transform: translateY(-8px);
+        .btn-universal:hover {
+            transform: translateY(-7px);
             background: var(--gold-primary);
             color: var(--royal-green-bg);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
         }
 
-        /* تأثير اللمعان للأزرار */
-        .epic-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -60%;
-            width: 25%; height: 200%;
-            background: rgba(255,255,255,0.25);
-            transform: rotate(35deg);
-            transition: 0.8s;
-        }
-        .epic-btn:hover::after { left: 150%; }
-
-        /* [8] LORE & ARCHIVE BOXES - صناديق المحتوى */
-        .lore-box {
-            background: rgba(0, 0, 0, 0.4);
+        /* [9] صناديق المحتوى والأرشيف */
+        .content-display-box {
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 35px;
             padding: 35px;
             margin: 30px 0;
             text-align: justify;
-            line-height: 2.3;
-            font-size: 1.15rem;
+            line-height: 2.2;
+            font-size: 1.1rem;
             color: var(--pure-white);
-            border-right: 10px solid var(--gold-primary);
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+            border-right: 8px solid var(--gold-primary);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
             white-space: pre-line;
-            animation: lore-fade 1s ease-out;
         }
 
-        [dir="ltr"] .lore-box {
+        [dir="ltr"] .content-display-box {
             border-right: 0;
-            border-left: 10px solid var(--gold-primary);
+            border-left: 8px solid var(--gold-primary);
             text-align: left;
         }
 
-        @keyframes lore-fade {
-            from { opacity: 0; filter: blur(10px); }
-            to { opacity: 1; filter: blur(0); }
-        }
-
-        .nav-back-link {
+        .navigation-back-link {
             display: inline-block;
             margin-top: 35px;
-            color: var(--gold-glow);
+            color: var(--gold-light);
             cursor: pointer;
             font-weight: 900;
-            font-size: 1rem;
             text-decoration: underline;
             text-underline-offset: 10px;
-            transition: 0.4s;
+            transition: 0.3s;
         }
 
-        .nav-back-link:hover {
+        .navigation-back-link:hover {
             color: var(--pure-white);
             letter-spacing: 1.5px;
-        }
-
-        /* [9] RESPONSIVE ADJUSTMENTS */
-        @media (max-height: 750px) {
-            .app-framework { padding: 35px 25px; }
-            .title-epic { font-size: 1.8rem; }
-            .lore-box { font-size: 1rem; padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="titan-storm-canvas"></canvas>
+    <canvas id="sand-particles-canvas"></canvas>
 
-    <div class="language-hub">
-        <div id="btn-lang-ar" class="lang-node active-lang" onclick="AppCore.setLanguage('ar')">عربي</div>
-        <div id="btn-lang-en" class="lang-node" onclick="AppCore.setLanguage('en')">ENGLISH</div>
+    <div class="lang-switcher-hub">
+        <div id="lang-btn-ar" class="lang-node active-lang" onclick="TitanApp.setLanguage('ar')">العربية</div>
+        <div id="lang-btn-en" class="lang-node" onclick="TitanApp.setLanguage('en')">English</div>
     </div>
 
-    <div class="app-framework" id="scroll-anchor">
+    <div class="main-application-frame" id="app-viewport">
         
-        <div id="scr-gate" class="screen-unit active-screen">
+        <div id="scr-gate" class="screen-container active-screen">
             <h1 class="title-epic" id="txt-gate-h">ملاحم التأسيس</h1>
-            <p class="description-text" id="txt-gate-d">انطلق في رحلة عبر الزمن لتعيش أمجاد الدولة السعودية، حيث تشكل قراراتك مصير التاريخ.</p>
-            <button class="epic-btn" id="btn-gate-start" onclick="AppCore.navigate('scr-selection')">ابدأ الملحمة</button>
-            <button class="epic-btn" id="btn-gate-arch" onclick="AppCore.navigate('scr-archive')">سجل الخالدين</button>
+            <p class="description-text" id="txt-gate-d">صناعة المجد تبدأ بقرار. هل أنت مستعد لقيادة تاريخك وترك أثرك في سجل الخالدين؟</p>
+            <button class="btn-universal" id="txt-btn-start" onclick="TitanApp.navigate('scr-selection')">ابدأ الملحمة</button>
+            <button class="btn-universal" id="txt-btn-archive" onclick="TitanApp.navigate('scr-archive')">سجل الخالدين</button>
         </div>
 
-        <div id="scr-selection" class="screen-unit">
+        <div id="scr-selection" class="screen-container">
             <h1 class="title-epic" id="txt-select-h">اختر القائد</h1>
-            <div id="hero-grid"></div>
-            <a class="nav-back-link" id="txt-back-1" onclick="AppCore.navigate('scr-gate')">العودة للبوابة</a>
+            <div id="hero-list-container">
+                </div>
+            <a class="navigation-back-link" id="txt-back-1" onclick="TitanApp.navigate('scr-gate')">العودة للبوابة</a>
         </div>
 
-        <div id="scr-quest" class="screen-unit">
-            <h1 id="quest-title-header" style="color: var(--gold-glow); font-size: 1.7rem; margin-bottom: 20px;"></h1>
-            <div id="quest-text-body" class="lore-box"></div>
-            <div id="quest-options-stack"></div>
-            <a class="nav-back-link" id="txt-back-2" onclick="AppCore.navigate('scr-selection')">تغيير القائد</a>
+        <div id="scr-quest" class="screen-container">
+            <h1 id="quest-header-title" style="color: var(--gold-light); font-size: 1.7rem; margin-bottom: 20px;"></h1>
+            <div id="quest-body-text" class="content-display-box"></div>
+            <div id="quest-options-hub">
+                </div>
+            <a class="navigation-back-link" id="txt-back-2" onclick="TitanApp.navigate('scr-selection')">تراجع</a>
         </div>
 
-        <div id="scr-verdict" class="screen-unit">
+        <div id="scr-verdict" class="screen-container">
             <h1 class="title-epic" id="txt-verdict-h">حكم التاريخ</h1>
-            <div id="verdict-text-body" class="lore-box"></div>
-            <button class="epic-btn" id="btn-verdict-retry" onclick="AppCore.navigate('scr-selection')">تجربة مسار آخر</button>
-            <a class="nav-back-link" id="txt-back-3" onclick="AppCore.navigate('scr-gate')">الرئيسية</a>
+            <div id="verdict-result-text" class="content-display-box"></div>
+            <button class="btn-universal" id="txt-btn-retry" onclick="TitanApp.navigate('scr-selection')">مسار جديد</button>
+            <a class="navigation-back-link" id="txt-back-3" onclick="TitanApp.navigate('scr-gate')">الرئيسية</a>
         </div>
 
-        <div id="scr-archive" class="screen-unit">
+        <div id="scr-archive" class="screen-container">
             <h1 class="title-epic" id="txt-archive-h">سجل الخالدين</h1>
-            <div id="archive-grid"></div>
-            <a class="nav-back-link" id="txt-back-4" onclick="AppCore.navigate('scr-gate')">رجوع</a>
+            <div id="archive-list-container">
+                </div>
+            <a class="navigation-back-link" id="txt-back-4" onclick="TitanApp.navigate('scr-gate')">رجوع</a>
         </div>
 
-        <div id="scr-bio" class="screen-unit">
+        <div id="scr-biography" class="screen-container">
             <h1 id="bio-hero-name" class="title-epic"></h1>
-            <div id="bio-hero-content" class="lore-box"></div>
-            <a class="nav-back-link" id="txt-back-5" onclick="AppCore.navigate('scr-archive')">العودة للسجل</a>
+            <div id="bio-hero-content" class="content-display-box"></div>
+            <a class="navigation-back-link" id="txt-back-5" onclick="TitanApp.navigate('scr-archive')">العودة للسجل</a>
         </div>
 
     </div>
 
     <script>
         /**
-         * [PART 1] GLOBAL REPOSITORY - مستودع البيانات التاريخية العملاق
-         * يحتوي على تفاصيل كاملة باللغتين العربي والإنجليزي.
+         * مستودع البيانات المركزي (The Core Database)
+         * يحتوي على كامل المعلومات التاريخية باللغتين بشكل مفصل.
          */
-        const DATA_REPOSITORY = {
+        const DATA_HUB = {
             imam_mohammad: {
                 ar: {
                     name: "الإمام محمد بن سعود",
                     q_title: "يوم ميثاق الدرعية (1139هـ)",
-                    q_story: "في عام 1727م، بدأت مرحلة التأسيس العظمى في الدرعية. يأتيك الشيخ محمد بن عبدالوهاب باحثاً عن مكان آمن لنشر التوحيد وتصحيح العقيدة. \n\nبصفتك أمير الدرعية، هل تعقد معه الميثاق التاريخي لنصرة الدولة والدعوة معاً؟",
+                    q_story: "الدرعية في انتظار قرارك. الشيخ محمد بن عبدالوهاب يطلب تحالفك لنشر التوحيد وبناء دولة قوية. \n\nهل تعقد الميثاق التاريخي وتبدأ مرحلة التأسيس؟",
                     choices: [
-                        { label: "عقد الميثاق ونصرة التوحيد", feedback: "✅ 'أبشر بالعز والتمكين'. بهذا القرار الخالد، تأسست الدولة السعودية الأولى، وتحولت الدرعية من بلدة صغيرة إلى عاصمة أقوى دولة في الجزيرة العربية." },
-                        { label: "توفير الحماية دون تحالف", feedback: "⚠️ نال الشيخ الأمان، لكن الدولة بقيت محدودة التأثير، ولم تنطلق حركة التوحيد التي جمعت شتات العرب تحت راية واحدة." }
+                        { label: "عقد الميثاق ونصرة التوحيد", result: "✅ 'أبشر بالعز والتمكين'.. بهذا القرار ولدت الدولة السعودية الأولى، وأصبحت الدرعية مركزاً للعلم والقوة في الجزيرة العربية." },
+                        { label: "توفير الحماية فقط", result: "⚠️ نال الشيخ الأمان، لكن الدولة بقيت مجرد إمارة محدودة التأثير، وتأخرت الوحدة الوطنية الكبرى." }
                     ],
-                    biography: "• الشخصية: الإمام محمد بن سعود بن محمد بن مقرن.\n\n• السيرة التاريخية:\nحكم الدرعية في ظروف صعبة واستطاع بحكمته توحيد شطريها. يعد المؤسس الأول الذي وضع لبنات الوحدة الوطنية.\n\n• الإنجازات الملحمية:\n- تأسيس الدولة السعودية الأولى (1727م).\n- بناء سور الدرعية التاريخي.\n- تأمين طرق التجارة وقوافل الحجيج.\n- الصمود أمام الحملات الخارجية في مهد الدولة."
+                    biography: "• المؤسس الأول للدولة السعودية (1727م).\n• الشخصية: قائد حكيم ذو نظرة سياسية ثاقبة.\n• الإنجازات:\n- توحيد الدرعية وبناء سورها العظيم.\n- تأمين طرق التجارة وقوافل الحجيج.\n- وضع أسس الحكم السعودي القائم على العدل."
                 },
                 en: {
                     name: "Imam Muhammad bin Saud",
                     q_title: "The Diriyah Pact (1727)",
-                    q_story: "In 1727, the era of founding began. A scholar seeks your alliance to unify the land under one faith and law. \n\nAs the Ruler of Diriyah, do you form the historic pact?",
+                    q_story: "Diriyah awaits your decision. A scholar seeks your alliance to unify the land under law and faith. \n\nDo you form the historic pact to start the founding era?",
                     choices: [
-                        { label: "Form the Great Pact", feedback: "✅ Success! With this decision, the First Saudi State was born, and Diriyah became a beacon of power and knowledge." },
-                        { label: "Offer Protection Only", feedback: "⚠️ Security was granted, but the dream of a unified nation remained static within city walls." }
+                        { label: "Form the Great Alliance", result: "✅ Success! The First Saudi State was born, and Diriyah became a global center for knowledge and power." },
+                        { label: "Offer Protection Only", result: "⚠️ Security was granted, but the dream of a unified nation stayed within the city walls." }
                     ],
-                    biography: "• Leader: Imam Muhammad bin Saud.\n\n• Historical Story:\nHe was a visionary leader who transformed a fragmented region into a unified sovereignty.\n\n• Key Achievements:\n- Founding the First Saudi State (1727).\n- Unifying the central districts of Diriyah.\n- Securing international trade routes.\n- Defending the state during its early vulnerable years."
+                    biography: "• Founder of the First Saudi State (1727).\n• Key Achievements:\n- Unified Diriyah and secured the central regions.\n- Established safe pilgrimage and trade routes.\n- Built the legendary wall of Diriyah."
                 }
             },
             imam_turki: {
                 ar: {
                     name: "الإمام تركي بن عبد الله",
                     q_title: "ملحمة السيف الأجرب",
-                    q_story: "الدرعية سقطت، والرياض تحت احتلال الحاميات الأجنبية. أنت الآن في 'خلوة الحلوة' بجبل طويق، ومعك سيفك 'الأجرب' وعدد قليل من الأوفياء. \n\nهل تقرر المباغتة واستعادة الرياض بـ 40 رجلاً فقط؟",
+                    q_story: "الرياض تحت الاحتلال، ومعك سيفك 'الأجرب' و40 رجلاً فقط في 'خلوة الحلوة'. \n\nهل تباغت الحامية الأجنبية وتعلن قيام الدولة الثانية؟",
                     choices: [
-                        { label: "مباغتة الحامية واستعادة الرياض", feedback: "✅ نصر مؤزر! 'الملك لله ثم لآل سعود'. استعدت الرياض وأعلنت قيام الدولة السعودية الثانية، وأعدت هيبة الحكم السعودي." },
-                        { label: "الانتظار لحشد القبائل", feedback: "❌ أدى التأخير إلى كشف موقعك، وعزز العدو تحصيناته في الرياض، مما جعل رحلة التحرير تستغرق سنوات أطول." }
+                        { label: "اقتحام الرياض ومباغتة العدو", result: "✅ نصر مؤزر! استعدت عاصمة الآباء وأعلنت قيام الدولة السعودية الثانية، وأعدت هيبة الحكم السعودي." },
+                        { label: "الانتظار لجمع المزيد من الرجال", result: "❌ أدى التأخير إلى كشف موقعك، وعزز العدو تحصيناته في الرياض، مما جعل التحرير لاحقاً أصعب بكثير." }
                     ],
-                    biography: "• الشخصية: الإمام تركي بن عبد الله بن محمد بن سعود.\n\n• السيرة التاريخية:\nبطل استرداد المجد، قاد المقاومة الوطنية لسنوات حتى طرد الغزاة من قلب نجد.\n\n• الإنجازات الملحمية:\n- تأسيس الدولة السعودية الثانية (1240هـ).\n- جعل الرياض العاصمة الدائمة والسياسية للدولة.\n- بناء جامع الإمام تركي وقصر الحكم الشهير.\n- إعادة الاستقرار والأمان للجزيرة العربية."
+                    biography: "• بطل استرداد المجد ومؤسس الدولة السعودية الثانية.\n• القصة: قاد المقاومة الوطنية لسنوات حتى طرد الغزاة.\n• الإنجازات:\n- جعل الرياض العاصمة الدائمة والسياسية للدولة.\n- إعادة الاستقرار والأمان للجزيرة العربية.\n- بناء جامع الإمام تركي وقصر الحكم."
                 },
                 en: {
                     name: "Imam Turki bin Abdullah",
                     q_title: "The Saga of the Sword",
-                    q_story: "Diriyah fell, and Riyadh is occupied. You are hiding in Mount Tuwaiq with your legendary sword 'Al-Ajrab'. \n\nDo you lead a surprise raid with only 40 men to retake Riyadh?",
+                    q_story: "Riyadh is occupied. You have your sword 'Al-Ajrab' and 40 loyal men in hiding. \n\nDo you raid the garrison to restore the Saudi legacy?",
                     choices: [
-                        { label: "The Surprise Raid", feedback: "✅ Victory! You liberated Riyadh and officially founded the Second Saudi State." },
-                        { label: "Wait for Reinforcements", feedback: "❌ The enemy discovered your hideout, and Riyadh's defenses were strengthened, delaying the restoration for years." }
+                        { label: "Launch the Surprise Attack", result: "✅ Victory! You liberated Riyadh and officially founded the Second Saudi State." },
+                        { label: "Wait for more reinforcements", result: "❌ The delay allowed the enemy to discover your location, and Riyadh's defenses were strengthened." }
                     ],
-                    biography: "• Leader: Imam Turki bin Abdullah.\n\n• Historical Story:\nA symbol of resilience, he fought for years to expel invaders and restore his family's legacy.\n\n• Key Achievements:\n- Founding the Second Saudi State.\n- Establishing Riyadh as the permanent capital.\n- Rebuilding the national governance and legal system."
+                    biography: "• Founder of the Second Saudi State.\n• Hero of the sword 'Al-Ajrab'.\n• Established Riyadh as the permanent capital of the nation."
                 }
             },
             king_aziz: {
                 ar: {
                     name: "الملك عبد العزيز",
-                    q_title: "فتح حصن المصمك العظيم",
-                    q_story: "أنت الآن عند أسوار الرياض ومعك 63 رجلاً فقط. الفجر يقترب، وبوابة حصن المصمك ستفتح لخروج الحاكم 'عجلان'. \n\nهل تقتحم البوابة فور فتحها في مغامرة فدائية، أم تحاصر المدينة من الخارج؟",
+                    q_title: "فتح حصن المصمك",
+                    q_story: "أنت الآن عند أسوار الرياض، ومعك 63 بطلاً. الفجر يقترب وبوابة المصمك ستفتح الآن. \n\nهل تقتحم البوابة فوراً في مغامرة فدائية؟",
                     choices: [
-                        { label: "اقتحام المصمك فوراً", feedback: "✅ 'الملك لله ثم لعبد العزيز'.. بصيحة المجد هذه، فُتح المصمك وبدأ فجر المملكة العربية السعودية الحديثة التي نعيش أمجادها اليوم." },
-                        { label: "الحصار والانتظار", feedback: "⚠️ فقدت عنصر المفاجأة، ودخلت في حصار طويل استنزف قواك، وتأخر توحيد المملكة لسنوات عديدة." }
+                        { label: "اقتحام المصمك الآن", result: "✅ 'الملك لله ثم لعبد العزيز'.. بهذه الصيحة بدأ فجر المملكة العربية السعودية الحديثة التي نعيش أمجادها اليوم." },
+                        { label: "التراجع والحصار من الخارج", result: "⚠️ ضاعت فرصة المباغتة، ودخلت في حصار طويل استنزف قواك وتأخر توحيد البلاد لسنوات." }
                     ],
-                    biography: "• الشخصية: الملك عبد العزيز بن عبد الرحمن آل سعود.\n\n• السيرة التاريخية:\nالقائد المؤسس الذي وحد القلوب والبلاد. بدأ رحلة الكفاح من الكويت حتى وحد أطراف المملكة الشاسعة.\n\n• الإنجازات الملحمية:\n- استعادة الرياض عام 1319هـ (1902م).\n- توحيد كافة مناطق المملكة تحت اسم (المملكة العربية السعودية).\n- إرساء قواعد النهضة والتعليم واكتشاف النفط.\n- بناء دولة حديثة تقوم على الشريعة والتطوير."
+                    biography: "• المؤسس العظيم للمملكة العربية السعودية.\n• القصة: وحد البلاد والقلوب تحت راية التوحيد.\n• الإنجازات:\n- استعادة الرياض عام 1319هـ.\n- إعلان توحيد المملكة عام 1351هـ.\n- إطلاق أول نهضة شاملة (التعليم، الصحة، النفط)."
                 },
                 en: {
                     name: "King Abdulaziz",
-                    q_title: "The Conquest of Masmak",
-                    q_story: "Outside Riyadh's walls with 63 heroes. The sun is rising, and the Masmak gate is about to open. \n\nDo you storm the fort immediately in a daring mission?",
+                    q_title: "Conquering Masmak",
+                    q_story: "You are at the gates of Riyadh with 63 heroes. The Masmak gate is about to open at dawn. \n\nDo you storm the fort immediately?",
                     choices: [
-                        { label: "Storm the Fort", feedback: "✅ Triumph! 'The Kingdom is for Allah then for Abdulaziz!' With this victory, the modern Kingdom was born." },
-                        { label: "Lay Siege", feedback: "⚠️ The element of surprise was lost. A long siege exhausted your resources and delayed the unification for years." }
+                        { label: "Storm the Fort Now", result: "✅ Triumph! With this victory, the modern era of Saudi Arabia began." },
+                        { label: "Lay a long siege", result: "⚠️ Surprise element lost. The battle became a long struggle, delaying the unification for years." }
                     ],
-                    biography: "• Leader: King Abdulaziz Al Saud.\n\n• Historical Story:\nThe Great Unifier who built a modern nation from the dust of the desert with courage and wisdom.\n\n• Key Achievements:\n- Conquest of Riyadh (1902).\n- Unifying the Kingdom under one flag.\n- Launching the modern era of energy, education, and health."
+                    biography: "• The Founder of the modern Kingdom of Saudi Arabia.\n• Key Achievements:\n- Captured Riyadh in 1902.\n- Unified all regions under one flag in 1932.\n- Initiated the modern oil and education era."
                 }
             }
         };
 
         const UI_TEXTS = {
-            ar: { g_h: "ملاحم التأسيس", g_d: "رحلة تفاعلية في قلب التاريخ السعودي، حيث تصنع قراراتك مجد الأمم.", s_h: "اختر القائد", v_h: "حكم التاريخ", a_h: "سجل الخالدين", b: "العودة", again: "تجربة مسار جديد", start: "ابدأ الملحمة", arch: "سجل الخالدين", dir: "rtl" },
-            en: { g_h: "Founding Epics", g_d: "An interactive journey through Saudi history, where your decisions create glory.", s_h: "Select Leader", v_h: "The Verdict", a_h: "Immortal Archive", b: "Back", again: "Try Another Fate", start: "Start the Epic", arch: "The Archive", dir: "ltr" }
+            ar: { g_h: "ملاحم التأسيس", g_d: "صناعة المجد تبدأ بقرار. هل أنت مستعد لقيادة تاريخك؟", s_h: "اختر القائد", v_h: "حكم التاريخ", a_h: "سجل الخالدين", b: "رجوع", retry: "مسار جديد", start: "ابدأ الملحمة", arch: "سجل الخالدين", dir: "rtl" },
+            en: { g_h: "Founding Epics", g_d: "Glory starts with a choice. Are you ready to lead your history?", s_h: "Select Leader", v_h: "The Verdict", a_h: "Immortal Archive", b: "Back", retry: "Try Again", start: "Start the Epic", arch: "Archive", dir: "ltr" }
         };
 
         /**
-         * [PART 2] APP CORE ENGINE - المحرك التشغيلي للتطبيق
+         * محرك التشغيل الرئيسي (The App Controller)
          */
-        const AppCore = {
-            lang: 'ar',
+        const TitanApp = {
+            currentLang: 'ar',
 
             init() {
                 this.setLanguage('ar');
-                VisualEngine.start(); // تشغيل محرك الجرافيك
+                SandEngine.start();
             },
 
-            setLanguage(l) {
-                this.lang = l;
-                const ui = UI_TEXTS[l];
+            setLanguage(lang) {
+                this.currentLang = lang;
+                const ui = UI_TEXTS[lang];
                 document.documentElement.dir = ui.dir;
                 
-                // تحديث أزرار اللغات
-                document.querySelectorAll('.lang-node').forEach(node => node.classList.remove('active-lang'));
-                document.getElementById('btn-lang-' + l).classList.add('active-lang');
+                // تحديث حالة الأزرار
+                document.querySelectorAll('.lang-node').forEach(el => el.classList.remove('active-lang'));
+                document.getElementById('lang-btn-' + lang).classList.add('active-lang');
 
-                // تحديث نصوص الواجهة الثابتة
+                // تحديث النصوص
                 document.getElementById('txt-gate-h').innerText = ui.g_h;
                 document.getElementById('txt-gate-d').innerText = ui.g_d;
-                document.getElementById('btn-gate-start').innerText = ui.start;
-                document.getElementById('btn-gate-arch').innerText = ui.arch;
+                document.getElementById('txt-btn-start').innerText = ui.start;
+                document.getElementById('txt-btn-archive').innerText = ui.arch;
                 document.getElementById('txt-select-h').innerText = ui.s_h;
                 document.getElementById('txt-verdict-h').innerText = ui.v_h;
                 document.getElementById('txt-archive-h').innerText = ui.a_h;
-                document.getElementById('btn-verdict-retry').innerText = ui.again;
-                
-                // تحديث الروابط
-                for(let i=1; i<=5; i++) { document.getElementById('txt-back-'+i).innerText = ui.b; }
+                document.getElementById('txt-btn-retry').innerText = ui.retry;
+                for(let i=1; i<=5; i++) document.getElementById('txt-back-'+i).innerText = ui.b;
 
-                this.renderDynamicGrids();
+                this.renderLists();
             },
 
-            navigate(targetId) {
-                const screens = document.querySelectorAll('.screen-unit');
+            navigate(screenId) {
+                const screens = document.querySelectorAll('.screen-container');
                 screens.forEach(s => {
                     s.classList.remove('active-screen');
-                    setTimeout(() => { s.style.display = 'none'; }, 400);
+                    setTimeout(() => { s.style.display = 'none'; }, 300);
                 });
 
                 setTimeout(() => {
-                    const target = document.getElementById(targetId);
+                    const target = document.getElementById(screenId);
                     target.style.display = 'block';
                     setTimeout(() => { target.classList.add('active-screen'); }, 50);
-                    document.getElementById('scroll-anchor').scrollTop = 0;
-                }, 450);
+                    document.getElementById('app-viewport').scrollTop = 0;
+                }, 350);
             },
 
-            renderDynamicGrids() {
-                const heroGrid = document.getElementById('hero-grid');
-                const archGrid = document.getElementById('archive-grid');
-                heroGrid.innerHTML = ''; archGrid.innerHTML = '';
+            renderLists() {
+                const hList = document.getElementById('hero-list-container');
+                const aList = document.getElementById('archive-list-container');
+                hList.innerHTML = ''; aList.innerHTML = '';
 
-                Object.keys(DATA_REPOSITORY).forEach(key => {
-                    const data = DATA_REPOSITORY[key][this.lang];
+                Object.keys(DATA_HUB).forEach(key => {
+                    const hero = DATA_HUB[key][this.currentLang];
                     
                     // توليد أزرار الاختيار
-                    const hBtn = document.createElement('button');
-                    hBtn.className = 'epic-btn';
-                    hBtn.innerText = data.name;
-                    hBtn.onclick = () => this.initQuest(key);
-                    heroGrid.appendChild(hBtn);
+                    const btnH = document.createElement('button');
+                    btnH.className = 'btn-universal';
+                    btnH.innerText = hero.name;
+                    btnH.onclick = () => this.startQuest(key);
+                    hList.appendChild(btnH);
 
                     // توليد أزرار الأرشيف
-                    const aBtn = document.createElement('button');
-                    aBtn.className = 'epic-btn';
-                    aBtn.innerText = data.name;
-                    aBtn.onclick = () => this.viewBiography(key);
-                    archGrid.appendChild(aBtn);
+                    const btnA = document.createElement('button');
+                    btnA.className = 'btn-universal';
+                    btnA.innerText = hero.name;
+                    btnA.onclick = () => this.viewBio(key);
+                    aList.appendChild(btnA);
                 });
             },
 
-            initQuest(heroKey) {
-                const q = DATA_REPOSITORY[heroKey][this.lang];
-                document.getElementById('quest-title-header').innerText = q.q_title;
-                document.getElementById('quest-text-body').innerText = q.q_story;
-                const stack = document.getElementById('quest-options-stack');
-                stack.innerHTML = '';
+            startQuest(key) {
+                const q = DATA_HUB[key][this.currentLang];
+                document.getElementById('quest-header-title').innerText = q.q_title;
+                document.getElementById('quest-body-text').innerText = q.q_story;
+                const optionsHub = document.getElementById('quest-options-hub');
+                optionsHub.innerHTML = '';
 
-                q.choices.forEach(choice => {
+                q.choices.forEach(c => {
                     const b = document.createElement('button');
-                    b.className = 'epic-btn';
-                    b.innerText = choice.label;
+                    b.className = 'btn-universal';
+                    b.innerText = c.label;
                     b.onclick = () => {
-                        document.getElementById('verdict-text-body').innerText = choice.feedback;
+                        document.getElementById('verdict-result-text').innerText = c.result;
                         this.navigate('scr-verdict');
                     };
-                    stack.appendChild(b);
+                    optionsHub.appendChild(b);
                 });
                 this.navigate('scr-quest');
             },
 
-            viewBiography(heroKey) {
-                const b = DATA_REPOSITORY[heroKey][this.lang];
+            viewBio(key) {
+                const b = DATA_HUB[key][this.currentLang];
                 document.getElementById('bio-hero-name').innerText = b.name;
                 document.getElementById('bio-hero-content').innerText = b.biography;
-                this.navigate('scr-bio');
+                this.navigate('scr-biography');
             }
         };
 
         /**
-         * [PART 3] VISUAL ENGINE - محرك العاصفة الرملية الذهبية الكثيفة
-         * تم تحسينه برمجياً ليعمل بـ 60 إطار في الثانية دون استنزاف البطارية.
+         * محرك الرمال الهادئة (The Visual Sand Engine)
+         * تم تفصيل الكود ليشرح كيفية حركة الجزيئات.
          */
-        const VisualEngine = {
-            canvas: document.getElementById('titan-storm-canvas'),
+        const SandEngine = {
+            canvas: document.getElementById('sand-particles-canvas'),
             ctx: null,
-            dustParticles: [],
-            count: 920, // كثافة الرمال الذهبية
+            particles: [],
+            pCount: 400,
 
             start() {
-                this.ctx = this.canvas.getContext('2d', { alpha: true });
+                this.ctx = this.canvas.getContext('2d');
                 this.resize();
-                this.generate();
+                this.createParticles();
                 this.animate();
                 window.addEventListener('resize', () => this.resize());
             },
@@ -498,60 +456,37 @@
                 this.canvas.height = window.innerHeight;
             },
 
-            generate() {
-                this.dustParticles = [];
-                for(let i=0; i<this.count; i++) {
-                    this.dustParticles.push(new this.Grain(this.canvas));
-                }
-            },
-
-            Grain: class {
-                constructor(cvs) {
-                    this.cvs = cvs;
-                    this.reset();
-                }
-                reset() {
-                    // الرمال تهب من الجانبين بزاوية مائلة قليلاً
-                    this.side = Math.random() > 0.5 ? 'L' : 'R';
-                    this.x = this.side === 'L' ? -Math.random() * 400 : this.cvs.width + Math.random() * 400;
-                    this.y = Math.random() * this.cvs.height;
-                    this.size = Math.random() * 2.8 + 0.6;
-                    this.vx = this.side === 'L' ? (Math.random() * 4 + 1.5) : -(Math.random() * 4 + 1.5);
-                    this.vy = (Math.random() - 0.5) * 1.2;
-                    this.opacity = Math.random() * 0.6 + 0.1;
-                    this.goldColor = '#D4AF37'; 
-                }
-                update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    // إعادة التدوير للجسيمات لضمان السلاسة
-                    if (this.side === 'L' && this.x > this.cvs.width + 100) this.reset();
-                    if (this.side === 'R' && this.x < -100) this.reset();
-                }
-                draw(ctx) {
-                    ctx.globalAlpha = this.opacity;
-                    ctx.fillStyle = this.goldColor;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
+            createParticles() {
+                this.particles = [];
+                for(let i=0; i<this.pCount; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        size: Math.random() * 1.5 + 0.5,
+                        speed: Math.random() * 0.4 + 0.1, // سرعة بطيئة جداً
+                        opacity: Math.random() * 0.6
+                    });
                 }
             },
 
             animate() {
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                for(let i=0; i<this.dustParticles.length; i++) {
-                    this.dustParticles[i].update();
-                    this.dustParticles[i].draw(this.ctx);
-                }
+                this.particles.forEach(p => {
+                    p.x += p.speed; // حركة أفقية هادئة
+                    if (p.x > this.canvas.width) p.x = -10;
+                    
+                    this.ctx.globalAlpha = p.opacity;
+                    this.ctx.fillStyle = '#FFD700';
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    this.ctx.fill();
+                });
                 requestAnimationFrame(() => this.animate());
             }
         };
 
-        // التشغيل الفوري للنظام عند تحميل الصفحة
-        window.onload = () => AppCore.init();
-
-        // تعطيل قائمة اليمين لتعزيز تجربة المستخدم (UX)
-        window.oncontextmenu = (e) => e.preventDefault();
+        // تشغيل التطبيق عند التحميل
+        window.onload = () => TitanApp.init();
     </script>
 </body>
 </html>
