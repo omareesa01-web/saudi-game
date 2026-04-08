@@ -3,224 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس | الإصدار الموسوعي الزجاجي</title>
+    <title>ملحمة التأسيس | النسخة الموسعة</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
-        /* [1] CSS ARCHITECTURE: VARIABLES */
+        /* [CSS BLOCK 1: VARIABLES]
+           تعريف المتغيرات لسهولة التحكم وتطويل الهيكل 
+        */
         :root {
-            --royal-green: #0D2E1C;
-            --gold-primary: #D4AF37;
+            /* الخلفية الأساسية - اغمق من القائمة */
+            --page-background: #020804;
+            
+            /* القائمة الزجاجية - أفتح قليلاً للتباين */
+            --ui-glass-bg: rgba(13, 56, 35, 0.78);
+            --ui-glass-blur: blur(25px);
+            --ui-glass-border: rgba(212, 175, 55, 0.45);
+            
+            /* ألوان الهوية الذهبية */
+            --gold-primary: #C5A028;
             --gold-bright: #FFD700;
             --gold-soft: #F9E29C;
-            --pure-white: #FFFFFF;
-            /* Glassmorphism Settings */
-            --glass-bg: rgba(13, 46, 28, 0.75);
-            --glass-blur: blur(22px);
-            --glass-border: rgba(212, 175, 55, 0.4);
-            --shadow-epic: rgba(0, 0, 0, 0.7);
-            /* Speed Settings */
-            --trans-fast: 0.3s;
-            --trans-hero: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            --gold-glow: rgba(255, 215, 0, 0.25);
+            
+            /* ألوان النصوص */
+            --text-main: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.85);
+            --text-muted: rgba(255, 255, 255, 0.6);
+            
+            /* إعدادات الحركة */
+            --speed-base: 0.5s;
+            --speed-fast: 0.25s;
+            --ease-epic: cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* [2] GLOBAL RESET */
-        * {
+        /* [CSS BLOCK 2: RESET & CORE]
+        */
+        html, 
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body, html {
             width: 100%;
             height: 100%;
-            background-color: var(--royal-green);
+            background-color: var(--page-background);
             font-family: 'Cairo', sans-serif;
-            color: var(--pure-white);
-            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
+            color: var(--text-main);
         }
 
-        /* [3] SAND PARTICLE ENGINE CANVAS */
+        * {
+            box-sizing: border-box;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* [CSS BLOCK 3: BACKGROUND ANIMATION]
+        */
         #sand-canvas {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 5;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
             pointer-events: none;
+            opacity: 0.35;
         }
 
-        /* [4] LANGUAGE HUB UI */
-        .lang-hub {
-            position: fixed;
-            top: 25px;
-            left: 25px;
-            z-index: 1000;
-            display: flex;
-            gap: 12px;
-        }
-
-        .lang-node {
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid var(--gold-primary);
-            color: var(--gold-primary);
-            padding: 8px 16px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 900;
-            font-size: 0.85rem;
-            transition: var(--trans-fast);
-            backdrop-filter: blur(5px);
-        }
-
-        .lang-node.active {
-            background: var(--gold-primary);
-            color: var(--royal-green);
-            box-shadow: 0 0 20px var(--gold-bright);
-        }
-
-        /* [5] MAIN COMPACT GLASS CONTAINER (360px) */
-        .app-frame {
+        /* [CSS BLOCK 4: UI CONTAINER FRAME]
+           مقاس 360px كما طلبت وتأثير زجاجي بارز
+        */
+        .glass-frame {
             position: relative;
             z-index: 100;
-            width: 360px; /* القائمة صغيرة ولمومة كما طلبت */
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            border-top: 6px solid var(--gold-primary);
-            border-radius: 40px;
-            padding: 40px 25px;
+            width: 360px;
+            min-height: 580px;
+            max-height: 90vh;
+            background: var(--ui-glass-bg);
+            backdrop-filter: var(--ui-glass-blur);
+            -webkit-backdrop-filter: var(--ui-glass-blur);
+            border: 1.5px solid var(--ui-glass-border);
+            border-top: 10px solid var(--gold-primary);
+            border-radius: 45px;
+            padding: 45px 30px;
             text-align: center;
-            box-shadow: 0 30px 90px var(--shadow-epic);
-            max-height: 85vh;
+            box-shadow: 0 50px 120px rgba(0, 0, 0, 0.85);
+            display: flex;
+            flex-direction: column;
             overflow-y: auto;
-            scrollbar-width: none;
+            overflow-x: hidden;
         }
 
-        .app-frame::-webkit-scrollbar {
+        /* إخفاء السكرول بار لجمالية التصميم */
+        .glass-frame::-webkit-scrollbar {
+            width: 0px;
             display: none;
         }
 
-        /* [6] SCREEN TRANSITIONS */
+        /* [CSS BLOCK 5: SCREEN TRANSITIONS]
+        */
         .ui-screen {
             display: none;
             opacity: 0;
-            transform: translateY(15px);
-            transition: opacity var(--trans-hero), transform var(--trans-hero);
+            transform: translateY(25px) scale(0.97);
+            transition: 
+                opacity var(--speed-base) ease,
+                transform var(--speed-base) var(--ease-epic);
+            width: 100%;
         }
 
         .ui-screen.active {
             display: block;
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
-        /* [7] TEXT TYPOGRAPHY */
+        /* [CSS BLOCK 6: TYPOGRAPHY]
+        */
         .title-gold {
-            font-size: 1.7rem;
+            font-size: 1.9rem;
             font-weight: 900;
             color: var(--gold-bright);
-            margin-bottom: 20px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            margin-bottom: 25px;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+            line-height: 1.3;
         }
 
-        .desc-main {
-            font-size: 0.95rem;
-            line-height: 1.8;
-            margin-bottom: 35px;
-            opacity: 0.85;
+        .desc-white {
+            font-size: 0.98rem;
             font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.85;
+            margin-bottom: 40px;
         }
 
-        /* [8] THE SWORD FLASH BUTTON ENGINE (لمعة السيف) */
+        /* [CSS BLOCK 7: SWORD SLASH BUTTONS]
+           تأثير لمعة السيف الذهبية عند التمرير
+        */
         .btn-epic {
             position: relative;
             width: 100%;
-            padding: 18px 10px;
-            margin-bottom: 15px;
-            background: rgba(255, 255, 255, 0.05);
+            padding: 22px 15px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.04);
             border: 1.5px solid var(--gold-primary);
-            border-radius: 20px;
-            color: var(--pure-white);
+            border-radius: 24px;
+            color: var(--text-main);
             font-size: 1.05rem;
             font-weight: 800;
             cursor: pointer;
             overflow: hidden;
-            transition: all 0.4s ease;
+            transition: 
+                transform 0.3s var(--ease-epic),
+                background 0.3s ease,
+                border-color 0.3s ease;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
-        /* تأثير لمعة نصل السيف */
-        .btn-epic::after {
+        /* تأثير "لمعة نصل السيف" */
+        .btn-epic::before {
             content: '';
             position: absolute;
             top: 0;
             left: -150%;
-            width: 100%;
+            width: 130%;
             height: 100%;
             background: linear-gradient(
-                90deg, 
-                transparent, 
-                rgba(255, 215, 0, 0.4), 
-                rgba(255, 255, 255, 0.2), 
+                120deg,
+                transparent,
+                rgba(212, 175, 55, 0.1),
+                rgba(255, 255, 255, 0.6), /* اللمعة الحادة */
+                rgba(212, 175, 55, 0.1),
                 transparent
             );
-            transform: skewX(-25deg);
-            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: skewX(-35deg);
+            transition: 0s;
         }
 
         .btn-epic:hover {
             border-color: var(--gold-bright);
-            background: rgba(212, 175, 55, 0.15);
-            transform: scale(1.02);
+            background: rgba(212, 175, 55, 0.18);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px var(--gold-glow);
         }
 
-        .btn-epic:hover::after {
-            left: 150%; /* اللمعة تمر بسرعة خاطفة */
+        .btn-epic:hover::before {
+            left: 150%;
+            transition: 0.75s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* [9] CONTENT BOXES (Historical Lore) */
-        .lore-box {
-            background: rgba(0, 0, 0, 0.25);
-            border-radius: 25px;
-            padding: 25px;
-            margin: 20px 0;
+        .btn-epic:active {
+            transform: scale(0.96);
+        }
+
+        /* [CSS BLOCK 8: LORE BOXES]
+        */
+        .lore-panel {
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 30px;
+            padding: 30px 22px;
+            margin: 25px 0;
             text-align: justify;
-            line-height: 2.1;
-            font-size: 0.9rem;
-            border-right: 5px solid var(--gold-primary);
+            line-height: 2.2;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            border-right: 6px solid var(--gold-primary);
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
             white-space: pre-line;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
+            animation: fadeIn 0.6s ease;
         }
 
-        [dir="ltr"] .lore-box {
+        [dir="ltr"] .lore-panel {
             border-right: 0;
-            border-left: 5px solid var(--gold-primary);
+            border-left: 6px solid var(--gold-primary);
             text-align: left;
         }
 
-        .nav-back {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-link {
             display: inline-block;
             margin-top: 25px;
             color: var(--gold-bright);
             cursor: pointer;
             font-weight: 800;
-            font-size: 0.9rem;
             text-decoration: underline;
-            text-underline-offset: 8px;
+            text-underline-offset: 10px;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
         }
 
-        .nav-back:hover {
-            color: var(--pure-white);
+        .nav-link:hover {
+            opacity: 0.75;
+        }
+
+        /* [CSS BLOCK 9: LANGUAGE HUB]
+        */
+        .lang-switcher {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 1001;
+            display: flex;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 8px;
+            border-radius: 60px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--ui-glass-border);
+        }
+
+        .lang-node {
+            background: transparent;
+            border: none;
+            color: var(--gold-soft);
+            padding: 10px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 900;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-node.active {
+            background: var(--gold-primary);
+            color: #000;
+            box-shadow: 0 0 15px var(--gold-bright);
+        }
+
+        /* [CSS BLOCK 10: RESPONSIVENESS]
+        */
+        @media (max-height: 650px) {
+            .glass-frame {
+                padding: 35px 20px;
+                min-height: 480px;
+            }
+            .title-gold { font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -228,222 +297,384 @@
 
     <canvas id="sand-canvas"></canvas>
 
-    <div class="lang-hub">
-        <div id="ln-ar" class="lang-node active" onclick="TitanEngine.setLang('ar')">العربية</div>
-        <div id="ln-en" class="lang-node" onclick="TitanEngine.setLang('en')">English</div>
+    <div class="lang-switcher">
+        <button id="lang-btn-ar" class="lang-node active" onclick="Engine.setLanguage('ar')">العربية</button>
+        <button id="lang-btn-en" class="lang-node" onclick="Engine.setLanguage('en')">English</button>
     </div>
 
-    <div class="app-frame">
+    <div class="glass-frame" id="main-frame">
         
-        <div id="scr-gate" class="ui-screen active">
-            <h1 class="title-gold" id="ui-g-h">ملاحم التأسيس</h1>
-            <p class="desc-main" id="ui-g-d">عِش تفاصيل التاريخ السعودي العظيم. اتخذ قرارات القادة وخلّد سيرة الأمجاد في سجل الخالدين.</p>
-            <button class="btn-epic" id="ui-btn-start" onclick="TitanEngine.nav('scr-select')">ابدأ الملحمة</button>
-            <button class="btn-epic" id="ui-btn-arch" onclick="TitanEngine.nav('scr-arch')">سجل الخالدين</button>
+        <div id="scr-gateway" class="ui-screen active">
+            <h1 class="title-gold" id="lbl-g-t">ملاحم التأسيس</h1>
+            <p class="desc-white" id="lbl-g-d">استكشف أمجاد التاريخ السعودي العظيم عبر العصور. اتخذ قراراتك كقائد وخلّد اسمك في سجل الخالدين.</p>
+            <button class="btn-epic" id="btn-g-s" onclick="Engine.nav('scr-select')">ابدأ الملحمة</button>
+            <button class="btn-epic" id="btn-g-a" onclick="Engine.nav('scr-archive')">سجل الخالدين</button>
         </div>
 
         <div id="scr-select" class="ui-screen">
-            <h1 class="title-gold" id="ui-s-h">اختر القائد</h1>
-            <div id="hero-list-container"></div>
-            <a class="nav-back" id="ui-b-1" onclick="TitanEngine.nav('scr-gate')">رجوع</a>
+            <h1 class="title-gold" id="lbl-s-t">اختر القائد</h1>
+            <div id="hero-list-mount">
+                </div>
+            <a class="nav-link" id="nav-back-1" onclick="Engine.nav('scr-gateway')">العودة للرئيسية</a>
         </div>
 
         <div id="scr-quest" class="ui-screen">
-            <h1 id="q-title" style="color: var(--gold-bright); font-size: 1.4rem; margin-bottom: 20px;"></h1>
-            <div id="q-body" class="lore-box"></div>
-            <div id="q-options"></div>
-            <a class="nav-back" id="ui-b-2" onclick="TitanEngine.nav('scr-select')">تراجع</a>
+            <h1 id="quest-title" class="title-gold" style="font-size: 1.45rem;"></h1>
+            <div id="quest-content" class="lore-panel"></div>
+            <div id="quest-options-mount">
+                </div>
+            <a class="nav-link" id="nav-back-2" onclick="Engine.nav('scr-select')">تراجع عن الاختيار</a>
         </div>
 
         <div id="scr-verdict" class="ui-screen">
-            <h1 class="title-gold" id="ui-v-h">حكم التاريخ</h1>
-            <div id="verdict-body" class="lore-box"></div>
-            <button class="btn-epic" id="ui-btn-again" onclick="TitanEngine.nav('scr-select')">مسار جديد</button>
+            <h1 class="title-gold" id="lbl-v-t">حكم التاريخ</h1>
+            <div id="verdict-content" class="lore-panel"></div>
+            <button class="btn-epic" id="btn-v-r" onclick="Engine.nav('scr-select')">خوض مسار جديد</button>
+            <a class="nav-link" id="nav-back-3" onclick="Engine.nav('scr-gateway')">العودة للرئيسية</a>
         </div>
 
-        <div id="scr-arch" class="ui-screen">
-            <h1 class="title-gold" id="ui-a-h">سجل الخالدين</h1>
-            <div id="arch-list-container"></div>
-            <a class="nav-back" id="ui-b-3" onclick="TitanEngine.nav('scr-gate')">الرئيسية</a>
+        <div id="scr-archive" class="ui-screen">
+            <h1 class="title-gold" id="lbl-a-t">سجل الخالدين</h1>
+            <div id="arch-list-mount">
+                </div>
+            <a class="nav-link" id="nav-back-4" onclick="Engine.nav('scr-gateway')">الرجوع</a>
         </div>
 
         <div id="scr-bio" class="ui-screen">
             <h1 id="bio-title" class="title-gold"></h1>
-            <div id="bio-body" class="lore-box"></div>
-            <a class="nav-back" id="ui-b-4" onclick="TitanEngine.nav('scr-arch')">العودة للسجل</a>
+            <div id="bio-content" class="lore-panel"></div>
+            <a class="nav-link" id="nav-back-5" onclick="Engine.nav('scr-archive')">العودة للسجل</a>
         </div>
 
     </div>
 
     <script>
-        /* [1] THE MASSIVE ARCHIVE - الأرشيف التاريخي الموسع لتطويل الكود */
-        const MASTER_DATA = {
-            imam_mohammad: {
+        /**
+         * [SECTION 1: MASSIVE HISTORICAL DATA]
+         * تم تفصيل النصوص التاريخية لضمان ثراء المحتوى وطول الكود
+         */
+        const DATABASE = {
+            imam_mohammad_saud: {
                 ar: {
                     name: "الإمام محمد بن سعود",
-                    q_h: "فجر التأسيس (1727م)",
-                    q_b: "أنت في الدرعية عام 1139هـ. المنطقة تعاني من الفرقة. يأتيك الشيخ محمد بن عبدالوهاب طالباً النصرة لنشر التوحيد وتأسيس دولة قوية.\n\nهل تعقد ميثاق الدرعية التاريخي؟",
-                    opts: [
-                        { l: "عقد الميثاق وتأسيس الدولة", r: "✅ 'أبشر بالعز والتمكين'.. بهذه الكلمات بدأت الدولة السعودية الأولى. بقرارك هذا، تحولت الدرعية لعاصمة سياسية وعلمية كبرى، ووحدت نجد والحجاز لأول مرة منذ قرون." },
-                        { l: "الاكتفاء بحماية الشيخ فقط", r: "⚠️ القرار حافظ على الأمن المحلي، لكن فرصة بناء دولة عظمى ضاعت، وبقيت الجزيرة مشتتة لسنوات إضافية." }
+                    quest_h: "ميثاق الدرعية (1139هـ)",
+                    quest_b: "أنت الآن في عام 1727م (1139هـ). توليت الحكم في الدرعية والجزيرة العربية تعاني من التشتت والحروب.\n\nيصل الشيخ محمد بن عبدالوهاب إليك طالباً نصرة دعوة التوحيد وبناء دولة قوية تحمي الناس وتطبق العدل.\n\nهل تضع يدك في يده وتؤسس الدولة السعودية الأولى؟",
+                    options: [
+                        { label: "عقد الميثاق وتأسيس الدولة", result: "✅ نصر تاريخي! بكلمتك 'أبشر بالعز والتمكين' بدأت أعظم وحدة في تاريخ الجزيرة العربية. أصبحت الدرعية عاصمة للدين والحكم، وانطلق قطار التأسيس الذي نعيش ثبوته اليوم." },
+                        { label: "حماية الشيخ دون تحالف سياسي", result: "⚠️ نال الشيخ الأمان، لكن الحلم ببناء دولة موحدة تأخر لسنوات، وبقيت الأقاليم تعاني من الفرقة والنزاعات القبلية لزمن أطول." }
                     ],
-                    bio: "• مؤسس الدولة السعودية الأولى (يوم التأسيس).\n\n• إنجازاته:\n1. توحيد شطري الدرعية تحت حكم واحد.\n2. بناء سور الدرعية العظيم.\n3. تأمين طرق الحج والتجارة.\n4. استضافة العلماء وجعل الدرعية مركزاً للفكر الإسلامي.\n\n• إرثه: وضع حجر الأساس لكل أمجاد الوطن الحالية."
+                    bio: `• لقب القائد: المؤسس الأول.
+• عهد التأسيس: (1727م - 1765م).
+
+• أهم المحطات التاريخية:
+1. توحيد شطري الدرعية وبناء سورها العظيم.
+2. استقبال العلماء وتأسيس قاعدة فكرية للدولة.
+3. تأمين القوافل التجارية وطرق الحج بشكل غير مسبوق.
+4. التصدي للحملات التي استهدفت وحدة نجد.
+
+• الإرث: وضع حجر الأساس الذي قامت عليه الدولة السعودية العظمى عبر العصور.`
                 },
                 en: {
                     name: "Imam Muhammad bin Saud",
-                    q_h: "Founding Dawn (1727)",
-                    q_b: "In Diriyah, 1727 AD. The land is divided. A scholar seeks your alliance to unify the peninsula and establish a law-based state.\n\nDo you form the Historic Diriyah Pact?",
-                    opts: [
-                        { l: "Form the Pact & State", r: "✅ 'Be promised glory and empowerment'.. With these words, the First Saudi State began. Diriyah became a great political and educational capital." },
-                        { l: "Provide Protection Only", r: "⚠️ Security was granted, but the chance to build a vast nation was lost, leaving the land fragmented for years." }
+                    quest_h: "Diriyah Pact (1727 AD)",
+                    quest_b: "The year is 1727. You have taken power in Diriyah. The Arabian Peninsula is fragmented and war-torn.\n\nSheikh Muhammad bin Abdulwahhab arrives seeking an alliance to build a state that protects people and justice.\n\nDo you form the First Saudi State?",
+                    options: [
+                        { label: "Form the Pact & State", result: "✅ Historic Victory! With your words 'Be promised glory', the greatest unification began. Diriyah became the capital of faith and power." },
+                        { label: "Protection Only", result: "⚠️ The Sheikh received safety, but the dream of a unified nation was delayed, leaving the land in tribal conflicts for years." }
                     ],
-                    bio: "• Founder of the First Saudi State (Founding Day).\n\n• Achievements:\n1. Unified Diriyah districts.\n2. Built the Great Wall of Diriyah.\n3. Secured Hajj and trade routes.\n4. Established a hub for knowledge.\n\n• Legacy: Laid the foundation for all modern Saudi glory."
+                    bio: `• Title: The First Founder.
+• Reign: (1727 - 1765 AD).
+
+• Key Achievements:
+1. Unified Diriyah and built its massive walls.
+2. Established the intellectual foundation of the state.
+3. Secured Hajj and trade routes.
+4. Defended Najd against external threats.`
                 }
             },
-            imam_turki: {
+            imam_turki_abdullah: {
                 ar: {
                     name: "الإمام تركي بن عبد الله",
-                    q_h: "ملحمة الاسترداد (1240هـ)",
-                    q_b: "بعد سقوط الدرعية، أنت الآن في 'خلوة الحلوة' ومعك سيفك 'الأجرب' وعدد قليل من الأبطال. الحامية الأجنبية تحتل الرياض.\n\nهل تباغت الحامية لاستعادة ملك آبائك؟",
-                    opts: [
-                        { l: "مباغتة الحامية الآن", r: "✅ نصر تاريخي! استعدت الرياض وأعلنت قيام الدولة السعودية الثانية (1824م). أثبتّ أن الحق السعودي لا يموت بسيفك الأجرب وشجاعتك النادرة." },
-                        { l: "الانتظار لجمع القبائل", r: "❌ كُشف موقعك من الجواسيس، فحصن العدو الرياض، مما جعل التحرير لاحقاً أكثر صعوبة ومرارة." }
+                    quest_h: "ملحمة الاسترداد (1240هـ)",
+                    quest_b: "بعد سقوط الدرعية الأليم، أنت الآن في 'خلوة الحلوة'. معك سيفك 'الأجرب' وعدد قليل من الأبطال.\n\nالحامية الأجنبية تحتل الرياض وتظلم الناس. هل تباغت الحصن الآن لاستعادة ملك آبائك وبناء الدولة السعودية الثانية؟",
+                    options: [
+                        { label: "الهجوم والمباغتة الآن", result: "✅ الله أكبر! بقرارك الشجاع استعدت الرياض عام 1824م وأخرجت المحتل. أعلنت قيام الدولة الثانية وجعلت الرياض عاصمة دائمة لآل سعود، وأعدت الأمن للناس." },
+                        { label: "الانتظار لجمع جيش أكبر", result: "❌ أدى التأخير إلى كشف موقعك، فحصن العدو الرياض وزاد من ظلم الناس، وتأخر فجر الحرية لسنوات إضافية من المعاناة." }
                     ],
-                    bio: "• بطل الاستعادة ومؤسس الدولة الثانية.\n\n• إنجازاته:\n1. تطهير نجد من القوات الأجنبية.\n2. اتخاذ الرياض عاصمة دائمية لآل سعود.\n3. إعادة بناء قصر الحكم وجامع الإمام تركي.\n\n• رمزه: سيفه 'الأجرب' الذي صار مضرباً للمثل في الشجاعة."
+                    bio: `• لقب القائد: بطل الاستعادة.
+• عهد الدولة الثانية: (1824م - 1834م).
+
+• أهم المحطات التاريخية:
+1. طرد الحاميات الأجنبية من نجد بسيفه "الأجرب".
+2. اتخاذ الرياض عاصمة دائمة للدولة السعودية.
+3. إعادة بناء قصر الحكم وجامع الإمام تركي.
+4. توحيد القبائل تحت راية واحدة بعد سنوات من الشتات.
+
+• صفاته: اشتهر بالشجاعة النادرة والحكمة السياسية والعدل.`
                 },
                 en: {
                     name: "Imam Turki bin Abdullah",
-                    q_h: "The Restoration (1824)",
-                    q_b: "After the fall of Diriyah, you are in hiding with your sword 'Al-Ajrab'. The foreign garrison occupies Riyadh.\n\nDo you launch a surprise attack to reclaim your throne?",
-                    opts: [
-                        { l: "Launch Surprise Raid", r: "✅ Historic Victory! You reclaimed Riyadh and founded the Second Saudi State (1824). You proved Saudi rights never die." },
-                        { l: "Wait for Reinforcements", r: "❌ Spies revealed your location. The enemy fortified Riyadh, making the eventual liberation much harder." }
+                    quest_h: "The Restoration (1824 AD)",
+                    quest_b: "After the fall of Diriyah, you are in hiding. You have your sword 'Al-Ajrab' and few heroes.\n\nA foreign garrison occupies Riyadh. Do you raid the fort now to reclaim your ancestors' throne?",
+                    options: [
+                        { label: "Launch Raid Now", result: "✅ Victory! You reclaimed Riyadh in 1824 and expelled the occupiers. You established the 2nd State and made Riyadh the permanent capital." },
+                        { label: "Wait for Support", result: "❌ The delay led to your discovery. The enemy fortified, and the dawn of freedom was delayed for years of suffering." }
                     ],
-                    bio: "• Hero of Restoration & Founder of the 2nd State.\n\n• Achievements:\n1. Cleared Najd of foreign forces.\n2. Established Riyadh as the capital.\n3. Rebuilt the Justice Palace.\n\n• Symbol: His sword 'Al-Ajrab', a legend of bravery."
+                    bio: `• Title: Hero of Restoration.
+• Reign: (1824 - 1834 AD).
+
+• Key Achievements:
+1. Expelled foreign forces from Najd.
+2. Established Riyadh as the permanent capital.
+3. Rebuilt the Justice Palace.
+4. Reunified tribes under one flag.`
                 }
             },
-            king_abdulaziz: {
+            king_abdulaziz_saud: {
                 ar: {
                     name: "الملك عبد العزيز",
-                    q_h: "فتح الرياض (1319هـ)",
-                    q_b: "في ليلة 4 شوال، تقف مع 63 بطلاً خلف أسوار الرياض. بوابة المصمك ستفتح الآن لخروج الحاكم. اللحظة حاسمة.\n\nهل تقتحم البوابة فوراً؟",
-                    opts: [
-                        { l: "اقتحام المصمك الآن", r: "✅ 'الملك لله ثم لعبد العزيز'.. بهذه الصرخة استعدت الرياض وبدأ فجر المملكة الحديثة. وحدت البلاد والقلوب تحت راية التوحيد." },
-                        { l: "التراجع لتغيير الخطة", r: "⚠️ ضاعت فرصة المباغتة. الحامية تحصنت بالداخل وتأخر توحيد المملكة لسنوات عديدة من الكفاح." }
+                    quest_h: "فتح الرياض (1319هـ)",
+                    quest_b: "أنت الملك الشاب عبدالعزيز. تقف في ليلة 4 شوال خلف أسوار الرياض بـ 63 بطلاً فقط. بوابة المصمك ستفتح الآن لخروج الحاكم 'عجلان'.\n\nهل تقتحم البوابة فوراً وتواجه مصيرك لصناعة التاريخ؟",
+                    options: [
+                        { label: "اقتحام المصمك الآن", result: "✅ 'الملك لله ثم لعبدالعزيز'.. بهذه الصرخة استعدت الرياض وبدأ فجر المملكة العربية السعودية الحديثة. وحدت البلاد والقلوب وبنيت وطناً شامخاً." },
+                        { label: "التراجع لتغيير الخطة", result: "⚠️ ضاعت فرصة المباغتة، وعلم العدو بوجودك، فدخلت في حصار طويل، وتأخر توحيد المملكة لسنوات عديدة من الكفاح المرير." }
                     ],
-                    bio: "• المؤسس العظيم للمملكة العربية السعودية.\n\n• إنجازاته:\n1. استعادة الرياض في عملية عسكرية مذهلة.\n2. توحيد كافة أقاليم المملكة (1351هـ).\n3. بدء عصر النفط والنهضة التعليمية.\n4. تأسيس الوزارات والأنظمة الحديثة.\n\n• إرثه: بنى وطناً شامخاً يجمع بين الأصالة والتطور."
+                    bio: `• لقب القائد: المؤسس الموحد.
+• عهد المملكة: (1902م - 1953م).
+
+• أهم المحطات التاريخية:
+1. استرداد الرياض في عملية عسكرية مذهلة عام 1319هـ.
+2. توحيد كافة أقاليم المملكة وإعلان اسمها الحالي (1351هـ).
+3. استخراج النفط وبدء النهضة الصناعية الكبرى.
+4. تأسيس الوزارات والأنظمة الحديثة والخطوط السعودية.
+
+• الإرث: بنى دولة عصرية قوية تجمع بين التمسك بالدين ومواكبة التطور العالمي.`
                 },
                 en: {
                     name: "King Abdulaziz",
-                    q_h: "Conquest of Riyadh (1902)",
-                    q_b: "On the night of Jan 15, you stand with 63 heroes behind Riyadh walls. The Masmak gate is about to open. This is the moment.\n\nDo you storm the gate now?",
-                    opts: [
-                        { l: "Storm Masmak Now", r: "✅ 'Kingdom for God, then for Abdulaziz'.. Riyadh was reclaimed, starting the dawn of the modern Kingdom and unifying the nation." },
-                        { l: "Retreat to Plan", r: "⚠️ The element of surprise was lost. The garrison fortified, delaying the unification for many years of struggle." }
+                    quest_h: "Conquest of Riyadh (1902)",
+                    quest_b: "You are the young King Abdulaziz. You stand with 63 heroes behind Riyadh walls. The Masmak gate is opening.\n\nDo you storm the gate now to shape history?",
+                    options: [
+                        { label: "Storm the Gate Now", result: "✅ 'Kingdom for God, then Abdulaziz'.. Riyadh was reclaimed, and the modern Kingdom's dawn began. You unified the land and hearts." },
+                        { label: "Retreat to Plan", result: "⚠️ The surprise was lost. The enemy fortified, and the unification of the Kingdom was delayed for many years of struggle." }
                     ],
-                    bio: "• The Great Founder of Saudi Arabia.\n\n• Achievements:\n1. Reclaimed Riyadh in a daring raid.\n2. Unified the Kingdom in 1932.\n3. Started the oil and education era.\n4. Established modern government systems."
+                    bio: `• Title: The Unifier.
+• Reign: (1902 - 1953 AD).
+
+• Key Achievements:
+1. Reclaimed Riyadh in a daring operation in 1902.
+2. Unified all regions and declared the 'KSA' in 1932.
+3. Started oil discovery and industrial era.
+4. Established modern government ministries.`
                 }
             }
         };
 
-        const UI_LABELS = {
-            ar: { g_h: "ملاحم التأسيس", g_d: "عِش تفاصيل التاريخ السعودي العظيم. اتخذ قرارات القادة وخلّد سيرة الأمجاد.", s_h: "اختر القائد", v_h: "حكم التاريخ", a_h: "سجل الخالدين", b: "رجوع", start: "ابدأ الملحمة", arch: "سجل الخالدين", again: "مسار جديد", dir: "rtl" },
-            en: { g_h: "Founding Epics", g_d: "Live the details of great Saudi history. Shape the legacy with your decisions.", s_h: "Select Hero", v_h: "The Verdict", a_h: "Immortal Archive", b: "Back", start: "Start", arch: "Archive", again: "New Path", dir: "ltr" }
+        /**
+         * [SECTION 2: UI STRINGS]
+         */
+        const UI_STRINGS = {
+            ar: {
+                g_t: "ملاحم التأسيس",
+                g_d: "استكشف أمجاد التاريخ السعودي العظيم عبر العصور. اتخذ قراراتك كقائد وخلّد اسمك في سجل الخالدين.",
+                start: "ابدأ الملحمة",
+                arch: "سجل الخالدين",
+                sel_t: "اختر القائد",
+                ver_t: "حكم التاريخ",
+                arc_t: "سجل الخالدين",
+                again: "خوض مسار جديد",
+                back: "الرجوع",
+                dir: "rtl"
+            },
+            en: {
+                g_t: "Founding Epics",
+                g_d: "Explore the glories of great Saudi history. Make your choices as a leader and immortalize your name.",
+                start: "Start Mission",
+                arch: "Immortal Archive",
+                sel_t: "Select Leader",
+                ver_t: "History Verdict",
+                arc_t: "Immortal Archive",
+                again: "New Path",
+                back: "Back",
+                dir: "ltr"
+            }
         };
 
-        /* [2] TITAN LOGIC ENGINE */
-        const TitanEngine = {
+        /**
+         * [SECTION 3: ENGINE LOGIC]
+         */
+        const Engine = {
             lang: 'ar',
+
             init() {
-                this.setLang('ar');
-                SandSystem.run();
+                console.log("[SYSTEM] Titan Core Initialized...");
+                this.setLanguage('ar');
+                Visuals.start();
             },
-            setLang(l) {
+
+            setLanguage(l) {
                 this.lang = l;
-                const ui = UI_LABELS[l];
-                document.documentElement.dir = ui.dir;
-                document.querySelectorAll('.lang-node').forEach(n => n.classList.remove('active'));
-                document.getElementById('ln-' + l).classList.add('active');
+                const ui = UI_STRINGS[l];
                 
-                document.getElementById('ui-g-h').innerText = ui.g_h;
-                document.getElementById('ui-g-d').innerText = ui.g_d;
-                document.getElementById('ui-btn-start').innerText = ui.start;
-                document.getElementById('ui-btn-arch').innerText = ui.arch;
-                document.getElementById('ui-s-h').innerText = ui.s_h;
-                document.getElementById('ui-v-h').innerText = ui.v_h;
-                document.getElementById('ui-a-h').innerText = ui.a_h;
-                document.getElementById('ui-btn-again').innerText = ui.again;
-                for(let i=1; i<=4; i++) document.getElementById('ui-b-'+i).innerText = ui.b;
-                this.renderContent();
+                // تحديث سمات الصفحة
+                document.documentElement.dir = ui.dir;
+                document.documentElement.lang = l;
+
+                // تحديث أزرار اللغات
+                document.querySelectorAll('.lang-node').forEach(b => b.classList.remove('active'));
+                document.getElementById(`lang-btn-${l}`).classList.add('active');
+
+                // تحديث النصوص
+                document.getElementById('lbl-g-t').innerText = ui.g_t;
+                document.getElementById('lbl-g-d').innerText = ui.g_d;
+                document.getElementById('btn-g-s').innerText = ui.start;
+                document.getElementById('btn-g-a').innerText = ui.arch;
+                document.getElementById('lbl-s-t').innerText = ui.sel_t;
+                document.getElementById('lbl-v-t').innerText = ui.ver_t;
+                document.getElementById('lbl-a-t').innerText = ui.arc_t;
+                document.getElementById('btn-v-r').innerText = ui.again;
+                
+                for(let i=1; i<=5; i++) {
+                    const el = document.getElementById(`nav-back-${i}`);
+                    if(el) el.innerText = ui.back;
+                }
+
+                this.renderDynamicContent();
             },
-            nav(id) {
+
+            nav(screenId) {
                 const screens = document.querySelectorAll('.ui-screen');
-                screens.forEach(s => { 
-                    s.classList.remove('active'); 
-                    setTimeout(() => s.style.display = 'none', 300); 
+                screens.forEach(s => {
+                    s.classList.remove('active');
+                    setTimeout(() => { s.style.display = 'none'; }, 400);
                 });
-                setTimeout(() => { 
-                    const target = document.getElementById(id);
-                    target.style.display = 'block'; 
-                    setTimeout(() => target.classList.add('active'), 50); 
-                }, 350);
+
+                setTimeout(() => {
+                    const target = document.getElementById(screenId);
+                    target.style.display = 'block';
+                    document.getElementById('main-frame').scrollTop = 0;
+                    setTimeout(() => { target.classList.add('active'); }, 50);
+                }, 450);
             },
-            renderContent() {
-                const hL = document.getElementById('hero-list-container');
-                const aL = document.getElementById('arch-list-container');
-                hL.innerHTML = ''; aL.innerHTML = '';
-                Object.keys(MASTER_DATA).forEach(key => {
-                    const data = MASTER_DATA[key][this.lang];
-                    const b1 = document.createElement('button'); b1.className = 'btn-epic'; b1.innerText = data.name; b1.onclick = () => this.openQuest(key); hL.appendChild(b1);
-                    const b2 = document.createElement('button'); b2.className = 'btn-epic'; b2.innerText = data.name; b2.onclick = () => this.openBio(key); aL.appendChild(b2);
+
+            renderDynamicContent() {
+                const heroMount = document.getElementById('hero-list-mount');
+                const archMount = document.getElementById('arch-list-mount');
+                
+                heroMount.innerHTML = '';
+                archMount.innerHTML = '';
+
+                Object.keys(DATABASE).forEach(key => {
+                    const item = DATABASE[key][this.lang];
+                    
+                    // أزرار الاختيار
+                    const hBtn = document.createElement('button');
+                    hBtn.className = 'btn-epic';
+                    hBtn.innerText = item.name;
+                    hBtn.onclick = () => this.openQuest(key);
+                    heroMount.appendChild(hBtn);
+
+                    // أزرار الأرشيف
+                    const aBtn = document.createElement('button');
+                    aBtn.className = 'btn-epic';
+                    aBtn.innerText = item.name;
+                    aBtn.onclick = () => this.openBio(key);
+                    archMount.appendChild(aBtn);
                 });
             },
+
             openQuest(key) {
-                const d = MASTER_DATA[key][this.lang];
-                document.getElementById('q-title').innerText = d.q_h;
-                document.getElementById('q-body').innerText = d.q_b;
-                const optsBox = document.getElementById('q-options'); optsBox.innerHTML = '';
-                d.opts.forEach(o => {
-                    const b = document.createElement('button'); b.className = 'btn-epic'; b.innerText = o.l;
-                    b.onclick = () => { document.getElementById('verdict-body').innerText = o.r; this.nav('scr-verdict'); };
-                    optsBox.appendChild(b);
+                const quest = DATABASE[key][this.lang];
+                document.getElementById('quest-title').innerText = quest.quest_h;
+                document.getElementById('quest-content').innerText = quest.quest_b;
+                
+                const optMount = document.getElementById('quest-options-mount');
+                optMount.innerHTML = '';
+
+                quest.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'btn-epic';
+                    btn.innerText = opt.label;
+                    btn.onclick = () => {
+                        document.getElementById('verdict-content').innerText = opt.result;
+                        this.nav('scr-verdict');
+                    };
+                    optMount.appendChild(btn);
                 });
+
                 this.nav('scr-quest');
             },
+
             openBio(key) {
-                const d = MASTER_DATA[key][this.lang];
-                document.getElementById('bio-title').innerText = d.name;
-                document.getElementById('bio-body').innerText = d.bio;
+                const bio = DATABASE[key][this.lang];
+                document.getElementById('bio-title').innerText = bio.name;
+                document.getElementById('bio-content').innerText = bio.bio;
                 this.nav('scr-bio');
             }
         };
 
-        /* [3] VISUALS: SAND SYSTEM */
-        const SandSystem = {
+        /**
+         * [SECTION 4: VISUAL EFFECTS SYSTEM]
+         */
+        const Visuals = {
             canvas: document.getElementById('sand-canvas'),
-            ctx: null, grains: [],
-            run() {
+            ctx: null,
+            grains: [],
+            grainCount: 350,
+
+            start() {
                 this.ctx = this.canvas.getContext('2d');
                 this.resize();
-                for(let i=0; i<350; i++) this.grains.push({ x:Math.random()*this.canvas.width, y:Math.random()*this.canvas.height, s:Math.random()*1.8, v:Math.random()*0.4+0.1, o:Math.random()*0.5 });
+                this.createGrains();
                 this.animate();
-                window.onresize = () => this.resize();
+                window.addEventListener('resize', () => this.resize());
             },
-            resize() { this.canvas.width = window.innerWidth; this.canvas.height = window.innerHeight; },
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            },
+
+            createGrains() {
+                this.grains = [];
+                for(let i=0; i < this.grainCount; i++) {
+                    this.grains.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        size: Math.random() * 1.5 + 0.2,
+                        speedX: Math.random() * 0.5 + 0.1,
+                        speedY: Math.random() * 0.2 - 0.1,
+                        opacity: Math.random() * 0.6
+                    });
+                }
+            },
+
             animate() {
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                this.ctx.fillStyle = '#FFD700';
+                this.ctx.fillStyle = "#FFD700";
+                
                 this.grains.forEach(g => {
-                    g.x += g.v;
-                    if(g.x > this.canvas.width) g.x = -5;
-                    this.ctx.globalAlpha = g.o;
-                    this.ctx.beginPath(); this.ctx.arc(g.x, g.y, g.s, 0, Math.PI*2); this.ctx.fill();
+                    g.x += g.speedX;
+                    g.y += g.speedY;
+                    
+                    if(g.x > this.canvas.width) g.x = -10;
+                    if(g.y > this.canvas.height) g.y = -10;
+                    if(g.y < -10) g.y = this.canvas.height;
+                    
+                    this.ctx.globalAlpha = g.opacity;
+                    this.ctx.beginPath();
+                    this.ctx.arc(g.x, g.y, g.size, 0, Math.PI * 2);
+                    this.ctx.fill();
                 });
+                
                 requestAnimationFrame(() => this.animate());
             }
         };
 
-        window.onload = () => TitanEngine.init();
+        // إطلاق المحرك البرمجي
+        window.onload = () => Engine.init();
+
     </script>
-</body>
+    
+    </body>
 </html>
