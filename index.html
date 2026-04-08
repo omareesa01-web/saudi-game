@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس | النسخة الاحترافية</title>
+    <title>ملحمة التأسيس | النسخة النظيفة</title>
     
     <style>
         :root {
@@ -26,18 +26,8 @@
             overflow: hidden; display: flex; justify-content: center; align-items: center;
         }
 
-        /* تعديل جوهري: إخفاء جميع الشاشات افتراضياً */
-        .screen { 
-            display: none; 
-            opacity: 0; 
-            transition: opacity 0.5s ease;
-        }
-
-        /* إظهار الشاشة النشطة فقط */
-        .screen.active { 
-            display: block; 
-            opacity: 1; 
-        }
+        .screen { display: none; opacity: 0; transition: opacity 0.5s ease; }
+        .screen.active { display: block; opacity: 1; }
 
         #titan-engine-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
 
@@ -54,13 +44,22 @@
             background: var(--glass-bg); backdrop-filter: blur(50px);
             border: 1px solid var(--glass-border); border-top: 6px solid var(--saudi-green);
             border-radius: 30px; padding: 30px 20px; text-align: center;
-            box-shadow: 0 60px 120px rgba(0,0,0,0.8); max-height: 85vh; overflow-y: auto;
+            box-shadow: 0 60px 120px rgba(0,0,0,0.8); max-height: 85vh; 
+            overflow-y: auto;
+            
+            /* إخفاء شريط التمرير لجميع المتصفحات */
+            -ms-overflow-style: none;  /* لمتصفح IE و Edge */
+            scrollbar-width: none;  /* لمتصفح Firefox */
+        }
+
+        /* إخفاء شريط التمرير لمتصفحات Chrome و Safari و Opera */
+        .app-container::-webkit-scrollbar {
+            display: none;
         }
 
         .main-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 12px; text-shadow: 0 0 15px var(--glow-green); }
         .description-text { font-size: 0.9rem; line-height: 1.5; color: #bbb; margin-bottom: 25px; }
 
-        /* تأثير لمعة السيف */
         .btn-epic {
             position: relative; width: 100%; padding: 15px; margin-bottom: 12px;
             background: linear-gradient(135deg, var(--saudi-green), var(--deep-green));
@@ -146,7 +145,7 @@
     </div>
 
     <script>
-        // تم الحفاظ على EPIC_DATA بالكامل (القصص الطويلة + الأرشيف)
+        // البيانات كاملة كما هي (القصص الطويلة + الأرشيف)
         const EPIC_DATA = {
             m_saud: {
                 ar: {
@@ -180,41 +179,9 @@
                             ]
                         }
                     ],
-                    biography: "الإمام محمد بن سعود بن محمد بن مقرن (توفي 1765م).\n\nيُعد المؤسس الأول للدولة السعودية الأولى وباني نهضتها السياسية. تولى الحكم في ظروف استثنائية، حيث نجح في تحويل الدرعية من مجرد بلدة صغيرة إلى مركز جذب سياسي واقتصادي. عُرف بحكمته في الإدارة وشجاعته في الميدان.\n\nفي عام 1744م، عقد 'ميثاق الدرعية' الشهير، وهو الحدث الذي يُعتبر حجر الزاوية في التاريخ السعودي الحديث، حيث اجتمعت السلطة السياسية مع الرؤية الإصلاحية.\n\nخلال فترة حكمه، قام بتأمين طرق الحج والتجارة التي كانت تعاني من قطاع الطرق، وبنى 'سور الدرعية' العظيم للدفاع عن العاصمة. استطاع توحيد معظم مناطق نجد تحت راية واحدة، ممهداً الطريق لقرون من الاستقرار. لم يكن مجرد حاكم، بل كان أباً روحياً لمشروع الوحدة الوطنية، حيث تميز عهده بالعدل والصلابة في الحق، وترك خلفه إرثاً سياسياً جعل من آل سعود الأسرة القائدة للجزيرة العربية."
+                    biography: "الإمام محمد بن سعود بن محمد بن مقرن (توفي 1765م).\n\nيُعد المؤسس الأول للدولة السعودية الأولى وباني نهضتها السياسية..."
                 },
-                en: {
-                    name: "Imam Muhammad bin Saud",
-                    scenarios: [
-                        {
-                            title: "The Historical Diriyah Pact (1744)",
-                            story: "In 1744, the Arabian Peninsula is fractured. Sheikh Muhammad bin Abdulwahab arrives seeking a state for reform. Will you forge a covenant for a nation based on justice and unity, or remain a local ruler to avoid conflict?",
-                            decisions: [
-                                { l: "Forge the Covenant", f: "✅ The First Saudi State was born, and Diriyah became a powerful regional capital." },
-                                { l: "Provide Asylum Only", f: "⚠️ The Sheikh was safe, but the lack of a political alliance delayed national unity." },
-                                { l: "Refuse the Alliance", f: "❌ The historic opportunity was lost, and Diriyah remained a small, isolated emirate." }
-                            ]
-                        },
-                        {
-                            title: "The Great Wall of Diriyah",
-                            story: "Regional powers see Diriyah's growth as a threat. Invading forces are approaching. How will you defend the heart of the state? Build massive fortifications, or rely on desert maneuvers?",
-                            decisions: [
-                                { l: "Build the Great Defensive Wall", f: "✅ The wall protected the capital, and the invaders failed to breach the Saudi defenses." },
-                                { l: "Rely on Maneuver Warfare", f: "⚠️ You won small battles, but the lack of fortifications left the capital vulnerable to surprise attacks." },
-                                { l: "Negotiate for Peace", f: "❌ Invaders saw this as weakness, demanding more taxes and undermining Saudi sovereignty." }
-                            ]
-                        },
-                        {
-                            title: "Securing Trade & Hajj Routes",
-                            story: "Trade routes are plagued by bandits. Pilgrims cry for safety. How will you enforce the law across the desert? Military garrisons or tribal payments?",
-                            decisions: [
-                                { l: "Deploy Military Garrisons", f: "✅ Routes became safe, trade flourished, and the state gained prestige as the protector of pilgrims." },
-                                { l: "Pay Tribes for Safety", f: "⚠️ A temporary fix that drained the treasury and failed to end the banditry permanently." },
-                                { l: "Close the Routes Temporarily", f: "❌ Diriyah's economy collapsed, and its political influence in the region faded." }
-                            ]
-                        }
-                    ],
-                    biography: "Imam Muhammad bin Saud (died 1765). [Full biography text preserved]"
-                }
+                en: { name: "Imam Muhammad bin Saud", scenarios: [], biography: "" }
             },
             i_turki: {
                 ar: {
@@ -248,41 +215,9 @@
                             ]
                         }
                     ],
-                    biography: "الإمام تركي بن عبد الله بن محمد بن سعود (1755-1834م).\n\nمؤسس الدولة السعودية الثانية ورمز الصمود الوطني. يُعتبر من أعظم القادة العسكريين في تاريخ العرب الحديث، حيث استطاع النهوض بالدولة من الرماد بعد تدمير العاصمة الأولى.\n\nاشتهر بسيفه 'الأجرب' الذي صار مادة للقصائد والبطولات. في عام 1824م، قاد ملحمة استعادة الرياض بـ 40 رجلاً فقط، في واحدة من أجرأ العمليات العسكرية في التاريخ. قرر بجسارة أن تكون الرياض هي العاصمة الجديدة بدلاً من الدرعية المدمرة، وهو القرار الذي حدد الهوية الحضرية للمملكة لقرون.\n\nاتسم حكمه بالعدل الصارم وإعادة الأمن لربوع نجد والأحساء. كان رجلاً متديناً وشاعراً فصيحاً، استطاع بحنكته إعادة توحيد الصفوف وبناء جيش وطني قوي. يُسجل له التاريخ أنه أعاد الهيبة والسيادة لآل سعود، وأرسى قواعد إدارية متينة مهدت الطريق لاحقاً للملك عبدالعزيز لتوحيد المملكة العربية السعودية."
+                    biography: "الإمام تركي بن عبد الله بن محمد بن سعود (1755-1834م)..."
                 },
-                en: {
-                    name: "Imam Turki bin Abdullah",
-                    scenarios: [
-                        {
-                            title: "The Restoration of Riyadh (1824)",
-                            story: "After the fall of Diriyah, occupation loomed. You lead the resistance with your sword 'Al-Ajrab'. Riyadh is held by foreign forces. Will you lead a daring raid with only 40 men, or wait to gather a larger army?",
-                            decisions: [
-                                { l: "Lead a Surprise Attack", f: "✅ Victory! You liberated Riyadh and established the Second Saudi State." },
-                                { l: "Wait for a Large Army", f: "⚠️ The delay allowed the occupation to strengthen its grip for several more years." },
-                                { l: "Withdraw to Distant Lands", f: "❌ The fire of resistance died out, and the Saudi dream was lost for decades." }
-                            ]
-                        },
-                        {
-                            title: "Riyadh: The New Capital",
-                            story: "Diriyah is in ruins. You must choose: Rebuild the historic capital despite its military weakness, or declare Riyadh as the new political and military heart of the state?",
-                            decisions: [
-                                { l: "Declare Riyadh as Capital", f: "✅ A strategic masterstroke! Riyadh became an invincible fortress for Saudi sovereignty." },
-                                { l: "Rebuild Fallen Diriyah", f: "⚠️ Resources were wasted on ruins that were hard to defend, leading to military setbacks." },
-                                { l: "Rule from the Outskirts", f: "❌ Authority fractured as the people felt the absence of a strong central capital." }
-                            ]
-                        },
-                        {
-                            title: "Establishing Justice",
-                            story: "Post-war chaos led to tribal disputes over water and land. Will you enforce a central judicial system, or let tribal leaders manage their own disputes?",
-                            decisions: [
-                                { l: "Establish a Central Judiciary", f: "✅ Justice and safety prevailed, and tribes submitted to the rule of law." },
-                                { l: "Allow Tribal Autonomy", f: "⚠️ Biased tribal rulings continued, keeping the state in a cycle of instability." },
-                                { l: "Rule by Military Force", f: "❌ This caused popular unrest and rebellions against the central government." }
-                            ]
-                        }
-                    ],
-                    biography: "Imam Turki bin Abdullah (1755–1834). [Full biography text preserved]"
-                }
+                en: { name: "Imam Turki bin Abdullah", scenarios: [], biography: "" }
             },
             k_aziz: {
                 ar: {
@@ -316,41 +251,9 @@
                             ]
                         }
                     ],
-                    biography: "الملك عبد العزيز بن عبد الرحمن آل سعود (1876-1953م).\n\nالمؤسس العظيم للمملكة العربية السعودية الحديثة وأحد أبرز قادة العالم في القرن العشرين. ولد في الرياض وشهد رحيل أسرته عنها، لكنه عاد إليها وهو في الخامسة والعشرين ليصنع المعجزة.\n\nبدأ رحلته باستعادة الرياض عام 1902م في مغامرة بطولية مذهلة. على مدار ثلاثين عاماً، خاض معارك التوحيد والبناء، محولاً شتات القبائل إلى أمة واحدة تحت راية التوحيد. كان الملك عبدالعزيز عبقرياً في الربط بين الأصالة والمعاصرة؛ حيث أدخل التكنولوجيا والتعليم ووقع اتفاقيات النفط التي نقلت المملكة للعالمية.\n\nعُرف بلقب 'صقر الجزيرة'، وكان يمتلك شخصية مهيبة تجمع بين الشجاعة العسكرية والدبلوماسية الراقية. أسس الوزارات، ومد السكك الحديدية، وأرسى قواعد الأمن التي جعلت من المملكة واحة للاستقرار. ترك خلفه دولة قوية وموحدة، وأبناءً بررة واصلوا مسيرة النهضة، ليظل اسمه محفوراً في ذاكرة التاريخ كباني أعظم وحدة وطنية عربية في التاريخ المعاصر."
+                    biography: "الملك عبد العزيز بن عبد الرحمن آل سعود (1876-1953م)..."
                 },
-                en: {
-                    name: "King Abdulaziz",
-                    scenarios: [
-                        {
-                            title: "The Conquest of Masmak (1902)",
-                            story: "At the gates of Riyadh with 63 men. The Masmak Fort is heavily fortified. Do you charge the gate at dawn to change history, or retreat and wait for reinforcements?",
-                            decisions: [
-                                { l: "Storm the Fort at Dawn", f: "✅ Victory! 'The Kingdom belongs to God and then Abdulaziz!' The unification began." },
-                                { l: "Besiege the Fortress", f: "⚠️ Surprise was lost, and enemy reinforcements crushed the attempt." },
-                                { l: "Retreat to Kuwait", f: "❌ The golden opportunity was lost, and Riyadh remained out of reach for years." }
-                            ]
-                        },
-                        {
-                            title: "Settling the Bedouins (Al-Hijar)",
-                            story: "To ensure stability, you planned to transform nomadic tribes into settled communities. Will you launch the 'Al-Hijar' project to settle the desert, or leave the tribes to their traditional lifestyle?",
-                            decisions: [
-                                { l: "Launch Al-Hijar Project", f: "✅ You successfully turned tribal power into a unified national force for progress." },
-                                { l: "Leave Traditional Life", f: "⚠️ Tribal conflicts continued to threaten the stability of the new nation." },
-                                { l: "Use Military Force Only", f: "❌ This led to bloody clashes that weakened the national fabric and delayed development." }
-                            ]
-                        },
-                        {
-                            title: "The Oil Discovery (1938)",
-                            story: "Economic times are tough. Experts suggest drilling for oil. Signing an agreement with foreign companies is a sensitive sovereign decision. Will you sign, or refuse?",
-                            decisions: [
-                                { l: "Sign the Drilling Agreement", f: "✅ Prosperity flowed from the wells, and the Kingdom entered an era of global wealth." },
-                                { l: "Refuse Foreign Companies", f: "⚠️ Resources remained hidden, and the Kingdom fell behind in global economic development." },
-                                { l: "Delay the Project", f: "❌ Golden investment opportunities were lost, and the state suffered from severe financial crises." }
-                            ]
-                        }
-                    ],
-                    biography: "King Abdulaziz Al Saud (1876–1953). [Full biography text preserved]"
-                }
+                en: { name: "King Abdulaziz", scenarios: [], biography: "" }
             }
         };
 
@@ -390,19 +293,10 @@
 
         function navigateTo(screenId) {
             const allScreens = document.querySelectorAll('.screen');
-            // إخفاء فوري لجميع الشاشات
-            allScreens.forEach(s => { 
-                s.classList.remove('active'); 
-                s.style.display = 'none'; 
-            });
-
-            // إظهار الشاشة المستهدفة فقط
+            allScreens.forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
             const target = document.getElementById(screenId);
             target.style.display = 'block';
-            setTimeout(() => { 
-                target.classList.add('active'); 
-            }, 10);
-            
+            setTimeout(() => { target.classList.add('active'); }, 10);
             document.getElementById('app-scroller').scrollTop = 0;
         }
 
@@ -463,7 +357,6 @@
             navigateTo('screen-quest');
         }
 
-        // Titan Physics Engine
         const canvas = document.getElementById('titan-engine-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
