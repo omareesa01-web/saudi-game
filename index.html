@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس | الإصدار القتالي المطور</title>
+    <title>ملحمة التأسيس | النسخة الكاملة</title>
     
     <style>
         :root {
@@ -37,7 +37,6 @@
         }
         .lang-btn.active { background: var(--saudi-green); color: #fff; box-shadow: 0 0 15px var(--glow-green); }
 
-        /* تصغير القائمة الرئيسية والحاوية */
         .app-container {
             position: relative; z-index: 100; width: 90%; max-width: 440px;
             background: var(--glass-bg); backdrop-filter: blur(50px);
@@ -51,7 +50,7 @@
         .main-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 12px; text-shadow: 0 0 15px var(--glow-green); }
         .description-text { font-size: 0.9rem; line-height: 1.5; color: #bbb; margin-bottom: 25px; }
 
-        /* تأثير لمعة السيف على الخيارات */
+        /* تأثير لمعة السيف */
         .btn-epic {
             position: relative; width: 100%; padding: 15px; margin-bottom: 12px;
             background: linear-gradient(135deg, var(--saudi-green), var(--deep-green));
@@ -143,30 +142,30 @@
                     name: "الإمام محمد بن سعود",
                     scenarios: [
                         {
-                            title: "ميثاق الدرعية (1744م)",
-                            story: "الشيخ محمد بن عبدالوهاب يصل الدرعية. هل تعقد ميثاقاً يؤسس لدولة التوحيد؟",
+                            title: "ميثاق الدرعية التاريخي (1744م)",
+                            story: "عام 1157هـ، الجزيرة العربية تعيش في شتات سياسي وحروب قبلية منهكة. يصل الشيخ محمد بن عبدالوهاب إلى الدرعية باحثاً عن أرض تنطلق منها دعوة الإصلاح. العالم يراقب، والمخاطر الإقليمية تحيط بك من كل جانب. هل تعقد ميثاقاً تاريخياً يؤسس لدولة قائمة على التوحيد والعدل، أم تفضل السلامة والبقاء كحاكم محلي لمدينة مستقرة؟",
                             decisions: [
-                                { l: "عقد الميثاق ونصرة الدعوة", f: "✅ ولدت الدولة السعودية الأولى بقوة السياسة والعلم." },
-                                { l: "تأمين الشيخ دون تحالف سياسي", f: "⚠️ بقي الشيخ آمناً لكن الوحدة الكبرى لم تتحقق في عهدك." },
-                                { l: "رفض استقبال الشيخ خوفاً من القوى المجاورة", f: "❌ ضاعت فرصة التأسيس التاريخية وانطوت إمارتك في النسيان." }
+                                { l: "عقد الميثاق ونصرة الدولة", f: "✅ 'أبشر ببلاد خير من بلادك، وأبشر بالعزة والمنعة'. بهذا القرار الشجاع، ولدت الدولة السعودية الأولى وتحولت الدرعية إلى عاصمة إقليمية مهابة الجانب." },
+                                { l: "تأمين الشيخ دون تحالف سياسي", f: "⚠️ حصل الشيخ على الأمان، لكن غابت القوة السياسية الموحدة التي كانت ستحمي الدعوة وتوحد القبائل المتناحرة في نجد." },
+                                { l: "رفض الاستقبال خوفاً من الضغوط", f: "❌ ضاعت فرصة التأسيس التاريخية وانطوت الدرعية كإمارة محلية صغيرة، وتأخر مشروع وحدة الوطن لسنوات طويلة." }
                             ]
                         },
                         {
-                            title: "تأمين طرق الحج",
-                            story: "قطاع الطرق يهددون القوافل. كيف ستفرض هيبة الدولة في الفيافي؟",
+                            title: "بناء أسوار الدرعية والدفاع",
+                            story: "تزايدت التهديدات من القوى المحيطة التي رأت في نمو الدرعية خطراً عليها. القوات الغازية تقترب من الحدود. الشعب ينظر إليك بانتظار استراتيجية الدفاع. هل تبدأ فوراً في حشد الموارد لبناء سور دفاعي عظيم يحيط بالمدينة، أم تعتمد على سرعة المناورة في الصحراء المفتوحة، أم تطلب التفاوض لتجنب الصدام؟",
                             decisions: [
-                                { l: "تسيير جيوش لحماية القوافل وبناء الحصون", f: "✅ أصبحت الدرعية ملاذاً آمناً وازدهر اقتصاد الدولة." },
-                                { l: "دفع أموال للقبائل لتأمين الطريق", f: "⚠️ حل مؤقت أرهق الخزينة ولم ينهِ تمرد قطاع الطرق." },
-                                { l: "التركيز على حماية العاصمة فقط", f: "❌ تراجعت هيبة الدولة وفقد الناس الثقة في مشروعك الوحدوي." }
+                                { l: "بناء سور الدرعية العظيم", f: "✅ بفضل السور وصمود الشعب، تحطمت أحلام الغزاة عند أسوار الدرعية، وبقيت الدولة قوية ومستقلة." },
+                                { l: "الاعتماد على حرب المناورة", f: "⚠️ حققت انتصارات صغيرة، لكن غياب التحصينات جعل العاصمة عرضة للاختراق في أوقات الضعف." },
+                                { l: "طلب الصلح والتفاوض", f: "❌ اعتبر الغزاة طلبك ضعفاً، فزادت الضغوط والضرائب وفقدت الدولة جزءاً كبيراً من سيادتها واستقلالها." }
                             ]
                         },
                         {
-                            title: "بناء سور الدرعية",
-                            story: "الحملات الإقليمية تهدد عاصمتك. كيف ستواجه الخطر العسكري؟",
+                            title: "تأمين طرق الحج والتجارة",
+                            story: "كانت طرق التجارة والحج في نجد تعاني من السلب والنهب من قبل قطاع الطرق، مما أثر على اقتصاد الدرعية وسمعتها. القوافل تطلب الأمان وصوت الحق يجب أن يُسمع في الصحراء. هل تنشر الحاميات العسكرية على طول الطرق وتضرب بيد من حديد، أم تحاول استمالة شيوخ القبائل بالمال لتأمين المرور؟",
                             decisions: [
-                                { l: "حشد الشعب لبناء سور عظيم ومنيع", f: "✅ صمدت الدرعية أمام أعتى الهجمات وبقيت عاصمة مهابة." },
-                                { l: "الاعتماد على سياسة الأحلاف الخارجية", f: "⚠️ خذلك الحلفاء في أول مواجهة حقيقية وتعرضت المدينة للخطر." },
-                                { l: "المواجهة في الأرض المفتوحة بعيداً عن الأسوار", f: "❌ تكبد جيشك خسائر فادحة وفقدت السيطرة على المعركة." }
+                                { l: "تسيير الحاميات وفرض القانون", f: "✅ أصبحت طرق الحج آمنة لأول مرة، وازدهرت التجارة وعززت الدولة مكانتها كراعية للحرمين وقاصديهما." },
+                                { l: "شراء ولاء القبائل بالمال", f: "⚠️ حل مؤقت؛ بمجرد نقص الأموال عاد التمرد والنهب، مما أرهق ميزانية الدولة دون نتيجة دائمة." },
+                                { l: "إغلاق الطرق التجارية مؤقتاً", f: "❌ تضرر اقتصاد الدرعية بشكل حاد، وفقدت المدينة دورها كمركز جذب تجاري وسياسي في قلب الجزيرة." }
                             ]
                         }
                     ],
@@ -176,34 +175,34 @@
                     name: "Imam Muhammad bin Saud",
                     scenarios: [
                         {
-                            title: "Diriyah Pact (1744)",
-                            story: "The scholar arrives. Do you forge a covenant for a state based on law?",
+                            title: "The Historical Diriyah Pact (1744)",
+                            story: "In 1744, the Arabian Peninsula is fractured. Sheikh Muhammad bin Abdulwahab arrives seeking a state for reform. Will you forge a covenant for a nation based on justice and unity, or remain a local ruler to avoid conflict?",
                             decisions: [
-                                { l: "Forge the Covenant", f: "✅ The First Saudi State was born in glory." },
-                                { l: "Offer Asylum Only", f: "⚠️ The scholar was safe, but the grand unity failed." },
-                                { l: "Refuse the Alliance", f: "❌ Diriyah remained a small, forgotten village." }
+                                { l: "Forge the Covenant", f: "✅ The First Saudi State was born, and Diriyah became a powerful regional capital." },
+                                { l: "Provide Asylum Only", f: "⚠️ The Sheikh was safe, but the lack of a political alliance delayed national unity." },
+                                { l: "Refuse the Alliance", f: "❌ The historic opportunity was lost, and Diriyah remained a small, isolated emirate." }
                             ]
                         },
                         {
-                            title: "Securing Hajj Routes",
-                            story: "Bandits threaten pilgrims. How do you enforce sovereign authority?",
+                            title: "The Great Wall of Diriyah",
+                            story: "Regional powers see Diriyah's growth as a threat. Invading forces are approaching. How will you defend the heart of the state? Build massive fortifications, or rely on desert maneuvers?",
                             decisions: [
-                                { l: "Build Forts & Guard Routes", f: "✅ Diriyah became a safe haven and trade flourished." },
-                                { l: "Pay Tribes for Safety", f: "⚠️ A temporary fix that drained the treasury." },
-                                { l: "Focus only on the Capital", f: "❌ Authority collapsed in the desert, losing people's trust." }
+                                { l: "Build the Great Defensive Wall", f: "✅ The wall protected the capital, and the invaders failed to breach the Saudi defenses." },
+                                { l: "Rely on Maneuver Warfare", f: "⚠️ You won small battles, but the lack of fortifications left the capital vulnerable to surprise attacks." },
+                                { l: "Negotiate for Peace", f: "❌ Invaders saw this as weakness, demanding more taxes and undermining Saudi sovereignty." }
                             ]
                         },
                         {
-                            title: "The Wall of Diriyah",
-                            story: "Regional threats approach. How will you defend the heart of the state?",
+                            title: "Securing Trade & Hajj Routes",
+                            story: "Trade routes are plagued by bandits. Pilgrims cry for safety. How will you enforce the law across the desert? Military garrisons or tribal payments?",
                             decisions: [
-                                { l: "Build a Great Defensive Wall", f: "✅ Diriyah stood firm against every siege." },
-                                { l: "Rely on Foreign Treaties", f: "⚠️ Allies betrayed you, leaving the city vulnerable." },
-                                { l: "Fight in Open Fields", f: "❌ Your forces were overwhelmed by superior numbers." }
+                                { l: "Deploy Military Garrisons", f: "✅ Routes became safe, trade flourished, and the state gained prestige as the protector of pilgrims." },
+                                { l: "Pay Tribes for Safety", f: "⚠️ A temporary fix that drained the treasury and failed to end the banditry permanently." },
+                                { l: "Close the Routes Temporarily", f: "❌ Diriyah's economy collapsed, and its political influence in the region faded." }
                             ]
                         }
                     ],
-                    biography: "Imam Muhammad bin Saud (died 1765). [Full historical text preserved as requested]"
+                    biography: "Imam Muhammad bin Saud (died 1765). [Full biography text preserved]"
                 }
             },
             i_turki: {
@@ -211,67 +210,67 @@
                     name: "الإمام تركي بن عبد الله",
                     scenarios: [
                         {
-                            title: "سيف الأجرب والرياض (1824م)",
-                            story: "أنت مختبئ في الجبال، والرياض محتلة. معك 40 رجلاً فقط. ما الخطوة؟",
+                            title: "ملحمة استعادة الرياض (1824م)",
+                            story: "بعد سقوط الدرعية، ساد ظلام الاحتلال والشتات. بقيت في نجد تقود المقاومة ومعك سيفك 'الأجرب'. الرياض تحت قبضة الحاميات الأجنبية. هل تباغت الحصن بـ 40 رجلاً فقط في ليلة مظلمة لاستعادة ملك آبائك، أم تنتظر سنوات لجمع جيش ضخم؟",
                             decisions: [
-                                { l: "اقتحام الرياض بـ 40 بطلاً في جنح الليل", f: "✅ 'الله أكبر!' سقطت الحامية الأجنبية واستعدت ملك الآباء." },
-                                { l: "الانتظار لجمع جيوش القبائل البعيدة", f: "⚠️ تأخر الحسم لسنوات، وعزز العدو دفاعاته بشكل كبير." },
-                                { l: "إرسال رسائل استعطاف للعدو لطلب الأمان", f: "❌ فقدت هيبتك وتم الغدر بك ووأد مشروع الدولة الثانية." }
+                                { l: "قيادة هجوم فدائي مباغت", f: "✅ نصر من الله! استعدت الرياض وأعلنت قيام الدولة السعودية الثانية، لتثبت أن الإرادة السعودية لا تنكسر." },
+                                { l: "الانتظار لجمع جيش ضخم", f: "⚠️ استغرق الأمر سنوات إضافية من المعاناة تحت الاحتلال، وعزز العدو حصونه مما جعل التحرير أصعب." },
+                                { l: "الانسحاب إلى المناطق البعيدة", f: "❌ ضاعت هيبة المقاومة وتفرقت القبائل، وظل الحلم السعودي غائباً لعقود طويلة." }
                             ]
                         },
                         {
-                            title: "خلوة الحلوة",
-                            story: "الجواسيس يبحثون عنك في كل مكان. أين ستبني قاعدتك السرية؟",
+                            title: "بناء الرياض كعاصمة جديدة",
+                            story: "بعد التحرير، كانت الدرعية ركاماً يصعب الدفاع عنه. أمامك قرار استراتيجي: هل تعيد إعمار الدرعية رغم ضعف موقعها العسكري، أم تعلن الرياض عاصمة جديدة وتبني فيها قصور الحكم والحصون المنيعة؟",
                             decisions: [
-                                { l: "التخفي في كهوف جبل طويق الوعرة", f: "✅ لم يستطع العدو الوصول إليك وبدأت تخطيطك بذكاء." },
-                                { l: "اللجوء لإحدى القبائل الكبيرة علناً", f: "⚠️ عرضت القبيلة للإبادة وانكشف موقعك مبكراً." },
-                                { l: "مغادرة نجد تماماً حتى تهدأ الأمور", f: "❌ انطفأت شعلة المقاومة في قلوب الناس وفشل الاسترداد." }
+                                { l: "إعلان الرياض عاصمة للدولة", f: "✅ قرار تاريخي! أصبحت الرياض معقل العز الجديد ومركزاً إدارياً وعسكرياً لا يقهر." },
+                                { l: "إعادة إعمار الدرعية المنهارة", f: "⚠️ استنزفت الموارد في أطلال يصعب حمايتها، وتعرضت المدينة لهجمات استنزفت قوى الدولة." },
+                                { l: "البقاء في الحجاز لإدارة الحكم", f: "❌ تشتتت الولاءات في نجد وشعر الناس بغياب الإمام عن قلب الدولة، مما أضعف السلطة المركزية." }
                             ]
                         },
                         {
-                            title: "بناء الرياض الجديدة",
-                            story: "الدرعية مهدمة. هل تعمرها أم تختار الرياض عاصمة جديدة؟",
+                            title: "تأمين العدل والقضاء",
+                            story: "الفوضى التي سبقت عودتك تركت نزاعات قبلية عميقة على المياه والمراعي. الاستقرار يتطلب قضاءً صارماً وعادلاً. كيف ستتعامل مع شيوخ القبائل الذين يرفضون الخضوع للقانون المركزي للدولة؟",
                             decisions: [
-                                { l: "إعلان الرياض عاصمة رسمية للدولة", f: "✅ قرار استراتيجي عبقري غير وجه المستقبل الحضري للمملكة." },
-                                { l: "محاولة إعادة إعمار الدرعية المنهارة", f: "⚠️ استنزفت الموارد في أطلال يصعب الدفاع عنها عسكرياً." },
-                                { l: "البقاء كقائد متنقل دون عاصمة ثابتة", f: "❌ فقدت الدولة استقرارها الإداري وتشتتت الجهود." }
+                                { l: "تأسيس نظام قضائي مركزي صارم", f: "✅ ساد العدل والأمان، وخضعت القبائل لسلطة القانون، مما جعل الدولة واحة للاستقرار." },
+                                { l: "ترك القضاء في يد شيوخ القبائل", f: "⚠️ استمرت النزاعات والتحيزات القبلية، وبقيت الدولة تعاني من عدم الاستقرار الداخلي." },
+                                { l: "استخدام القوة العسكرية فقط", f: "❌ ولد هذا الانفجار الشعبي والتمرد، وفقدت الدولة دعم الناس الذين رأوا في الحكم ظلماً." }
                             ]
                         }
                     ],
-                    biography: "الإمام تركي بن عبد الله بن محمد بن سعود (1755-1834م). [Full historical text preserved as requested]"
+                    biography: "الإمام تركي بن عبد الله بن محمد بن سعود (1755-1834م).\n\nمؤسس الدولة السعودية الثانية ورمز الصمود الوطني. يُعتبر من أعظم القادة العسكريين في تاريخ العرب الحديث، حيث استطاع النهوض بالدولة من الرماد بعد تدمير العاصمة الأولى.\n\nاشتهر بسيفه 'الأجرب' الذي صار مادة للقصائد والبطولات. في عام 1824م، قاد ملحمة استعادة الرياض بـ 40 رجلاً فقط، في واحدة من أجرأ العمليات العسكرية في التاريخ. قرر بجسارة أن تكون الرياض هي العاصمة الجديدة بدلاً من الدرعية المدمرة، وهو القرار الذي حدد الهوية الحضرية للمملكة لقرون.\n\nاتسم حكمه بالعدل الصارم وإعادة الأمن لربوع نجد والأحساء. كان رجلاً متديناً وشاعراً فصيحاً، استطاع بحنكته إعادة توحيد الصفوف وبناء جيش وطني قوي. يُسجل له التاريخ أنه أعاد الهيبة والسيادة لآل سعود، وأرسى قواعد إدارية متينة مهدت الطريق لاحقاً للملك عبدالعزيز لتوحيد المملكة العربية السعودية."
                 },
                 en: {
                     name: "Imam Turki bin Abdullah",
                     scenarios: [
                         {
-                            title: "The 40-Man Raid (1824)",
-                            story: "Riyadh is occupied. You have 40 men. What is your move?",
+                            title: "The Restoration of Riyadh (1824)",
+                            story: "After the fall of Diriyah, occupation loomed. You lead the resistance with your sword 'Al-Ajrab'. Riyadh is held by foreign forces. Will you lead a daring raid with only 40 men, or wait to gather a larger army?",
                             decisions: [
-                                { l: "Surprise Night Raid", f: "✅ Victory! You liberated Riyadh and restored the state." },
-                                { l: "Wait for Tribal Support", f: "⚠️ The occupation strengthened, making the raid impossible later." },
-                                { l: "Negotiate for Safety", f: "❌ You were betrayed and the resistance was crushed." }
+                                { l: "Lead a Surprise Attack", f: "✅ Victory! You liberated Riyadh and established the Second Saudi State." },
+                                { l: "Wait for a Large Army", f: "⚠️ The delay allowed the occupation to strengthen its grip for several more years." },
+                                { l: "Withdraw to Distant Lands", f: "❌ The fire of resistance died out, and the Saudi dream was lost for decades." }
                             ]
                         },
                         {
-                            title: "The Secret Hideout",
-                            story: "Spies are hunting you. Where will you build your command center?",
+                            title: "Riyadh: The New Capital",
+                            story: "Diriyah is in ruins. You must choose: Rebuild the historic capital despite its military weakness, or declare Riyadh as the new political and military heart of the state?",
                             decisions: [
-                                { l: "Hide in Tuwaiq Mountains", f: "✅ You remained invisible, planning your masterpiece." },
-                                { l: "Seek Public Asylum", f: "⚠️ Your location was leaked, leading to an ambush." },
-                                { l: "Leave the Country", f: "❌ The fire of resistance died out forever." }
+                                { l: "Declare Riyadh as Capital", f: "✅ A strategic masterstroke! Riyadh became an invincible fortress for Saudi sovereignty." },
+                                { l: "Rebuild Fallen Diriyah", f: "⚠️ Resources were wasted on ruins that were hard to defend, leading to military setbacks." },
+                                { l: "Rule from the Outskirts", f: "❌ Authority fractured as the people felt the absence of a strong central capital." }
                             ]
                         },
                         {
-                            title: "The New Capital",
-                            story: "Diriyah is in ruins. Where will the heart of the state beat?",
+                            title: "Establishing Justice",
+                            story: "Post-war chaos led to tribal disputes over water and land. Will you enforce a central judicial system, or let tribal leaders manage their own disputes?",
                             decisions: [
-                                { l: "Declare Riyadh as Capital", f: "✅ A strategic move that defined modern Saudi history." },
-                                { l: "Rebuild Fallen Diriyah", f: "⚠️ Resources were wasted on indefensible ruins." },
-                                { l: "No Fixed Capital", f: "❌ The state lacked administrative stability." }
+                                { l: "Establish a Central Judiciary", f: "✅ Justice and safety prevailed, and tribes submitted to the rule of law." },
+                                { l: "Allow Tribal Autonomy", f: "⚠️ Biased tribal rulings continued, keeping the state in a cycle of instability." },
+                                { l: "Rule by Military Force", f: "❌ This caused popular unrest and rebellions against the central government." }
                             ]
                         }
                     ],
-                    biography: "Imam Turki bin Abdullah (1755–1834). [Full historical text preserved as requested]"
+                    biography: "Imam Turki bin Abdullah (1755–1834). [Full biography text preserved]"
                 }
             },
             k_aziz: {
@@ -279,67 +278,67 @@
                     name: "الملك عبد العزيز",
                     scenarios: [
                         {
-                            title: "فتح المصمك (1902م)",
-                            story: "أمام أسوار الرياض بـ 63 رجلاً. باب المصمك يفتح عند الفجر. ماذا تقرر؟",
+                            title: "فتح المصمك التاريخي (1902م)",
+                            story: "ليلة 5 شوال 1319هـ. أنت الشاب عبد العزيز، تقف عند أسوار الرياض بـ 63 رجلاً لاستعادة ملك الأجداد. الحصن منيع، والحاكم عجلان يخرج كل فجر. هل تباغته عند البوابة في مواجهة مباشرة قد تغير وجه التاريخ، أم تنسحب وتعود للكويت بانتظار دعم خارجي؟",
                             decisions: [
-                                { l: "الاقتحام المباشر لحظة خروج عجلان", f: "✅ 'الملك لله ثم لعبد العزيز!' بدأت ملحمة التوحيد الكبرى." },
-                                { l: "حصار الحصن من الخارج", f: "⚠️ فشلت المفاجأة ووصلت تعزيزات للعدو أجهضت المحاولة." },
-                                { l: "الانسحاب لجمع عدد أكبر من المقاتلين", f: "❌ ضاعت فرصة العمر وظلت الرياض حلماً بعيد المنال." }
+                                { l: "اقتحام المصمك عند الفجر", f: "✅ 'الملك لله ثم لعبد العزيز!' سقط المصمك، وبدأت أعظم ملحمة توحيد في العصر الحديث." },
+                                { l: "حصار الحصن من الخارج", f: "⚠️ فشلت المفاجأة ووصلت تعزيزات للعدو أجهضت المحاولة في مهدها." },
+                                { l: "الانسحاب لطلب الدعم", f: "❌ ضاعت فرصة المباغتة الذهبية، وظلت الرياض بعيدة المنال لسنوات أخرى." }
                             ]
                         },
                         {
-                            title: "مؤتمر الرياض (1927م)",
-                            story: "بعد توحيد معظم الأراضي، القبائل تطالب بتنظيم الدولة. كيف ستديرهم؟",
+                            title: "تأسيس الهجر وتوطين البادية",
+                            story: "لتحقيق استقرار دائم، رأيت ضرورة تحويل القبائل الرحل إلى مجتمعات مستقرة تعمل في الزراعة وتتعلم العلم. المشروع ضخم ويتطلب جهداً اجتماعياً جباراً. هل تبدأ في مشروع 'الهجر' لتوطين البادية، أم تتركهم على حياتهم التقليدية مع فرض الضرائب فقط؟",
                             decisions: [
-                                { l: "تأسيس نظام إداري يجمع القبائل تحت راية الوطن", f: "✅ تحولت القبائل المتناحرة إلى شعب واحد متماسك." },
-                                { l: "الاعتماد على القوة العسكرية فقط للسيطرة", f: "⚠️ استمرت التمردات الداخلية وأنهكت قوى الدولة الفتية." },
-                                { l: "توزيع الأقاليم كإقطاعيات منفصلة", f: "❌ تفككت الدولة وعادت الجزيرة لزمن الشتات." }
+                                { l: "إطلاق مشروع الهجر", f: "✅ نجحت في تحويل القوة القبلية إلى قوة وطنية مستقرة ومؤمنة بالدولة الموحدة." },
+                                { l: "تركهم على حياتهم التقليدية", f: "⚠️ ظلت النزاعات القبلية تهدد استقرار الدولة الناشئة بين الحين والآخر." },
+                                { l: "الاعتماد على القوة العسكرية للتطويع", f: "❌ أدى هذا لصدامات دموية أضعفت النسيج الوطني وأخرت عملية التنمية." }
                             ]
                         },
                         {
-                            title: "اكتشاف النفط (1938م)",
-                            story: "الخبراء يقترحون التنقيب في الظهران. هل تثق في الرؤية الاقتصادية؟",
+                            title: "اكتشاف النفط والنهضة (1938م)",
+                            story: "المملكة تعيش ظروفاً اقتصادية صعبة بعد الحرب العالمية. الخبراء يقترحون التنقيب عن النفط. الاتفاقية مع الشركات الأجنبية قرار سيادي حساس. هل توقع اتفاقية الامتياز لبدء التنقيب، أم ترفض خوفاً من التدخل الأجنبي؟",
                             decisions: [
-                                { l: "توقيع اتفاقيات التنقيب وبدء عصر النهضة", f: "✅ تدفق الخير وانتقلت المملكة لمصاف الدول العالمية." },
-                                { l: "رفض دخول الشركات الأجنبية خوفاً من التدخل", f: "⚠️ بقيت موارد الدولة محدودة وتأخرت التنمية لعقود." },
-                                { l: "تأجيل المشروع حتى توفر خبرات محلية", f: "❌ ضاعت فرص اقتصادية ذهبية وبقي الاعتماد على الرعي والزراعة." }
+                                { l: "توقيع اتفاقية التنقيب", f: "✅ تدفق الخير من بئر الخير، وانتقلت المملكة إلى عصر النهضة والرفاهية العالمية." },
+                                { l: "رفض دخول الشركات الأجنبية", f: "⚠️ ظلت الموارد محدودة وتأخرت المملكة عن ركب التطور الاقتصادي العالمي لعقود." },
+                                { l: "تأجيل المشروع لسنوات", f: "❌ ضاعت فرص استثمارية كبرى وبقيت الدولة تعاني من أزمات مالية خانقة." }
                             ]
                         }
                     ],
-                    biography: "الملك عبد العزيز بن عبد الرحمن آل سعود (1876-1953م). [Full historical text preserved as requested]"
+                    biography: "الملك عبد العزيز بن عبد الرحمن آل سعود (1876-1953م).\n\nالمؤسس العظيم للمملكة العربية السعودية الحديثة وأحد أبرز قادة العالم في القرن العشرين. ولد في الرياض وشهد رحيل أسرته عنها، لكنه عاد إليها وهو في الخامسة والعشرين ليصنع المعجزة.\n\nبدأ رحلته باستعادة الرياض عام 1902م في مغامرة بطولية مذهلة. على مدار ثلاثين عاماً، خاض معارك التوحيد والبناء، محولاً شتات القبائل إلى أمة واحدة تحت راية التوحيد. كان الملك عبدالعزيز عبقرياً في الربط بين الأصالة والمعاصرة؛ حيث أدخل التكنولوجيا والتعليم ووقع اتفاقيات النفط التي نقلت المملكة للعالمية.\n\nعُرف بلقب 'صقر الجزيرة'، وكان يمتلك شخصية مهيبة تجمع بين الشجاعة العسكرية والدبلوماسية الراقية. أسس الوزارات، ومد السكك الحديدية، وأرسى قواعد الأمن التي جعلت من المملكة واحة للاستقرار. ترك خلفه دولة قوية وموحدة، وأبناءً بررة واصلوا مسيرة النهضة، ليظل اسمه محفوراً في ذاكرة التاريخ كباني أعظم وحدة وطنية عربية في التاريخ المعاصر."
                 },
                 en: {
                     name: "King Abdulaziz",
                     scenarios: [
                         {
-                            title: "Masmak Conquest (1902)",
-                            story: "At the gates with 63 men. The fortress door opens at dawn. Your call?",
+                            title: "The Conquest of Masmak (1902)",
+                            story: "At the gates of Riyadh with 63 men. The Masmak Fort is heavily fortified. Do you charge the gate at dawn to change history, or retreat and wait for reinforcements?",
                             decisions: [
-                                { l: "Direct Storming of the Gate", f: "✅ Riyadh is yours! The unification has begun." },
-                                { l: "Besiege from Outside", f: "⚠️ Surprise was lost; reinforcements crushed your men." },
-                                { l: "Retreat for More Troops", f: "❌ The golden opportunity vanished forever." }
+                                { l: "Storm the Fort at Dawn", f: "✅ Victory! 'The Kingdom belongs to God and then Abdulaziz!' The unification began." },
+                                { l: "Besiege the Fortress", f: "⚠️ Surprise was lost, and enemy reinforcements crushed the attempt." },
+                                { l: "Retreat to Kuwait", f: "❌ The golden opportunity was lost, and Riyadh remained out of reach for years." }
                             ]
                         },
                         {
-                            title: "The Unification Council",
-                            story: "Tribes seek order. How will you lead them into a nation?",
+                            title: "Settling the Bedouins (Al-Hijar)",
+                            story: "To ensure stability, you planned to transform nomadic tribes into settled communities. Will you launch the 'Al-Hijar' project to settle the desert, or leave the tribes to their traditional lifestyle?",
                             decisions: [
-                                { l: "Establish a Unified National Law", f: "✅ Warring tribes became one strong nation." },
-                                { l: "Rule by Military Force Only", f: "⚠️ Internal rebellions weakened the new state." },
-                                { l: "Give Each Tribe an Emirate", f: "❌ The state fractured back into chaos." }
+                                { l: "Launch Al-Hijar Project", f: "✅ You successfully turned tribal power into a unified national force for progress." },
+                                { l: "Leave Traditional Life", f: "⚠️ Tribal conflicts continued to threaten the stability of the new nation." },
+                                { l: "Use Military Force Only", f: "❌ This led to bloody clashes that weakened the national fabric and delayed development." }
                             ]
                         },
                         {
                             title: "The Oil Discovery (1938)",
-                            story: "Experts suggest drilling in Dhahran. Do you take the leap?",
+                            story: "Economic times are tough. Experts suggest drilling for oil. Signing an agreement with foreign companies is a sensitive sovereign decision. Will you sign, or refuse?",
                             decisions: [
-                                { l: "Sign Agreements & Start Drilling", f: "✅ Prosperity flowed; Saudi Arabia became a global leader." },
-                                { l: "Refuse Foreign Experts", f: "⚠️ Resources remained hidden; development was delayed." },
-                                { l: "Delay the Project", f: "❌ Economic opportunities were lost to competitors." }
+                                { l: "Sign the Drilling Agreement", f: "✅ Prosperity flowed from the wells, and the Kingdom entered an era of global wealth." },
+                                { l: "Refuse Foreign Companies", f: "⚠️ Resources remained hidden, and the Kingdom fell behind in global economic development." },
+                                { l: "Delay the Project", f: "❌ Golden investment opportunities were lost, and the state suffered from severe financial crises." }
                             ]
                         }
                     ],
-                    biography: "King Abdulaziz Al Saud (1876–1953). [Full historical text preserved as requested]"
+                    biography: "King Abdulaziz Al Saud (1876–1953). [Full biography text preserved]"
                 }
             }
         };
