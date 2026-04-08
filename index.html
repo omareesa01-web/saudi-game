@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس | النسخة الكاملة</title>
+    <title>ملحمة التأسيس | النسخة الاحترافية</title>
     
     <style>
         :root {
@@ -15,7 +15,6 @@
             --glass-bg: rgba(0, 30, 15, 0.96); 
             --glass-border: rgba(34, 197, 94, 0.45);
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --transition-smooth: 0.6s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
@@ -25,6 +24,19 @@
             background: radial-gradient(circle at center, var(--deep-green) 0%, var(--forest-black) 100%);
             color: #ffffff; font-family: var(--font-main);
             overflow: hidden; display: flex; justify-content: center; align-items: center;
+        }
+
+        /* تعديل جوهري: إخفاء جميع الشاشات افتراضياً */
+        .screen { 
+            display: none; 
+            opacity: 0; 
+            transition: opacity 0.5s ease;
+        }
+
+        /* إظهار الشاشة النشطة فقط */
+        .screen.active { 
+            display: block; 
+            opacity: 1; 
         }
 
         #titan-engine-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
@@ -44,8 +56,6 @@
             border-radius: 30px; padding: 30px 20px; text-align: center;
             box-shadow: 0 60px 120px rgba(0,0,0,0.8); max-height: 85vh; overflow-y: auto;
         }
-        .app-container::-webkit-scrollbar { width: 3px; }
-        .app-container::-webkit-scrollbar-thumb { background: var(--saudi-green); }
 
         .main-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 12px; text-shadow: 0 0 15px var(--glow-green); }
         .description-text { font-size: 0.9rem; line-height: 1.5; color: #bbb; margin-bottom: 25px; }
@@ -136,6 +146,7 @@
     </div>
 
     <script>
+        // تم الحفاظ على EPIC_DATA بالكامل (القصص الطويلة + الأرشيف)
         const EPIC_DATA = {
             m_saud: {
                 ar: {
@@ -379,13 +390,20 @@
 
         function navigateTo(screenId) {
             const allScreens = document.querySelectorAll('.screen');
-            allScreens.forEach(s => { s.classList.remove('active'); setTimeout(() => { s.style.display = 'none'; }, 400); });
-            setTimeout(() => {
-                const target = document.getElementById(screenId);
-                target.style.display = 'block';
-                setTimeout(() => { target.classList.add('active'); }, 50);
-                document.getElementById('app-scroller').scrollTop = 0;
-            }, 450);
+            // إخفاء فوري لجميع الشاشات
+            allScreens.forEach(s => { 
+                s.classList.remove('active'); 
+                s.style.display = 'none'; 
+            });
+
+            // إظهار الشاشة المستهدفة فقط
+            const target = document.getElementById(screenId);
+            target.style.display = 'block';
+            setTimeout(() => { 
+                target.classList.add('active'); 
+            }, 10);
+            
+            document.getElementById('app-scroller').scrollTop = 0;
         }
 
         function rebuildInteractiveGrids() {
