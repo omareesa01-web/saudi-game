@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس | الإصدار الملكي الطويل</title>
+    <title>ملحمة التأسيس | الإصدار الموسوعي الشامل</title>
     
     <style>
-        /* 1. إعدادات الألوان والمتغيرات الأساسية */
+        /* [1] تعريف الهوية البصرية العميقة */
         :root {
             --saudi-green: #006C35; 
             --light-green: #00843D;
             --glow-green: #22C55E;
             --deep-green: #062113;
             --forest-black: #010a05;
-            --glass-bg: rgba(0, 32, 16, 0.98); 
-            --glass-border: rgba(34, 197, 94, 0.4);
-            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --transition-speed: 0.5s;
+            --glass-bg: rgba(0, 35, 18, 0.98); 
+            --glass-border: rgba(34, 197, 94, 0.45);
+            --gold-accent: #D4AF37;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* 2. تصفير الإعدادات وتنسيق الجسم */
+        /* [2] إعدادات الصفحة الكلية */
         * { 
             margin: 0; 
             padding: 0; 
@@ -40,8 +40,8 @@
             align-items: center;
         }
 
-        /* 3. محرك الجسيمات الخلفي */
-        #titan-engine-canvas { 
+        /* [3] محرك الجسيمات - لتحسين التجربة البصرية */
+        #titan-canvas { 
             position: fixed; 
             top: 0; 
             left: 0; 
@@ -51,276 +51,322 @@
             pointer-events: none; 
         }
 
-        /* 4. الحاوية الرئيسية للتطبيق */
+        /* [4] تصميم الحاوية الرئيسية (Main App Shell) */
         .app-container {
             position: relative; 
             z-index: 100; 
-            width: 90%; 
-            max-width: 440px;
+            width: 92%; 
+            max-width: 480px;
             background: var(--glass-bg); 
-            backdrop-filter: blur(50px);
+            backdrop-filter: blur(60px);
             border: 1px solid var(--glass-border); 
-            border-top: 8px solid var(--saudi-green);
-            border-radius: 35px; 
-            padding: 35px 25px; 
+            border-top: 10px solid var(--saudi-green);
+            border-radius: 40px; 
+            padding: 40px 30px; 
             text-align: center;
-            box-shadow: 0 60px 120px rgba(0,0,0,0.9); 
-            max-height: 88vh; 
+            box-shadow: 0 100px 200px rgba(0,0,0,0.95); 
+            max-height: 90vh; 
             overflow-y: auto;
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* تحسين شريط التمرير */
+        /* تخصيص شريط التمرير (Custom Scrollbar) */
         .app-container::-webkit-scrollbar { 
-            width: 4px; 
+            width: 5px; 
         }
         .app-container::-webkit-scrollbar-thumb { 
-            background: var(--glow-green); 
-            border-radius: 10px;
+            background: linear-gradient(to bottom, var(--saudi-green), var(--gold-accent)); 
+            border-radius: 20px; 
         }
 
-        /* 5. العناوين والنصوص */
+        /* [5] العناوين والزخارف النصية */
         .main-title { 
-            font-size: 1.9rem; 
+            font-size: 2.3rem; 
             font-weight: 900; 
-            margin-bottom: 12px; 
-            text-shadow: 0 0 20px var(--glow-green); 
-            color: #ffffff;
+            margin-bottom: 15px; 
+            text-shadow: 0 0 30px var(--glow-green); 
+            letter-spacing: -1px;
+            color: #fff;
+        }
+
+        .subtitle {
+            color: var(--gold-accent);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            display: block;
         }
 
         .description-text { 
-            font-size: 0.95rem; 
-            line-height: 1.6; 
-            color: #b0b0b0; 
-            margin-bottom: 30px; 
+            font-size: 1rem; 
+            line-height: 1.8; 
+            color: #cfd8dc; 
+            margin-bottom: 35px; 
         }
 
-        /* 6. نظام الأزرار الملحمي */
+        /* [6] الأزرار الملحمية (Epic Buttons) */
         .btn-epic {
             position: relative; 
             width: 100%; 
-            padding: 18px; 
-            margin-bottom: 14px;
+            padding: 22px 20px; 
+            margin-bottom: 16px;
             background: linear-gradient(135deg, var(--saudi-green), var(--deep-green));
-            border: 1px solid var(--glow-green); 
-            border-radius: 16px;
+            border: 1px solid var(--glass-border); 
+            border-radius: 20px;
             color: #ffffff; 
-            font-size: 1rem; 
+            font-size: 1.1rem; 
             font-weight: 800; 
             cursor: pointer; 
-            transition: all 0.4s ease; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
             overflow: hidden;
-            display: block;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
         
-        /* تأثير لمعة السيف المتحركة */
+        /* تأثير لمعان السيف عند التمرير */
         .btn-epic::after {
             content: ""; 
             position: absolute; 
             top: -50%; 
             left: -150%;
-            width: 40%; 
+            width: 50%; 
             height: 200%; 
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
             transform: rotate(35deg); 
-            filter: blur(6px);
+            filter: blur(15px);
         }
         
         .btn-epic:hover::after { 
             left: 150%; 
-            transition: 0.8s; 
+            transition: 1.2s; 
         }
         
         .btn-epic:hover { 
-            transform: scale(1.03) translateY(-2px); 
+            transform: translateY(-5px) scale(1.02); 
             background: var(--light-green); 
-            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
+            border-color: var(--glow-green);
+            box-shadow: 0 15px 40px rgba(34, 197, 94, 0.4);
         }
 
-        /* 7. صناديق المحتوى التاريخي */
+        /* [7] صناديق المحتوى الموسوعي (Lore Boxes) */
         .lore-box {
-            background: rgba(0, 0, 0, 0.5); 
-            border-radius: 22px; 
-            padding: 25px;
-            margin: 20px 0; 
+            background: rgba(0, 0, 0, 0.45); 
+            border-radius: 25px; 
+            padding: 30px;
+            margin: 25px 0; 
             text-align: justify; 
-            line-height: 1.9; 
-            font-size: 1rem;
-            color: #f0f0f0; 
-            border-right: 6px solid var(--saudi-green);
+            line-height: 2; 
+            font-size: 1.1rem;
+            color: #eceff1; 
+            border-right: 8px solid var(--saudi-green);
             white-space: pre-line; 
-            box-shadow: inset 0 0 25px rgba(0,0,0,0.5);
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
+            animation: slideIn 0.8s ease;
         }
 
-        /* 8. نظام تبديل اللغة */
-        .lang-switcher {
-            position: absolute; 
-            top: 20px; 
-            right: 25px; 
-            background: rgba(255,255,255,0.1); 
-            padding: 6px 14px;
-            border-radius: 25px; 
-            font-size: 0.8rem; 
-            cursor: pointer;
-            border: 1px solid var(--glass-border); 
+        /* [8] نظام اللغات والتنقل العلوي */
+        .top-nav-bar {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
             z-index: 150;
+        }
+
+        .nav-tool {
+            background: rgba(255,255,255,0.08);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: 1px solid var(--glass-border);
             color: #fff;
-            font-weight: bold;
+            backdrop-filter: blur(10px);
             transition: 0.3s;
         }
-        .lang-switcher:hover { background: var(--saudi-green); }
+        .nav-tool:hover { background: var(--saudi-green); }
 
-        /* 9. أزرار الرجوع والتنقل */
+        /* [9] أزرار الرجوع */
         .back-nav { 
             display: inline-block; 
-            margin-top: 18px; 
+            margin-top: 30px; 
             color: var(--glow-green); 
             cursor: pointer; 
             font-weight: 800; 
-            font-size: 0.9rem; 
+            font-size: 1rem; 
             text-decoration: none;
-            transition: 0.3s;
+            transition: 0.4s;
         }
-        .back-nav:hover { letter-spacing: 1px; color: #fff; }
+        .back-nav:hover { color: #fff; text-shadow: 0 0 10px var(--glow-green); }
 
-        /* 10. إدارة الشاشات والأنيميشن */
+        /* [10] إدارة عرض الشاشات */
         .screen { 
             display: none; 
             opacity: 0; 
-            transform: translateY(15px);
-            transition: all 0.5s ease-out; 
+            transform: scale(0.96); 
+            transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1); 
         }
         
         .screen.active { 
             display: block; 
             opacity: 1; 
-            transform: translateY(0);
+            transform: scale(1);
         }
 
-        /* تأثير الاهتزاز عند الخطأ */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .shake-effect { animation: shake 0.3s ease-in-out; }
 
-        /* تأثير الوميض عند النجاح */
-        @keyframes glow-up {
-            0% { box-shadow: 0 0 0px var(--glow-green); }
-            50% { box-shadow: 0 0 40px var(--glow-green); }
-            100% { box-shadow: 0 0 0px var(--glow-green); }
+        .badge-tag {
+            background: var(--saudi-green);
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: inline-block;
         }
-        .success-glow { animation: glow-up 1s ease-in-out; }
-
     </style>
 </head>
 <body>
 
-    <div class="lang-switcher" onclick="toggleLanguage()" id="langBtn">English</div>
+    <div class="top-nav-bar">
+        <div class="nav-tool" onclick="toggleLanguage()" id="langToggle">ENGLISH</div>
+        <div class="nav-tool" style="cursor: default;">V4.0 GOLD</div>
+    </div>
 
-    <canvas id="titan-engine-canvas"></canvas>
+    <canvas id="titan-canvas"></canvas>
 
-    <div class="app-container" id="app-wrapper">
+    <div class="app-container" id="main-scroller">
         
-        <div id="screen-gate" class="screen active">
-            <h1 class="main-title" data-ar="ملاحم التأسيس" data-en="Founding Epics">ملاحم التأسيس</h1>
-            <p class="description-text" 
-               data-ar="انطلق في رحلة عبر الزمن لتعيش لحظات بناء الدولة السعودية وتتخذ قرارات القادة العظماء." 
-               data-en="Embark on a journey through time to live the founding moments of the Saudi State.">
-               انطلق في رحلة عبر الزمن لتعيش لحظات بناء الدولة السعودية وتتخذ قرارات القادة العظماء.
-            </p>
-            <button class="btn-epic" onclick="navigateTo('screen-selection')" data-ar="دخول الملحمة" data-en="Enter the Epic">دخول الملحمة</button>
-            <button class="btn-epic" onclick="navigateTo('screen-archive')" data-ar="أرشيف العظماء" data-en="Archive of Greats">أرشيف العظماء</button>
+        <div id="screen-home" class="screen active">
+            <span class="subtitle" data-ar="المملكة العربية السعودية" data-en="KINGDOM OF SAUDI ARABIA">المملكة العربية السعودية</span>
+            <h1 class="main-title" data-ar="ملاحم التأسيس" data-en="THE FOUNDING EPICS">ملاحم التأسيس</h1>
+            <p class="description-text" data-ar="انطلق في رحلة تاريخية عميقة، لتعيش أدق تفاصيل بناء الدولة وتتخذ قرارات القادة العظماء في لحظات المصير." data-en="Embark on a deep historical journey to live the details of state-building and make destiny-defining decisions.">انطلق في رحلة تاريخية عميقة، لتعيش أدق تفاصيل بناء الدولة وتتخذ قرارات القادة العظماء في لحظات المصير.</p>
+            <button class="btn-epic" onclick="navigateTo('screen-leaders')" data-ar="ابدأ الملحمة الكبرى" data-en="START THE GREAT EPIC">ابدأ الملحمة الكبرى</button>
+            <button class="btn-epic" onclick="navigateTo('screen-archive-list')" data-ar="سجل الخالدين (الأرشيف)" data-en="RECORDS OF IMMORTALS">سجل الخالدين (الأرشيف)</button>
         </div>
 
-        <div id="screen-selection" class="screen">
-            <h1 class="main-title" data-ar="اختر قائد الحقبة" data-en="Select Era Leader">اختر قائد الحقبة</h1>
-            <p class="description-text" data-ar="كل قائد يمثل ركناً أساسياً في تاريخنا." data-en="Each leader represents a pillar of our history.">كل قائد يمثل ركناً أساسياً في تاريخنا.</p>
-            <div id="hero-list-ui">
+        <div id="screen-leaders" class="screen">
+            <h1 class="main-title" data-ar="اختر القائد" data-en="SELECT LEADER">اختر القائد</h1>
+            <div id="leaders-grid">
                 </div>
-            <a class="back-nav" onclick="navigateTo('screen-gate')" data-ar="← العودة للرئيسية" data-en="← Back to Home">← العودة للرئيسية</a>
+            <a class="back-nav" onclick="navigateTo('screen-home')" data-ar="← العودة للديوان" data-en="← BACK TO HALL">← العودة للديوان</a>
         </div>
 
         <div id="screen-scenarios" class="screen">
-            <h1 class="main-title" data-ar="مواقف العز" data-en="Honor Scenarios">مواقف العز</h1>
-            <div id="scenario-list-ui">
+            <h1 class="main-title" data-ar="مواقف العز" data-en="SCENARIOS OF HONOR">مواقف العز</h1>
+            <div id="scenarios-grid">
                 </div>
-            <a class="back-nav" onclick="navigateTo('screen-selection')" data-ar="← تغيير القائد" data-en="← Change Leader">← تغيير القائد</a>
+            <a class="back-nav" onclick="navigateTo('screen-leaders')" data-ar="← اختيار قائد آخر" data-en="← SELECT ANOTHER LEADER">← اختيار قائد آخر</a>
         </div>
 
         <div id="screen-quest" class="screen">
-            <h1 id="quest-title-ui" style="color: var(--glow-green); font-size: 1.4rem; margin-bottom: 15px;"></h1>
-            <div id="quest-desc-ui" class="lore-box"></div>
-            <div id="decision-buttons-ui">
+            <div class="badge-tag" id="quest-category">مهمة تاريخية</div>
+            <h1 id="quest-head" class="main-title" style="font-size: 1.6rem;"></h1>
+            <div id="quest-body" class="lore-box"></div>
+            <div id="options-grid">
                 </div>
-            <a class="back-nav" onclick="navigateTo('screen-scenarios')" data-ar="← تراجع" data-en="← Go Back">← تراجع</a>
+            <a class="back-nav" onclick="navigateTo('screen-scenarios')" data-ar="← تراجع" data-en="← GO BACK">← تراجع</a>
         </div>
 
         <div id="screen-result" class="screen">
-            <h1 class="main-title" data-ar="حكم التاريخ" data-en="History's Verdict">حكم التاريخ</h1>
-            <div id="result-text-ui" class="lore-box"></div>
-            <button class="btn-epic" onclick="navigateTo('screen-quest')" data-ar="تجربة مسار آخر" data-en="Try Another Path">تجربة مسار آخر</button>
-            <a class="back-nav" onclick="navigateTo('screen-scenarios')" data-ar="← العودة للمواقف" data-en="← Back to Scenarios">← العودة للمواقف</a>
+            <h1 class="main-title" data-ar="حكم التاريخ" data-en="VERDICT OF HISTORY">حكم التاريخ</h1>
+            <div id="result-body" class="lore-box"></div>
+            <button class="btn-epic" onclick="navigateTo('screen-quest')" data-ar="تجربة قرار بديل" data-en="TRY ALTERNATIVE DECISION">تجربة قرار بديل</button>
+            <a class="back-nav" onclick="navigateTo('screen-scenarios')" data-ar="← العودة للمواقف" data-en="← BACK TO SCENARIOS">← العودة للمواقف</a>
         </div>
 
-        <div id="screen-archive" class="screen">
-            <h1 class="main-title" data-ar="سجل الخالدين" data-en="Immortal Record">سجل الخالدين</h1>
-            <div id="archive-list-ui">
+        <div id="screen-archive-list" class="screen">
+            <h1 class="main-title" data-ar="الأرشيف التاريخي" data-en="HISTORICAL ARCHIVE">الأرشيف التاريخي</h1>
+            <div id="archive-grid">
                 </div>
-            <a class="back-nav" onclick="navigateTo('screen-gate')" data-ar="← العودة" data-en="← Back">← العودة</a>
+            <a class="back-nav" onclick="navigateTo('screen-home')" data-ar="← العودة" data-en="← BACK">← العودة</a>
         </div>
 
         <div id="screen-bio" class="screen">
-            <h1 id="bio-name-ui" class="main-title"></h1>
-            <div id="bio-content-ui" class="lore-box"></div>
-            <a class="back-nav" onclick="navigateTo('screen-archive')" data-ar="← رجوع للأرشيف" data-en="← Back to Archive">← رجوع للأرشيف</a>
+            <h1 id="bio-head" class="main-title"></h1>
+            <div id="bio-body" class="lore-box" style="font-size: 1rem; line-height: 2.2;"></div>
+            <a class="back-nav" onclick="navigateTo('screen-archive-list')" data-ar="← العودة للأرشيف" data-en="← BACK TO ARCHIVE">← العودة للأرشيف</a>
         </div>
 
     </div>
 
     <script>
-        // 1. قاعدة البيانات الموسعة (الآن تحتوي على 3 سيناريوهات لكل قائد)
-        const DATABASE = {
+        /* [1] نظام إدارة اللغات والحالة */
+        let currentLang = 'ar';
+        let activeHero = null;
+
+        /* [2] قاعدة البيانات الموسوعية (الأرشيف والسيناريوهات) */
+        const EPIC_DATABASE = {
             m_saud: {
                 name: { ar: "الإمام محمد بن سعود", en: "Imam Muhammad bin Saud" },
                 bio: {
-                    ar: "مؤسس الدولة السعودية الأولى عام 1727م. جعل من الدرعية منطلقاً للوحدة والتوحيد، واشتهر بالحكمة والقدرة على جمع شمل القبائل تحت راية واحدة، مبرماً الميثاق التاريخي الذي غير مجرى التاريخ.",
-                    en: "Founder of the First Saudi State in 1727. He made Diriyah a starting point for unity and Tawhid, famous for his wisdom and ability to unite tribes under one banner."
+                    ar: `ولد الإمام محمد بن سعود بن محمد بن مقرن في الدرعية عام 1697م، ونشأ في بيت إمارة وعلم. تولى الحكم في وقت كانت فيه الجزيرة العربية ممزقة بالصراعات والجهل والتبعية القبلية.
+
+                    يُعد الإمام محمد بن سعود المؤسس الحقيقي للدولة السعودية الأولى (1139هـ / 1727م). تميزت شخصيته بالعدل، والشجاعة، والرؤية السياسية الثاقبة. قام بتأمين طرق الحج والتجارة، وحصّن الدرعية بأسوار منيعة، وجعل منها مركز ثقل سياسي وعلمي.
+
+                    كانت نقطة التحول الكبرى في عهده هي ميثاق الدرعية التاريخي عام 1744م مع الشيخ محمد بن عبدالوهاب، حيث تعاهدا على نصرة دين الله وتأسيس دولة تقوم على التوحيد والعدل. توفي الإمام عام 1765م بعد أن وضع اللبنة الأولى لمجد استمر لقرون.`,
+                    en: `Born in 1697 in Diriyah, Imam Muhammad bin Saud grew up in a household of leadership and knowledge. He took power when the Arabian Peninsula was torn by conflicts and tribalism.
+
+                    He is the true founder of the First Saudi State (1727). His character was marked by justice, courage, and political insight. He secured pilgrimage routes and fortified Diriyah.
+
+                    The major turning point was the historic Diriyah Pact in 1744, where he and Sheikh Muhammad bin Abdulwahab pledged to support the faith and found a state based on Tawhid and justice.`
                 },
                 scenarios: [
                     {
-                        title: { ar: "ميثاق العزة (1744م)", en: "Pact of Honor (1744)" },
-                        desc: { 
-                            ar: "الشيخ محمد بن عبدالوهاب يصل الدرعية طالباً النصرة. التحالف يعني مواجهة قوى إقليمية كبرى. ماذا تقرر؟",
-                            en: "Sheikh Muhammad bin Abdulwahab arrives in Diriyah seeking support. This alliance means facing major powers. Your decision?"
+                        title: { ar: "ميثاق الدرعية (1744م)", en: "The Diriyah Pact (1744)" },
+                        tag: { ar: "تأسيس", en: "FOUNDING" },
+                        story: {
+                            ar: `أنت الإمام محمد بن سعود. في عام 1157هـ، وصل الشيخ محمد بن عبدالوهاب إلى الدرعية هارباً من المضايقات. الشيخ يدعوك لمشروع تاريخي عظيم: 'دولة التوحيد'. 
+                            
+                            لكن القوى المجاورة والقبائل المعادية ستنظر لهذا التحالف كتهديد مباشر لمصالحها، وقد تشن حروباً لا تنتهي ضدك. هل تعقد الميثاق وتتحمل تبعات الحرب لنصرة الدعوة وتأسيس الدولة؟ أم تكتفي بحماية الشيخ كضيف دون مشروع سياسي؟`,
+                            en: `You are Imam Muhammad bin Saud. In 1744, Sheikh Muhammad bin Abdulwahab reached Diriyah. He invites you to a great historical project: 'The State of Tawhid'.
+
+                            But neighboring powers will see this alliance as a threat and may launch endless wars. Do you sign the pact and face the consequences to found the state? Or just protect him as a guest?`
                         },
-                        options: [
-                            { text: { ar: "نصرة الدعوة وتأسيس الدولة", en: "Support Call & Found State" }, result: { ar: "✅ انطلقت الدولة السعودية الأولى وعمّ الاستقرار والعدل.", en: "✅ The First Saudi State began, spreading stability and justice." }, type: "win" },
-                            { text: { ar: "حماية الشيخ كضيف فقط", en: "Protect Sheikh as Guest Only" }, result: { ar: "⚠️ بقيت الدرعية إمارة صغيرة ولم تتوحد الجزيرة العربية.", en: "⚠️ Diriyah remained a small emirate and the peninsula never united." }, type: "neutral" },
-                            { text: { ar: "الاعتذار تجنباً للحروب", en: "Refuse to Avoid Wars" }, result: { ar: "❌ ضاعت فرصة التأسيس وبقيت المنطقة في فوضى قبلية.", en: "❌ The opportunity was lost and the region stayed in tribal chaos." }, type: "fail" }
+                        decisions: [
+                            { l: { ar: "إبرام الميثاق ونصرة الدعوة", en: "Sign Pact & Support Call" }, r: { ar: "✅ نصر مؤزر! قلت جملتك الخالدة: 'أبشر ببلاد خير من بلادك، وأبشر بالعزة والمنعة'. بهذا القرار انطلقت الدولة السعودية الأولى لتصبح أقوى قوة في المنطقة.", en: "✅ Victory! You said: 'Behold a land better than yours, and behold glory and protection'. With this, the First Saudi State rose to be the strongest power." } },
+                            { l: { ar: "الحماية الشخصية للشيخ فقط", en: "Personal Protection Only" }, r: { ar: "⚠️ ظل المشروع محلياً وبقيت الجزيرة العربية ممزقة. لم تولد الدولة السعودية العظمى، وضاعت فرصة توحيد القلوب تحت راية واحدة.", en: "⚠️ The project stayed local. The Great Saudi State was never born, and the chance to unify hearts was lost." } },
+                            { l: { ar: "الرفض خشية الحروب القبلية", en: "Refuse to Avoid Wars" }, r: { ar: "❌ فضلت السلامة المؤقتة، لكن الدرعية بقيت إمارة صغيرة ومعزولة، واستمر النهب والفوضى في نجد لقرن آخر.", en: "❌ You chose temporary safety, but Diriyah stayed a small isolated emirate, and chaos continued in Nejd for another century." } }
                         ]
                     },
                     {
-                        title: { ar: "بناء سور الدرعية", en: "Building Diriyah Wall" },
-                        desc: {
-                            ar: "الجيوش الغازية تقترب. هل تبني سوراً عظيماً حول المدينة أم تخرج لملاقاتهم في الصحراء المكشوفة؟",
-                            en: "Invading armies are near. Build a great wall around the city or face them in the open desert?"
+                        title: { ar: "أسوار الدرعية العظيمة", en: "Diriyah's Great Walls" },
+                        tag: { ar: "دفاع", en: "DEFENSE" },
+                        story: {
+                            ar: `الأنباء تصلك بأن جيوشاً ضخمة يتم تجهيزها لضرب الدرعية في مهدها. الميزانية محدودة والوقت ضيق. 
+
+                            هل توجه كل موارد الدولة والمواطنين لبناء 'سور الدرعية' الدفاعي الضخم والتحصن داخله لحروب استنزاف طويلة؟ أم تنفق الأموال لتجهيز جيش سريع الحركة لمباغتة الأعداء في الصحراء قبل وصولهم؟`,
+                            en: `News reaches you that huge armies are being prepared to strike Diriyah. Budget is limited and time is short.
+
+                            Do you direct all resources to build the 'Great Wall of Diriyah' and prepare for a long siege? Or spend money to equip a fast cavalry to surprise the enemies in the desert?`
                         },
-                        options: [
-                            { text: { ar: "بناء السور والتحصين", en: "Build Wall & Fortify" }, result: { ar: "✅ صمدت الدرعية لسنوات وأصبح السور رمزاً للمقاومة.", en: "✅ Diriyah stood for years and the wall became a symbol of resistance." }, type: "win" },
-                            { text: { ar: "المواجهة خارج الأسوار", en: "Face them Outside" }, result: { ar: "⚠️ حققت انتصاراً مؤقتاً لكن العاصمة ظلت مهددة دائماً.", en: "⚠️ You won temporarily but the capital remained threatened." }, type: "neutral" }
+                        decisions: [
+                            { l: { ar: "بناء الأسوار والتحصينات", en: "Build Walls & Fortifications" }, r: { ar: "✅ قرار حكيم! عندما وصل الغزاة وجدوا أسواراً لا تكسر. فشل الحصار وانسحبت الجيوش مهزومة، مما أكسب الدرعية هيبة عالمية.", en: "✅ Wise decision! When invaders arrived, they found unbreakable walls. The siege failed, giving Diriyah international prestige." } },
+                            { l: { ar: "الاستثمار في الجيش الهجومي", en: "Invest in Offensive Army" }, r: { ar: "⚠️ حققت انتصارات في البداية، لكن عندما وصل العدو بجموعه الغفيرة، وجد المدينة مكشوفة فتعرضت لأضرار بالغة وهلع بين السكان.", en: "⚠️ You won early battles, but when the main enemy force arrived, the city was exposed, causing panic and damage." } }
                         ]
                     },
                     {
-                        title: { ar: "تأمين طرق الحجيج", en: "Securing Hajj Routes" },
-                        desc: {
-                            ar: "قطاع الطرق يهددون القوافل. هل تفرض قوة الدولة عسكرياً أم تدفع الأموال للقبائل لضمان السلم؟",
-                            en: "Bandits threaten caravans. Enforce state power militarily or pay tribes to ensure peace?"
+                        title: { ar: "إدارة القحط والجوع", en: "Managing Famine" },
+                        tag: { ar: "اقتصاد", en: "ECONOMY" },
+                        story: {
+                            ar: `ضرب القحط نجد لسنوات، ومخازن الحبوب في الدرعية بدأت تنفد. الناس يطلبون المعونة.
+
+                            هل تفتح المخازن للجميع بالمجان مما قد يعرض الدولة للمجاعة الكلية إذا طال القحط؟ أم تفرض نظام حصص صارم (تقنين) لضمان بقاء الجيش وقوة الدولة، أم تطلب قروضاً من التجار الأغنياء بفوائد تثقل كاهل الدولة لاحقاً؟`,
+                            en: `Famine hit Nejd for years. Grain stores in Diriyah are running out. People ask for help.
+
+                            Do you open stores for free, risking total famine if it lasts? Or enforce strict rationing for the army's survival? Or take high-interest loans from wealthy merchants?`
                         },
-                        options: [
-                            { text: { ar: "فرض القانون والضرب بيد من حديد", en: "Enforce Law Strictly" }, result: { ar: "✅ آمن الحجاج وازدهرت التجارة وعظمت هيبة الدولة.", en: "✅ Pilgrims were safe, trade flourished, and state prestige grew." }, type: "win" },
-                            { text: { ar: "شراء الولاء بالمال", en: "Buy Loyalty with Money" }, result: { ar: "❌ حل مؤقت أرهق الميزانية وعادت الفوضى لاحقاً.", en: "❌ A temporary fix that drained the budget; chaos returned later." }, type: "fail" }
+                        decisions: [
+                            { l: { ar: "فتح المخازن ونشر التكافل", en: "Open Stores for Solidarity" }, r: { ar: "✅ زادت محبة الشعب لك واشتد ولاؤهم. وبفضل الله، هطل المطر لاحقاً فنجت الدولة بفضل تلاحم القيادة والشعب.", en: "✅ People's love and loyalty grew. By Allah's grace, rain fell and the state survived through leadership-people unity." } },
+                            { l: { ar: "نظام التقنين الصارم", en: "Strict Rationing" }, r: { ar: "⚠️ حافظت على قوة الجيش، لكن استياءً شعبياً ظهر في العاصمة، مما أضعف الجبهة الداخلية أمام المتربصين بالدولة.", en: "⚠️ You kept the army strong, but public discontent weakened the internal front against enemies." } }
                         ]
                     }
                 ]
@@ -328,41 +374,64 @@
             i_turki: {
                 name: { ar: "الإمام تركي بن عبد الله", en: "Imam Turki bin Abdullah" },
                 bio: {
-                    ar: "مؤسس الدولة السعودية الثانية. بطل سيف 'الأجرب' الذي استعاد الرياض من المحتلين بـ 40 رجلاً فقط، معيداً بناء الدولة بعد سنوات من الدمار والشتات.",
-                    en: "Founder of the Second Saudi State. Hero of 'Al-Ajrab' sword, he recaptured Riyadh with only 40 men, rebuilding the state after years of ruin."
+                    ar: `الإمام تركي بن عبد الله بن محمد بن سعود، هو مؤسس الدولة السعودية الثانية (1240هـ / 1824م). ولد في الدرعية وعاش مأساة سقوطها على يد جيوش إبراهيم باشا. 
+
+                    لم يستسلم الإمام تركي للواقع، بل قضى سنوات يتنقل في التخفي، جامعاً للأنصار ومخططاً للعودة. هو صاحب السيف الشهير 'الأجرب' الذي سطر به ملاحم البطولة. 
+
+                    نجح بذكائه وفدائيته في استعادة الرياض وجعلها العاصمة الجديدة للدولة، وبنى فيها 'قصر الحكم' الشهير. عُرف بشدته في الحق، وعدله بين الرعية، وقصائده التي خلدت عزة النفس السعودية وصمودها أمام المحن. قُتل غدراً عام 1834م بعد أن أعاد للأمة هيبتها.`,
+                    en: `Imam Turki bin Abdullah is the founder of the Second Saudi State (1824). Born in Diriyah, he lived through its tragic fall.
+
+                    He never surrendered, spending years in hiding, gathering supporters. He is the owner of the famous 'Al-Ajrab' sword.
+
+                    He successfully recaptured Riyadh and made it the new capital. Known for his strictness in truth and justice. He was assassinated in 1834 after restoring the nation's prestige.`
                 },
                 scenarios: [
                     {
-                        title: { ar: "استعادة الرياض (1824م)", en: "Recapturing Riyadh" },
-                        desc: {
-                            ar: "أنت في التخفي ومعك عدد قليل من الرجال. الحصن مدجج بالسلاح. هل تهجم بمفاجأة ليلية أم تنتظر المدد؟",
-                            en: "You are in hiding with few men. The fort is heavily armed. Storm by night surprise or wait for reinforcements?"
+                        title: { ar: "استعادة الرياض (1824م)", en: "Recapturing Riyadh (1824)" },
+                        tag: { ar: "تحرير", en: "LIBERATION" },
+                        story: {
+                            ar: `الرياض تحت سيطرة الحاميات الأجنبية. أنت في التخفي في مغارة بـ 'عبيقر' ومعك 40 رجلاً فقط من المخلصين. السيف 'الأجرب' بجانبك. 
+                            
+                            هل تشن هجوماً انتحارياً مباغتاً في جوف الليل لاقتحام قصر الحاكم، أم تنسحب نحو الجنوب لجمع آلاف المتطوعين من القبائل لشن حرب شاملة لاحقاً؟`,
+                            en: `Riyadh is under foreign occupation. You are hiding in a cave with only 40 loyal men. The sword 'Al-Ajrab' is by your side.
+
+                            Do you launch a midnight suicide-style surprise attack on the governor's palace? Or retreat south to gather thousands of tribesmen for an all-out war later?`
                         },
-                        options: [
-                            { text: { ar: "الهجوم الفدائي المباغت", en: "Sudden Commando Attack" }, result: { ar: "✅ سقط الحصن وعادت الرياض وبدأت الدولة السعودية الثانية.", en: "✅ The fort fell, Riyadh returned, and the Second State began." }, type: "win" },
-                            { text: { ar: "الانتظار والانسحاب", en: "Wait and Retreat" }, result: { ar: "❌ اكتشف العدو مكانك واضطررت للهروب لسنوات أخرى.", en: "❌ The enemy found your location and you had to flee for years." }, type: "fail" }
+                        decisions: [
+                            { l: { ar: "الهجوم الفدائي بـ 40 رجلاً", en: "Commando Attack with 40 Men" }, r: { ar: "✅ الله أكبر! بـ 40 بطلاً فقط، اقتحمتم الحصن وهرب الأعداء ذعراً. نادوا في الأسواق: 'الملك لله ثم لتركي'، وأعلنت قيام الدولة الثانية.", en: "✅ Allahu Akbar! With 40 heroes, you stormed the fort. Enemies fled in terror. You proclaimed the start of the Second State." } },
+                            { l: { ar: "الانسحاب لجمع جيش ضخم", en: "Retreat to Gather Army" }, r: { ar: "⚠️ اكتشف الأعداء مكانك أثناء انسحابك، واضطررت للهرب لسنوات أخرى تحت المطاردة، وتأخر فجر الاستقلال كثيراً.", en: "⚠️ Enemies found your location during retreat. You had to flee for years, and the dawn of independence was long delayed." } }
                         ]
                     },
                     {
-                        title: { ar: "بناء قصر الحكم", en: "Building Justice Palace" },
-                        desc: {
-                            ar: "المدينة مدمرة. هل تبدأ ببناء قصر الحكم والمسجد لترسيخ الدولة أم تخرج للحروب فوراً؟",
-                            en: "The city is ruined. Start building the Justice Palace and Mosque or go to war immediately?"
+                        title: { ar: "بناء قصر الحكم", en: "The Justice Palace" },
+                        tag: { ar: "عمران", en: "CONSTRUCTION" },
+                        story: {
+                            ar: `الرياض أصبحت في قبضة يدك، لكنها منهكة من الحروب. الهيبة تحتاج لمركز قوة.
+
+                            هل تنفق خزينة الدولة المحدودة لبناء 'قصر الحكم' والجامع الكبير لتثبيت أركان الدولة وبث الرعب في قلوب الأعداء؟ أم توزع الأموال على القبائل لضمان ولائهم السريع وتؤجل البناء لسنوات؟`,
+                            en: `Riyadh is yours, but exhausted. Prestige needs a center.
+
+                            Do you spend the limited treasury to build the 'Palace of Justice' and the Grand Mosque to solidify the state? Or distribute money to tribes for quick loyalty and delay construction?`
                         },
-                        options: [
-                            { text: { ar: "بناء المركز السياسي والجامع", en: "Build Political Center" }, result: { ar: "✅ استقرت الرياض وصارت عاصمة مهابة ومنطلقاً للتوحيد.", en: "✅ Riyadh stabilized, becoming a feared capital and a base for unity." }, type: "win" },
-                            { text: { ar: "التركيز على الغزوات", en: "Focus on Battles" }, result: { ar: "⚠️ توسعت الحدود لكن الدولة افتقدت لمركز قرار مستقر.", en: "⚠️ Borders expanded but the state lacked a stable decision center." }, type: "neutral" }
+                        decisions: [
+                            { l: { ar: "تأسيس القصر والجامع", en: "Build Palace & Mosque" }, r: { ar: "✅ أصبح قصر الحكم رمزاً لهيبة الدولة السعودية ومقصداً للمظلومين. استقرت العاصمة وازدهرت بفضل وجود مركز قرار قوي ومكشوف للجميع.", en: "✅ The Palace became a symbol of Saudi state prestige. The capital stabilized and flourished thanks to a strong decision center." } },
+                            { l: { ar: "شراء الولاءات القبلية", en: "Buy Tribal Loyalties" }, r: { ar: "⚠️ هدأت القبائل مؤقتاً، لكن غياب مركز سياسي مهيب جعل الدولة تبدو وكأنها إمارة عابرة، وعاد التمرد بمجرد نفاد الأموال.", en: "⚠️ Tribes calmed temporarily, but lack of a grand center made the state seem transient. Rebellion returned when money ran out." } }
                         ]
                     },
                     {
-                        title: { ar: "سيف الأجرب والقبائل", en: "Al-Ajrab and Tribes" },
-                        desc: {
-                            ar: "نزاع قبلي يهدد الوحدة. هل تستخدم سيفك الأجرب لفرض النظام أم تعتمد على الدبلوماسية؟",
-                            en: "A tribal dispute threatens unity. Use Al-Ajrab sword to enforce order or rely on diplomacy?"
+                        title: { ar: "فتنة المشاري", en: "The Mishari Sedition" },
+                        tag: { ar: "أمن", en: "SECURITY" },
+                        story: {
+                            ar: `هناك تحركات مريبة من بعض المقربين الطامعين في الحكم بقيادة 'مشاري'. الأخبار تصلك عن مؤامرة لاغتيالك.
+
+                            هل تقبض عليهم فوراً بحد السيف 'الأجرب' وتنهي الفتنة في مهدها؟ أم تتجاهل الأمر لعدم شق الصف والاعتماد على الحكمة والموعظة لتغيير رأيهم؟`,
+                            en: `Suspicious movements by those greedy for power led by 'Mishari'. News of an assassination plot reaches you.
+
+                            Do you arrest them immediately by the sword and end the fitna? Or ignore it to avoid division, relying on wisdom to change their minds?`
                         },
-                        options: [
-                            { text: { ar: "الحزم وفرض هيبة القانون", en: "Firmness and Enforcing Law" }, result: { ar: "✅ خضعت القبائل للعدل وعمّ الأمان في كافة الأرجاء.", en: "✅ Tribes submitted to justice and safety spread everywhere." }, type: "win" },
-                            { text: { ar: "الدبلوماسية المطولة", en: "Lengthy Diplomacy" }, result: { ar: "⚠️ استمر النزاع سراً وأضعف قوة الدولة في الأطراف.", en: "⚠️ The dispute continued secretly, weakening the state on the outskirts." }, type: "neutral" }
+                        decisions: [
+                            { l: { ar: "الحزم والقبض على المتآمرين", en: "Firmness & Arresting Plotters" }, r: { ar: "✅ وأدت الفتنة في مهدها وحفظت دماء المسلمين من حرب أهلية كانت ستحرق الدولة السعودية الثانية.", en: "✅ You nipped the sedition in the bud and saved Muslim blood from a civil war that would have burned the Second State." } },
+                            { l: { ar: "التجاهل لتجنب الصدام", en: "Ignore to Avoid Clash" }, r: { ar: "❌ وقعت الكارثة! نجحت المؤامرة واغتيل الإمام تركي، ودخلت الدولة في نفق مظلم من الصراعات الداخلية لسنوات.", en: "❌ Disaster! The plot succeeded, Imam Turki was assassinated, and the state entered a dark tunnel of internal strife." } }
                         ]
                     }
                 ]
@@ -370,246 +439,195 @@
             k_aziz: {
                 name: { ar: "الملك عبد العزيز", en: "King Abdulaziz" },
                 bio: {
-                    ar: "مؤسس المملكة العربية السعودية الحديثة. وحد شتات البلاد والقلوب، وبنى دولة عصرية من الصفر، واضعاً أسس النهضة والتعليم والنفط.",
-                    en: "Founder of modern Saudi Arabia. He unified the scattered land and hearts, building a modern state from scratch and laying foundations for oil and education."
+                    ar: `الملك عبد العزيز بن عبد الرحمن آل سعود (1876-1953م)، هو مؤسس المملكة العربية السعودية الحديثة وأول ملوكها. ولد في الرياض وعاش طفولة صعبة في المنفى بالكويت بعد سقوط الدولة الثانية.
+
+                    بشجاعة أسطورية، انطلق من الكويت بـ 63 رجلاً فقط ليستعيد الرياض عام 1902م في ملحمة 'المصمك' الشهيرة. قضى 30 عاماً من حياته فوق ظهر جواده، يوحد القبائل ويجمع القلوب تحت راية التوحيد. 
+
+                    لم يكن عبد العزيز قائداً عسكرياً فحسب، بل كان عبقرية سياسية. هو من وطّن البادية، واكتشف النفط، وأسس الوزارات، ووضع المملكة على خارطة القوى العالمية الرائدة. توفي عام 1953م تاركاً خلفه أعظم وحدة عربية في العصر الحديث.`,
+                    en: `King Abdulaziz Al Saud (1876-1953) is the founder of modern Saudi Arabia. Born in Riyadh, he lived a tough childhood in exile in Kuwait.
+
+                    With legendary courage, he set out with 63 men to recapture Riyadh in 1902. He spent 30 years of his life on horseback, unifying tribes.
+
+                    He wasn't just a military leader; he was a political genius. He settled the nomads, discovered oil, and put the Kingdom on the global map.`
                 },
                 scenarios: [
                     {
-                        title: { ar: "فتح المصمك (1902م)", en: "Capturing Al-Masmak" },
-                        desc: {
-                            ar: "الفجر يقترب عند أسوار المصمك. الحاكم عجلان سيخرج قريباً. هل تقتحم الباب الآن؟",
-                            en: "Dawn is near at Al-Masmak walls. Governor Ajlan will exit soon. Storm the gate now?"
+                        title: { ar: "فتح المصمك (1902م)", en: "Opening Al-Masmak (1902)" },
+                        tag: { ar: "تحدي", en: "CHALLENGE" },
+                        story: {
+                            ar: `أنت الشاب عبد العزيز. تقف خلف أسوار الرياض ليلاً. الحاكم عجلان داخل حصن المصمك المنيع. رجالك يترقبون. 
+                            
+                            الخطة هي انتظار خروج عجلان بعد الفجر. هل تقتحم الباب فور فتحه وتواجه الموت وجهاً لوجه بصرخة 'الملك لله ثم لعبد العزيز'؟ أم تنسحب للصحراء لانتظار فرصة أفضل لتقليل الخسائر؟`,
+                            en: `You are young Abdulaziz. Behind Riyadh's walls at night. Governor Ajlan is inside the fort. Your men are waiting.
+
+                            The plan is to wait for Ajlan after dawn. Do you storm the gate immediately when it opens? Or retreat to wait for a better chance?`
                         },
-                        options: [
-                            { text: { ar: "اقتحام المصمك بصرخة الحق", en: "Storm with the Cry of Truth" }, result: { ar: "✅ 'الملك لله ثم لعبد العزيز'.. بدأت رحلة التوحيد الكبرى.", en: "✅ 'The Kingdom is for Allah, then Abdulaziz'.. the great journey began." }, type: "win" },
-                            { text: { ar: "التراجع للصحراء للتمويه", en: "Retreat for Cover" }, result: { ar: "❌ ضاعت اللحظة التاريخية وتفرق الرجال في العراء.", en: "❌ The historic moment was lost and the men scattered." }, type: "fail" }
+                        decisions: [
+                            { l: { ar: "اقتحام المصمك فوراً", en: "Storm Al-Masmak Now" }, r: { ar: "✅ 'الملك لله ثم لعبد العزيز!'.. سقط الحصن، وقتل عجلان، وصاح المنادي في الرياض بالبشرى. بدأت أعظم ملحمة توحيد في القرن العشرين.", en: "✅ 'The Kingdom is for Allah, then Abdulaziz!'.. The fort fell, and the greatest unification journey began." } },
+                            { l: { ar: "الانسحاب لانتظار فرصة أخرى", en: "Retreat to Wait" }, r: { ar: "⚠️ اكتشف الأعداء وجودكم في الصباح، واضطررتم للفرار تحت وابل الرصاص. ضاعت الفرصة التاريخية، وتأخر استعادة الرياض لسنوات.", en: "⚠️ Enemies discovered your presence. You had to flee. The historic chance was lost, and recapturing Riyadh was delayed for years." } }
                         ]
                     },
                     {
-                        title: { ar: "توطين البادية", en: "Settling the Nomads" },
-                        desc: {
-                            ar: "لضمان استقرار الدولة، هل تبني 'الهجر' لتعليم وتوطين القبائل أم تتركهم للترحال؟",
-                            en: "To ensure stability, build 'Hijar' to educate and settle tribes or leave them wandering?"
+                        title: { ar: "مشروع توطين البادية", en: "Settling the Bedouins" },
+                        tag: { ar: "سياسة", en: "POLICY" },
+                        story: {
+                            ar: `القبائل تعيش في ترحال مستمر، والنزاعات على المرعى تضعف أمن الدولة. تريد تحويل المقاتلين إلى مواطنين مستقرين. 
+
+                            هل تبني لهم 'الهجر' (قرى سكنية) وتوفر لهم التعليم والزراعة لإقناعهم بالاستقرار؟ أم تفرض عليهم السكن في المدن الكبرى بالقوة لضمان السيطرة الأمنية التامة؟`,
+                            en: `Tribes live in constant travel, and pasture conflicts weaken security. You want to turn warriors into settled citizens.
+
+                            Do you build them 'Hijar' (settlement villages) and provide education to convince them? Or force them to live in big cities to ensure security control?`
                         },
-                        options: [
-                            { text: { ar: "بناء الهجر وبدء التوطين", en: "Build Hijar & Settlement" }, result: { ar: "✅ تحول المقاتلون إلى مواطنين وبنيت قاعدة وطنية صلبة.", en: "✅ Warriors became citizens and a solid national base was built." }, type: "win" },
-                            { text: { ar: "تركهم لحياتهم القديمة", en: "Leave to Old Life" }, result: { ar: "⚠️ استمرت النزاعات على الموارد وعطلت بناء الدولة.", en: "⚠️ Resource conflicts continued, hindering state-building." }, type: "neutral" }
+                        decisions: [
+                            { l: { ar: "تأسيس مشروع الهجر", en: "Founding Hijar Project" }, r: { ar: "✅ نجاح باهر! تحولت القبائل إلى قوة استقرار وبناء. أصبحت 'الهجر' مراكز للعلم والولاء، ونشأ جيش 'الإخوان' الذي وحد المملكة بفضلك.", en: "✅ Brilliant success! Tribes became a force for stability. Hijar became centers of knowledge and loyalty." } },
+                            { l: { ar: "فرض الاستقرار بالقوة", en: "Enforce Settlement by Force" }, r: { ar: "❌ تمردت القبائل واندلعت حروب داخلية استنزفت قوة الدولة الناشئة، وفقد الناس الثقة في مشروع الوحدة.", en: "❌ Tribes rebelled and internal wars erupted, draining the new state's power. People lost trust in the unity project." } }
                         ]
                     },
                     {
-                        title: { ar: "قرار النفط (1938م)", en: "The Oil Decision" },
-                        desc: {
-                            ar: "الخبراء يتحدثون عن كنز تحت الرمال. هل توقع مع الشركات الأمريكية أم تعتمد على الزراعة؟",
-                            en: "Experts talk of treasure beneath the sands. Sign with US firms or rely on farming?"
+                        title: { ar: "اكتشاف بئر الخير (1938م)", en: "Well of Prosperity (1938)" },
+                        tag: { ar: "مصير", en: "DESTINY" },
+                        story: {
+                            ar: `المملكة تعيش ضائقة مالية بعد سنوات الحرب. الخبراء الأجانب يطلبون عقوداً طويلة للتنقيب عن النفط. 
+
+                            هل توقع اتفاقية الامتياز مع الشركات وتفتح بلادك للتقنية الأجنبية لإنقاذ الاقتصاد؟ أم ترفض خوفاً من التدخل الأجنبي وتعتمد على الموارد التقليدية المحدودة (الزراعة والحج)؟`,
+                            en: `The Kingdom is in financial hardship. Foreign experts ask for long contracts to explore for oil.
+
+                            Do you sign the deal and open your country to foreign tech to save the economy? Or refuse fearing intervention and rely on limited resources like Hajj?`
                         },
-                        options: [
-                            { text: { ar: "توقيع اتفاقية التنقيب", en: "Sign Prospecting Deal" }, result: { ar: "✅ تفجر بئر الخير وبدأت أعظم نهضة اقتصادية عالمية.", en: "✅ The Well of Prosperity erupted, starting a global economic boom." }, type: "win" },
-                            { text: { ar: "الرفض خوفاً من الأجانب", en: "Refuse Fearing Foreigners" }, result: { ar: "❌ بقيت الثروات مدفونة وعانت البلاد من الفقر لعقود.", en: "❌ Wealth stayed buried and the country suffered poverty for decades." }, type: "fail" }
+                        decisions: [
+                            { l: { ar: "توقيع اتفاقية التنقيب", en: "Sign Prospecting Deal" }, r: { ar: "✅ انفجر النفط من 'بئر الخير' بالظهران! بدأت نهضة اقتصادية جعلت المملكة في مصاف الدول العظمى، وتغير وجه الحياة بفضلك.", en: "✅ Oil erupted from the 'Well of Prosperity'! An economic boom started that put the Kingdom among world powers." } },
+                            { l: { ar: "الاعتماد على الموارد التقليدية", en: "Rely on Traditional Resources" }, r: { ar: "⚠️ بقيت المملكة تعاني من الفقر والأزمات المالية، وتأخرت النهضة والتعليم والخدمات لعدة عقود.", en: "⚠️ The Kingdom continued to suffer from poverty, and development, education, and services were delayed for decades." } }
                         ]
                     }
                 ]
             }
         };
 
-        // 2. إدارة الحالة (State Management)
-        let currentLang = 'ar';
-        let activeHero = null;
-        let activeQuestIdx = null;
-
-        // 3. وظيفة التنقل البرمجي المفصلة
-        function navigateTo(screenId) {
-            const wrapper = document.getElementById('app-wrapper');
-            const screens = document.querySelectorAll('.screen');
-            
-            // إضافة تأثير بسيط عند الانتقال
-            wrapper.style.transform = 'scale(0.95)';
-            
-            screens.forEach(s => {
+        /* [3] محرك التحكم البرمجي (The Engine) */
+        
+        function navigateTo(id) {
+            document.querySelectorAll('.screen').forEach(s => {
                 s.classList.remove('active');
-                setTimeout(() => { s.style.display = 'none'; }, 300);
+                setTimeout(() => s.style.display = 'none', 300);
             });
-
             setTimeout(() => {
-                const target = document.getElementById(screenId);
+                const target = document.getElementById(id);
                 target.style.display = 'block';
-                setTimeout(() => { 
-                    target.classList.add('active'); 
-                    wrapper.style.transform = 'scale(1)';
-                }, 50);
+                setTimeout(() => target.classList.add('active'), 50);
             }, 350);
-
-            // تصفير التمرير
-            document.getElementById('app-wrapper').scrollTop = 0;
+            document.getElementById('main-scroller').scrollTop = 0;
         }
 
-        // 4. بناء الواجهات التفاعلية (UI Generators)
-        function buildApp() {
-            const heroList = document.getElementById('hero-list-ui');
-            const archiveList = document.getElementById('archive-list-ui');
-            
-            heroList.innerHTML = '';
-            archiveList.innerHTML = '';
-
-            Object.keys(DATABASE).forEach(key => {
-                // توليد أزرار الاختيار
-                const hBtn = document.createElement('button');
-                hBtn.className = 'btn-epic';
-                hBtn.innerText = DATABASE[key].name[currentLang];
-                hBtn.onclick = () => showScenarios(key);
-                heroList.appendChild(hBtn);
-
-                // توليد أزرار الأرشيف
-                const aBtn = document.createElement('button');
-                aBtn.className = 'btn-epic';
-                aBtn.innerText = DATABASE[key].name[currentLang];
-                aBtn.onclick = () => showBio(key);
-                archiveList.appendChild(aBtn);
-            });
-
-            updateStaticTexts();
-        }
-
-        function showScenarios(heroKey) {
-            activeHero = heroKey;
-            const sList = document.getElementById('scenario-list-ui');
-            sList.innerHTML = '';
-
-            DATABASE[heroKey].scenarios.forEach((scen, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-epic';
-                btn.innerText = scen.title[currentLang];
-                btn.onclick = () => startQuest(idx);
-                sList.appendChild(btn);
-            });
-
-            navigateTo('screen-scenarios');
-        }
-
-        function startQuest(idx) {
-            activeQuestIdx = idx;
-            const quest = DATABASE[activeHero].scenarios[idx];
-            
-            document.getElementById('quest-title-ui').innerText = quest.title[currentLang];
-            document.getElementById('quest-desc-ui').innerText = quest.desc[currentLang];
-            
-            const btnBox = document.getElementById('decision-buttons-ui');
-            btnBox.innerHTML = '';
-
-            quest.options.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-epic';
-                btn.innerText = opt.text[currentLang];
-                btn.onclick = () => showResult(opt);
-                btnBox.appendChild(btn);
-            });
-
-            navigateTo('screen-quest');
-        }
-
-        function showResult(opt) {
-            const resBox = document.getElementById('result-text-ui');
-            const wrapper = document.getElementById('app-wrapper');
-            
-            resBox.innerText = opt.result[currentLang];
-
-            // تأثيرات بصرية بناءً على نوع النتيجة
-            if (opt.type === 'fail') {
-                wrapper.classList.add('shake-effect');
-                setTimeout(() => wrapper.classList.remove('shake-effect'), 500);
-            } else if (opt.type === 'win') {
-                wrapper.classList.add('success-glow');
-                setTimeout(() => wrapper.classList.remove('success-glow'), 1000);
-            }
-
-            navigateTo('screen-result');
-        }
-
-        function showBio(heroKey) {
-            document.getElementById('bio-name-ui').innerText = DATABASE[heroKey].name[currentLang];
-            document.getElementById('bio-content-ui').innerText = DATABASE[heroKey].bio[currentLang];
-            navigateTo('screen-bio');
-        }
-
-        // 5. نظام اللغة المطور
         function toggleLanguage() {
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
             document.documentElement.lang = currentLang;
             document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            document.getElementById('langBtn').innerText = currentLang === 'ar' ? 'English' : 'عربي';
-            
-            buildApp(); // إعادة بناء القوائم باللغة الجديدة
-            
-            // إذا كان المستخدم داخل سيناريو، نقوم بتحديث النصوص فوراً
-            if (activeHero) {
-                const sList = document.getElementById('scenario-list-ui');
-                if (sList.innerHTML !== '') showScenarios(activeHero);
-            }
+            document.getElementById('langToggle').innerText = currentLang === 'ar' ? 'ENGLISH' : 'عربي';
+            renderAll();
         }
 
-        function updateStaticTexts() {
-            document.querySelectorAll('[data-' + currentLang + ']').forEach(el => {
+        function renderAll() {
+            // تحديث النصوص الثابتة
+            document.querySelectorAll('[data-ar]').forEach(el => {
                 el.innerText = el.getAttribute('data-' + currentLang);
             });
+
+            // بناء شبكة القادة
+            const lGrid = document.getElementById('leaders-grid');
+            const aGrid = document.getElementById('archive-grid');
+            lGrid.innerHTML = ''; aGrid.innerHTML = '';
+
+            Object.keys(EPIC_DATABASE).forEach(key => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-epic';
+                btn.innerText = EPIC_DATABASE[key].name[currentLang];
+                btn.onclick = () => { activeHero = key; renderScenarios(); navigateTo('screen-scenarios'); };
+                lGrid.appendChild(btn);
+
+                const abtn = document.createElement('button');
+                abtn.className = 'btn-epic';
+                abtn.innerText = EPIC_DATABASE[key].name[currentLang];
+                abtn.onclick = () => {
+                    document.getElementById('bio-head').innerText = EPIC_DATABASE[key].name[currentLang];
+                    document.getElementById('bio-body').innerText = EPIC_DATABASE[key].bio[currentLang];
+                    navigateTo('screen-bio');
+                };
+                aGrid.appendChild(abtn);
+            });
         }
 
-        // 6. محرك الرسوميات (Particles) - كود مفصل
-        const canvas = document.getElementById('titan-engine-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+        function renderScenarios() {
+            const sGrid = document.getElementById('scenarios-grid');
+            sGrid.innerHTML = '';
+            EPIC_DATABASE[activeHero].scenarios.forEach((sc, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-epic';
+                btn.innerHTML = `<span>${sc.title[currentLang]}</span>`;
+                btn.onclick = () => loadQuest(idx);
+                sGrid.appendChild(btn);
+            });
+        }
 
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
+        function loadQuest(idx) {
+            const sc = EPIC_DATABASE[activeHero].scenarios[idx];
+            document.getElementById('quest-category').innerText = sc.tag[currentLang];
+            document.getElementById('quest-head').innerText = sc.title[currentLang];
+            document.getElementById('quest-body').innerText = sc.story[currentLang];
+            
+            const oGrid = document.getElementById('options-grid');
+            oGrid.innerHTML = '';
+            sc.decisions.forEach(dec => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-epic';
+                btn.innerText = dec.l[currentLang];
+                btn.onclick = () => {
+                    document.getElementById('result-body').innerText = dec.r[currentLang];
+                    navigateTo('screen-result');
+                };
+                oGrid.appendChild(btn);
+            });
+            navigateTo('screen-quest');
+        }
+
+        /* [4] محرك الجسيمات (Particles) */
+        const canvas = document.getElementById('titan-canvas');
+        const ctx = canvas.getContext('2d');
+        let ps = [];
+        class P {
+            constructor() { this.init(); }
+            init() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
-                this.alpha = Math.random() * 0.5;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                    this.reset();
-                }
+                this.sz = Math.random() * 1.5;
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = (Math.random() - 0.5) * 0.3;
             }
             draw() {
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = '#22C55E';
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.arc(this.x, this.y, this.sz, 0, Math.PI*2);
+                ctx.fillStyle = '#22C55E';
+                ctx.globalAlpha = 0.2;
                 ctx.fill();
             }
-        }
-
-        function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            particles = [];
-            for (let i = 0; i < 120; i++) {
-                particles.push(new Particle());
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if(this.x<0 || this.x>canvas.width || this.y<0 || this.y>canvas.height) this.init();
             }
         }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animate);
+        function startParticles() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            ps = [];
+            for(let i=0; i<80; i++) ps.push(new P());
+            function loop() {
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                ps.forEach(p => { p.update(); p.draw(); });
+                requestAnimationFrame(loop);
+            }
+            loop();
         }
 
-        window.addEventListener('resize', initCanvas);
-        
-        // الانطلاق
-        initCanvas();
-        animate();
-        buildApp();
-
+        window.onload = () => { renderAll(); startParticles(); };
     </script>
 </body>
 </html>
