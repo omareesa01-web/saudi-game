@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس | النسخة الاحترافية</title>
+    <title>ملحمة التأسيس | النسخة الكاملة</title>
     
     <style>
         :root {
@@ -111,8 +111,8 @@
         <div id="screen-result" class="screen">
             <h1 class="main-title" id="t-res-h">حكم التاريخ</h1>
             <div id="result-text-box" class="lore-box"></div>
-            <button class="btn-epic" id="t-btn-retry" onclick="navigateTo('screen-scenarios')">تجربة مسار آخر</button>
-            <a class="back-nav" id="t-back-home" onclick="navigateTo('screen-gate')">الرئيسية</a>
+            <button class="btn-epic" id="t-btn-retry" onclick="navigateTo('screen-quest')">تجربة قرار آخر</button>
+            <a class="back-nav" id="t-back-home" onclick="navigateTo('screen-scenarios')">العودة للمواقف</a>
         </div>
 
         <div id="screen-archive" class="screen">
@@ -138,12 +138,20 @@
                             title: "ميثاق الدرعية (1744م)",
                             story: "وصل الشيخ محمد بن عبدالوهاب للدرعية باحثاً عن نصرة لدعوة الإصلاح. هل تعقد ميثاقاً يؤسس لدولة التوحيد؟",
                             decisions: [
-                                { l: "عقد الميثاق ونصرة الدولة", f: "✅ 'أبشر ببلاد خير من بلادك'. بقرارك ولدت الدولة السعودية الأولى." },
-                                { l: "رفض الاستقبال", f: "❌ ضاعت فرصة التأسيس التاريخية وانطوت الدرعية كإمارة صغيرة." }
+                                { l: "عقد الميثاق ونصرة الدولة", f: "✅ بقرارك ولدت الدولة السعودية الأولى وتحولت الدرعية لعاصمة إقليمية." },
+                                { l: "تأمين الشيخ دون تحالف سياسي", f: "⚠️ غابت القوة الموحدة التي تحمي الدعوة وتوحد القبائل." }
+                            ]
+                        },
+                        {
+                            title: "تأمين طرق التجارة",
+                            story: "الدرعية تنمو اقتصادياً، لكن القوافل تتعرض للنهب. هل تسير جيوشاً لتأمين الطرق أم تكتفي بحماية حدود المدينة؟",
+                            decisions: [
+                                { l: "تأمين طرق القوافل بجيش قوي", f: "✅ ازدهرت التجارة وأصبحت الدرعية مركزاً اقتصادياً آمناً للجميع." },
+                                { l: "الاكتفاء بحماية أسوار المدينة", f: "❌ تضررت التجارة وضعف نفوذ الدولة خارج العاصمة." }
                             ]
                         }
                     ],
-                    biography: "المؤسس الأول للدولة السعودية الأولى..."
+                    biography: "مؤسس الدولة السعودية الأولى وباني نهضتها السياسية..."
                 },
                 en: { 
                     name: "Imam Muhammad bin Saud", 
@@ -153,7 +161,15 @@
                             story: "Sheikh Muhammad bin Abdul Wahab arrived seeking support. Will you form a pact to establish the state?",
                             decisions: [
                                 { l: "Form the Pact", f: "✅ The First Saudi State was born from this historic decision." },
-                                { l: "Refuse the Pact", f: "❌ A historic opportunity for unity was lost." }
+                                { l: "Provide safety without alliance", f: "⚠️ Lacking political unity, the movement struggled to expand." }
+                            ]
+                        },
+                        {
+                            title: "Securing Trade Routes",
+                            story: "Diriyah is growing, but caravans are being looted. Will you send troops to secure routes?",
+                            decisions: [
+                                { l: "Send troops to secure routes", f: "✅ Trade flourished and Diriyah became a safe economic hub." },
+                                { l: "Protect only the city walls", f: "❌ Trade suffered and the state's influence remained limited." }
                             ]
                         }
                     ], 
@@ -169,11 +185,19 @@
                             story: "تقود المقاومة ومعك سيفك 'الأجرب'. هل تباغت الحصن بـ 40 رجلاً فقط لاستعادة ملك الأجداد؟",
                             decisions: [
                                 { l: "قيادة هجوم فدائي مباغت", f: "✅ نصر من الله! استعدت الرياض وأعلنت قيام الدولة السعودية الثانية." },
-                                { l: "الانتظار لجمع جيش ضخم", f: "⚠️ استغرق الأمر سنوات إضافية من المعاناة." }
+                                { l: "الانتظار لجمع جيش ضخم", f: "⚠️ استغرق الأمر سنوات إضافية وزاد العدو من تحصيناته." }
+                            ]
+                        },
+                        {
+                            title: "بناء قصر الحكم",
+                            story: "الرياض عادت، لكنها تحتاج لرمز سياسي. هل تبدأ ببناء قصر الحكم وتجديد السور فوراً؟",
+                            decisions: [
+                                { l: "بناء القصر وتجديد السور", f: "✅ استقرت الإدارة وعادت الهيبة للدولة السعودية الثانية." },
+                                { l: "تأجيل البناء لحين استقرار الموارد", f: "⚠️ غياب المركزية جعل القرارات الإدارية أبطأ في البداية." }
                             ]
                         }
                     ],
-                    biography: "مؤسس الدولة السعودية الثانية..."
+                    biography: "مؤسس الدولة السعودية الثانية وبطل سيف الأجرب..."
                 },
                 en: { 
                     name: "Imam Turki bin Abdullah", 
@@ -184,6 +208,14 @@
                             decisions: [
                                 { l: "Lead a surprise attack", f: "✅ Success! The Second Saudi State began." },
                                 { l: "Wait for a larger army", f: "⚠️ Delaying led to years of further struggle." }
+                            ]
+                        },
+                        {
+                            title: "Building Justice Palace",
+                            story: "Riyadh is back. Should you build the Justice Palace and renew the walls immediately?",
+                            decisions: [
+                                { l: "Build the palace and walls", f: "✅ Stability was achieved and the state's prestige returned." },
+                                { l: "Delay building", f: "⚠️ Administrative decisions became slower without a central hub." }
                             ]
                         }
                     ], 
@@ -196,24 +228,40 @@
                     scenarios: [
                         {
                             title: "فتح المصمك (1902م)",
-                            story: "أنت الشاب عبد العزيز بـ 63 رجلاً عند أسوار الرياض. هل تباغت الحصن عند الفجر لتغير وجه التاريخ؟",
+                            story: "أنت الشاب عبد العزيز بـ 63 رجلاً عند أسوار الرياض. هل تباغت الحصن عند الفجر؟",
                             decisions: [
-                                { l: "اقتحام المصمك عند الفجر", f: "✅ 'الملك لله ثم لعبد العزيز!' سقط المصمك وبدأت أعظم ملحمة توحيد." },
+                                { l: "اقتحام المصمك عند الفجر", f: "✅ 'الملك لله ثم لعبد العزيز!' سقط المصمك وبدأت ملحمة التوحيد." },
                                 { l: "الانسحاب لطلب الدعم", f: "❌ ضاعت فرصة المباغتة وظلت الرياض بعيدة لسنوات." }
+                            ]
+                        },
+                        {
+                            title: "توحيد الحجاز (1924م)",
+                            story: "بعد نجد، الحجاز يمر بظروف صعبة. هل تدخل مكة بملابس الإحرام سلماً لتجنب إراقة الدماء؟",
+                            decisions: [
+                                { l: "الدخول بملابس الإحرام سلماً", f: "✅ دخلت مكة بسلام، وكسبت قلوب المسلمين في كل مكان." },
+                                { l: "استخدام القوة العسكرية المباشرة", f: "⚠️ الموقف كان سيزداد تعقيداً وقد تتضرر الأماكن المقدسة." }
                             ]
                         }
                     ],
-                    biography: "المؤسس العظيم للمملكة العربية السعودية الحديثة..."
+                    biography: "مؤسس المملكة العربية السعودية الحديثة..."
                 },
                 en: { 
                     name: "King Abdulaziz", 
                     scenarios: [
                         {
-                            title: "Opening Al-Masmak (1902)",
-                            story: "With 63 men at Riyadh's walls, will you storm the fort at dawn to change history?",
+                            title: "Storming Al-Masmak (1902)",
+                            story: "With 63 men, will you storm the fort at dawn to change history?",
                             decisions: [
-                                { l: "Storm Al-Masmak", f: "✅ Success! The foundation of modern Saudi Arabia began." },
-                                { l: "Withdraw to seek help", f: "❌ The opportunity was lost, delaying unity for years." }
+                                { l: "Storm Al-Masmak", f: "✅ Success! The journey to unify Saudi Arabia began." },
+                                { l: "Withdraw and wait", f: "❌ The opportunity was lost, delaying unity for years." }
+                            ]
+                        },
+                        {
+                            title: "Unifying Hejaz (1924)",
+                            story: "Hejaz is next. Will you enter Makkah peacefully wearing Ihram to avoid bloodshed?",
+                            decisions: [
+                                { l: "Enter peacefully in Ihram", f: "✅ Makkah was entered peacefully, winning hearts worldwide." },
+                                { l: "Use direct military force", f: "⚠️ The situation would have been more complex and risky." }
                             ]
                         }
                     ], 
@@ -225,16 +273,17 @@
         const LOCALIZATION = {
             ar: { 
                 g_h: "ملاحم التأسيس", g_d: "واجه مصيرك في تاريخ المجد السعودي.", s_h: "اختر القائد", sc_h: "اختر الموقف", r_h: "حكم التاريخ", a_h: "سجل الخالدين", 
-                start_btn: "ابدأ الرحلة", arch_btn: "الأرشيف", retry_btn: "تجربة مسار آخر", back_main: "رجوع", back_hero: "تغيير القائد", back_scen: "تراجع", back_arch: "الرجوع", back_bio: "العودة للسجل", back_home: "الرئيسية", dir: "rtl" 
+                start_btn: "ابدأ الرحلة", arch_btn: "الأرشيف", retry_btn: "تجربة قرار آخر", back_main: "رجوع", back_hero: "تغيير القائد", back_scen: "تراجع", back_arch: "الرجوع", back_bio: "العودة للسجل", back_home: "العودة للمواقف", dir: "rtl" 
             },
             en: { 
                 g_h: "Founding Epics", g_d: "Face your destiny in Saudi history.", s_h: "Select Leader", sc_h: "Select Scenario", r_h: "History's Verdict", a_h: "Archive of Heroes", 
-                start_btn: "Start Journey", arch_btn: "Archive", retry_btn: "Try another path", back_main: "Back", back_hero: "Change Leader", back_scen: "Go Back", back_arch: "Back", back_bio: "Back to Archive", back_home: "Home", dir: "ltr" 
+                start_btn: "Start Journey", arch_btn: "Archive", retry_btn: "Try another decision", back_main: "Back", back_hero: "Change Leader", back_scen: "Go Back", back_arch: "Back", back_bio: "Back to Archive", back_home: "Back to Scenarios", dir: "ltr" 
             }
         };
 
         let currentLanguage = 'ar';
         let selectedHeroKey = null;
+        let currentScenarioIndex = null;
 
         function setGlobalLang(l) {
             currentLanguage = l;
@@ -254,7 +303,6 @@
             document.getElementById('t-arch-h').innerText = t.a_h;
             document.getElementById('t-btn-retry').innerText = t.retry_btn;
             
-            // تحديث نصوص الرجوع
             document.getElementById('t-back-main').innerText = t.back_main;
             document.getElementById('t-back-hero').innerText = t.back_hero;
             document.getElementById('t-back-scen').innerText = t.back_scen;
@@ -295,12 +343,9 @@
                 };
                 aPoint.appendChild(aBtn);
             });
-            
-            // في حال كان المستخدم في شاشة المواقف عند تغيير اللغة
-            if(selectedHeroKey) showScenarios(selectedHeroKey, false);
         }
 
-        function showScenarios(heroKey, doNavigate = true) {
+        function showScenarios(heroKey) {
             selectedHeroKey = heroKey;
             const sPoint = document.getElementById('scenario-injection-point');
             sPoint.innerHTML = '';
@@ -311,10 +356,11 @@
                 btn.onclick = () => loadQuest(index);
                 sPoint.appendChild(btn);
             });
-            if(doNavigate) navigateTo('screen-scenarios');
+            navigateTo('screen-scenarios');
         }
 
         function loadQuest(scIndex) {
+            currentScenarioIndex = scIndex;
             const sc = EPIC_DATA[selectedHeroKey][currentLanguage].scenarios[scIndex];
             document.getElementById('quest-title-header').innerText = sc.title;
             document.getElementById('quest-content-box').innerText = sc.story;
