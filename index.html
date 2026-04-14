@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملحمة التأسيس | النسخة النهائية الشاملة</title>
+    <title>ملحمة التأسيس | النسخة الاحترافية</title>
     
     <style>
         :root {
@@ -45,8 +45,7 @@
             border: 1px solid var(--glass-border); border-top: 6px solid var(--saudi-green);
             border-radius: 30px; padding: 30px 20px; text-align: center;
             box-shadow: 0 60px 120px rgba(0,0,0,0.8); max-height: 85vh; 
-            overflow-y: auto;
-            -ms-overflow-style: none; scrollbar-width: none;
+            overflow-y: auto; scrollbar-width: none;
         }
         .app-container::-webkit-scrollbar { display: none; }
 
@@ -58,19 +57,19 @@
             background: linear-gradient(135deg, var(--saudi-green), var(--deep-green));
             border: 1px solid var(--glow-green); border-radius: 15px;
             color: #ffffff; font-size: 0.95rem; font-weight: 800; cursor: pointer; 
-            transition: 0.4s; overflow: hidden;
+            transition: 0.3s;
         }
-        .btn-epic:hover { transform: scale(1.02); background: var(--light-green); border-color: #fff; }
+        .btn-epic:hover { transform: scale(1.02); background: var(--light-green); }
 
         .lore-box {
             background: rgba(0, 0, 0, 0.5); border-radius: 20px; padding: 25px;
-            margin: 15px 0; text-align: justify; line-height: 1.9; font-size: 0.95rem;
+            margin: 15px 0; text-align: justify; line-height: 1.8; font-size: 0.95rem;
             color: #f0f0f0; border-right: 8px solid var(--saudi-green);
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.5); white-space: pre-line;
+            white-space: pre-line;
         }
         [dir="ltr"] .lore-box { border-right: 0; border-left: 8px solid var(--saudi-green); }
 
-        .back-nav { display: inline-block; margin-top: 15px; color: var(--glow-green); cursor: pointer; font-weight: 800; font-size: 0.85rem; text-decoration: none; }
+        .back-nav { display: inline-block; margin-top: 15px; color: var(--glow-green); cursor: pointer; font-weight: 800; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -112,7 +111,7 @@
         <div id="screen-result" class="screen">
             <h1 class="main-title" id="t-res-h">حكم التاريخ</h1>
             <div id="result-text-box" class="lore-box"></div>
-            <button class="btn-epic" id="t-btn-retry" onclick="navigateTo('screen-scenarios')">تجربة موقف آخر</button>
+            <button class="btn-epic" id="t-btn-retry" onclick="navigateTo('screen-scenarios')">تجربة مسار آخر</button>
             <a class="back-nav" id="t-back-home" onclick="navigateTo('screen-gate')">الرئيسية</a>
         </div>
 
@@ -137,24 +136,24 @@
                     scenarios: [
                         {
                             title: "ميثاق الدرعية (1744م)",
-                            story: "وصل الشيخ محمد بن عبدالوهاب للدرعية باحثاً عن نصرة لدعوة الإصلاح. هل تعقد ميثاقاً يؤسس لدولة التوحيد أم تفضل البقاء كحاكم محلي؟",
+                            story: "وصل الشيخ محمد بن عبدالوهاب للدرعية باحثاً عن نصرة لدعوة الإصلاح. هل تعقد ميثاقاً يؤسس لدولة التوحيد؟",
                             decisions: [
                                 { l: "عقد الميثاق ونصرة الدولة", f: "✅ 'أبشر ببلاد خير من بلادك'. بقرارك ولدت الدولة السعودية الأولى." },
-                                { l: "رفض الاستقبال خوفاً من الضغوط", f: "❌ ضاعت فرصة التأسيس التاريخية وانطوت الدرعية كإمارة صغيرة." }
+                                { l: "رفض الاستقبال", f: "❌ ضاعت فرصة التأسيس التاريخية وانطوت الدرعية كإمارة صغيرة." }
                             ]
                         }
                     ],
-                    biography: "المؤسس الأول للدولة السعودية الأولى وباني نهضتها..."
+                    biography: "المؤسس الأول للدولة السعودية الأولى..."
                 },
                 en: { 
                     name: "Imam Muhammad bin Saud", 
                     scenarios: [
                         {
-                            title: "Diriyah Pact (1744 AD)",
-                            story: "Sheikh Muhammad bin Abdul Wahab arrived seeking support. Will you form a pact to establish a unified state or remain a local ruler?",
+                            title: "The Diriyah Pact (1744)",
+                            story: "Sheikh Muhammad bin Abdul Wahab arrived seeking support. Will you form a pact to establish the state?",
                             decisions: [
                                 { l: "Form the Pact", f: "✅ The First Saudi State was born from this historic decision." },
-                                { l: "Refuse due to risks", f: "❌ A historic opportunity for unity was lost." }
+                                { l: "Refuse the Pact", f: "❌ A historic opportunity for unity was lost." }
                             ]
                         }
                     ], 
@@ -170,21 +169,21 @@
                             story: "تقود المقاومة ومعك سيفك 'الأجرب'. هل تباغت الحصن بـ 40 رجلاً فقط لاستعادة ملك الأجداد؟",
                             decisions: [
                                 { l: "قيادة هجوم فدائي مباغت", f: "✅ نصر من الله! استعدت الرياض وأعلنت قيام الدولة السعودية الثانية." },
-                                { l: "الانسحاب لجمع جيش ضخم", f: "⚠️ استغرق الأمر سنوات إضافية من معاناة الاحتلال." }
+                                { l: "الانتظار لجمع جيش ضخم", f: "⚠️ استغرق الأمر سنوات إضافية من المعاناة." }
                             ]
                         }
                     ],
-                    biography: "مؤسس الدولة السعودية الثانية ورمز الصمود..."
+                    biography: "مؤسس الدولة السعودية الثانية..."
                 },
                 en: { 
                     name: "Imam Turki bin Abdullah", 
                     scenarios: [
                         {
-                            title: "Restoring Riyadh (1824 AD)",
+                            title: "Restoring Riyadh (1824)",
                             story: "With only 40 men and your sword 'Al-Ajrab', will you surprise the fort to reclaim your heritage?",
                             decisions: [
-                                { l: "Lead a surprise attack", f: "✅ Victory! Riyadh was reclaimed and the Second Saudi State began." },
-                                { l: "Wait to gather a larger army", f: "⚠️ Delaying led to years of further struggle under occupation." }
+                                { l: "Lead a surprise attack", f: "✅ Success! The Second Saudi State began." },
+                                { l: "Wait for a larger army", f: "⚠️ Delaying led to years of further struggle." }
                             ]
                         }
                     ], 
@@ -210,10 +209,10 @@
                     name: "King Abdulaziz", 
                     scenarios: [
                         {
-                            title: "Opening Al-Masmak (1902 AD)",
+                            title: "Opening Al-Masmak (1902)",
                             story: "With 63 men at Riyadh's walls, will you storm the fort at dawn to change history?",
                             decisions: [
-                                { l: "Storm Al-Masmak at dawn", f: "✅ Success! The foundation of modern Saudi Arabia began here." },
+                                { l: "Storm Al-Masmak", f: "✅ Success! The foundation of modern Saudi Arabia began." },
                                 { l: "Withdraw to seek help", f: "❌ The opportunity was lost, delaying unity for years." }
                             ]
                         }
@@ -226,11 +225,11 @@
         const LOCALIZATION = {
             ar: { 
                 g_h: "ملاحم التأسيس", g_d: "واجه مصيرك في تاريخ المجد السعودي.", s_h: "اختر القائد", sc_h: "اختر الموقف", r_h: "حكم التاريخ", a_h: "سجل الخالدين", 
-                start_btn: "ابدأ الرحلة", arch_btn: "الأرشيف", retry_btn: "تجربة موقف آخر", dir: "rtl" 
+                start_btn: "ابدأ الرحلة", arch_btn: "الأرشيف", retry_btn: "تجربة مسار آخر", back_main: "رجوع", back_hero: "تغيير القائد", back_scen: "تراجع", back_arch: "الرجوع", back_bio: "العودة للسجل", back_home: "الرئيسية", dir: "rtl" 
             },
             en: { 
                 g_h: "Founding Epics", g_d: "Face your destiny in Saudi history.", s_h: "Select Leader", sc_h: "Select Scenario", r_h: "History's Verdict", a_h: "Archive of Heroes", 
-                start_btn: "Start Journey", arch_btn: "Archive", retry_btn: "Try another scenario", dir: "ltr" 
+                start_btn: "Start Journey", arch_btn: "Archive", retry_btn: "Try another path", back_main: "Back", back_hero: "Change Leader", back_scen: "Go Back", back_arch: "Back", back_bio: "Back to Archive", back_home: "Home", dir: "ltr" 
             }
         };
 
@@ -254,13 +253,20 @@
             document.getElementById('t-res-h').innerText = t.r_h;
             document.getElementById('t-arch-h').innerText = t.a_h;
             document.getElementById('t-btn-retry').innerText = t.retry_btn;
+            
+            // تحديث نصوص الرجوع
+            document.getElementById('t-back-main').innerText = t.back_main;
+            document.getElementById('t-back-hero').innerText = t.back_hero;
+            document.getElementById('t-back-scen').innerText = t.back_scen;
+            document.getElementById('t-back-arch').innerText = t.back_arch;
+            document.getElementById('t-back-bio').innerText = t.back_bio;
+            document.getElementById('t-back-home').innerText = t.back_home;
 
             rebuildInteractiveGrids();
         }
 
         function navigateTo(screenId) {
-            const allScreens = document.querySelectorAll('.screen');
-            allScreens.forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
+            document.querySelectorAll('.screen').forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
             const target = document.getElementById(screenId);
             target.style.display = 'block';
             setTimeout(() => { target.classList.add('active'); }, 10);
@@ -289,9 +295,12 @@
                 };
                 aPoint.appendChild(aBtn);
             });
+            
+            // في حال كان المستخدم في شاشة المواقف عند تغيير اللغة
+            if(selectedHeroKey) showScenarios(selectedHeroKey, false);
         }
 
-        function showScenarios(heroKey) {
+        function showScenarios(heroKey, doNavigate = true) {
             selectedHeroKey = heroKey;
             const sPoint = document.getElementById('scenario-injection-point');
             sPoint.innerHTML = '';
@@ -302,7 +311,7 @@
                 btn.onclick = () => loadQuest(index);
                 sPoint.appendChild(btn);
             });
-            navigateTo('screen-scenarios');
+            if(doNavigate) navigateTo('screen-scenarios');
         }
 
         function loadQuest(scIndex) {
