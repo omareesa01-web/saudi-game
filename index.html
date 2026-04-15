@@ -5,10 +5,10 @@
   <title>ملحمة التأسيس</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- خط عربي (يمكنك تغييره لما تحب) -->
+  <!-- خط عربي -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <!-- مكتبة Particles.js -->
+  <!-- Particles.js -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
   <style>
@@ -20,25 +20,16 @@
       --border-radius: 999px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #024d28 0, #02140a 40%, #000000 100%);
+      font-family: "Cairo", sans-serif;
+      background: radial-gradient(circle at top, #024d28 0, #02140a 40%, #000);
       color: var(--text-light);
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-      direction: rtl;
       overflow: hidden;
     }
 
-    /* حاوية الخلفية للنجوم */
     #particles-js {
       position: fixed;
       inset: 0;
@@ -48,160 +39,155 @@
     .app {
       position: relative;
       z-index: 1;
-      width: 100%;
       max-width: 420px;
-      margin: 0 auto;
-      padding: 16px 12px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      margin: auto;
+      padding: 20px;
     }
 
-    /* شريط علوي للغة */
+    /* اللغة */
     .top-bar {
       display: flex;
       justify-content: flex-end;
-      gap: 8px;
+      margin-bottom: 12px;
     }
 
     .lang-toggle {
       display: flex;
       gap: 6px;
-      background: rgba(0, 0, 0, 0.35);
+      background: rgba(0,0,0,0.4);
       padding: 4px;
       border-radius: 999px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 12px rgba(0,0,0,0.6);
       backdrop-filter: blur(6px);
     }
 
     .lang-btn {
       border: 1px solid var(--saudi-green);
-      border-radius: 999px;
-      padding: 4px 10px;
-      font-size: 12px;
-      color: var(--text-light);
       background: transparent;
+      padding: 4px 10px;
+      border-radius: 999px;
+      color: white;
       cursor: pointer;
-      transition: all 0.2s ease;
-      text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+      transition: 0.2s;
+      font-size: 12px;
+      text-shadow: 0 0 4px rgba(0,0,0,0.8);
     }
 
     .lang-btn.active {
-      background: rgba(0, 108, 53, 0.9);
+      background: rgba(0,108,53,0.9);
       box-shadow:
         0 0 8px var(--saudi-green-light),
-        0 0 16px rgba(0, 184, 90, 0.7);
+        0 0 16px rgba(0,184,90,0.7);
+      font-weight: 700;
       text-shadow:
         0 0 6px var(--saudi-green-light),
-        0 0 12px rgba(0, 184, 90, 0.9);
-      font-weight: 700;
+        0 0 12px rgba(0,184,90,0.9);
     }
 
     .lang-btn:hover {
       box-shadow: 0 0 8px var(--saudi-green-light);
     }
 
-    /* بطاقة المحتوى الرئيسية */
+    /* الشاشات + مؤثرات الدخول */
     .screen {
       display: none;
-      background: linear-gradient(145deg, rgba(0, 0, 0, 0.65), rgba(0, 40, 20, 0.9));
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+      transition:
+        opacity 0.45s ease,
+        transform 0.45s ease,
+        filter 0.45s ease;
+      background: linear-gradient(145deg, rgba(0,0,0,0.65), rgba(0,40,20,0.9));
       border-radius: 24px;
-      padding: 20px 18px;
+      padding: 20px;
+      border: 1px solid rgba(0,108,53,0.6);
       box-shadow:
-        0 0 18px rgba(0, 0, 0, 0.9),
-        0 0 24px rgba(0, 108, 53, 0.4);
-      border: 1px solid rgba(0, 108, 53, 0.6);
+        0 0 18px rgba(0,0,0,0.9),
+        0 0 24px rgba(0,108,53,0.4);
       backdrop-filter: blur(10px);
-      animation: fadeIn 0.25s ease-out;
     }
 
     .screen.active {
       display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: drop-shadow(0 0 12px rgba(0,184,90,0.4));
+      animation: glowPulse 2.5s infinite ease-in-out;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
+    @keyframes glowPulse {
+      0%   { box-shadow: 0 0 10px rgba(0,184,90,0.4); }
+      50%  { box-shadow: 0 0 22px rgba(0,184,90,0.9); }
+      100% { box-shadow: 0 0 10px rgba(0,184,90,0.4); }
     }
 
     .screen-title {
+      text-align: center;
       font-size: 22px;
       font-weight: 800;
       margin-bottom: 10px;
-      text-align: center;
-      color: var(--text-light);
       text-shadow:
         0 0 6px var(--saudi-green-light),
-        0 0 18px rgba(0, 184, 90, 0.9);
+        0 0 18px rgba(0,184,90,0.9);
     }
 
     .screen-subtitle {
-      font-size: 14px;
       text-align: center;
-      margin-bottom: 18px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      opacity: 0.9;
       color: #e6fff3;
-      line-height: 1.6;
-      text-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
+      text-shadow: 0 0 4px rgba(0,0,0,0.9);
     }
 
     .btn {
       width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
       border-radius: var(--border-radius);
       border: 1px solid var(--saudi-green);
-      padding: 10px 14px;
-      margin-bottom: 10px;
-      background: rgba(0, 0, 0, 0.35);
-      color: var(--text-light);
+      background: rgba(0,0,0,0.4);
+      color: white;
       font-size: 15px;
-      font-weight: 600;
       cursor: pointer;
-      text-align: center;
-      transition: all 0.2s ease;
-      text-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
+      transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.2s ease;
       box-shadow:
-        0 0 6px rgba(0, 108, 53, 0.4),
-        inset 0 0 0 rgba(0, 0, 0, 0);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, rgba(0, 108, 53, 0.95), rgba(0, 184, 90, 0.9));
-      box-shadow:
-        0 0 10px var(--saudi-green-light),
-        0 0 20px rgba(0, 184, 90, 0.8);
+        0 0 6px rgba(0,108,53,0.4),
+        inset 0 0 0 rgba(0,0,0,0);
+      text-shadow: 0 0 4px rgba(0,0,0,0.9);
     }
 
     .btn:hover {
-      box-shadow:
-        0 0 10px var(--saudi-green-light),
-        0 0 18px rgba(0, 184, 90, 0.9);
-      transform: translateY(-1px);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 14px var(--saudi-green-light);
     }
 
-    .btn-secondary {
-      background: rgba(0, 0, 0, 0.4);
+    .btn-primary {
+      background: linear-gradient(135deg, rgba(0,108,53,0.95), rgba(0,184,90,0.9));
+      box-shadow:
+        0 0 10px var(--saudi-green-light),
+        0 0 20px rgba(0,184,90,0.8);
     }
 
     .btn-ghost {
       background: transparent;
       border-style: dashed;
-      opacity: 0.9;
+      opacity: 0.8;
     }
 
-    .btn-small {
-      font-size: 13px;
-      padding: 8px 10px;
-    }
+    .list { margin-top: 10px; }
 
     .link {
-      display: inline-block;
-      margin-top: 8px;
-      font-size: 13px;
+      display: block;
+      text-align: center;
+      margin-top: 10px;
       color: #b8ffe0;
       cursor: pointer;
       text-decoration: underline;
       text-underline-offset: 3px;
-      text-align: center;
-      width: 100%;
     }
 
     .link:hover {
@@ -209,64 +195,40 @@
       text-shadow: 0 0 6px var(--saudi-green-light);
     }
 
-    /* شاشة الأرشيف */
-    .list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 8px;
-      margin-bottom: 12px;
-    }
-
     .bio-card {
-      margin-top: 10px;
-      padding: 12px 10px;
+      margin-top: 15px;
+      padding: 12px;
       border-radius: 16px;
-      border: 1px solid rgba(0, 108, 53, 0.7);
-      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(0,108,53,0.7);
+      background: rgba(0,0,0,0.55);
       box-shadow:
-        0 0 10px rgba(0, 108, 53, 0.6),
-        0 0 18px rgba(0, 184, 90, 0.5);
+        0 0 10px rgba(0,108,53,0.6),
+        0 0 18px rgba(0,184,90,0.5);
+      display: none;
       font-size: 13px;
       line-height: 1.7;
       color: #eafff5;
     }
 
-    .bio-title {
-      font-weight: 700;
-      margin-bottom: 4px;
-      text-shadow: 0 0 6px var(--saudi-green-light);
-    }
+    .bio-title { font-weight: 700; margin-bottom: 5px; text-shadow: 0 0 6px var(--saudi-green-light); }
+    .bio-dates { font-size: 12px; opacity: 0.8; margin-bottom: 8px; }
 
-    .bio-dates {
-      font-size: 12px;
-      opacity: 0.9;
-      margin-bottom: 6px;
-    }
-
-    /* استجابة للجوال */
     @media (max-width: 480px) {
-      .app {
-        padding-inline: 10px;
-      }
-      .screen {
-        padding: 18px 14px;
-      }
-      .screen-title {
-        font-size: 20px;
-      }
-      .btn {
-        font-size: 14px;
-      }
+      .app { padding-inline: 12px; }
+      .screen { padding: 18px 16px; }
+      .screen-title { font-size: 20px; }
+      .btn { font-size: 14px; }
     }
   </style>
 </head>
+
 <body>
 
 <div id="particles-js"></div>
 
 <div class="app">
-  <!-- شريط اللغة -->
+
+  <!-- اللغة -->
   <div class="top-bar">
     <div class="lang-toggle">
       <button class="lang-btn active" data-lang="ar">AR</button>
@@ -274,308 +236,200 @@
     </div>
   </div>
 
-  <!-- شاشة الرئيسية -->
+  <!-- الرئيسية -->
   <section id="screen-home" class="screen active">
-    <h1 class="screen-title" data-i18n="home_title">ملحمة التأسيس</h1>
-    <p class="screen-subtitle" data-i18n="home_subtitle">
-      واجه مصيرك في تاريخ المجد السعودي.
-    </p>
-    <button class="btn btn-primary" id="btn-start" data-i18n="home_start">
-      ابدأ الرحلة
-    </button>
-    <button class="btn btn-secondary" id="btn-archive" data-i18n="home_archive">
-      الأرشيف
-    </button>
+    <h1 class="screen-title">ملحمة التأسيس</h1>
+    <p class="screen-subtitle">واجه مصيرك في تاريخ المجد السعودي.</p>
+
+    <button class="btn btn-primary" id="btn-start">ابدأ الرحلة</button>
+    <button class="btn btn-secondary" id="btn-archive">الأرشيف</button>
   </section>
 
-  <!-- شاشة اختيار القائد -->
+  <!-- اختيار القائد -->
   <section id="screen-leader" class="screen">
-    <h2 class="screen-title" data-i18n="leader_title">اختر القائد</h2>
+    <h2 class="screen-title">اختر القائد</h2>
+
     <div class="list">
-      <button class="btn btn-secondary leader-btn" data-leader="muhammad" data-i18n="leader_muhammad">
-        الإمام محمد بن سعود
-      </button>
-      <button class="btn btn-secondary leader-btn" data-leader="turki" data-i18n="leader_turki">
-        الإمام تركي بن عبدالله
-      </button>
-      <button class="btn btn-secondary leader-btn" data-leader="abdulaziz" data-i18n="leader_abdulaziz">
-        الملك عبدالعزيز
-      </button>
+      <button class="btn leader-btn" data-leader="muhammad">الإمام محمد بن سعود</button>
+      <button class="btn leader-btn" data-leader="turki">الإمام تركي بن عبدالله</button>
+      <button class="btn leader-btn" data-leader="abdulaziz">الملك عبدالعزيز</button>
     </div>
-    <button class="btn btn-ghost btn-small" id="btn-back-from-leader" data-i18n="back">
-      رجوع
-    </button>
+
+    <button class="btn btn-ghost" id="btn-back-from-leader">رجوع</button>
   </section>
 
-  <!-- شاشة اختيار الموقف -->
+  <!-- اختيار الموقف -->
   <section id="screen-scenario" class="screen">
-    <h2 class="screen-title" data-i18n="scenario_title">اختر الموقف</h2>
-    <div class="list">
-      <button class="btn btn-secondary" data-i18n="scenario_1">
-        ميثاق الدرعية التاريخي (1744م)
-      </button>
-      <button class="btn btn-secondary" data-i18n="scenario_2">
-        بناء أسوار الدرعية والدفاع
-      </button>
-    </div>
-    <span class="link" id="link-change-leader" data-i18n="scenario_change_leader">
-      تغيير القائد
-    </span>
+    <h2 class="screen-title">اختر الموقف</h2>
+
+    <div class="list" id="scenario-list"></div>
+
+    <span class="link" id="link-change-leader">تغيير القائد</span>
   </section>
 
-  <!-- شاشة الأرشيف / سجل الخالدين -->
+  <!-- الأرشيف -->
   <section id="screen-archive" class="screen">
-    <h2 class="screen-title" data-i18n="archive_title">سجل الخالدين</h2>
+    <h2 class="screen-title">سجل الخالدين</h2>
+
     <div class="list">
-      <button class="btn btn-secondary archive-leader-btn" data-leader="muhammad" data-i18n="leader_muhammad">
-        الإمام محمد بن سعود
-      </button>
-      <button class="btn btn-secondary archive-leader-btn" data-leader="turki" data-i18n="leader_turki">
-        الإمام تركي بن عبدالله
-      </button>
-      <button class="btn btn-secondary archive-leader-btn" data-leader="abdulaziz" data-i18n="leader_abdulaziz">
-        الملك عبدالعزيز
-      </button>
+      <button class="btn archive-leader-btn" data-leader="muhammad">الإمام محمد بن سعود</button>
+      <button class="btn archive-leader-btn" data-leader="turki">الإمام تركي بن عبدالله</button>
+      <button class="btn archive-leader-btn" data-leader="abdulaziz">الملك عبدالعزيز</button>
     </div>
 
-    <div id="bio-container" class="bio-card" style="display:none;">
-      <div class="bio-title" id="bio-name"></div>
-      <div class="bio-dates" id="bio-dates"></div>
-      <div class="bio-text" id="bio-text"></div>
+    <div id="bio-container" class="bio-card">
+      <div id="bio-name" class="bio-title"></div>
+      <div id="bio-dates" class="bio-dates"></div>
+      <div id="bio-text"></div>
     </div>
 
-    <button class="btn btn-ghost btn-small" id="btn-back-from-archive" data-i18n="archive_back">
-      العودة للسجل
-    </button>
+    <button class="btn btn-ghost" id="btn-back-from-archive">العودة للسجل</button>
   </section>
+
 </div>
 
 <script>
-  // ------------------ ترجمة بسيطة AR / EN ------------------
-  const i18n = {
-    ar: {
-      home_title: "ملحمة التأسيس",
-      home_subtitle: "واجه مصيرك في تاريخ المجد السعودي.",
-      home_start: "ابدأ الرحلة",
-      home_archive: "الأرشيف",
+/* ------------------ السيناريوهات ------------------ */
+const scenarios = {
+  muhammad: [
+    "ميثاق الدرعية التاريخي (1744م)",
+    "توسّع الدولة السعودية الأولى",
+    "تأسيس نظام الحكم والإدارة"
+  ],
+  turki: [
+    "استعادة الرياض",
+    "إعادة بناء الدولة السعودية الثانية",
+    "تعزيز الأمن وتوحيد المناطق"
+  ],
+  abdulaziz: [
+    "استرداد الرياض (1902)",
+    "توحيد المملكة العربية السعودية",
+    "تأسيس مؤسسات الدولة الحديثة"
+  ]
+};
 
-      leader_title: "اختر القائد",
-      leader_muhammad: "الإمام محمد بن سعود",
-      leader_turki: "الإمام تركي بن عبدالله",
-      leader_abdulaziz: "الملك عبدالعزيز",
-
-      scenario_title: "اختر الموقف",
-      scenario_1: "ميثاق الدرعية التاريخي (1744م)",
-      scenario_2: "بناء أسوار الدرعية والدفاع",
-      scenario_change_leader: "تغيير القائد",
-
-      archive_title: "سجل الخالدين",
-      archive_back: "العودة للسجل",
-
-      back: "رجوع"
-    },
-    en: {
-      home_title: "Epic of Founding",
-      home_subtitle: "Face your destiny in the history of Saudi glory.",
-      home_start: "Start Journey",
-      home_archive: "Archive",
-
-      leader_title: "Choose the Leader",
-      leader_muhammad: "Imam Muhammad bin Saud",
-      leader_turki: "Imam Turki bin Abdullah",
-      leader_abdulaziz: "King Abdulaziz",
-
-      scenario_title: "Choose the Scenario",
-      scenario_1: "The Historic Diriyah Pact (1744)",
-      scenario_2: "Building Diriyah Walls and Defense",
-      scenario_change_leader: "Change Leader",
-
-      archive_title: "Hall of the Immortals",
-      archive_back: "Back to Archive",
-
-      back: "Back"
-    }
-  };
-
-  let currentLang = "ar";
-  let currentLeader = null;
-
-  const screens = {
-    home: document.getElementById("screen-home"),
-    leader: document.getElementById("screen-leader"),
-    scenario: document.getElementById("screen-scenario"),
-    archive: document.getElementById("screen-archive")
-  };
-
-  function showScreen(name) {
-    Object.values(screens).forEach(s => s.classList.remove("active"));
-    screens[name].classList.add("active");
+/* ------------------ بيانات القادة ------------------ */
+const leadersBio = {
+  muhammad: {
+    name: "الإمام محمد بن سعود",
+    dates: "توفي 1179هـ / 1765م",
+    text: "يُعد الإمام محمد بن سعود مؤسس الدولة السعودية الأولى، حيث وحّد الدرعية وما حولها، وأرسى أسس الحكم والإدارة، وفتح الباب أمام مرحلة جديدة من الاستقرار السياسي في قلب الجزيرة العربية."
+  },
+  turki: {
+    name: "الإمام تركي بن عبدالله",
+    dates: "توفي 1249هـ / 1834م",
+    text: "أعاد الإمام تركي بن عبدالله بناء الدولة السعودية بعد سقوط الدولة الأولى، واتخذ من الرياض عاصمة له، وأسهم في استعادة الأمن والاستقرار، مما مهد لقيام الدولة السعودية الثانية."
+  },
+  abdulaziz: {
+    name: "الملك عبدالعزيز بن عبدالرحمن آل سعود",
+    dates: "1876م – 1953م",
+    text: "أسس الملك عبدالعزيز المملكة العربية السعودية الحديثة، ووحّد معظم أقاليم الجزيرة العربية تحت راية واحدة، وأرسى دعائم الدولة المعاصرة في مجالات الحكم والاقتصاد والمجتمع."
   }
+};
 
-  function setLanguage(lang) {
-    currentLang = lang;
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+let currentLeader = null;
 
-    document.querySelectorAll(".lang-btn").forEach(btn => {
-      btn.classList.toggle("active", btn.dataset.lang === lang);
+/* ------------------ التنقل بين الشاشات مع مؤثرات ------------------ */
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => {
+    s.classList.remove("active");
+  });
+
+  const target = document.getElementById("screen-" + id);
+
+  // تأخير بسيط لإعادة تشغيل الأنيميشن
+  setTimeout(() => {
+    target.classList.add("active");
+  }, 20);
+}
+
+/* الرئيسية → القادة */
+document.getElementById("btn-start").onclick = () => showScreen("leader");
+
+/* الرئيسية → الأرشيف */
+document.getElementById("btn-archive").onclick = () => showScreen("archive");
+
+/* رجوع من القادة */
+document.getElementById("btn-back-from-leader").onclick = () => showScreen("home");
+
+/* رجوع من الأرشيف */
+document.getElementById("btn-back-from-archive").onclick = () => {
+  document.getElementById("bio-container").style.display = "none";
+  showScreen("home");
+};
+
+/* تغيير القائد */
+document.getElementById("link-change-leader").onclick = () => showScreen("leader");
+
+/* ------------------ اختيار القائد → توليد السيناريوهات ------------------ */
+document.querySelectorAll(".leader-btn").forEach(btn => {
+  btn.onclick = () => {
+    currentLeader = btn.dataset.leader;
+
+    const list = document.getElementById("scenario-list");
+    list.innerHTML = "";
+
+    scenarios[currentLeader].forEach(text => {
+      const b = document.createElement("button");
+      b.className = "btn";
+      b.textContent = text;
+
+      b.onclick = () => {
+        // لاحقاً تقدر تربطها بشاشة سيناريو مفصلة
+        alert("اخترت السيناريو: " + text);
+      };
+
+      list.appendChild(b);
     });
 
-    document.querySelectorAll("[data-i18n]").forEach(el => {
-      const key = el.getAttribute("data-i18n");
-      if (i18n[lang][key]) {
-        el.textContent = i18n[lang][key];
-      }
-    });
-
-    // تحديث نصوص بطاقة السيرة إن كانت ظاهرة
-    if (currentLeader) {
-      fillBio(currentLeader);
-    }
-  }
-
-  // ------------------ بيانات القادة للأرشيف ------------------
-  const leadersBio = {
-    muhammad: {
-      ar: {
-        name: "الإمام محمد بن سعود",
-        dates: "توفي 1179هـ / 1765م تقريباً",
-        text: "يُعد الإمام محمد بن سعود مؤسس الدولة السعودية الأولى، حيث وحّد الدرعية وما حولها، وأرسى أسس الحكم والإدارة، وفتح الباب أمام مرحلة جديدة من الاستقرار السياسي في قلب الجزيرة العربية."
-      },
-      en: {
-        name: "Imam Muhammad bin Saud",
-        dates: "Died around 1765 CE (1179 AH)",
-        text: "Imam Muhammad bin Saud is regarded as the founder of the First Saudi State. From Diriyah, he unified surrounding regions, laid the foundations of governance and administration, and opened a new era of political stability in the heart of the Arabian Peninsula."
-      }
-    },
-    turki: {
-      ar: {
-        name: "الإمام تركي بن عبدالله",
-        dates: "توفي 1249هـ / 1834م",
-        text: "أعاد الإمام تركي بن عبدالله بناء الدولة السعودية بعد سقوط الدولة الأولى، واتخذ من الرياض عاصمة له، وأسهم في استعادة الأمن والاستقرار، مما مهد لقيام الدولة السعودية الثانية."
-      },
-      en: {
-        name: "Imam Turki bin Abdullah",
-        dates: "Died 1834 CE (1249 AH)",
-        text: "Imam Turki bin Abdullah rebuilt the Saudi state after the fall of the First Saudi State. He made Riyadh his capital and played a key role in restoring security and stability, paving the way for the Second Saudi State."
-      }
-    },
-    abdulaziz: {
-      ar: {
-        name: "الملك عبدالعزيز بن عبدالرحمن آل سعود",
-        dates: "1876م – 1953م",
-        text: "أسس الملك عبدالعزيز المملكة العربية السعودية الحديثة، ووحّد معظم أقاليم الجزيرة العربية تحت راية واحدة، وأرسى دعائم الدولة المعاصرة في مجالات الحكم والاقتصاد والمجتمع."
-      },
-      en: {
-        name: "King Abdulaziz bin Abdulrahman Al Saud",
-        dates: "1876 – 1953 CE",
-        text: "King Abdulaziz founded the modern Kingdom of Saudi Arabia, unifying most regions of the Arabian Peninsula under one banner and laying the foundations of the contemporary state in governance, economy, and society."
-      }
-    }
+    showScreen("scenario");
   };
+});
 
-  function fillBio(leaderKey) {
-    const bioBox = document.getElementById("bio-container");
-    const nameEl = document.getElementById("bio-name");
-    const datesEl = document.getElementById("bio-dates");
-    const textEl = document.getElementById("bio-text");
+/* ------------------ الأرشيف ------------------ */
+document.querySelectorAll(".archive-leader-btn").forEach(btn => {
+  btn.onclick = () => {
+    const key = btn.dataset.leader;
+    const bio = leadersBio[key];
 
-    const data = leadersBio[leaderKey]?.[currentLang];
-    if (!data) return;
+    document.getElementById("bio-name").textContent = bio.name;
+    document.getElementById("bio-dates").textContent = bio.dates;
+    document.getElementById("bio-text").textContent = bio.text;
 
-    nameEl.textContent = data.name;
-    datesEl.textContent = data.dates;
-    textEl.textContent = data.text;
-    bioBox.style.display = "block";
-  }
+    document.getElementById("bio-container").style.display = "block";
+  };
+});
 
-  // ------------------ ربط الأحداث ------------------
-  document.getElementById("btn-start").addEventListener("click", () => {
-    showScreen("leader");
-  });
-
-  document.getElementById("btn-archive").addEventListener("click", () => {
-    showScreen("archive");
-  });
-
-  document.getElementById("btn-back-from-leader").addEventListener("click", () => {
-    showScreen("home");
-  });
-
-  document.getElementById("btn-back-from-archive").addEventListener("click", () => {
-    // إخفاء بطاقة السيرة عند العودة
-    document.getElementById("bio-container").style.display = "none";
-    showScreen("home");
-  });
-
-  document.getElementById("link-change-leader").addEventListener("click", () => {
-    showScreen("leader");
-  });
-
-  // اختيار القائد من شاشة القادة → الانتقال للمواقف
-  document.querySelectorAll(".leader-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      currentLeader = btn.dataset.leader;
-      showScreen("scenario");
-    });
-  });
-
-  // اختيار القائد من شاشة الأرشيف → عرض بطاقة السيرة
-  document.querySelectorAll(".archive-leader-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      currentLeader = btn.dataset.leader;
-      fillBio(currentLeader);
-    });
-  });
-
-  // تبديل اللغة
-  document.querySelectorAll(".lang-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const lang = btn.dataset.lang;
-      setLanguage(lang);
-    });
-  });
-
-  // ------------------ تهيئة Particles.js ------------------
-  particlesJS("particles-js", {
-    particles: {
-      number: { value: 80, density: { enable: true, value_area: 800 } },
-      color: { value: "#00ff99" },
-      shape: { type: "circle" },
-      opacity: {
-        value: 0.6,
-        random: true
-      },
-      size: {
-        value: 2.5,
-        random: true
-      },
-      line_linked: {
-        enable: false
-      },
-      move: {
-        enable: true,
-        speed: 0.8,
-        direction: "none",
-        random: true,
-        straight: false,
-        out_mode: "out",
-        bounce: false
-      }
-    },
-    interactivity: {
-      detect_on: "canvas",
-      events: {
-        onhover: { enable: false },
-        onclick: { enable: false },
-        resize: true
-      }
-    },
-    retina_detect: true
-  });
-
-  // ضبط اللغة الافتراضية
-  setLanguage("ar");
+/* ------------------ Particles ------------------ */
+particlesJS("particles-js", {
+  particles: {
+    number: { value: 80, density: { enable: true, value_area: 800 } },
+    color: { value: "#00ff99" },
+    shape: { type: "circle" },
+    opacity: { value: 0.6, random: true },
+    size: { value: 2.5, random: true },
+    line_linked: { enable: false },
+    move: {
+      enable: true,
+      speed: 0.8,
+      direction: "none",
+      random: true,
+      straight: false,
+      out_mode: "out",
+      bounce: false
+    }
+  },
+  interactivity: {
+    detect_on: "canvas",
+    events: {
+      onhover: { enable: false },
+      onclick: { enable: false },
+      resize: true
+    }
+  },
+  retina_detect: true
+});
 </script>
+
 </body>
 </html>
