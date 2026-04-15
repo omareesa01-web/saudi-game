@@ -267,6 +267,18 @@
     <span class="link" id="link-change-leader">تغيير القائد</span>
   </section>
 
+  <!-- شاشة القصة والقرارات -->
+  <section id="screen-story" class="screen">
+    <h2 class="screen-title" id="story-title"></h2>
+    <p class="screen-subtitle" id="story-text"></p>
+
+    <div id="choices-container"></div>
+
+    <p class="screen-subtitle" id="story-result" style="display:none; margin-top:20px;"></p>
+
+    <button class="btn btn-ghost" id="btn-back-to-scenarios">عودة للمواقف</button>
+  </section>
+
   <!-- الأرشيف -->
   <section id="screen-archive" class="screen">
     <h2 class="screen-title">سجل الخالدين</h2>
@@ -308,6 +320,73 @@ const scenarios = {
   ]
 };
 
+/* ------------------ قصص السيناريوهات والقرارات ------------------ */
+const scenarioStories = {
+  "ميثاق الدرعية التاريخي (1744م)": {
+    story: "في عام 1744م، التقى الإمام محمد بن سعود بالشيخ محمد بن عبدالوهاب في الدرعية، وكان هذا اللقاء نقطة تحول تاريخية وضعت أساس الدولة السعودية الأولى.",
+    choices: [
+      { text: "تأييد الميثاق وتوسيع النفوذ", result: "بدأت الدولة السعودية الأولى في التوسع وتوحيد المناطق." },
+      { text: "التريث قبل اتخاذ القرار", result: "تأخر التوسع قليلاً، لكن الاستقرار الداخلي ازداد." }
+    ]
+  },
+  "توسّع الدولة السعودية الأولى": {
+    story: "بعد تأسيس الدولة، بدأ الإمام محمد بن سعود بتوسيع نفوذ الدرعية عبر التحالفات والفتوحات.",
+    choices: [
+      { text: "التوسع السريع", result: "ازدادت قوة الدولة لكن واجهت تحديات عسكرية." },
+      { text: "التوسع التدريجي", result: "تحقق الاستقرار ونمت الدولة بثبات." }
+    ]
+  },
+  "تأسيس نظام الحكم والإدارة": {
+    story: "عمل الإمام محمد بن سعود على تنظيم شؤون الدولة ووضع أسس الإدارة والعدل.",
+    choices: [
+      { text: "تعزيز القضاء", result: "أصبحت الدولة أكثر استقراراً وعدلاً." },
+      { text: "تعزيز الجيش", result: "ازدادت قوة الدولة وقدرتها على الدفاع." }
+    ]
+  },
+  "استعادة الرياض": {
+    story: "قاد الإمام تركي بن عبدالله جهوداً كبيرة لاستعادة الرياض بعد سقوط الدولة الأولى.",
+    choices: [
+      { text: "الهجوم المباشر", result: "تم استعادة الرياض بسرعة لكن بخسائر." },
+      { text: "الحصار التدريجي", result: "استعيدت الرياض بأقل خسائر ممكنة." }
+    ]
+  },
+  "إعادة بناء الدولة السعودية الثانية": {
+    story: "بعد استعادة الرياض، بدأ الإمام تركي بإعادة بناء الدولة السعودية الثانية.",
+    choices: [
+      { text: "إعادة تنظيم الجيش", result: "ازدادت قوة الدولة وقدرتها على الدفاع." },
+      { text: "تعزيز التحالفات", result: "ازدادت قوة الدولة السياسية." }
+    ]
+  },
+  "تعزيز الأمن وتوحيد المناطق": {
+    story: "عمل الإمام تركي على تعزيز الأمن وتوحيد المناطق تحت راية الدولة.",
+    choices: [
+      { text: "إرسال الحملات العسكرية", result: "تم توحيد مناطق واسعة بسرعة." },
+      { text: "عقد التحالفات", result: "تحقق الاستقرار دون قتال." }
+    ]
+  },
+  "استرداد الرياض (1902)": {
+    story: "قاد الملك عبدالعزيز عملية استرداد الرياض في واحدة من أشهر العمليات في التاريخ السعودي.",
+    choices: [
+      { text: "الهجوم الليلي", result: "نجحت العملية بسرعة وبشكل مفاجئ." },
+      { text: "التخطيط الطويل", result: "تمت العملية بدقة عالية وبدون خسائر." }
+    ]
+  },
+  "توحيد المملكة العربية السعودية": {
+    story: "بدأ الملك عبدالعزيز رحلة طويلة لتوحيد معظم مناطق الجزيرة العربية.",
+    choices: [
+      { text: "التقدم العسكري", result: "تم التوحيد بسرعة." },
+      { text: "التحالفات القبلية", result: "تم التوحيد بسلاسة واستقرار." }
+    ]
+  },
+  "تأسيس مؤسسات الدولة الحديثة": {
+    story: "أسس الملك عبدالعزيز الوزارات والأنظمة الحديثة التي شكلت أساس الدولة اليوم.",
+    choices: [
+      { text: "تأسيس وزارة الدفاع", result: "ازدادت قوة الدولة العسكرية." },
+      { text: "تأسيس وزارة المالية", result: "ازدادت قوة الدولة الاقتصادية." }
+    ]
+  }
+};
+
 /* ------------------ بيانات القادة ------------------ */
 const leadersBio = {
   muhammad: {
@@ -337,7 +416,6 @@ function showScreen(id) {
 
   const target = document.getElementById("screen-" + id);
 
-  // تأخير بسيط لإعادة تشغيل الأنيميشن
   setTimeout(() => {
     target.classList.add("active");
   }, 20);
@@ -361,6 +439,12 @@ document.getElementById("btn-back-from-archive").onclick = () => {
 /* تغيير القائد */
 document.getElementById("link-change-leader").onclick = () => showScreen("leader");
 
+/* رجوع من القصة إلى المواقف */
+document.getElementById("btn-back-to-scenarios").onclick = () => {
+  document.getElementById("story-result").style.display = "none";
+  showScreen("scenario");
+};
+
 /* ------------------ اختيار القائد → توليد السيناريوهات ------------------ */
 document.querySelectorAll(".leader-btn").forEach(btn => {
   btn.onclick = () => {
@@ -375,8 +459,31 @@ document.querySelectorAll(".leader-btn").forEach(btn => {
       b.textContent = text;
 
       b.onclick = () => {
-        // لاحقاً تقدر تربطها بشاشة سيناريو مفصلة
-        alert("اخترت السيناريو: " + text);
+        const data = scenarioStories[text];
+        if (!data) return;
+
+        document.getElementById("story-title").textContent = text;
+        document.getElementById("story-text").textContent = data.story;
+
+        const choicesBox = document.getElementById("choices-container");
+        choicesBox.innerHTML = "";
+
+        data.choices.forEach(choice => {
+          const c = document.createElement("button");
+          c.className = "btn btn-primary";
+          c.textContent = choice.text;
+
+          c.onclick = () => {
+            const resultEl = document.getElementById("story-result");
+            resultEl.style.display = "block";
+            resultEl.textContent = choice.result;
+          };
+
+          choicesBox.appendChild(c);
+        });
+
+        document.getElementById("story-result").style.display = "none";
+        showScreen("story");
       };
 
       list.appendChild(b);
