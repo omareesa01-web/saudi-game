@@ -70,14 +70,6 @@
         }
         [dir="ltr"] .lore-box { border-right: 0; border-left: 8px solid var(--saudi-green); text-align: left; }
 
-        .back-nav { 
-            display: inline-block; margin-top: 20px; color: var(--glow-green); 
-            cursor: pointer; font-weight: 800; font-size: 0.9rem; 
-            text-decoration: underline; transition: 0.3s;
-        }
-        .back-nav:hover { color: #fff; text-shadow: 0 0 10px var(--glow-green); }
-
-        /* زر العودة العلوي الجديد */
         .top-back-btn {
             position: absolute; top: 20px; right: 20px;
             background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border);
@@ -141,7 +133,6 @@
     </div>
 
     <script>
-        // مصفوفة لتتبع الصفحات التي زارها المستخدم للعودة للخلف
         let navigationHistory = ['screen-gate'];
 
         const EPIC_DATA = {
@@ -151,30 +142,44 @@
                     scenarios: [
                         {
                             title: "ميثاق الدرعية التاريخي (1744م)",
-                            story: "عام 1157هـ، الجزيرة العربية تعيش في شتات سياسي... هل تعقد ميثاقاً تاريخياً يؤسس لدولة قائمة على التوحيد؟",
+                            story: "الجزيرة العربية تعيش في شتات سياسي. الشيخ محمد بن عبدالوهاب يصل للدرعية باحثاً عن ناصر للدعوة. هل تعقد ميثاقاً يؤسس للدولة؟",
                             decisions: [
-                                { l: "عقد الميثاق ونصرة الدولة", f: "✅ ولد مشروع الدولة السعودية الأولى وتحولت الدرعية لعاصمة مهابة." },
-                                { l: "تأمين الشيخ دون تحالف سياسي", f: "⚠️ غابت القوة السياسية الموحدة التي تحمي المشروع." },
-                                { l: "رفض الاستقبال خوفاً من الضغوط", f: "❌ ضاعت فرصة التأسيس التاريخية وانطوت الدرعية كإمارة صغيرة." }
+                                { l: "عقد الميثاق ونصرة الدولة", f: "✅ 'أبشر ببلاد خير من بلادك'. ولدت الدولة السعودية الأولى وتحولت الدرعية لعاصمة مهابة." },
+                                { l: "تأمين الشيخ دون تحالف سياسي", f: "⚠️ غابت القوة الموحدة التي تحمي الدعوة وتوحد القبائل." }
+                            ]
+                        },
+                        {
+                            title: "بناء أسوار الدرعية",
+                            story: "التهديدات الخارجية تزداد. هل تبدأ فوراً ببناء سور عظيم يحيط بالمدينة أم تعتمد على سرعة المناورة في الصحراء؟",
+                            decisions: [
+                                { l: "بناء سور الدرعية العظيم", f: "✅ بفضل السور وصمود الشعب، تحطمت أحلام الغزاة عند أسوار العاصمة." },
+                                { l: "الاعتماد على حرب المناورة", f: "⚠️ حققت انتصارات صغيرة لكن العاصمة ظلت عرضة للاختراق." }
                             ]
                         }
                     ],
-                    biography: "الإمام محمد بن سعود (توفي 1765م). المؤسس الأول للدولة السعودية الأولى وباني نهضتها..."
+                    biography: "المؤسس الأول للدولة السعودية الأولى (توفي 1765م). باني نهضتها السياسية وحامي حمى الدرعية."
                 },
                 en: {
                     name: "Imam Muhammad bin Saud",
                     scenarios: [
                         {
                             title: "The Diriyah Pact (1744)",
-                            story: "The Arabian Peninsula is fractured. Sheikh Muhammad bin Abdul Wahab arrives in Diriyah. Do you form a historic pact to establish a state based on justice and unity?",
+                            story: "Arabia is fractured. Sheikh Muhammad bin Abdul Wahab seeks a partner. Do you form a historic pact?",
                             decisions: [
-                                { l: "Form the Pact", f: "✅ The first Saudi State was born, and Diriyah became a powerful capital." },
-                                { l: "Protect without Political Alliance", f: "⚠️ The project lacked the political strength to unite the tribes." },
-                                { l: "Refuse the Alliance", f: "❌ The historic opportunity was lost, and Diriyah remained a small emirate." }
+                                { l: "Form the Pact", f: "✅ The First Saudi State was born, and Diriyah became a powerful regional capital." },
+                                { l: "Offer Protection Only", f: "⚠️ Without a political alliance, the state lacked the strength to unite the tribes." }
+                            ]
+                        },
+                        {
+                            title: "Building Diriyah Walls",
+                            story: "External threats are rising. Do you build a great defensive wall or rely on desert maneuvers?",
+                            decisions: [
+                                { l: "Build the Great Wall", f: "✅ The walls saved the capital from numerous invasions, ensuring state stability." },
+                                { l: "Rely on Maneuvers", f: "⚠️ Small victories were won, but the capital remained vulnerable to raids." }
                             ]
                         }
                     ],
-                    biography: "Imam Muhammad bin Saud (Died 1765). The first founder of the first Saudi state and the architect of its political renaissance..."
+                    biography: "The First Founder of the Saudi State. A wise leader who established the foundations of Saudi unity."
                 }
             },
             i_turki: {
@@ -183,28 +188,44 @@
                     scenarios: [
                         {
                             title: "استعادة الرياض (1824م)",
-                            story: "الرياض تحت الاحتلال. هل تباغت الحصن بـ 40 رجلاً فقط لاستعادة ملك آبائك؟",
+                            story: "بعد سقوط الدرعية، الرياض تحت الاحتلال. هل تباغت الحصن بـ 40 رجلاً فقط لاستعادة ملك آبائك؟",
                             decisions: [
-                                { l: "قيادة هجوم فدائي مباغت", f: "✅ نصر من الله! استعدت الرياض وأعلنت قيام الدولة السعودية الثانية." },
-                                { l: "الانتظار لجمع جيش ضخم", f: "⚠️ عزز العدو حصونه مما جعل التحرير أصعب لاحقاً." }
+                                { l: "قيادة هجوم فدائي مباغت", f: "✅ نصر من الله! استعدت الرياض وأعلنت قيام الدولة السعودية الثانية بسيفك الأجرب." },
+                                { l: "الانتظار لجمع جيش ضخم", f: "⚠️ استغرق الأمر سنوات إضافية من المعاناة تحت الاحتلال." }
+                            ]
+                        },
+                        {
+                            title: "بناء الرياض كعاصمة جديدة",
+                            story: "الدرعية كانت ركاماً. هل تعيد إعمارها أم تعلن الرياض عاصمة جديدة وتبني حصونها؟",
+                            decisions: [
+                                { l: "إعلان الرياض عاصمة للدولة", f: "✅ قرار استراتيجي! أصبحت الرياض معقل العز الجديد ومركزاً لا يقهر." },
+                                { l: "إعادة إعمار الدرعية المنهارة", f: "⚠️ استنزفت الموارد في أطلال يصعب حمايتها عسكرياً في ذلك الوقت." }
                             ]
                         }
                     ],
-                    biography: "الإمام تركي بن عبد الله (1755-1834م). مؤسس الدولة السعودية الثانية ورمز الصمود بسيفه 'الأجرب'..."
+                    biography: "مؤسس الدولة السعودية الثانية. اشتهر بسيفه 'الأجرب' وبطولاته في استعادة ملك آل سعود."
                 },
                 en: {
                     name: "Imam Turki bin Abdullah",
                     scenarios: [
                         {
                             title: "Restoring Riyadh (1824)",
-                            story: "Riyadh is under occupation. Do you lead a surprise attack with only 40 men to reclaim your ancestors' kingdom?",
+                            story: "Riyadh is occupied. Do you lead a surprise raid with 40 men or wait to gather a larger force?",
                             decisions: [
-                                { l: "Lead a Surprise Attack", f: "✅ Victory! Riyadh was reclaimed, marking the rise of the Second Saudi State." },
-                                { l: "Wait to Gather a Larger Army", f: "⚠️ The enemy reinforced their positions, making liberation much harder." }
+                                { l: "Lead a Surprise Raid", f: "✅ Victory! You reclaimed Riyadh and established the Second Saudi State." },
+                                { l: "Wait for a Large Army", f: "⚠️ The occupation lasted longer, and the enemy reinforced their positions." }
+                            ]
+                        },
+                        {
+                            title: "Riyadh: The New Capital",
+                            story: "Diriyah was in ruins. Do you rebuild it or move the capital to Riyadh?",
+                            decisions: [
+                                { l: "Move Capital to Riyadh", f: "✅ A historic move! Riyadh became the new heart of the Saudi nation." },
+                                { l: "Rebuild Diriyah", f: "⚠️ Resources were wasted on ruins that were strategically difficult to defend." }
                             ]
                         }
                     ],
-                    biography: "Imam Turki bin Abdullah (1755-1834). The restorer of the Saudi State and a symbol of resilience with his sword 'Al-Ajrab'..."
+                    biography: "The founder of the Second Saudi State. A legendary leader known for his courage and the sword 'Al-Ajrab'."
                 }
             },
             k_aziz: {
@@ -213,28 +234,44 @@
                     scenarios: [
                         {
                             title: "فتح المصمك (1902م)",
-                            story: "تقف عند أسوار الرياض بـ 63 رجلاً. هل تقتحم المصمك عند الفجر؟",
+                            story: "تقف عند أسوار الرياض بـ 63 رجلاً. هل تقتحم المصمك عند الفجر لتعيد ملك الأجداد؟",
                             decisions: [
-                                { l: "اقتحام المصمك عند الفجر", f: "✅ 'الملك لله ثم لعبد العزيز!' بدأت أعظم ملحمة توحيد في العصر الحديث." },
-                                { l: "الانسحاب لطلب الدعم", f: "❌ ضاعت فرصة المباغتة الذهبية وظلت الرياض بعيدة المنال." }
+                                { l: "اقتحام المصمك عند الفجر", f: "✅ 'الملك لله ثم لعبد العزيز!' سقط المصمك وبدأت ملحمة التوحيد الكبرى." },
+                                { l: "الانسحاب لطلب الدعم", f: "❌ ضاعت فرصة المباغتة وظلت الرياض بعيدة المنال لسنوات أخرى." }
+                            ]
+                        },
+                        {
+                            title: "اكتشاف النفط (1938م)",
+                            story: "المملكة تمر بظروف اقتصادية صعبة. هل توقع اتفاقية التنقيب مع الشركات الأجنبية؟",
+                            decisions: [
+                                { l: "توقيع اتفاقية التنقيب", f: "✅ تدفق الخير من بئر رقم 7، وانتقلت المملكة لعصر النهضة العالمي." },
+                                { l: "رفض دخول الشركات", f: "⚠️ ظلت الموارد محدودة وتأخرت المملكة عن ركب التطور العقود." }
                             ]
                         }
                     ],
-                    biography: "الملك عبد العزيز آل سعود (1876-1953م). المؤسس العظيم للمملكة العربية السعودية الحديثة وصقر الجزيرة..."
+                    biography: "مؤسس المملكة العربية السعودية الحديثة. صقر الجزيرة وباني نهضتها المعاصرة."
                 },
                 en: {
                     name: "King Abdulaziz",
                     scenarios: [
                         {
-                            title: "Conquering Al-Masmak (1902)",
-                            story: "You stand by Riyadh's walls with 63 men. Do you storm Al-Masmak at dawn?",
+                            title: "The Battle of Al-Masmak",
+                            story: "With 63 men, you stand at Riyadh's walls. Do you storm the fortress at dawn?",
                             decisions: [
-                                { l: "Storm Al-Masmak at Dawn", f: "✅ 'The Kingdom is for Allah, then for Abdulaziz!' The great unification began." },
-                                { l: "Withdraw to Seek Support", f: "❌ The golden opportunity was lost, and Riyadh remained under occupation." }
+                                { l: "Storm the Fortress", f: "✅ 'The Kingdom is for Allah, then for Abdulaziz!' The unification of Saudi Arabia began." },
+                                { l: "Withdraw and Wait", f: "❌ The surprise was lost, and the dream of return was delayed for years." }
+                            ]
+                        },
+                        {
+                            title: "Oil Discovery (1938)",
+                            story: "The economy is struggling. Do you sign the oil exploration agreement with foreign firms?",
+                            decisions: [
+                                { l: "Sign the Agreement", f: "✅ Oil flowed from Well No. 7, transforming the nation into a global power." },
+                                { l: "Refuse the Agreement", f: "⚠️ Resources remained scarce, hindering the nation's rapid development." }
                             ]
                         }
                     ],
-                    biography: "King Abdulaziz Al Saud (1876-1953). The legendary founder of the modern Kingdom of Saudi Arabia..."
+                    biography: "The Founder of the modern Kingdom of Saudi Arabia. A visionary leader who unified the desert tribes."
                 }
             }
         };
@@ -260,8 +297,6 @@
             document.documentElement.dir = t.dir;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + l).classList.add('active');
-
-            // تحديث النصوص
             document.getElementById('t-gate-h').innerText = t.g_h;
             document.getElementById('t-gate-d').innerText = t.g_d;
             document.getElementById('t-btn-start').innerText = t.start_btn;
@@ -273,32 +308,23 @@
             document.getElementById('t-btn-retry').innerText = t.retry_btn;
             document.getElementById('t-btn-home').innerText = t.home_btn;
             document.getElementById('global-back-btn').innerText = t.back_text;
-
             rebuildInteractiveGrids();
         }
 
         function navigateTo(screenId, storeHistory = true) {
-            const allScreens = document.querySelectorAll('.screen');
-            allScreens.forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
-            
+            document.querySelectorAll('.screen').forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
             const target = document.getElementById(screenId);
             target.style.display = 'block';
             setTimeout(() => { target.classList.add('active'); }, 10);
-            
             if(storeHistory) navigationHistory.push(screenId);
-            
-            // إظهار أو إخفاء زر العودة العلوي
-            const backBtn = document.getElementById('global-back-btn');
-            backBtn.style.display = (screenId === 'screen-gate') ? 'none' : 'block';
-            
+            document.getElementById('global-back-btn').style.display = (screenId === 'screen-gate') ? 'none' : 'block';
             document.getElementById('app-scroller').scrollTop = 0;
         }
 
         function goBack() {
             if (navigationHistory.length > 1) {
-                navigationHistory.pop(); // حذف الصفحة الحالية
-                const previousScreen = navigationHistory[navigationHistory.length - 1];
-                navigateTo(previousScreen, false);
+                navigationHistory.pop();
+                navigateTo(navigationHistory[navigationHistory.length - 1], false);
             }
         }
 
@@ -306,10 +332,8 @@
             const hPoint = document.getElementById('hero-injection-point');
             const aPoint = document.getElementById('arch-injection-point');
             hPoint.innerHTML = ''; aPoint.innerHTML = '';
-
             Object.keys(EPIC_DATA).forEach(key => {
                 const name = EPIC_DATA[key][currentLanguage].name;
-                
                 const hBtn = document.createElement('button');
                 hBtn.className = 'btn-epic';
                 hBtn.innerText = name;
@@ -361,7 +385,6 @@
             navigateTo('screen-quest');
         }
 
-        // نظام الجزيئات (الخلفية المتحركة)
         const canvas = document.getElementById('titan-engine-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
