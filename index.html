@@ -1,414 +1,319 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ملحمة التأسيس - محاكي تاريخي</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملحمة التأسيس | النسخة المعتمدة</title>
+    
+    <style>
+        :root {
+            --saudi-green: #006C35; 
+            --light-green: #00843D;
+            --glow-green: #22C55E;
+            --deep-green: #062113;
+            --forest-black: #010a05;
+            --glass-bg: rgba(0, 30, 15, 0.96); 
+            --glass-border: rgba(34, 197, 94, 0.45);
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<style>
-/* -----------------------------------------------------------
-   🟩 1) الإعدادات العامة + الثيم الداكن + الألوان السعودية
------------------------------------------------------------ */
-:root {
-    --saudi-green: #006c35;
-    --royal-gold: #d4af37;
-    --deep-dark: #0a0f0c;
-    --glass-bg: rgba(255, 255, 255, 0.06);
-    --glass-border: rgba(255, 255, 255, 0.15);
-    --text-light: #e8e8e8;
-    --danger: #ff4d4d;
-    --success: #00ff9c;
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
 
-body {
-    margin: 0;
-    font-family: "Cairo", sans-serif;
-    background: var(--deep-dark);
-    color: var(--text-light);
-    overflow-x: hidden;
-}
+        body, html {
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center, var(--deep-green) 0%, var(--forest-black) 100%);
+            color: #ffffff; font-family: var(--font-main);
+            overflow: hidden; display: flex; justify-content: center; align-items: center;
+        }
 
-/* -----------------------------------------------------------
-   🟩 2) خلفية Particles بسيطة باستخدام CSS Animation
------------------------------------------------------------ */
-.particles {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 0;
-}
+        .screen { display: none; opacity: 0; transition: opacity 0.5s ease; }
+        .screen.active { display: block; opacity: 1; }
 
-.particles span {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: var(--saudi-green);
-    border-radius: 50%;
-    animation: float 10s linear infinite;
-    opacity: 0.4;
-}
+        #titan-engine-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
 
-@keyframes float {
-    0% { transform: translateY(0) scale(1); }
-    100% { transform: translateY(-120vh) scale(0.5); }
-}
+        .language-hub { position: fixed; top: 15px; left: 15px; z-index: 1000; display: flex; gap: 8px; }
+        .lang-btn {
+            background: rgba(0, 40, 20, 0.9); border: 1px solid var(--glow-green);
+            color: var(--glow-green); padding: 6px 12px; border-radius: 20px;
+            cursor: pointer; font-weight: 900; transition: 0.3s; font-size: 0.75rem;
+        }
+        .lang-btn.active { background: var(--saudi-green); color: #fff; box-shadow: 0 0 15px var(--glow-green); }
 
-/* -----------------------------------------------------------
-   🟩 3) الحاوية الرئيسية + تأثير Glassmorphism
------------------------------------------------------------ */
-.container {
-    position: relative;
-    z-index: 2;
-    width: 90%;
-    max-width: 900px;
-    margin: 60px auto;
-    padding: 30px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 25px rgba(0, 255, 100, 0.1);
-    transition: 0.4s;
-}
+        .app-container {
+            position: relative; z-index: 100; width: 90%; max-width: 440px;
+            background: var(--glass-bg); backdrop-filter: blur(50px);
+            border: 1px solid var(--glass-border); border-top: 6px solid var(--saudi-green);
+            border-radius: 30px; padding: 30px 20px; text-align: center;
+            box-shadow: 0 60px 120px rgba(0,0,0,0.8); max-height: 85vh; 
+            overflow-y: auto;
+            /* إخفاء شريط التمرير */
+            -ms-overflow-style: none; scrollbar-width: none;
+        }
+        .app-container::-webkit-scrollbar { display: none; }
 
-/* -----------------------------------------------------------
-   🟩 4) الأزرار + تأثيرات النجاح والفشل
------------------------------------------------------------ */
-button {
-    width: 100%;
-    padding: 15px;
-    margin: 10px 0;
-    background: var(--saudi-green);
-    border: none;
-    border-radius: 12px;
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-    transition: 0.3s;
-}
+        .main-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 12px; text-shadow: 0 0 15px var(--glow-green); }
+        .description-text { font-size: 0.9rem; line-height: 1.5; color: #bbb; margin-bottom: 25px; }
 
-button:hover {
-    background: #00994a;
-}
+        .btn-epic {
+            position: relative; width: 100%; padding: 15px; margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--saudi-green), var(--deep-green));
+            border: 1px solid var(--glow-green); border-radius: 15px;
+            color: #ffffff; font-size: 0.95rem; font-weight: 800; cursor: pointer; 
+            transition: 0.4s; overflow: hidden;
+        }
+        .btn-epic::after {
+            content: ""; position: absolute; top: -50%; left: -150%;
+            width: 40%; height: 200%; background: rgba(255, 255, 255, 0.6);
+            transform: rotate(35deg); transition: 0s; filter: blur(5px);
+        }
+        .btn-epic:hover::after { left: 150%; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-epic:hover { transform: scale(1.02); background: var(--light-green); border-color: #fff; }
 
-.shake {
-    animation: shake 0.4s;
-}
+        .lore-box {
+            background: rgba(0, 0, 0, 0.5); border-radius: 20px; padding: 25px;
+            margin: 15px 0; text-align: justify; line-height: 1.9; font-size: 0.95rem;
+            color: #f0f0f0; border-right: 8px solid var(--saudi-green);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.5); white-space: pre-line;
+        }
+        [dir="ltr"] .lore-box { border-right: 0; border-left: 8px solid var(--saudi-green); }
 
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    50% { transform: translateX(8px); }
-    75% { transform: translateX(-8px); }
-    100% { transform: translateX(0); }
-}
-
-.glow {
-    animation: glow 1s ease-out;
-}
-
-@keyframes glow {
-    0% { box-shadow: 0 0 0px var(--success); }
-    100% { box-shadow: 0 0 25px var(--success); }
-}
-
-/* -----------------------------------------------------------
-   🟩 5) الأرشيف العائم (Bio Cards)
------------------------------------------------------------ */
-.archive-card {
-    position: fixed;
-    top: 50%;
-    right: -400px;
-    transform: translateY(-50%);
-    width: 350px;
-    padding: 20px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    transition: 0.5s;
-    z-index: 10;
-}
-
-.archive-card.show {
-    right: 20px;
-}
-
-.archive-card h3 {
-    color: var(--royal-gold);
-}
-
-/* -----------------------------------------------------------
-   🟩 6) زر تغيير اللغة
------------------------------------------------------------ */
-.lang-switch {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: var(--royal-gold);
-    color: black;
-    padding: 10px 15px;
-    border-radius: 10px;
-    cursor: pointer;
-    z-index: 20;
-    font-weight: bold;
-}
-</style>
+        .back-nav { display: inline-block; margin-top: 15px; color: var(--glow-green); cursor: pointer; font-weight: 800; font-size: 0.85rem; }
+    </style>
 </head>
-
 <body>
 
-<!-- -----------------------------------------------------------
-     🟩 Particles Background
------------------------------------------------------------ -->
-<div class="particles" id="particles"></div>
+    <canvas id="titan-engine-canvas"></canvas>
 
-<!-- -----------------------------------------------------------
-     🟩 زر تغيير اللغة
------------------------------------------------------------ -->
-<div class="lang-switch" onclick="toggleLanguage()">EN</div>
+    <div class="language-hub">
+        <div id="btn-ar" class="lang-btn active" onclick="setGlobalLang('ar')">AR</div>
+        <div id="btn-en" class="lang-btn" onclick="setGlobalLang('en')">EN</div>
+    </div>
 
-<!-- -----------------------------------------------------------
-     🟩 الأرشيف العائم
------------------------------------------------------------ -->
-<div class="archive-card" id="archiveCard">
-    <h3 id="archiveName"></h3>
-    <p id="archiveText"></p>
-</div>
+    <div class="app-container" id="app-scroller">
+        <div id="screen-gate" class="screen active">
+            <h1 class="main-title" id="t-gate-h">ملاحم التأسيس</h1>
+            <p class="description-text" id="t-gate-d">واجه مصيرك في تاريخ المجد السعودي.</p>
+            <button class="btn-epic" id="t-btn-start" onclick="navigateTo('screen-selection')">ابدأ الرحلة</button>
+            <button class="btn-epic" id="t-btn-archive" onclick="navigateTo('screen-archive')">الأرشيف</button>
+        </div>
 
-<!-- -----------------------------------------------------------
-     🟩 الحاوية الرئيسية
------------------------------------------------------------ -->
-<div class="container" id="app"></div>
+        <div id="screen-selection" class="screen">
+            <h1 class="main-title" id="t-select-h">اختر القائد</h1>
+            <div id="hero-injection-point"></div>
+            <a class="back-nav" id="t-back-main" onclick="navigateTo('screen-gate')">رجوع</a>
+        </div>
 
-<script>
-/* -----------------------------------------------------------
-   🟩 1) إنشاء Particles عشوائية
------------------------------------------------------------ */
-for (let i = 0; i < 60; i++) {
-    const p = document.createElement("span");
-    p.style.left = Math.random() * 100 + "%";
-    p.style.animationDelay = Math.random() * 10 + "s";
-    p.style.animationDuration = 8 + Math.random() * 10 + "s";
-    document.getElementById("particles").appendChild(p);
-}
+        <div id="screen-scenarios" class="screen">
+            <h1 class="main-title" id="t-scen-h">اختر الموقف</h1>
+            <div id="scenario-injection-point"></div>
+            <a class="back-nav" id="t-back-hero" onclick="navigateTo('screen-selection')">تغيير القائد</a>
+        </div>
 
-/* -----------------------------------------------------------
-   🟩 2) إدارة اللغة (عربي / إنجليزي)
------------------------------------------------------------ */
-let currentLang = "ar";
+        <div id="screen-quest" class="screen">
+            <h1 id="quest-title-header" style="color: var(--glow-green); font-size: 1.3rem; margin-bottom: 15px;"></h1>
+            <div id="quest-content-box" class="lore-box"></div>
+            <div id="quest-actions-container"></div>
+            <a class="back-nav" id="t-back-scen" onclick="navigateTo('screen-scenarios')">تراجع</a>
+        </div>
 
-function toggleLanguage() {
-    currentLang = currentLang === "ar" ? "en" : "ar";
-    document.documentElement.lang = currentLang;
-    document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
-    document.querySelector(".lang-switch").textContent = currentLang === "ar" ? "EN" : "AR";
-    renderHome();
-}
+        <div id="screen-result" class="screen">
+            <h1 class="main-title" id="t-res-h">حكم التاريخ</h1>
+            <div id="result-text-box" class="lore-box"></div>
+            <button class="btn-epic" id="t-btn-retry" onclick="navigateTo('screen-scenarios')">مسار آخر</button>
+            <a class="back-nav" id="t-back-home" onclick="navigateTo('screen-gate')">الرئيسية</a>
+        </div>
 
-/* -----------------------------------------------------------
-   🟩 3) قاعدة بيانات القادة + السيناريوهات + الأرشيف
------------------------------------------------------------ */
-const leaders = {
-    "mohammed": {
-        name_ar: "الإمام محمد بن سعود",
-        name_en: "Imam Mohammed bin Saud",
-        archive_ar: `
-نشأ الإمام محمد بن سعود في بيئة تتسم بالصلابة والقيادة، 
-وكانت الدرعية في عهده نواة حلم أكبر من حدود المكان. 
-امتلك رؤية سياسية واضحة، وإرادة لا تلين، وقدرة على جمع الناس حول مشروع دولة 
-تقوم على الاستقرار والعدل والنهضة.
-        `,
-        archive_en: `
-Imam Mohammed bin Saud grew up in an environment of leadership and resilience. 
-Under his rule, Diriyah became the nucleus of a vision far greater than its borders. 
-He possessed political clarity, unshakable will, and the ability to unite people 
-around a state built on justice, stability, and progress.
-        `,
-        scenarios: [
-            {
-                title_ar: "التحالف التاريخي",
-                story_ar: `
-في ليلة هادئة من ليالي الدرعية، وقف الإمام محمد بن سعود أمام مفترق طرق. 
-كانت الدعوة الإصلاحية قد وصلت إليه، ومعها فرصة لتغيير مسار الجزيرة العربية. 
-لكن التحالف يعني مسؤولية ضخمة، وقد يجر معه خصومات قبل أن يجلب الاستقرار.
-                `,
-                options_ar: [
-                    { text: "إبرام التحالف فوراً", correct: true, result: "يبدأ عهد جديد من الوحدة والاستقرار." },
-                    { text: "التردد وانتظار الظروف", correct: false, result: "تضيع الفرصة التاريخية ويزداد نفوذ الخصوم." }
-                ]
+        <div id="screen-archive" class="screen">
+            <h1 class="main-title" id="t-arch-h">سجل الخالدين</h1>
+            <div id="arch-injection-point"></div>
+            <a class="back-nav" id="t-back-arch" onclick="navigateTo('screen-gate')">الرجوع</a>
+        </div>
+
+        <div id="screen-biography" class="screen">
+            <h1 id="bio-hero-name" class="main-title"></h1>
+            <div id="bio-content-box" class="lore-box" style="font-size: 0.9rem;"></div>
+            <a class="back-nav" id="t-back-bio" onclick="navigateTo('screen-archive')">العودة للسجل</a>
+        </div>
+    </div>
+
+    <script>
+        const EPIC_DATA = {
+            m_saud: {
+                ar: {
+                    name: "الإمام محمد بن سعود",
+                    scenarios: [
+                        {
+                            title: "ميثاق الدرعية التاريخي (1744م)",
+                            story: "عام 1157هـ، الجزيرة العربية تعيش في شتات سياسي وحروب قبلية منهكة. يصل الشيخ محمد بن عبدالوهاب إلى الدرعية باحثاً عن أرض تنطلق منها دعوة الإصلاح. العالم يراقب، والمخاطر الإقليمية تحيط بك من كل جانب. هل تعقد ميثاقاً تاريخياً يؤسس لدولة قائمة على التوحيد والعدل، أم تفضل السلامة والبقاء كحاكم محلي لمدينة مستقرة؟",
+                            decisions: [
+                                { l: "عقد الميثاق ونصرة الدولة", f: "✅ 'أبشر ببلاد خير من بلادك، وأبشر بالعزة والمنعة'. بهذا القرار الشجاع، ولدت الدولة السعودية الأولى وتحولت الدرعية إلى عاصمة إقليمية مهابة الجانب." },
+                                { l: "تأمين الشيخ دون تحالف سياسي", f: "⚠️ حصل الشيخ على الأمان، لكن غابت القوة السياسية الموحدة التي كانت ستحمي الدعوة وتوحد القبائل المتناحرة في نجد." },
+                                { l: "رفض الاستقبال خوفاً من الضغوط", f: "❌ ضاعت فرصة التأسيس التاريخية وانطوت الدرعية كإمارة محلية صغيرة، وتأخر مشروع وحدة الوطن لسنوات طويلة." }
+                            ]
+                        },
+                        {
+                            title: "بناء أسوار الدرعية والدفاع",
+                            story: "تزايدت التهديدات من القوى المحيطة التي رأت في نمو الدرعية خطراً عليها. القوات الغازية تقترب من الحدود. الشعب ينظر إليك بانتظار استراتيجية الدفاع. هل تبدأ فوراً في حشد الموارد لبناء سور دفاعي عظيم يحيط بالمدينة، أم تعتمد على سرعة المناورة في الصحراء المفتوحة، أم تطلب التفاوض لتجنب الصدام؟",
+                            decisions: [
+                                { l: "بناء سور الدرعية العظيم", f: "✅ بفضل السور وصمود الشعب، تحطمت أحلام الغزاة عند أسوار الدرعية، وبقيت الدولة قوية ومستقلة." },
+                                { l: "الاعتماد على حرب المناورة", f: "⚠️ حققت انتصارات صغيرة، لكن غياب التحصينات جعل العاصمة عرضة للاختراق في أوقات الضعف." },
+                                { l: "طلب الصلح والتفاوض", f: "❌ اعتبر الغزاة طلبك ضعفاً، فزادت الضغوط والضرائب وفقدت الدولة جزءاً كبيراً من سيادتها واستقلالها." }
+                            ]
+                        }
+                    ],
+                    biography: "الإمام محمد بن سعود بن محمد بن مقرن (توفي 1765م).\n\nيُعد المؤسس الأول للدولة السعودية الأولى وباني نهضتها السياسية..."
+                },
+                en: { name: "Imam Muhammad bin Saud", scenarios: [], biography: "..." }
             },
-            {
-                title_ar: "تأمين الدرعية",
-                story_ar: `
-كانت الدرعية محاطة بقبائل متنافسة، وكل خطوة خاطئة قد تشعل حرباً. 
-جلس الإمام يفكر: هل يبدأ بتقوية التحصينات أم يركز على بناء التحالفات؟
-                `,
-                options_ar: [
-                    { text: "تعزيز التحصينات أولاً", correct: true, result: "تصبح الدرعية حصناً منيعاً." },
-                    { text: "إهمال الدفاع والتركيز على السياسة", correct: false, result: "تتعرض الدرعية لهجمات مفاجئة." }
-                ]
+            i_turki: {
+                ar: {
+                    name: "الإمام تركي بن عبد الله",
+                    scenarios: [
+                        {
+                            title: "ملحمة استعادة الرياض (1824م)",
+                            story: "بعد سقوط الدرعية، ساد ظلام الاحتلال والشتات. بقيت في نجد تقود المقاومة ومعك سيفك 'الأجرب'. الرياض تحت قبضة الحاميات الأجنبية. هل تباغت الحصن بـ 40 رجلاً فقط في ليلة مظلمة لاستعادة ملك آبائك، أم تنتظر سنوات لجمع جيش ضخم؟",
+                            decisions: [
+                                { l: "قيادة هجوم فدائي مباغت", f: "✅ نصر من الله! استعدت الرياض وأعلنت قيام الدولة السعودية الثانية، لتثبت أن الإرادة السعودية لا تنكسر." },
+                                { l: "الانتظار لجمع جيش ضخم", f: "⚠️ استغرق الأمر سنوات إضافية من المعاناة تحت الاحتلال، وعزز العدو حصونه مما جعل التحرير أصعب." },
+                                { l: "الانسحاب إلى المناطق البعيدة", f: "❌ ضاعت هيبة المقاومة وتفرقت القبائل، وظل الحلم السعودي غائباً لعقود طويلة." }
+                            ]
+                        }
+                    ],
+                    biography: "الإمام تركي بن عبد الله بن محمد بن سعود (1755-1834م)..."
+                },
+                en: { name: "Imam Turki bin Abdullah", scenarios: [], biography: "..." }
+            },
+            k_aziz: {
+                ar: {
+                    name: "الملك عبد العزيز",
+                    scenarios: [
+                        {
+                            title: "فتح المصمك التاريخي (1902م)",
+                            story: "ليلة 5 شوال 1319هـ. أنت الشاب عبد العزيز، تقف عند أسوار الرياض بـ 63 رجلاً لاستعادة ملك الأجداد. الحصن منيع، والحاكم عجلان يخرج كل فجر بجموعه. هل تباغته عند البوابة في مواجهة مباشرة قد تغير وجه التاريخ، أم تنسحب وتعود للكويت بانتظار دعم خارجي؟",
+                            decisions: [
+                                { l: "اقتحام المصمك عند الفجر", f: "✅ 'الملك لله ثم لعبد العزيز!' سقط المصمك، وبدأت أعظم ملحمة توحيد وبناء في العصر الحديث." },
+                                { l: "حصار الحصن من الخارج", f: "⚠️ فشلت المفاجأة ووصلت تعزيزات للعدو أجهضت المحاولة في مهدها." },
+                                { l: "الانسحاب لطلب الدعم", f: "❌ ضاعت فرصة المباغتة الذهبية، وظلت الرياض بعيدة المنال لسنوات أخرى." }
+                            ]
+                        }
+                    ],
+                    biography: "الملك عبد العزيز بن عبد الرحمن آل سعود (1876-1953م)..."
+                },
+                en: { name: "King Abdulaziz", scenarios: [], biography: "..." }
             }
-        ]
-    },
+        };
 
-    /* -----------------------------------------------------------
-       🟩 الإمام تركي بن عبدالله
------------------------------------------------------------ */
-    "turki": {
-        name_ar: "الإمام تركي بن عبدالله",
-        name_en: "Imam Turki bin Abdullah",
-        archive_ar: `
-كان الإمام تركي بن عبدالله قائداً فذاً أعاد الأمل بعد سنوات من التشتت. 
-امتاز بالشجاعة والدهاء العسكري، واستطاع أن يعيد الرياض إلى الحكم السعودي 
-بخطط محكمة وروح لا تعرف الهزيمة.
-        `,
-        archive_en: `
-Imam Turki bin Abdullah was a remarkable leader who restored hope after years of fragmentation. 
-He reclaimed Riyadh with strategic brilliance and unmatched courage.
-        `,
-        scenarios: [
-            {
-                title_ar: "استعادة الرياض",
-                story_ar: `
-بعد سنوات من الغياب، عاد الإمام تركي إلى الرياض متخفياً. 
-كانت المدينة تحت سيطرة خصوم شرسين، وأي خطأ يعني نهاية المحاولة. 
-وقف أمام خيارين مصيريين.
-                `,
-                options_ar: [
-                    { text: "الهجوم الليلي المباغت", correct: true, result: "تسقط الرياض سريعاً بفضل عنصر المفاجأة." },
-                    { text: "التفاوض مع الخصوم", correct: false, result: "يستغل الخصوم الوقت ويقلبون الموازين." }
-                ]
+        const LOCALIZATION = {
+            ar: { 
+                g_h: "ملاحم التأسيس", g_d: "واجه مصيرك في تاريخ المجد السعودي.", s_h: "اختر القائد", sc_h: "اختر الموقف", r_h: "حكم التاريخ", a_h: "سجل الخالدين", 
+                start_btn: "ابدأ الرحلة", arch_btn: "الأرشيف", dir: "rtl" 
+            },
+            en: { 
+                g_h: "Founding Epics", g_d: "Face your destiny in the history of Saudi glory.", s_h: "Select Leader", sc_h: "Select Scenario", r_h: "Verdict", a_h: "Archive", 
+                start_btn: "Start Journey", arch_btn: "Archive", dir: "ltr" 
             }
-        ]
-    },
+        };
 
-    /* -----------------------------------------------------------
-       🟩 الملك عبدالعزيز
------------------------------------------------------------ */
-    "abdulaziz": {
-        name_ar: "الملك عبدالعزيز",
-        name_en: "King Abdulaziz",
-        archive_ar: `
-كان الملك عبدالعزيز قائداً استثنائياً جمع بين الحكمة والقوة. 
-قاد رحلة توحيد شاقة، واجه فيها الصحراء والخصوم والظروف القاسية، 
-حتى أسس دولة حديثة تقوم على الأمن والعدل والتنمية.
-        `,
-        archive_en: `
-King Abdulaziz was an extraordinary leader who united the Arabian Peninsula 
-through wisdom, strength, and strategic brilliance.
-        `,
-        scenarios: [
-            {
-                title_ar: "فتح الرياض",
-                story_ar: `
-في فجر يوم حاسم، وقف الملك عبدالعزيز أمام أسوار الرياض. 
-كانت لحظة لا تشبه أي لحظة أخرى: إما استعادة المجد، أو خسارة كل شيء. 
-الرجال ينتظرون إشارته.
-                `,
-                options_ar: [
-                    { text: "اقتحام القصر عبر البوابة الرئيسية", correct: false, result: "يُكشف الهجوم ويفشل المخطط." },
-                    { text: "التسلل عبر البساتين", correct: true, result: "يصل الرجال إلى الداخل دون أن يشعر بهم أحد." }
-                ]
-            }
-        ]
-    }
-};
+        let currentLanguage = 'ar';
+        let selectedHeroKey = null;
 
-/* -----------------------------------------------------------
-   🟩 4) إدارة الحالة + واجهة المستخدم
------------------------------------------------------------ */
-function renderHome() {
-    const app = document.getElementById("app");
-    app.innerHTML = "";
+        function setGlobalLang(l) {
+            currentLanguage = l;
+            const t = LOCALIZATION[l];
+            document.documentElement.lang = l;
+            document.documentElement.dir = t.dir;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + l).classList.add('active');
 
-    const title = currentLang === "ar" ? "اختر قائدك" : "Choose Your Leader";
+            document.getElementById('t-gate-h').innerText = t.g_h;
+            document.getElementById('t-gate-d').innerText = t.g_d;
+            document.getElementById('t-btn-start').innerText = t.start_btn;
+            document.getElementById('t-btn-archive').innerText = t.arch_btn;
+            document.getElementById('t-select-h').innerText = t.s_h;
+            document.getElementById('t-scen-h').innerText = t.sc_h;
+            document.getElementById('t-res-h').innerText = t.r_h;
+            document.getElementById('t-arch-h').innerText = t.a_h;
 
-    app.innerHTML = `<h1 style="color:var(--royal-gold); text-align:center">${title}</h1>`;
+            rebuildInteractiveGrids();
+        }
 
-    Object.keys(leaders).forEach(id => {
-        const leader = leaders[id];
-        const name = currentLang === "ar" ? leader.name_ar : leader.name_en;
+        function navigateTo(screenId) {
+            const allScreens = document.querySelectorAll('.screen');
+            allScreens.forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
+            const target = document.getElementById(screenId);
+            target.style.display = 'block';
+            setTimeout(() => { target.classList.add('active'); }, 10);
+            document.getElementById('app-scroller').scrollTop = 0;
+        }
 
-        const btn = document.createElement("button");
-        btn.textContent = name;
-        btn.onclick = () => renderLeader(id);
-        app.appendChild(btn);
-    });
-}
+        function rebuildInteractiveGrids() {
+            const hPoint = document.getElementById('hero-injection-point');
+            const aPoint = document.getElementById('arch-injection-point');
+            hPoint.innerHTML = ''; aPoint.innerHTML = '';
 
-function renderLeader(id) {
-    const leader = leaders[id];
-    const app = document.getElementById("app");
+            Object.keys(EPIC_DATA).forEach(key => {
+                const hBtn = document.createElement('button');
+                hBtn.className = 'btn-epic';
+                hBtn.innerText = EPIC_DATA[key][currentLanguage].name;
+                hBtn.onclick = () => showScenarios(key);
+                hPoint.appendChild(hBtn);
 
-    const title = currentLang === "ar" ? "السيناريوهات" : "Scenarios";
+                const aBtn = document.createElement('button');
+                aBtn.className = 'btn-epic';
+                aBtn.innerText = EPIC_DATA[key][currentLanguage].name;
+                aBtn.onclick = () => {
+                    document.getElementById('bio-hero-name').innerText = EPIC_DATA[key][currentLanguage].name;
+                    document.getElementById('bio-content-box').innerText = EPIC_DATA[key][currentLanguage].biography;
+                    navigateTo('screen-biography');
+                };
+                aPoint.appendChild(aBtn);
+            });
+        }
 
-    app.innerHTML = `
-        <h2 style="color:var(--royal-gold)">${currentLang === "ar" ? leader.name_ar : leader.name_en}</h2>
-        <button onclick="showArchive('${id}')">${currentLang === "ar" ? "عرض السيرة" : "Show Archive"}</button>
-        <h3>${title}</h3>
-    `;
+        function showScenarios(heroKey) {
+            selectedHeroKey = heroKey;
+            const sPoint = document.getElementById('scenario-injection-point');
+            sPoint.innerHTML = '';
+            EPIC_DATA[heroKey][currentLanguage].scenarios.forEach((sc, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-epic';
+                btn.innerText = sc.title;
+                btn.onclick = () => loadQuest(index);
+                sPoint.appendChild(btn);
+            });
+            navigateTo('screen-scenarios');
+        }
 
-    leader.scenarios.forEach((sc, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = currentLang === "ar" ? sc.title_ar : sc.title_en || sc.title_ar;
-        btn.onclick = () => renderScenario(id, index);
-        app.appendChild(btn);
-    });
-}
+        function loadQuest(scIndex) {
+            const sc = EPIC_DATA[selectedHeroKey][currentLanguage].scenarios[scIndex];
+            document.getElementById('quest-title-header').innerText = sc.title;
+            document.getElementById('quest-content-box').innerText = sc.story;
+            const aContainer = document.getElementById('quest-actions-container');
+            aContainer.innerHTML = '';
+            sc.decisions.forEach(dec => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-epic';
+                btn.innerText = dec.l;
+                btn.onclick = () => {
+                    document.getElementById('result-text-box').innerText = dec.f;
+                    navigateTo('screen-result');
+                };
+                aContainer.appendChild(btn);
+            });
+            navigateTo('screen-quest');
+        }
 
-function renderScenario(id, index) {
-    const sc = leaders[id].scenarios[index];
-    const app = document.getElementById("app");
-
-    app.innerHTML = `
-        <h2 style="color:var(--royal-gold)">${currentLang === "ar" ? sc.title_ar : sc.title_en || sc.title_ar}</h2>
-        <p>${currentLang === "ar" ? sc.story_ar : sc.story_en || sc.story_ar}</p>
-    `;
-
-    sc.options_ar.forEach(opt => {
-        const btn = document.createElement("button");
-        btn.textContent = currentLang === "ar" ? opt.text : opt.text_en || opt.text;
-        btn.onclick = () => handleOption(btn, opt);
-        app.appendChild(btn);
-    });
-}
-
-function handleOption(btn, opt) {
-    if (opt.correct) {
-        btn.classList.add("glow");
-        alert(opt.result);
-    } else {
-        btn.classList.add("shake");
-        alert(opt.result);
-    }
-}
-
-/* -----------------------------------------------------------
-   🟩 5) عرض الأرشيف العائم
------------------------------------------------------------ */
-function showArchive(id) {
-    const card = document.getElementById("archiveCard");
-    const leader = leaders[id];
-
-    document.getElementById("archiveName").textContent =
-        currentLang === "ar" ? leader.name_ar : leader.name_en;
-
-    document.getElementById("archiveText").textContent =
-        currentLang === "ar" ? leader.archive_ar : leader.archive_en;
-
-    card.classList.add("show");
-
-    setTimeout(() => card.classList.remove("show"), 12000);
-}
-
-/* -----------------------------------------------------------
-   🟩 6) تشغيل الصفحة
------------------------------------------------------------ */
-renderHome();
-</script>
-
+        const canvas = document.getElementById('titan-engine-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        class P {
+            constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.s = Math.random()*2; this.vx = (Math.random()-0.5)*0.2; this.vy = (Math.random()-0.5)*0.2; }
+            u() { this.x+=this.vx; this.y+=this.vy; if(this.x>canvas.width||this.x<0)this.vx*=-1; if(this.y>canvas.height||this.y<0)this.vy*=-1; }
+            d() { ctx.beginPath(); ctx.arc(this.x,this.y,this.s,0,Math.PI*2); ctx.fillStyle='#22C55E'; ctx.globalAlpha=0.15; ctx.fill(); }
+        }
+        function init() { canvas.width=window.innerWidth; canvas.height=window.innerHeight; particles=[]; for(let i=0;i<150;i++) particles.push(new P()); }
+        function loop() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.u();p.d();}); requestAnimationFrame(loop); }
+        window.onresize=init; init(); loop(); setGlobalLang('ar');
+    </script>
 </body>
 </html>
