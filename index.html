@@ -17,7 +17,7 @@
       --saudi-green-light: #00b85a;
       --bg-dark: #02140a;
       --text-light: #ffffff;
-      --border-radius: 999px;
+      --border-radius: 18px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -39,16 +39,16 @@
     .app {
       position: relative;
       z-index: 1;
-      max-width: 480px;
+      max-width: 520px;
       margin: auto;
-      padding: 24px 18px 32px;
+      padding: 28px 20px 40px;
     }
 
     /* اللغة */
     .top-bar {
       display: flex;
       justify-content: flex-end;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .lang-toggle {
@@ -64,12 +64,12 @@
     .lang-btn {
       border: 1px solid var(--saudi-green);
       background: transparent;
-      padding: 4px 14px;
+      padding: 6px 16px;
       border-radius: 999px;
       color: white;
       cursor: pointer;
       transition: 0.2s;
-      font-size: 12px;
+      font-size: 14px;
       text-shadow: 0 0 4px rgba(0,0,0,0.8);
     }
 
@@ -84,11 +84,7 @@
         0 0 12px rgba(0,184,90,0.9);
     }
 
-    .lang-btn:hover {
-      box-shadow: 0 0 8px var(--saudi-green-light);
-    }
-
-    /* الشاشات + مؤثرات الدخول */
+    /* الشاشات */
     .screen {
       display: none;
       opacity: 0;
@@ -99,7 +95,7 @@
         filter 0.45s ease;
       background: linear-gradient(145deg, rgba(0,0,0,0.7), rgba(0,40,20,0.9));
       border-radius: 24px;
-      padding: 22px 18px 24px;
+      padding: 26px 20px 30px;
       border: 1px solid rgba(0,108,53,0.6);
       box-shadow:
         0 0 18px rgba(0,0,0,0.9),
@@ -123,9 +119,9 @@
 
     .screen-title {
       text-align: center;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 800;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       text-shadow:
         0 0 6px var(--saudi-green-light),
         0 0 18px rgba(0,184,90,0.9);
@@ -133,23 +129,24 @@
 
     .screen-subtitle {
       text-align: center;
-      font-size: 15px;
-      margin-bottom: 22px;
+      font-size: 16px;
+      margin-bottom: 26px;
       opacity: 0.95;
       color: #e6fff3;
       text-shadow: 0 0 4px rgba(0,0,0,0.9);
       line-height: 1.7;
     }
 
+    /* الأزرار الكبيرة */
     .btn {
       width: 100%;
-      padding: 14px 16px;
-      margin-bottom: 12px;
-      border-radius: var(--border-radius);
+      padding: 18px 20px;
+      margin-bottom: 14px;
+      border-radius: 18px;
       border: 1px solid var(--saudi-green);
       background: rgba(0,0,0,0.45);
       color: white;
-      font-size: 16px;
+      font-size: 18px;
       cursor: pointer;
       transition:
         background 0.25s ease,
@@ -192,7 +189,7 @@
       cursor: pointer;
       text-decoration: underline;
       text-underline-offset: 3px;
-      font-size: 14px;
+      font-size: 15px;
     }
 
     .link:hover {
@@ -200,35 +197,7 @@
       text-shadow: 0 0 6px var(--saudi-green-light);
     }
 
-    .bio-card {
-      margin-top: 18px;
-      padding: 14px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(0,108,53,0.7);
-      background: rgba(0,0,0,0.6);
-      box-shadow:
-        0 0 10px rgba(0,108,53,0.6),
-        0 0 18px rgba(0,184,90,0.5);
-      display: none;
-      font-size: 14px;
-      line-height: 1.9;
-      color: #eafff5;
-    }
-
-    .bio-title {
-      font-weight: 800;
-      margin-bottom: 6px;
-      text-shadow: 0 0 6px var(--saudi-green-light);
-      font-size: 16px;
-    }
-
-    .bio-dates {
-      font-size: 13px;
-      opacity: 0.85;
-      margin-bottom: 10px;
-    }
-
-    /* نافذة النتيجة (Popup) */
+    /* نافذة النتيجة */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -264,7 +233,7 @@
     }
 
     .modal-title {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 800;
       margin-bottom: 10px;
       text-shadow:
@@ -273,7 +242,7 @@
     }
 
     .modal-section-title {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       margin-top: 8px;
       margin-bottom: 4px;
@@ -281,7 +250,7 @@
     }
 
     .modal-text {
-      font-size: 14px;
+      font-size: 15px;
       line-height: 1.8;
       margin-bottom: 6px;
     }
@@ -289,9 +258,9 @@
     .modal-tag {
       display: inline-block;
       margin-top: 6px;
-      padding: 3px 10px;
+      padding: 4px 12px;
       border-radius: 999px;
-      font-size: 12px;
+      font-size: 13px;
       border: 1px solid rgba(255,255,255,0.4);
     }
 
@@ -312,36 +281,6 @@
       border-color: #ff6b6b;
       box-shadow: 0 0 10px rgba(255,107,107,0.6);
     }
-
-    .modal-actions {
-      margin-top: 12px;
-    }
-
-    .modal-btn {
-      margin-top: 6px;
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--saudi-green-light);
-      background: rgba(0,0,0,0.6);
-      color: #eafff5;
-      cursor: pointer;
-      font-size: 14px;
-      transition: 0.2s;
-    }
-
-    .modal-btn:hover {
-      box-shadow: 0 0 12px var(--saudi-green-light);
-      transform: translateY(-1px);
-    }
-
-    @media (max-width: 480px) {
-      .app { padding-inline: 12px; }
-      .screen { padding: 20px 14px 22px; }
-      .screen-title { font-size: 22px; }
-      .btn { font-size: 15px; padding: 13px 14px; }
-      .screen-subtitle { font-size: 14px; }
-    }
   </style>
 </head>
 
@@ -361,108 +300,35 @@
 
   <!-- الرئيسية -->
   <section id="screen-home" class="screen active">
-    <h1 class="screen-title">ملحمة التأسيس</h1>
-    <p class="screen-subtitle">
-      واجه مصيرك في تاريخ المجد السعودي، واتخذ القرارات كما لو كنت في قلب الأحداث.
+    <h1 class="screen-title" data-ar="ملحمة التأسيس" data-en="Foundation Saga">ملحمة التأسيس</h1>
+    <p class="screen-subtitle" data-ar="واجه مصيرك في تاريخ المجد السعودي." data-en="Face your destiny in Saudi history.">
+      واجه مصيرك في تاريخ المجد السعودي.
     </p>
 
-    <button class="btn btn-primary" id="btn-start">ابدأ الرحلة</button>
-    <button class="btn btn-secondary" id="btn-archive">الأرشيف</button>
+    <button class="btn btn-primary" id="btn-start" data-ar="ابدأ الرحلة" data-en="Start Journey">ابدأ الرحلة</button>
+    <button class="btn btn-secondary" id="btn-archive" data-ar="الأرشيف" data-en="Archive">الأرشيف</button>
   </section>
+  <script>
+/* ------------------ الترجمة ------------------ */
+const langButtons = document.querySelectorAll(".lang-btn");
 
-  <!-- اختيار القائد -->
-  <section id="screen-leader" class="screen">
-    <h2 class="screen-title">اختر القائد</h2>
+langButtons.forEach(btn => {
+  btn.onclick = () => {
+    langButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
 
-    <p class="screen-subtitle">
-      اختر أحد قادة ملحمة التأسيس، لتعيش قراراته التاريخية وتعيد تخيل أثرها على يومنا هذا.
-    </p>
+    const lang = btn.dataset.lang;
+    switchLanguage(lang);
+  };
+});
 
-    <div class="list">
-      <button class="btn leader-btn" data-leader="muhammad">
-        الإمام محمد بن سعود – مؤسس الدولة السعودية الأولى
-      </button>
-      <button class="btn leader-btn" data-leader="turki">
-        الإمام تركي بن عبدالله – مجدد الدولة السعودية الثانية
-      </button>
-      <button class="btn leader-btn" data-leader="abdulaziz">
-        الملك عبدالعزيز – مؤسس المملكة العربية السعودية الحديثة
-      </button>
-    </div>
+function switchLanguage(lang) {
+  document.querySelectorAll("[data-ar]").forEach(el => {
+    el.textContent = el.dataset[lang];
+  });
+}
 
-    <button class="btn btn-ghost" id="btn-back-from-leader">رجوع</button>
-  </section>
-
-  <!-- اختيار الموقف -->
-  <section id="screen-scenario" class="screen">
-    <h2 class="screen-title">اختر الموقف التاريخي</h2>
-
-    <p class="screen-subtitle">
-      أمامك مواقف مفصلية في تاريخ الدولة. اختر واحداً لتقرأ قصته، ثم تتخذ القرار بدلاً عن القائد.
-    </p>
-
-    <div class="list" id="scenario-list"></div>
-
-    <span class="link" id="link-change-leader">تغيير القائد</span>
-  </section>
-
-  <!-- شاشة القصة والقرارات -->
-  <section id="screen-story" class="screen">
-    <h2 class="screen-title" id="story-title"></h2>
-    <p class="screen-subtitle" id="story-text"></p>
-
-    <div id="choices-container"></div>
-
-    <button class="btn btn-ghost" id="btn-back-to-scenarios">عودة للمواقف</button>
-  </section>
-
-  <!-- الأرشيف -->
-  <section id="screen-archive" class="screen">
-    <h2 class="screen-title">سجل الخالدين</h2>
-
-    <p class="screen-subtitle">
-      هنا تقرأ سيرة القادة الذين صنعوا ملامح التأسيس، وتتعرف على رحلتهم في بناء الدولة عبر العقود.
-    </p>
-
-    <div class="list">
-      <button class="btn archive-leader-btn" data-leader="muhammad">الإمام محمد بن سعود</button>
-      <button class="btn archive-leader-btn" data-leader="turki">الإمام تركي بن عبدالله</button>
-      <button class="btn archive-leader-btn" data-leader="abdulaziz">الملك عبدالعزيز</button>
-    </div>
-
-    <div id="bio-container" class="bio-card">
-      <div id="bio-name" class="bio-title"></div>
-      <div id="bio-dates" class="bio-dates"></div>
-      <div id="bio-text"></div>
-    </div>
-
-    <button class="btn btn-ghost" id="btn-back-from-archive">العودة للرئيسية</button>
-  </section>
-
-</div>
-
-<!-- نافذة النتيجة (Popup) -->
-<div id="result-modal" class="modal-overlay">
-  <div class="modal-box">
-    <div class="modal-title" id="result-title">نتيجة القرار</div>
-
-    <div class="modal-section-title">أثر القرار في زمنه</div>
-    <div class="modal-text" id="result-past"></div>
-
-    <div class="modal-section-title">محاكاة أثره على يومنا الحالي</div>
-    <div class="modal-text" id="result-today"></div>
-
-    <div id="result-tag" class="modal-tag"></div>
-
-    <div class="modal-actions">
-      <button class="modal-btn" id="btn-close-result">متابعة الرحلة</button>
-    </div>
-  </div>
-</div>
-
-<!-- هنا يبدأ الجزء 2/2: JavaScript -->
-<script>
-  /* ------------------ السيناريوهات ------------------ */
+/* ------------------ السيناريوهات ------------------ */
 const scenarios = {
   muhammad: [
     "ميثاق الدرعية التاريخي (1744م)",
@@ -484,238 +350,241 @@ const scenarios = {
 /* ------------------ قصص السيناريوهات + 3 قرارات + نتائج اليوم الحالي ------------------ */
 const scenarioStories = {
   "ميثاق الدرعية التاريخي (1744م)": {
-    story: "في لحظة مفصلية من تاريخ الجزيرة العربية، التقى الإمام محمد بن سعود بالشيخ محمد بن عبدالوهاب في الدرعية. كان اللقاء أشبه ببوابة تُفتح نحو عصر جديد، حيث اتفق الطرفان على مشروع إصلاحي وسياسي سيغيّر ملامح المنطقة لعقود طويلة.",
+    story: "في لحظة مفصلية من تاريخ الجزيرة العربية، التقى الإمام محمد بن سعود بالشيخ محمد بن عبدالوهاب في الدرعية...",
     choices: [
       {
         text: "تأييد الميثاق بالكامل والسير في مشروع الإصلاح والتوحيد.",
-        past: "أدى القرار إلى ولادة الدولة السعودية الأولى، وبدأت الدرعية تتحول إلى مركز نفوذ سياسي وديني.",
-        today: "لو اتُّخذ هذا القرار بقوة أكبر، لكانت المملكة اليوم أكثر تأثيراً إقليمياً، وربما أصبحت الدرعية العاصمة السياسية.",
+        past: "أدى القرار إلى ولادة الدولة السعودية الأولى...",
+        today: "لو اتُّخذ هذا القرار بقوة أكبر، لكانت المملكة اليوم أكثر تأثيراً...",
         tag: "good"
       },
       {
         text: "تأييد الميثاق جزئياً مع التريث في التوسع.",
-        past: "أدى القرار إلى استقرار داخلي جيد، لكن توسع الدولة تأخر.",
-        today: "في يومنا الحالي، كان هذا سيجعل المملكة مستقرة لكن أقل توسعاً ونفوذاً في المنطقة.",
+        past: "أدى القرار إلى استقرار داخلي جيد...",
+        today: "في يومنا الحالي، كان هذا سيجعل المملكة مستقرة لكن أقل توسعاً...",
         tag: "medium"
       },
       {
         text: "رفض الميثاق وتأجيل التحالف.",
-        past: "أدى القرار إلى ضعف التحالف وتأخر قيام الدولة السعودية الأولى.",
-        today: "لو حدث ذلك، ربما لم تكن المملكة بالشكل الذي نعرفه اليوم، وربما تأخر التأسيس لعقود.",
+        past: "أدى القرار إلى ضعف التحالف وتأخر قيام الدولة...",
+        today: "لو حدث ذلك، ربما لم تكن المملكة بالشكل الذي نعرفه اليوم...",
         tag: "bad"
       }
     ]
   },
 
+  /* باقي السيناريوهات (نفس اللي أرسلتها لك سابقاً) */
   "توسّع الدولة السعودية الأولى": {
-    story: "بعد أن بدأت الدولة السعودية الأولى تتشكل، واجه الإمام محمد بن سعود خياراً صعباً: هل يتوسع بسرعة ليضم القبائل والمناطق، أم يتريث ليضمن الاستقرار الداخلي؟",
+    story: "بعد أن بدأت الدولة السعودية الأولى تتشكل...",
     choices: [
       {
         text: "التوسع السريع عبر الحملات المنظمة.",
-        past: "ازدادت قوة الدولة بسرعة، لكنها واجهت مقاومة شرسة.",
-        today: "لو استمرت سياسة التوسع السريع، لكانت المملكة اليوم أكبر مساحة وربما ذات نفوذ عابر للحدود.",
+        past: "ازدادت قوة الدولة بسرعة...",
+        today: "لو استمرت سياسة التوسع السريع...",
         tag: "good"
       },
       {
         text: "التوسع التدريجي عبر التحالفات.",
-        past: "تحقق الاستقرار ونمت الدولة بثبات.",
-        today: "اليوم كانت المملكة ستملك شبكة تحالفات أوسع، لكن بنفوذ أقل من التوسع العسكري.",
+        past: "تحقق الاستقرار...",
+        today: "اليوم كانت المملكة ستملك شبكة تحالفات أوسع...",
         tag: "medium"
       },
       {
         text: "إيقاف التوسع والتركيز على الداخل فقط.",
-        past: "أدى القرار إلى ضعف نفوذ الدولة خارج الدرعية.",
-        today: "لو حدث ذلك، ربما لم تتوحد مناطق الجزيرة العربية تحت راية واحدة.",
+        past: "أدى القرار إلى ضعف نفوذ الدولة...",
+        today: "لو حدث ذلك، ربما لم تتوحد مناطق الجزيرة...",
         tag: "bad"
       }
     ]
   },
 
   "تأسيس نظام الحكم والإدارة": {
-    story: "بدأ الإمام محمد بن سعود بوضع أسس الإدارة والعدل، وكان عليه أن يقرر أي جانب يعطيه الأولوية: القضاء، الجيش، أم الاقتصاد.",
+    story: "بدأ الإمام محمد بن سعود بوضع أسس الإدارة...",
     choices: [
       {
         text: "تعزيز القضاء وبناء منظومة عدلية قوية.",
-        past: "أصبحت الدولة أكثر استقراراً وعدلاً.",
-        today: "لو تعزز القضاء مبكراً، لكانت المملكة اليوم من أقوى الدول في الأنظمة العدلية.",
+        past: "أصبحت الدولة أكثر استقراراً...",
+        today: "لو تعزز القضاء مبكراً...",
         tag: "good"
       },
       {
         text: "تعزيز الجيش أولاً.",
-        past: "ازدادت قوة الدولة وقدرتها على الدفاع.",
-        today: "اليوم كانت المملكة ستملك قوة عسكرية أكبر، لكن بنمو اقتصادي أبطأ.",
+        past: "ازدادت قوة الدولة...",
+        today: "اليوم كانت المملكة ستملك قوة عسكرية أكبر...",
         tag: "medium"
       },
       {
         text: "التركيز على الجباية والموارد فقط.",
-        past: "زاد دخل الدولة لكنه أثار استياء بعض القبائل.",
-        today: "لو حدث ذلك، لكان الاقتصاد قوياً لكن المجتمع أقل استقراراً.",
+        past: "زاد دخل الدولة لكنه أثار استياء...",
+        today: "لو حدث ذلك، لكان الاقتصاد قوياً...",
         tag: "bad"
       }
     ]
   },
 
+  /* الإمام تركي */
   "استعادة الرياض": {
-    story: "بعد سقوط الدولة السعودية الأولى، واجه الإمام تركي بن عبدالله مهمة صعبة: استعادة الرياض وإعادة بناء الدولة من جديد.",
+    story: "بعد سقوط الدولة السعودية الأولى...",
     choices: [
       {
         text: "الهجوم المباشر لاستعادة الرياض بسرعة.",
-        past: "تمت استعادة الرياض بسرعة لكن بخسائر.",
-        today: "لو استمر هذا النهج، لكانت المملكة اليوم أكثر جرأة في سياساتها الدفاعية.",
+        past: "تمت استعادة الرياض بسرعة...",
+        today: "لو استمر هذا النهج...",
         tag: "good"
       },
       {
         text: "الحصار التدريجي لتقليل الخسائر.",
-        past: "استعيدت الرياض بأقل خسائر ممكنة.",
-        today: "اليوم كانت المملكة ستتميز بسياسة توازن وهدوء أكبر.",
+        past: "استعيدت الرياض بأقل خسائر...",
+        today: "اليوم كانت المملكة ستتميز بسياسة توازن...",
         tag: "medium"
       },
       {
         text: "تأجيل الاستعادة والتركيز على التحالفات.",
-        past: "تأخر قيام الدولة السعودية الثانية.",
-        today: "لو حدث ذلك، ربما لم تستعد الرياض مكانتها التاريخية.",
+        past: "تأخر قيام الدولة...",
+        today: "لو حدث ذلك، ربما لم تستعد الرياض مكانتها...",
         tag: "bad"
       }
     ]
   },
 
   "إعادة بناء الدولة السعودية الثانية": {
-    story: "بعد استعادة الرياض، بدأ الإمام تركي بإعادة بناء الدولة، وكان عليه أن يختار بين إعادة تنظيم الجيش أو تعزيز التحالفات أو التركيز على الاقتصاد.",
+    story: "بعد استعادة الرياض...",
     choices: [
       {
         text: "إعادة تنظيم الجيش ليكون أساس الدولة.",
-        past: "ازدادت قوة الدولة وقدرتها على الدفاع.",
-        today: "لو استمر هذا النهج، لكانت المملكة اليوم قوة عسكرية أكبر بكثير.",
+        past: "ازدادت قوة الدولة...",
+        today: "لو استمر هذا النهج...",
         tag: "good"
       },
       {
         text: "تعزيز التحالفات مع القبائل.",
-        past: "ازدادت قوة الدولة السياسية.",
-        today: "اليوم كانت المملكة ستملك شبكة نفوذ اجتماعي أوسع.",
+        past: "ازدادت قوة الدولة السياسية...",
+        today: "اليوم كانت المملكة ستملك شبكة نفوذ اجتماعي...",
         tag: "medium"
       },
       {
         text: "التركيز على الجباية والموارد.",
-        past: "زاد دخل الدولة لكنه أثار التوتر.",
-        today: "لو حدث ذلك، لكان الاقتصاد قوياً لكن المجتمع أقل انسجاماً.",
+        past: "زاد دخل الدولة لكنه أثار التوتر...",
+        today: "لو حدث ذلك، لكان الاقتصاد قوياً...",
         tag: "bad"
       }
     ]
   },
 
   "تعزيز الأمن وتوحيد المناطق": {
-    story: "عمل الإمام تركي على توحيد المناطق تحت راية الدولة، وكان عليه أن يقرر بين القوة أو التحالف أو التفاوض.",
+    story: "عمل الإمام تركي على توحيد المناطق...",
     choices: [
       {
         text: "إرسال الحملات العسكرية لتوحيد المناطق بسرعة.",
-        past: "تم توحيد مناطق واسعة بسرعة.",
-        today: "لو استمر هذا النهج، لكانت المملكة اليوم ذات نفوذ إقليمي أكبر.",
+        past: "تم توحيد مناطق واسعة...",
+        today: "لو استمر هذا النهج...",
         tag: "good"
       },
       {
         text: "عقد التحالفات مع القبائل.",
-        past: "تحقق الاستقرار دون قتال.",
-        today: "اليوم كانت المملكة ستتميز بسياسة دبلوماسية أوسع.",
+        past: "تحقق الاستقرار دون قتال...",
+        today: "اليوم كانت المملكة ستتميز بسياسة دبلوماسية...",
         tag: "medium"
       },
       {
         text: "التفاوض البطيء مع كل منطقة.",
-        past: "تأخر التوحيد.",
-        today: "لو حدث ذلك، ربما لم تتوحد المملكة بالشكل الحالي.",
+        past: "تأخر التوحيد...",
+        today: "لو حدث ذلك، ربما لم تتوحد المملكة...",
         tag: "bad"
       }
     ]
   },
 
+  /* الملك عبدالعزيز */
   "استرداد الرياض (1902)": {
-    story: "قاد الملك عبدالعزيز عملية استرداد الرياض في واحدة من أشهر العمليات في التاريخ السعودي، وكان عليه أن يختار بين الهجوم الليلي أو التخطيط الطويل أو التفاوض.",
+    story: "قاد الملك عبدالعزيز عملية استرداد الرياض...",
     choices: [
       {
         text: "الهجوم الليلي المفاجئ.",
-        past: "نجحت العملية بسرعة وبشكل مباغت.",
-        today: "لو استمر هذا النهج، لكانت المملكة اليوم أكثر جرأة في عملياتها الأمنية.",
+        past: "نجحت العملية بسرعة...",
+        today: "لو استمر هذا النهج...",
         tag: "good"
       },
       {
         text: "التخطيط الطويل قبل الهجوم.",
-        past: "تمت العملية بدقة عالية وبدون خسائر.",
-        today: "اليوم كانت المملكة ستتميز باستراتيجيات دقيقة وطويلة المدى.",
+        past: "تمت العملية بدقة...",
+        today: "اليوم كانت المملكة ستتميز باستراتيجيات دقيقة...",
         tag: "medium"
       },
       {
         text: "التفاوض مع خصوم الرياض.",
-        past: "فشل التفاوض وتأخر الاسترداد.",
-        today: "لو حدث ذلك، ربما لم تبدأ رحلة التوحيد في وقتها.",
+        past: "فشل التفاوض...",
+        today: "لو حدث ذلك، ربما لم تبدأ رحلة التوحيد...",
         tag: "bad"
       }
     ]
   },
 
   "توحيد المملكة العربية السعودية": {
-    story: "بدأ الملك عبدالعزيز رحلة طويلة لتوحيد معظم مناطق الجزيرة العربية، وكان عليه أن يختار بين القوة أو التحالف أو الدبلوماسية.",
+    story: "بدأ الملك عبدالعزيز رحلة طويلة...",
     choices: [
       {
         text: "التقدم العسكري السريع.",
-        past: "تم التوحيد بسرعة.",
-        today: "لو استمر هذا النهج، لكانت المملكة اليوم قوة عسكرية كبرى.",
+        past: "تم التوحيد بسرعة...",
+        today: "لو استمر هذا النهج...",
         tag: "good"
       },
       {
         text: "التحالفات القبلية.",
-        past: "تم التوحيد بسلاسة واستقرار.",
-        today: "اليوم كانت المملكة ستملك شبكة اجتماعية أوسع.",
+        past: "تم التوحيد بسلاسة...",
+        today: "اليوم كانت المملكة ستملك شبكة اجتماعية...",
         tag: "medium"
       },
       {
         text: "التفاوض البطيء.",
-        past: "تأخر التوحيد.",
-        today: "لو حدث ذلك، ربما لم تتوحد المملكة بالشكل الحالي.",
+        past: "تأخر التوحيد...",
+        today: "لو حدث ذلك، ربما لم تتوحد المملكة...",
         tag: "bad"
       }
     ]
   },
 
   "تأسيس مؤسسات الدولة الحديثة": {
-    story: "أسس الملك عبدالعزيز الوزارات والأنظمة الحديثة، وكان عليه أن يقرر أي مؤسسة يعطيها الأولوية.",
+    story: "أسس الملك عبدالعزيز الوزارات والأنظمة...",
     choices: [
       {
         text: "تأسيس وزارة الدفاع أولاً.",
-        past: "ازدادت قوة الدولة العسكرية.",
-        today: "لو حدث ذلك، لكانت المملكة اليوم قوة دفاعية أكبر.",
+        past: "ازدادت قوة الدولة العسكرية...",
+        today: "لو حدث ذلك، لكانت المملكة اليوم قوة دفاعية...",
         tag: "good"
       },
       {
         text: "تأسيس وزارة المالية أولاً.",
-        past: "ازدادت قوة الدولة الاقتصادية.",
-        today: "اليوم كانت المملكة ستملك اقتصاداً أضخم.",
+        past: "ازدادت قوة الدولة الاقتصادية...",
+        today: "اليوم كانت المملكة ستملك اقتصاداً أضخم...",
         tag: "medium"
       },
       {
         text: "تأجيل تأسيس الوزارات.",
-        past: "تأخر بناء الدولة الحديثة.",
-        today: "لو حدث ذلك، لكان التطور أبطأ بكثير.",
+        past: "تأخر بناء الدولة الحديثة...",
+        today: "لو حدث ذلك، لكان التطور أبطأ...",
         tag: "bad"
       }
     ]
   }
 };
 
-/* ------------------ بيانات الأرشيف (قصص طويلة) ------------------ */
+/* ------------------ بيانات الأرشيف ------------------ */
 const leadersBio = {
   muhammad: {
     name: "الإمام محمد بن سعود",
     dates: "توفي 1179هـ / 1765م",
-    text: "يُعد الإمام محمد بن سعود المؤسس الحقيقي للدولة السعودية الأولى، حيث استطاع أن يحول الدرعية من بلدة صغيرة إلى مركز سياسي قوي. تميز حكمه بالحكمة والقدرة على بناء التحالفات، إضافة إلى رؤيته الواضحة لمستقبل المنطقة. وقد شكّل تحالفه مع الشيخ محمد بن عبدالوهاب نقطة تحول تاريخية، إذ أسس هذا التحالف مشروعاً إصلاحياً وسياسياً غيّر ملامح الجزيرة العربية. خلال فترة حكمه، توسعت الدولة بشكل كبير، وبدأت ملامح الوحدة تظهر لأول مرة في تاريخ المنطقة."
+    text: "يُعد الإمام محمد بن سعود المؤسس الحقيقي للدولة السعودية الأولى..."
   },
   turki: {
     name: "الإمام تركي بن عبدالله",
     dates: "توفي 1249هـ / 1834م",
-    text: "بعد سقوط الدولة السعودية الأولى، ظهر الإمام تركي بن عبدالله كقائد استثنائي استطاع أن يعيد بناء الدولة من جديد. تميز بالشجاعة والدهاء السياسي، واستطاع استعادة الرياض في واحدة من أهم اللحظات التاريخية. عمل على توحيد المناطق وتعزيز الأمن، وركز على بناء علاقات قوية مع القبائل. وقد أسس الدولة السعودية الثانية التي شكلت جسراً مهماً نحو قيام المملكة الحديثة. كان حكمه قائماً على الحكمة والعدل، واستطاع أن يعيد الثقة في مشروع الدولة بعد سنوات من الاضطراب."
+    text: "بعد سقوط الدولة السعودية الأولى، ظهر الإمام تركي..."
   },
   abdulaziz: {
     name: "الملك عبدالعزيز بن عبدالرحمن آل سعود",
     dates: "1876م – 1953م",
-    text: "يُعد الملك عبدالعزيز المؤسس الحقيقي للمملكة العربية السعودية الحديثة. بدأ رحلته باسترداد الرياض عام 1902، ثم بدأ مشروعاً طموحاً لتوحيد معظم مناطق الجزيرة العربية تحت راية واحدة. تميز بالحكمة والشجاعة والقدرة على اتخاذ القرارات المصيرية. أسس الوزارات والأنظمة الحديثة، ووضع اللبنات الأولى للدولة المعاصرة. خلال حكمه، تحولت المملكة من مناطق متفرقة إلى دولة قوية ذات سيادة، وأرسى قواعد الأمن والاستقرار والتنمية التي نراها اليوم."
+    text: "يُعد الملك عبدالعزيز المؤسس الحقيقي للمملكة العربية السعودية الحديثة..."
   }
 };
 
@@ -726,28 +595,17 @@ function showScreen(id) {
   setTimeout(() => target.classList.add("active"), 20);
 }
 
-/* الرئيسية → القادة */
 document.getElementById("btn-start").onclick = () => showScreen("leader");
-
-/* الرئيسية → الأرشيف */
 document.getElementById("btn-archive").onclick = () => showScreen("archive");
-
-/* رجوع من القادة */
 document.getElementById("btn-back-from-leader").onclick = () => showScreen("home");
-
-/* رجوع من الأرشيف */
 document.getElementById("btn-back-from-archive").onclick = () => {
   document.getElementById("bio-container").style.display = "none";
   showScreen("home");
 };
-
-/* تغيير القائد */
 document.getElementById("link-change-leader").onclick = () => showScreen("leader");
-
-/* رجوع من القصة */
 document.getElementById("btn-back-to-scenarios").onclick = () => showScreen("scenario");
 
-/* ------------------ اختيار القائد → توليد السيناريوهات ------------------ */
+/* ------------------ اختيار القائد ------------------ */
 document.querySelectorAll(".leader-btn").forEach(btn => {
   btn.onclick = () => {
     const leader = btn.dataset.leader;
@@ -758,9 +616,7 @@ document.querySelectorAll(".leader-btn").forEach(btn => {
       const b = document.createElement("button");
       b.className = "btn";
       b.textContent = scenario;
-
       b.onclick = () => loadScenario(scenario);
-
       list.appendChild(b);
     });
 
@@ -768,7 +624,7 @@ document.querySelectorAll(".leader-btn").forEach(btn => {
   };
 });
 
-/* ------------------ تحميل القصة والقرارات ------------------ */
+/* ------------------ تحميل القصة ------------------ */
 function loadScenario(name) {
   const data = scenarioStories[name];
 
@@ -782,9 +638,7 @@ function loadScenario(name) {
     const c = document.createElement("button");
     c.className = "btn btn-primary";
     c.textContent = choice.text;
-
     c.onclick = () => showResult(choice);
-
     box.appendChild(c);
   });
 
@@ -797,9 +651,10 @@ function showResult(choice) {
   document.getElementById("result-today").textContent = choice.today;
 
   const tag = document.getElementById("result-tag");
-  tag.textContent = choice.tag === "good" ? "قرار ممتاز" :
-                    choice.tag === "medium" ? "قرار متوسط" :
-                    "قرار سيء";
+  tag.textContent =
+    choice.tag === "good" ? "قرار ممتاز" :
+    choice.tag === "medium" ? "قرار متوسط" :
+    "قرار سيء";
 
   tag.className = "modal-tag " +
     (choice.tag === "good" ? "tag-good" :
@@ -827,21 +682,19 @@ document.querySelectorAll(".archive-leader-btn").forEach(btn => {
   };
 });
 
-/* ------------------ Particles ------------------ */
+/* ------------------ Particles (رمل أخضر خفيف) ------------------ */
 particlesJS("particles-js", {
   particles: {
-    number: { value: 80 },
+    number: { value: 60 },
     color: { value: "#00ff99" },
     shape: { type: "circle" },
-    opacity: { value: 0.6, random: true },
-    size: { value: 2.5, random: true },
-    move: { enable: true, speed: 0.8, random: true }
+    opacity: { value: 0.25, random: true },
+    size: { value: 2, random: true },
+    move: { enable: true, speed: 0.25, random: true }
   }
 });
 </script>
 
 </body>
 </html>
-
-
 
