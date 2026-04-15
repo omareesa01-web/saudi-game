@@ -1,700 +1,319 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>ملحمة التأسيس</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملحمة التأسيس | النسخة المعتمدة</title>
+    
+    <style>
+        :root {
+            --saudi-green: #006C35; 
+            --light-green: #00843D;
+            --glow-green: #22C55E;
+            --deep-green: #062113;
+            --forest-black: #010a05;
+            --glass-bg: rgba(0, 30, 15, 0.96); 
+            --glass-border: rgba(34, 197, 94, 0.45);
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-  <!-- خط عربي -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
 
-  <!-- Particles.js -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+        body, html {
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center, var(--deep-green) 0%, var(--forest-black) 100%);
+            color: #ffffff; font-family: var(--font-main);
+            overflow: hidden; display: flex; justify-content: center; align-items: center;
+        }
 
-  <style>
-    :root {
-      --saudi-green: #006C35;
-      --saudi-green-light: #00b85a;
-      --bg-dark: #02140a;
-      --text-light: #ffffff;
-      --border-radius: 18px;
-    }
+        .screen { display: none; opacity: 0; transition: opacity 0.5s ease; }
+        .screen.active { display: block; opacity: 1; }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+        #titan-engine-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
 
-    body {
-      font-family: "Cairo", sans-serif;
-      background: radial-gradient(circle at top, #024d28 0, #02140a 40%, #000);
-      color: var(--text-light);
-      min-height: 100vh;
-      overflow: hidden;
-    }
+        .language-hub { position: fixed; top: 15px; left: 15px; z-index: 1000; display: flex; gap: 8px; }
+        .lang-btn {
+            background: rgba(0, 40, 20, 0.9); border: 1px solid var(--glow-green);
+            color: var(--glow-green); padding: 6px 12px; border-radius: 20px;
+            cursor: pointer; font-weight: 900; transition: 0.3s; font-size: 0.75rem;
+        }
+        .lang-btn.active { background: var(--saudi-green); color: #fff; box-shadow: 0 0 15px var(--glow-green); }
 
-    #particles-js {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-    }
+        .app-container {
+            position: relative; z-index: 100; width: 90%; max-width: 440px;
+            background: var(--glass-bg); backdrop-filter: blur(50px);
+            border: 1px solid var(--glass-border); border-top: 6px solid var(--saudi-green);
+            border-radius: 30px; padding: 30px 20px; text-align: center;
+            box-shadow: 0 60px 120px rgba(0,0,0,0.8); max-height: 85vh; 
+            overflow-y: auto;
+            /* إخفاء شريط التمرير */
+            -ms-overflow-style: none; scrollbar-width: none;
+        }
+        .app-container::-webkit-scrollbar { display: none; }
 
-    .app {
-      position: relative;
-      z-index: 1;
-      max-width: 520px;
-      margin: auto;
-      padding: 28px 20px 40px;
-    }
+        .main-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 12px; text-shadow: 0 0 15px var(--glow-green); }
+        .description-text { font-size: 0.9rem; line-height: 1.5; color: #bbb; margin-bottom: 25px; }
 
-    /* اللغة */
-    .top-bar {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 20px;
-    }
+        .btn-epic {
+            position: relative; width: 100%; padding: 15px; margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--saudi-green), var(--deep-green));
+            border: 1px solid var(--glow-green); border-radius: 15px;
+            color: #ffffff; font-size: 0.95rem; font-weight: 800; cursor: pointer; 
+            transition: 0.4s; overflow: hidden;
+        }
+        .btn-epic::after {
+            content: ""; position: absolute; top: -50%; left: -150%;
+            width: 40%; height: 200%; background: rgba(255, 255, 255, 0.6);
+            transform: rotate(35deg); transition: 0s; filter: blur(5px);
+        }
+        .btn-epic:hover::after { left: 150%; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-epic:hover { transform: scale(1.02); background: var(--light-green); border-color: #fff; }
 
-    .lang-toggle {
-      display: flex;
-      gap: 6px;
-      background: rgba(0,0,0,0.4);
-      padding: 4px;
-      border-radius: 999px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.6);
-      backdrop-filter: blur(6px);
-    }
+        .lore-box {
+            background: rgba(0, 0, 0, 0.5); border-radius: 20px; padding: 25px;
+            margin: 15px 0; text-align: justify; line-height: 1.9; font-size: 0.95rem;
+            color: #f0f0f0; border-right: 8px solid var(--saudi-green);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.5); white-space: pre-line;
+        }
+        [dir="ltr"] .lore-box { border-right: 0; border-left: 8px solid var(--saudi-green); }
 
-    .lang-btn {
-      border: 1px solid var(--saudi-green);
-      background: transparent;
-      padding: 6px 16px;
-      border-radius: 999px;
-      color: white;
-      cursor: pointer;
-      transition: 0.2s;
-      font-size: 14px;
-      text-shadow: 0 0 4px rgba(0,0,0,0.8);
-    }
-
-    .lang-btn.active {
-      background: rgba(0,108,53,0.9);
-      box-shadow:
-        0 0 8px var(--saudi-green-light),
-        0 0 16px rgba(0,184,90,0.7);
-      font-weight: 700;
-      text-shadow:
-        0 0 6px var(--saudi-green-light),
-        0 0 12px rgba(0,184,90,0.9);
-    }
-
-    /* الشاشات */
-    .screen {
-      display: none;
-      opacity: 0;
-      transform: translateY(24px) scale(0.97);
-      transition:
-        opacity 0.45s ease,
-        transform 0.45s ease,
-        filter 0.45s ease;
-      background: linear-gradient(145deg, rgba(0,0,0,0.7), rgba(0,40,20,0.9));
-      border-radius: 24px;
-      padding: 26px 20px 30px;
-      border: 1px solid rgba(0,108,53,0.6);
-      box-shadow:
-        0 0 18px rgba(0,0,0,0.9),
-        0 0 24px rgba(0,108,53,0.4);
-      backdrop-filter: blur(10px);
-    }
-
-    .screen.active {
-      display: block;
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: drop-shadow(0 0 12px rgba(0,184,90,0.4));
-      animation: glowPulse 2.5s infinite ease-in-out;
-    }
-
-    @keyframes glowPulse {
-      0%   { box-shadow: 0 0 10px rgba(0,184,90,0.4); }
-      50%  { box-shadow: 0 0 22px rgba(0,184,90,0.9); }
-      100% { box-shadow: 0 0 10px rgba(0,184,90,0.4); }
-    }
-
-    .screen-title {
-      text-align: center;
-      font-size: 26px;
-      font-weight: 800;
-      margin-bottom: 14px;
-      text-shadow:
-        0 0 6px var(--saudi-green-light),
-        0 0 18px rgba(0,184,90,0.9);
-    }
-
-    .screen-subtitle {
-      text-align: center;
-      font-size: 16px;
-      margin-bottom: 26px;
-      opacity: 0.95;
-      color: #e6fff3;
-      text-shadow: 0 0 4px rgba(0,0,0,0.9);
-      line-height: 1.7;
-    }
-
-    /* الأزرار الكبيرة */
-    .btn {
-      width: 100%;
-      padding: 18px 20px;
-      margin-bottom: 14px;
-      border-radius: 18px;
-      border: 1px solid var(--saudi-green);
-      background: rgba(0,0,0,0.45);
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-      transition:
-        background 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.2s ease;
-      box-shadow:
-        0 0 6px rgba(0,108,53,0.4),
-        inset 0 0 0 rgba(0,0,0,0);
-      text-align: center;
-      text-shadow: 0 0 4px rgba(0,0,0,0.9);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 0 16px var(--saudi-green-light);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, rgba(0,108,53,0.95), rgba(0,184,90,0.9));
-      box-shadow:
-        0 0 10px var(--saudi-green-light),
-        0 0 20px rgba(0,184,90,0.8);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      border-style: dashed;
-      opacity: 0.85;
-    }
-
-    .list {
-      margin-top: 10px;
-    }
-
-    .link {
-      display: block;
-      text-align: center;
-      margin-top: 12px;
-      color: #b8ffe0;
-      cursor: pointer;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      font-size: 15px;
-    }
-
-    .link:hover {
-      color: var(--saudi-green-light);
-      text-shadow: 0 0 6px var(--saudi-green-light);
-    }
-
-    /* نافذة النتيجة */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.65);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 5;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal-box {
-      width: 88%;
-      max-width: 360px;
-      background: radial-gradient(circle at top, #03351c, #020f09);
-      border-radius: 20px;
-      border: 1px solid rgba(0,184,90,0.7);
-      box-shadow:
-        0 0 18px rgba(0,184,90,0.8),
-        0 0 26px rgba(0,0,0,0.9);
-      padding: 18px 16px 16px;
-      color: #eafff5;
-      text-align: center;
-      animation: modalIn 0.3s ease-out;
-    }
-
-    @keyframes modalIn {
-      from { opacity: 0; transform: translateY(18px) scale(0.96); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .modal-title {
-      font-size: 20px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      text-shadow:
-        0 0 6px var(--saudi-green-light),
-        0 0 14px rgba(0,184,90,0.9);
-    }
-
-    .modal-section-title {
-      font-size: 15px;
-      font-weight: 700;
-      margin-top: 8px;
-      margin-bottom: 4px;
-      color: #b8ffe0;
-    }
-
-    .modal-text {
-      font-size: 15px;
-      line-height: 1.8;
-      margin-bottom: 6px;
-    }
-
-    .modal-tag {
-      display: inline-block;
-      margin-top: 6px;
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      border: 1px solid rgba(255,255,255,0.4);
-    }
-
-    .tag-good {
-      color: #00ffb3;
-      border-color: #00ffb3;
-      box-shadow: 0 0 10px rgba(0,255,179,0.6);
-    }
-
-    .tag-medium {
-      color: #ffd966;
-      border-color: #ffd966;
-      box-shadow: 0 0 10px rgba(255,217,102,0.6);
-    }
-
-    .tag-bad {
-      color: #ff6b6b;
-      border-color: #ff6b6b;
-      box-shadow: 0 0 10px rgba(255,107,107,0.6);
-    }
-  </style>
+        .back-nav { display: inline-block; margin-top: 15px; color: var(--glow-green); cursor: pointer; font-weight: 800; font-size: 0.85rem; }
+    </style>
 </head>
-
 <body>
 
-<div id="particles-js"></div>
+    <canvas id="titan-engine-canvas"></canvas>
 
-<div class="app">
-
-  <!-- اللغة -->
-  <div class="top-bar">
-    <div class="lang-toggle">
-      <button class="lang-btn active" data-lang="ar">AR</button>
-      <button class="lang-btn" data-lang="en">EN</button>
+    <div class="language-hub">
+        <div id="btn-ar" class="lang-btn active" onclick="setGlobalLang('ar')">AR</div>
+        <div id="btn-en" class="lang-btn" onclick="setGlobalLang('en')">EN</div>
     </div>
-  </div>
 
-  <!-- الرئيسية -->
-  <section id="screen-home" class="screen active">
-    <h1 class="screen-title" data-ar="ملحمة التأسيس" data-en="Foundation Saga">ملحمة التأسيس</h1>
-    <p class="screen-subtitle" data-ar="واجه مصيرك في تاريخ المجد السعودي." data-en="Face your destiny in Saudi history.">
-      واجه مصيرك في تاريخ المجد السعودي.
-    </p>
+    <div class="app-container" id="app-scroller">
+        <div id="screen-gate" class="screen active">
+            <h1 class="main-title" id="t-gate-h">ملاحم التأسيس</h1>
+            <p class="description-text" id="t-gate-d">واجه مصيرك في تاريخ المجد السعودي.</p>
+            <button class="btn-epic" id="t-btn-start" onclick="navigateTo('screen-selection')">ابدأ الرحلة</button>
+            <button class="btn-epic" id="t-btn-archive" onclick="navigateTo('screen-archive')">الأرشيف</button>
+        </div>
 
-    <button class="btn btn-primary" id="btn-start" data-ar="ابدأ الرحلة" data-en="Start Journey">ابدأ الرحلة</button>
-    <button class="btn btn-secondary" id="btn-archive" data-ar="الأرشيف" data-en="Archive">الأرشيف</button>
-  </section>
-  <script>
-/* ------------------ الترجمة ------------------ */
-const langButtons = document.querySelectorAll(".lang-btn");
+        <div id="screen-selection" class="screen">
+            <h1 class="main-title" id="t-select-h">اختر القائد</h1>
+            <div id="hero-injection-point"></div>
+            <a class="back-nav" id="t-back-main" onclick="navigateTo('screen-gate')">رجوع</a>
+        </div>
 
-langButtons.forEach(btn => {
-  btn.onclick = () => {
-    langButtons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
+        <div id="screen-scenarios" class="screen">
+            <h1 class="main-title" id="t-scen-h">اختر الموقف</h1>
+            <div id="scenario-injection-point"></div>
+            <a class="back-nav" id="t-back-hero" onclick="navigateTo('screen-selection')">تغيير القائد</a>
+        </div>
 
-    const lang = btn.dataset.lang;
-    switchLanguage(lang);
-  };
-});
+        <div id="screen-quest" class="screen">
+            <h1 id="quest-title-header" style="color: var(--glow-green); font-size: 1.3rem; margin-bottom: 15px;"></h1>
+            <div id="quest-content-box" class="lore-box"></div>
+            <div id="quest-actions-container"></div>
+            <a class="back-nav" id="t-back-scen" onclick="navigateTo('screen-scenarios')">تراجع</a>
+        </div>
 
-function switchLanguage(lang) {
-  document.querySelectorAll("[data-ar]").forEach(el => {
-    el.textContent = el.dataset[lang];
-  });
-}
+        <div id="screen-result" class="screen">
+            <h1 class="main-title" id="t-res-h">حكم التاريخ</h1>
+            <div id="result-text-box" class="lore-box"></div>
+            <button class="btn-epic" id="t-btn-retry" onclick="navigateTo('screen-scenarios')">مسار آخر</button>
+            <a class="back-nav" id="t-back-home" onclick="navigateTo('screen-gate')">الرئيسية</a>
+        </div>
 
-/* ------------------ السيناريوهات ------------------ */
-const scenarios = {
-  muhammad: [
-    "ميثاق الدرعية التاريخي (1744م)",
-    "توسّع الدولة السعودية الأولى",
-    "تأسيس نظام الحكم والإدارة"
-  ],
-  turki: [
-    "استعادة الرياض",
-    "إعادة بناء الدولة السعودية الثانية",
-    "تعزيز الأمن وتوحيد المناطق"
-  ],
-  abdulaziz: [
-    "استرداد الرياض (1902)",
-    "توحيد المملكة العربية السعودية",
-    "تأسيس مؤسسات الدولة الحديثة"
-  ]
-};
+        <div id="screen-archive" class="screen">
+            <h1 class="main-title" id="t-arch-h">سجل الخالدين</h1>
+            <div id="arch-injection-point"></div>
+            <a class="back-nav" id="t-back-arch" onclick="navigateTo('screen-gate')">الرجوع</a>
+        </div>
 
-/* ------------------ قصص السيناريوهات + 3 قرارات + نتائج اليوم الحالي ------------------ */
-const scenarioStories = {
-  "ميثاق الدرعية التاريخي (1744م)": {
-    story: "في لحظة مفصلية من تاريخ الجزيرة العربية، التقى الإمام محمد بن سعود بالشيخ محمد بن عبدالوهاب في الدرعية...",
-    choices: [
-      {
-        text: "تأييد الميثاق بالكامل والسير في مشروع الإصلاح والتوحيد.",
-        past: "أدى القرار إلى ولادة الدولة السعودية الأولى...",
-        today: "لو اتُّخذ هذا القرار بقوة أكبر، لكانت المملكة اليوم أكثر تأثيراً...",
-        tag: "good"
-      },
-      {
-        text: "تأييد الميثاق جزئياً مع التريث في التوسع.",
-        past: "أدى القرار إلى استقرار داخلي جيد...",
-        today: "في يومنا الحالي، كان هذا سيجعل المملكة مستقرة لكن أقل توسعاً...",
-        tag: "medium"
-      },
-      {
-        text: "رفض الميثاق وتأجيل التحالف.",
-        past: "أدى القرار إلى ضعف التحالف وتأخر قيام الدولة...",
-        today: "لو حدث ذلك، ربما لم تكن المملكة بالشكل الذي نعرفه اليوم...",
-        tag: "bad"
-      }
-    ]
-  },
+        <div id="screen-biography" class="screen">
+            <h1 id="bio-hero-name" class="main-title"></h1>
+            <div id="bio-content-box" class="lore-box" style="font-size: 0.9rem;"></div>
+            <a class="back-nav" id="t-back-bio" onclick="navigateTo('screen-archive')">العودة للسجل</a>
+        </div>
+    </div>
 
-  /* باقي السيناريوهات (نفس اللي أرسلتها لك سابقاً) */
-  "توسّع الدولة السعودية الأولى": {
-    story: "بعد أن بدأت الدولة السعودية الأولى تتشكل...",
-    choices: [
-      {
-        text: "التوسع السريع عبر الحملات المنظمة.",
-        past: "ازدادت قوة الدولة بسرعة...",
-        today: "لو استمرت سياسة التوسع السريع...",
-        tag: "good"
-      },
-      {
-        text: "التوسع التدريجي عبر التحالفات.",
-        past: "تحقق الاستقرار...",
-        today: "اليوم كانت المملكة ستملك شبكة تحالفات أوسع...",
-        tag: "medium"
-      },
-      {
-        text: "إيقاف التوسع والتركيز على الداخل فقط.",
-        past: "أدى القرار إلى ضعف نفوذ الدولة...",
-        today: "لو حدث ذلك، ربما لم تتوحد مناطق الجزيرة...",
-        tag: "bad"
-      }
-    ]
-  },
+    <script>
+        const EPIC_DATA = {
+            m_saud: {
+                ar: {
+                    name: "الإمام محمد بن سعود",
+                    scenarios: [
+                        {
+                            title: "ميثاق الدرعية التاريخي (1744م)",
+                            story: "عام 1157هـ، الجزيرة العربية تعيش في شتات سياسي وحروب قبلية منهكة. يصل الشيخ محمد بن عبدالوهاب إلى الدرعية باحثاً عن أرض تنطلق منها دعوة الإصلاح. العالم يراقب، والمخاطر الإقليمية تحيط بك من كل جانب. هل تعقد ميثاقاً تاريخياً يؤسس لدولة قائمة على التوحيد والعدل، أم تفضل السلامة والبقاء كحاكم محلي لمدينة مستقرة؟",
+                            decisions: [
+                                { l: "عقد الميثاق ونصرة الدولة", f: "✅ 'أبشر ببلاد خير من بلادك، وأبشر بالعزة والمنعة'. بهذا القرار الشجاع، ولدت الدولة السعودية الأولى وتحولت الدرعية إلى عاصمة إقليمية مهابة الجانب." },
+                                { l: "تأمين الشيخ دون تحالف سياسي", f: "⚠️ حصل الشيخ على الأمان، لكن غابت القوة السياسية الموحدة التي كانت ستحمي الدعوة وتوحد القبائل المتناحرة في نجد." },
+                                { l: "رفض الاستقبال خوفاً من الضغوط", f: "❌ ضاعت فرصة التأسيس التاريخية وانطوت الدرعية كإمارة محلية صغيرة، وتأخر مشروع وحدة الوطن لسنوات طويلة." }
+                            ]
+                        },
+                        {
+                            title: "بناء أسوار الدرعية والدفاع",
+                            story: "تزايدت التهديدات من القوى المحيطة التي رأت في نمو الدرعية خطراً عليها. القوات الغازية تقترب من الحدود. الشعب ينظر إليك بانتظار استراتيجية الدفاع. هل تبدأ فوراً في حشد الموارد لبناء سور دفاعي عظيم يحيط بالمدينة، أم تعتمد على سرعة المناورة في الصحراء المفتوحة، أم تطلب التفاوض لتجنب الصدام؟",
+                            decisions: [
+                                { l: "بناء سور الدرعية العظيم", f: "✅ بفضل السور وصمود الشعب، تحطمت أحلام الغزاة عند أسوار الدرعية، وبقيت الدولة قوية ومستقلة." },
+                                { l: "الاعتماد على حرب المناورة", f: "⚠️ حققت انتصارات صغيرة، لكن غياب التحصينات جعل العاصمة عرضة للاختراق في أوقات الضعف." },
+                                { l: "طلب الصلح والتفاوض", f: "❌ اعتبر الغزاة طلبك ضعفاً، فزادت الضغوط والضرائب وفقدت الدولة جزءاً كبيراً من سيادتها واستقلالها." }
+                            ]
+                        }
+                    ],
+                    biography: "الإمام محمد بن سعود بن محمد بن مقرن (توفي 1765م).\n\nيُعد المؤسس الأول للدولة السعودية الأولى وباني نهضتها السياسية..."
+                },
+                en: { name: "Imam Muhammad bin Saud", scenarios: [], biography: "..." }
+            },
+            i_turki: {
+                ar: {
+                    name: "الإمام تركي بن عبد الله",
+                    scenarios: [
+                        {
+                            title: "ملحمة استعادة الرياض (1824م)",
+                            story: "بعد سقوط الدرعية، ساد ظلام الاحتلال والشتات. بقيت في نجد تقود المقاومة ومعك سيفك 'الأجرب'. الرياض تحت قبضة الحاميات الأجنبية. هل تباغت الحصن بـ 40 رجلاً فقط في ليلة مظلمة لاستعادة ملك آبائك، أم تنتظر سنوات لجمع جيش ضخم؟",
+                            decisions: [
+                                { l: "قيادة هجوم فدائي مباغت", f: "✅ نصر من الله! استعدت الرياض وأعلنت قيام الدولة السعودية الثانية، لتثبت أن الإرادة السعودية لا تنكسر." },
+                                { l: "الانتظار لجمع جيش ضخم", f: "⚠️ استغرق الأمر سنوات إضافية من المعاناة تحت الاحتلال، وعزز العدو حصونه مما جعل التحرير أصعب." },
+                                { l: "الانسحاب إلى المناطق البعيدة", f: "❌ ضاعت هيبة المقاومة وتفرقت القبائل، وظل الحلم السعودي غائباً لعقود طويلة." }
+                            ]
+                        }
+                    ],
+                    biography: "الإمام تركي بن عبد الله بن محمد بن سعود (1755-1834م)..."
+                },
+                en: { name: "Imam Turki bin Abdullah", scenarios: [], biography: "..." }
+            },
+            k_aziz: {
+                ar: {
+                    name: "الملك عبد العزيز",
+                    scenarios: [
+                        {
+                            title: "فتح المصمك التاريخي (1902م)",
+                            story: "ليلة 5 شوال 1319هـ. أنت الشاب عبد العزيز، تقف عند أسوار الرياض بـ 63 رجلاً لاستعادة ملك الأجداد. الحصن منيع، والحاكم عجلان يخرج كل فجر بجموعه. هل تباغته عند البوابة في مواجهة مباشرة قد تغير وجه التاريخ، أم تنسحب وتعود للكويت بانتظار دعم خارجي؟",
+                            decisions: [
+                                { l: "اقتحام المصمك عند الفجر", f: "✅ 'الملك لله ثم لعبد العزيز!' سقط المصمك، وبدأت أعظم ملحمة توحيد وبناء في العصر الحديث." },
+                                { l: "حصار الحصن من الخارج", f: "⚠️ فشلت المفاجأة ووصلت تعزيزات للعدو أجهضت المحاولة في مهدها." },
+                                { l: "الانسحاب لطلب الدعم", f: "❌ ضاعت فرصة المباغتة الذهبية، وظلت الرياض بعيدة المنال لسنوات أخرى." }
+                            ]
+                        }
+                    ],
+                    biography: "الملك عبد العزيز بن عبد الرحمن آل سعود (1876-1953م)..."
+                },
+                en: { name: "King Abdulaziz", scenarios: [], biography: "..." }
+            }
+        };
 
-  "تأسيس نظام الحكم والإدارة": {
-    story: "بدأ الإمام محمد بن سعود بوضع أسس الإدارة...",
-    choices: [
-      {
-        text: "تعزيز القضاء وبناء منظومة عدلية قوية.",
-        past: "أصبحت الدولة أكثر استقراراً...",
-        today: "لو تعزز القضاء مبكراً...",
-        tag: "good"
-      },
-      {
-        text: "تعزيز الجيش أولاً.",
-        past: "ازدادت قوة الدولة...",
-        today: "اليوم كانت المملكة ستملك قوة عسكرية أكبر...",
-        tag: "medium"
-      },
-      {
-        text: "التركيز على الجباية والموارد فقط.",
-        past: "زاد دخل الدولة لكنه أثار استياء...",
-        today: "لو حدث ذلك، لكان الاقتصاد قوياً...",
-        tag: "bad"
-      }
-    ]
-  },
+        const LOCALIZATION = {
+            ar: { 
+                g_h: "ملاحم التأسيس", g_d: "واجه مصيرك في تاريخ المجد السعودي.", s_h: "اختر القائد", sc_h: "اختر الموقف", r_h: "حكم التاريخ", a_h: "سجل الخالدين", 
+                start_btn: "ابدأ الرحلة", arch_btn: "الأرشيف", dir: "rtl" 
+            },
+            en: { 
+                g_h: "Founding Epics", g_d: "Face your destiny in the history of Saudi glory.", s_h: "Select Leader", sc_h: "Select Scenario", r_h: "Verdict", a_h: "Archive", 
+                start_btn: "Start Journey", arch_btn: "Archive", dir: "ltr" 
+            }
+        };
 
-  /* الإمام تركي */
-  "استعادة الرياض": {
-    story: "بعد سقوط الدولة السعودية الأولى...",
-    choices: [
-      {
-        text: "الهجوم المباشر لاستعادة الرياض بسرعة.",
-        past: "تمت استعادة الرياض بسرعة...",
-        today: "لو استمر هذا النهج...",
-        tag: "good"
-      },
-      {
-        text: "الحصار التدريجي لتقليل الخسائر.",
-        past: "استعيدت الرياض بأقل خسائر...",
-        today: "اليوم كانت المملكة ستتميز بسياسة توازن...",
-        tag: "medium"
-      },
-      {
-        text: "تأجيل الاستعادة والتركيز على التحالفات.",
-        past: "تأخر قيام الدولة...",
-        today: "لو حدث ذلك، ربما لم تستعد الرياض مكانتها...",
-        tag: "bad"
-      }
-    ]
-  },
+        let currentLanguage = 'ar';
+        let selectedHeroKey = null;
 
-  "إعادة بناء الدولة السعودية الثانية": {
-    story: "بعد استعادة الرياض...",
-    choices: [
-      {
-        text: "إعادة تنظيم الجيش ليكون أساس الدولة.",
-        past: "ازدادت قوة الدولة...",
-        today: "لو استمر هذا النهج...",
-        tag: "good"
-      },
-      {
-        text: "تعزيز التحالفات مع القبائل.",
-        past: "ازدادت قوة الدولة السياسية...",
-        today: "اليوم كانت المملكة ستملك شبكة نفوذ اجتماعي...",
-        tag: "medium"
-      },
-      {
-        text: "التركيز على الجباية والموارد.",
-        past: "زاد دخل الدولة لكنه أثار التوتر...",
-        today: "لو حدث ذلك، لكان الاقتصاد قوياً...",
-        tag: "bad"
-      }
-    ]
-  },
+        function setGlobalLang(l) {
+            currentLanguage = l;
+            const t = LOCALIZATION[l];
+            document.documentElement.lang = l;
+            document.documentElement.dir = t.dir;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + l).classList.add('active');
 
-  "تعزيز الأمن وتوحيد المناطق": {
-    story: "عمل الإمام تركي على توحيد المناطق...",
-    choices: [
-      {
-        text: "إرسال الحملات العسكرية لتوحيد المناطق بسرعة.",
-        past: "تم توحيد مناطق واسعة...",
-        today: "لو استمر هذا النهج...",
-        tag: "good"
-      },
-      {
-        text: "عقد التحالفات مع القبائل.",
-        past: "تحقق الاستقرار دون قتال...",
-        today: "اليوم كانت المملكة ستتميز بسياسة دبلوماسية...",
-        tag: "medium"
-      },
-      {
-        text: "التفاوض البطيء مع كل منطقة.",
-        past: "تأخر التوحيد...",
-        today: "لو حدث ذلك، ربما لم تتوحد المملكة...",
-        tag: "bad"
-      }
-    ]
-  },
+            document.getElementById('t-gate-h').innerText = t.g_h;
+            document.getElementById('t-gate-d').innerText = t.g_d;
+            document.getElementById('t-btn-start').innerText = t.start_btn;
+            document.getElementById('t-btn-archive').innerText = t.arch_btn;
+            document.getElementById('t-select-h').innerText = t.s_h;
+            document.getElementById('t-scen-h').innerText = t.sc_h;
+            document.getElementById('t-res-h').innerText = t.r_h;
+            document.getElementById('t-arch-h').innerText = t.a_h;
 
-  /* الملك عبدالعزيز */
-  "استرداد الرياض (1902)": {
-    story: "قاد الملك عبدالعزيز عملية استرداد الرياض...",
-    choices: [
-      {
-        text: "الهجوم الليلي المفاجئ.",
-        past: "نجحت العملية بسرعة...",
-        today: "لو استمر هذا النهج...",
-        tag: "good"
-      },
-      {
-        text: "التخطيط الطويل قبل الهجوم.",
-        past: "تمت العملية بدقة...",
-        today: "اليوم كانت المملكة ستتميز باستراتيجيات دقيقة...",
-        tag: "medium"
-      },
-      {
-        text: "التفاوض مع خصوم الرياض.",
-        past: "فشل التفاوض...",
-        today: "لو حدث ذلك، ربما لم تبدأ رحلة التوحيد...",
-        tag: "bad"
-      }
-    ]
-  },
+            rebuildInteractiveGrids();
+        }
 
-  "توحيد المملكة العربية السعودية": {
-    story: "بدأ الملك عبدالعزيز رحلة طويلة...",
-    choices: [
-      {
-        text: "التقدم العسكري السريع.",
-        past: "تم التوحيد بسرعة...",
-        today: "لو استمر هذا النهج...",
-        tag: "good"
-      },
-      {
-        text: "التحالفات القبلية.",
-        past: "تم التوحيد بسلاسة...",
-        today: "اليوم كانت المملكة ستملك شبكة اجتماعية...",
-        tag: "medium"
-      },
-      {
-        text: "التفاوض البطيء.",
-        past: "تأخر التوحيد...",
-        today: "لو حدث ذلك، ربما لم تتوحد المملكة...",
-        tag: "bad"
-      }
-    ]
-  },
+        function navigateTo(screenId) {
+            const allScreens = document.querySelectorAll('.screen');
+            allScreens.forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
+            const target = document.getElementById(screenId);
+            target.style.display = 'block';
+            setTimeout(() => { target.classList.add('active'); }, 10);
+            document.getElementById('app-scroller').scrollTop = 0;
+        }
 
-  "تأسيس مؤسسات الدولة الحديثة": {
-    story: "أسس الملك عبدالعزيز الوزارات والأنظمة...",
-    choices: [
-      {
-        text: "تأسيس وزارة الدفاع أولاً.",
-        past: "ازدادت قوة الدولة العسكرية...",
-        today: "لو حدث ذلك، لكانت المملكة اليوم قوة دفاعية...",
-        tag: "good"
-      },
-      {
-        text: "تأسيس وزارة المالية أولاً.",
-        past: "ازدادت قوة الدولة الاقتصادية...",
-        today: "اليوم كانت المملكة ستملك اقتصاداً أضخم...",
-        tag: "medium"
-      },
-      {
-        text: "تأجيل تأسيس الوزارات.",
-        past: "تأخر بناء الدولة الحديثة...",
-        today: "لو حدث ذلك، لكان التطور أبطأ...",
-        tag: "bad"
-      }
-    ]
-  }
-};
+        function rebuildInteractiveGrids() {
+            const hPoint = document.getElementById('hero-injection-point');
+            const aPoint = document.getElementById('arch-injection-point');
+            hPoint.innerHTML = ''; aPoint.innerHTML = '';
 
-/* ------------------ بيانات الأرشيف ------------------ */
-const leadersBio = {
-  muhammad: {
-    name: "الإمام محمد بن سعود",
-    dates: "توفي 1179هـ / 1765م",
-    text: "يُعد الإمام محمد بن سعود المؤسس الحقيقي للدولة السعودية الأولى..."
-  },
-  turki: {
-    name: "الإمام تركي بن عبدالله",
-    dates: "توفي 1249هـ / 1834م",
-    text: "بعد سقوط الدولة السعودية الأولى، ظهر الإمام تركي..."
-  },
-  abdulaziz: {
-    name: "الملك عبدالعزيز بن عبدالرحمن آل سعود",
-    dates: "1876م – 1953م",
-    text: "يُعد الملك عبدالعزيز المؤسس الحقيقي للمملكة العربية السعودية الحديثة..."
-  }
-};
+            Object.keys(EPIC_DATA).forEach(key => {
+                const hBtn = document.createElement('button');
+                hBtn.className = 'btn-epic';
+                hBtn.innerText = EPIC_DATA[key][currentLanguage].name;
+                hBtn.onclick = () => showScenarios(key);
+                hPoint.appendChild(hBtn);
 
-/* ------------------ التنقل بين الشاشات ------------------ */
-function showScreen(id) {
-  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  const target = document.getElementById("screen-" + id);
-  setTimeout(() => target.classList.add("active"), 20);
-}
+                const aBtn = document.createElement('button');
+                aBtn.className = 'btn-epic';
+                aBtn.innerText = EPIC_DATA[key][currentLanguage].name;
+                aBtn.onclick = () => {
+                    document.getElementById('bio-hero-name').innerText = EPIC_DATA[key][currentLanguage].name;
+                    document.getElementById('bio-content-box').innerText = EPIC_DATA[key][currentLanguage].biography;
+                    navigateTo('screen-biography');
+                };
+                aPoint.appendChild(aBtn);
+            });
+        }
 
-document.getElementById("btn-start").onclick = () => showScreen("leader");
-document.getElementById("btn-archive").onclick = () => showScreen("archive");
-document.getElementById("btn-back-from-leader").onclick = () => showScreen("home");
-document.getElementById("btn-back-from-archive").onclick = () => {
-  document.getElementById("bio-container").style.display = "none";
-  showScreen("home");
-};
-document.getElementById("link-change-leader").onclick = () => showScreen("leader");
-document.getElementById("btn-back-to-scenarios").onclick = () => showScreen("scenario");
+        function showScenarios(heroKey) {
+            selectedHeroKey = heroKey;
+            const sPoint = document.getElementById('scenario-injection-point');
+            sPoint.innerHTML = '';
+            EPIC_DATA[heroKey][currentLanguage].scenarios.forEach((sc, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-epic';
+                btn.innerText = sc.title;
+                btn.onclick = () => loadQuest(index);
+                sPoint.appendChild(btn);
+            });
+            navigateTo('screen-scenarios');
+        }
 
-/* ------------------ اختيار القائد ------------------ */
-document.querySelectorAll(".leader-btn").forEach(btn => {
-  btn.onclick = () => {
-    const leader = btn.dataset.leader;
-    const list = document.getElementById("scenario-list");
-    list.innerHTML = "";
+        function loadQuest(scIndex) {
+            const sc = EPIC_DATA[selectedHeroKey][currentLanguage].scenarios[scIndex];
+            document.getElementById('quest-title-header').innerText = sc.title;
+            document.getElementById('quest-content-box').innerText = sc.story;
+            const aContainer = document.getElementById('quest-actions-container');
+            aContainer.innerHTML = '';
+            sc.decisions.forEach(dec => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-epic';
+                btn.innerText = dec.l;
+                btn.onclick = () => {
+                    document.getElementById('result-text-box').innerText = dec.f;
+                    navigateTo('screen-result');
+                };
+                aContainer.appendChild(btn);
+            });
+            navigateTo('screen-quest');
+        }
 
-    scenarios[leader].forEach(scenario => {
-      const b = document.createElement("button");
-      b.className = "btn";
-      b.textContent = scenario;
-      b.onclick = () => loadScenario(scenario);
-      list.appendChild(b);
-    });
-
-    showScreen("scenario");
-  };
-});
-
-/* ------------------ تحميل القصة ------------------ */
-function loadScenario(name) {
-  const data = scenarioStories[name];
-
-  document.getElementById("story-title").textContent = name;
-  document.getElementById("story-text").textContent = data.story;
-
-  const box = document.getElementById("choices-container");
-  box.innerHTML = "";
-
-  data.choices.forEach(choice => {
-    const c = document.createElement("button");
-    c.className = "btn btn-primary";
-    c.textContent = choice.text;
-    c.onclick = () => showResult(choice);
-    box.appendChild(c);
-  });
-
-  showScreen("story");
-}
-
-/* ------------------ نافذة النتيجة ------------------ */
-function showResult(choice) {
-  document.getElementById("result-past").textContent = choice.past;
-  document.getElementById("result-today").textContent = choice.today;
-
-  const tag = document.getElementById("result-tag");
-  tag.textContent =
-    choice.tag === "good" ? "قرار ممتاز" :
-    choice.tag === "medium" ? "قرار متوسط" :
-    "قرار سيء";
-
-  tag.className = "modal-tag " +
-    (choice.tag === "good" ? "tag-good" :
-     choice.tag === "medium" ? "tag-medium" :
-     "tag-bad");
-
-  document.getElementById("result-modal").classList.add("active");
-}
-
-document.getElementById("btn-close-result").onclick = () => {
-  document.getElementById("result-modal").classList.remove("active");
-};
-
-/* ------------------ الأرشيف ------------------ */
-document.querySelectorAll(".archive-leader-btn").forEach(btn => {
-  btn.onclick = () => {
-    const key = btn.dataset.leader;
-    const bio = leadersBio[key];
-
-    document.getElementById("bio-name").textContent = bio.name;
-    document.getElementById("bio-dates").textContent = bio.dates;
-    document.getElementById("bio-text").textContent = bio.text;
-
-    document.getElementById("bio-container").style.display = "block";
-  };
-});
-
-/* ------------------ Particles (رمل أخضر خفيف) ------------------ */
-particlesJS("particles-js", {
-  particles: {
-    number: { value: 60 },
-    color: { value: "#00ff99" },
-    shape: { type: "circle" },
-    opacity: { value: 0.25, random: true },
-    size: { value: 2, random: true },
-    move: { enable: true, speed: 0.25, random: true }
-  }
-});
-</script>
-
+        const canvas = document.getElementById('titan-engine-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        class P {
+            constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.s = Math.random()*2; this.vx = (Math.random()-0.5)*0.2; this.vy = (Math.random()-0.5)*0.2; }
+            u() { this.x+=this.vx; this.y+=this.vy; if(this.x>canvas.width||this.x<0)this.vx*=-1; if(this.y>canvas.height||this.y<0)this.vy*=-1; }
+            d() { ctx.beginPath(); ctx.arc(this.x,this.y,this.s,0,Math.PI*2); ctx.fillStyle='#22C55E'; ctx.globalAlpha=0.15; ctx.fill(); }
+        }
+        function init() { canvas.width=window.innerWidth; canvas.height=window.innerHeight; particles=[]; for(let i=0;i<150;i++) particles.push(new P()); }
+        function loop() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.u();p.d();}); requestAnimationFrame(loop); }
+        window.onresize=init; init(); loop(); setGlobalLang('ar');
+    </script>
 </body>
 </html>
-
