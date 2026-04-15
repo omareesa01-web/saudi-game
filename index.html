@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملاحم التأسيس | النسخة الموسعة الكاملة</title>
+    <title>ملاحم التأسيس | Founding Epics</title>
     
     <style>
         :root {
@@ -26,7 +26,7 @@
             overflow: hidden; display: flex; justify-content: center; align-items: center;
         }
 
-        .screen { display: none; opacity: 0; transition: opacity 0.5s ease; }
+        .screen { display: none; opacity: 0; transition: opacity 0.5s ease; width: 100%; }
         .screen.active { display: block; opacity: 1; }
 
         #titan-engine-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
@@ -45,7 +45,7 @@
             border: 1px solid var(--glass-border); border-top: 6px solid var(--saudi-green);
             border-radius: 30px; padding: 30px 20px; text-align: center;
             box-shadow: 0 60px 120px rgba(0,0,0,0.8); max-height: 85vh; 
-            overflow-y: auto;
+            overflow-y: auto; overflow-x: hidden;
             -ms-overflow-style: none; scrollbar-width: none;
         }
         .app-container::-webkit-scrollbar { display: none; }
@@ -58,15 +58,9 @@
             background: linear-gradient(135deg, var(--saudi-green), var(--deep-green));
             border: 1px solid var(--glow-green); border-radius: 15px;
             color: #ffffff; font-size: 0.95rem; font-weight: 800; cursor: pointer; 
-            transition: 0.4s; overflow: hidden;
+            transition: 0.4s; overflow: hidden; text-decoration: none; display: block;
         }
-        .btn-epic::after {
-            content: ""; position: absolute; top: -50%; left: -150%;
-            width: 40%; height: 200%; background: rgba(255, 255, 255, 0.6);
-            transform: rotate(35deg); transition: 0s; filter: blur(5px);
-        }
-        .btn-epic:hover::after { left: 150%; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .btn-epic:hover { transform: scale(1.02); background: var(--light-green); border-color: #fff; }
+        .btn-epic:hover { transform: scale(1.02); background: var(--light-green); border-color: #fff; box-shadow: 0 0 20px rgba(34, 197, 94, 0.4); }
 
         .lore-box {
             background: rgba(0, 0, 0, 0.5); border-radius: 20px; padding: 25px;
@@ -74,9 +68,23 @@
             color: #f0f0f0; border-right: 8px solid var(--saudi-green);
             box-shadow: inset 0 0 30px rgba(0,0,0,0.5); white-space: pre-line;
         }
-        [dir="ltr"] .lore-box { border-right: 0; border-left: 8px solid var(--saudi-green); }
+        [dir="ltr"] .lore-box { border-right: 0; border-left: 8px solid var(--saudi-green); text-align: left; }
 
-        .back-nav { display: inline-block; margin-top: 15px; color: var(--glow-green); cursor: pointer; font-weight: 800; font-size: 0.85rem; }
+        .back-nav { 
+            display: inline-block; margin-top: 20px; color: var(--glow-green); 
+            cursor: pointer; font-weight: 800; font-size: 0.9rem; 
+            text-decoration: underline; transition: 0.3s;
+        }
+        .back-nav:hover { color: #fff; text-shadow: 0 0 10px var(--glow-green); }
+
+        /* زر العودة العلوي الجديد */
+        .top-back-btn {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border);
+            color: #fff; padding: 5px 12px; border-radius: 12px;
+            font-size: 0.8rem; cursor: pointer; display: none; z-index: 150;
+        }
+        [dir="ltr"] .top-back-btn { right: auto; left: 20px; }
     </style>
 </head>
 <body>
@@ -89,6 +97,8 @@
     </div>
 
     <div class="app-container" id="app-scroller">
+        <button id="global-back-btn" class="top-back-btn" onclick="goBack()">←</button>
+
         <div id="screen-gate" class="screen active">
             <h1 class="main-title" id="t-gate-h">ملاحم التأسيس</h1>
             <p class="description-text" id="t-gate-d">واجه مصيرك في تاريخ المجد السعودي.</p>
@@ -99,43 +109,41 @@
         <div id="screen-selection" class="screen">
             <h1 class="main-title" id="t-select-h">اختر القائد</h1>
             <div id="hero-injection-point"></div>
-            <a class="back-nav" id="t-back-main" onclick="navigateTo('screen-gate')">رجوع</a>
         </div>
 
         <div id="screen-scenarios" class="screen">
             <h1 class="main-title" id="t-scen-h">اختر الموقف</h1>
             <div id="scenario-injection-point"></div>
-            <a class="back-nav" id="t-back-hero" onclick="navigateTo('screen-selection')">تغيير القائد</a>
         </div>
 
         <div id="screen-quest" class="screen">
             <h1 id="quest-title-header" style="color: var(--glow-green); font-size: 1.3rem; margin-bottom: 15px;"></h1>
             <div id="quest-content-box" class="lore-box"></div>
             <div id="quest-actions-container"></div>
-            <a class="back-nav" id="t-back-scen" onclick="navigateTo('screen-scenarios')">تراجع</a>
         </div>
 
         <div id="screen-result" class="screen">
             <h1 class="main-title" id="t-res-h">حكم التاريخ</h1>
             <div id="result-text-box" class="lore-box"></div>
             <button class="btn-epic" id="t-btn-retry" onclick="navigateTo('screen-scenarios')">مسار آخر</button>
-            <a class="back-nav" id="t-back-home" onclick="navigateTo('screen-gate')">الرئيسية</a>
+            <button class="btn-epic" id="t-btn-home" onclick="navigateTo('screen-gate')">الرئيسية</button>
         </div>
 
         <div id="screen-archive" class="screen">
             <h1 class="main-title" id="t-arch-h">سجل الخالدين</h1>
             <div id="arch-injection-point"></div>
-            <a class="back-nav" id="t-back-arch" onclick="navigateTo('screen-gate')">الرجوع</a>
         </div>
 
         <div id="screen-biography" class="screen">
             <h1 id="bio-hero-name" class="main-title"></h1>
             <div id="bio-content-box" class="lore-box" style="font-size: 0.9rem;"></div>
-            <a class="back-nav" id="t-back-bio" onclick="navigateTo('screen-archive')">العودة للسجل</a>
         </div>
     </div>
 
     <script>
+        // مصفوفة لتتبع الصفحات التي زارها المستخدم للعودة للخلف
+        let navigationHistory = ['screen-gate'];
+
         const EPIC_DATA = {
             m_saud: {
                 ar: {
@@ -143,118 +151,102 @@
                     scenarios: [
                         {
                             title: "ميثاق الدرعية التاريخي (1744م)",
-                            story: "عام 1157هـ، الجزيرة العربية تعيش في شتات سياسي وحروب قبلية منهكة. يصل الشيخ محمد بن عبدالوهاب إلى الدرعية باحثاً عن أرض تنطلق منها دعوة الإصلاح. العالم يراقب، والمخاطر الإقليمية تحيط بك من كل جانب. هل تعقد ميثاقاً تاريخياً يؤسس لدولة قائمة على التوحيد والعدل، أم تفضل السلامة والبقاء كحاكم محلي لمدينة مستقرة؟",
+                            story: "عام 1157هـ، الجزيرة العربية تعيش في شتات سياسي... هل تعقد ميثاقاً تاريخياً يؤسس لدولة قائمة على التوحيد؟",
                             decisions: [
-                                { l: "عقد الميثاق ونصرة الدولة", f: "✅ 'أبشر ببلاد خير من بلادك، وأبشر بالعزة والمنعة'. بهذا القرار الشجاع، ولدت الدولة السعودية الأولى وتحولت الدرعية إلى عاصمة إقليمية مهابة الجانب." },
-                                { l: "تأمين الشيخ دون تحالف سياسي", f: "⚠️ حصل الشيخ على الأمان، لكن غابت القوة السياسية الموحدة التي كانت ستحمي الدعوة وتوحد القبائل المتناحرة في نجد." },
-                                { l: "رفض الاستقبال خوفاً من الضغوط", f: "❌ ضاعت فرصة التأسيس التاريخية وانطوت الدرعية كإمارة محلية صغيرة، وتأخر مشروع وحدة الوطن لسنوات طويلة." }
-                            ]
-                        },
-                        {
-                            title: "بناء أسوار الدرعية والدفاع",
-                            story: "تزايدت التهديدات من القوى المحيطة التي رأت في نمو الدرعية خطراً عليها. القوات الغازية تقترب من الحدود. الشعب ينظر إليك بانتظار استراتيجية الدفاع. هل تبدأ فوراً في حشد الموارد لبناء سور دفاعي عظيم يحيط بالمدينة، أم تعتمد على سرعة المناورة في الصحراء المفتوحة، أم تطلب التفاوض لتجنب الصدام؟",
-                            decisions: [
-                                { l: "بناء سور الدرعية العظيم", f: "✅ بفضل السور وصمود الشعب، تحطمت أحلام الغزاة عند أسوار الدرعية، وبقيت الدولة قوية ومستقلة." },
-                                { l: "الاعتماد على حرب المناورة", f: "⚠️ حققت انتصارات صغيرة، لكن غياب التحصينات جعل العاصمة عرضة للاختراق في أوقات الضعف." },
-                                { l: "طلب الصلح والتفاوض", f: "❌ اعتبر الغزاة طلبك ضعفاً، فزادت الضغوط والضرائب وفقدت الدولة جزءاً كبيراً من سيادتها واستقلالها." }
-                            ]
-                        },
-                        {
-                            title: "تأمين طرق الحج والتجارة",
-                            story: "كانت طرق التجارة والحج في نجد تعاني من السلب والنهب من قبل قطاع الطرق، مما أثر على اقتصاد الدرعية وسمعتها. القوافل تطلب الأمان وصوت الحق يجب أن يُسمع في الصحراء. هل تنشر الحاميات العسكرية على طول الطرق وتضرب بيد من حديد، أم تحاول استمالة شيوخ القبائل بالمال لتأمين المرور؟",
-                            decisions: [
-                                { l: "تسيير الحاميات وفرض القانون", f: "✅ أصبحت طرق الحج آمنة لأول مرة، وازدهرت التجارة وعززت الدولة مكانتها كراعية للحرمين وقاصديهما." },
-                                { l: "شراء ولاء القبائل بالمال", f: "⚠️ حل مؤقت؛ بمجرد نقص الأموال عاد التمرد والنهب، مما أرهق ميزانية الدولة دون نتيجة دائمة." },
-                                { l: "إغلاق الطرق التجارية مؤقتاً", f: "❌ تضرر اقتصاد الدرعية بشكل حاد، وفقدت المدينة دورها كمركز جذب تجاري وسياسي في قلب الجزيرة." }
+                                { l: "عقد الميثاق ونصرة الدولة", f: "✅ ولد مشروع الدولة السعودية الأولى وتحولت الدرعية لعاصمة مهابة." },
+                                { l: "تأمين الشيخ دون تحالف سياسي", f: "⚠️ غابت القوة السياسية الموحدة التي تحمي المشروع." },
+                                { l: "رفض الاستقبال خوفاً من الضغوط", f: "❌ ضاعت فرصة التأسيس التاريخية وانطوت الدرعية كإمارة صغيرة." }
                             ]
                         }
                     ],
-                    biography: "الإمام محمد بن سعود بن محمد بن مقرن (توفي 1765م).\n\nيُعد المؤسس الأول للدولة السعودية الأولى وباني نهضتها السياسية والسيادية. تولى الحكم في ظروف استثنائية، حيث نجح في تحويل الدرعية من مجرد بلدة صغيرة إلى مركز جذب سياسي واقتصادي لا يستهان به في قلب الجزيرة العربية. عُرف بحكمته الكبيرة في الإدارة وشجاعته المنقطعة النظير في الميدان.\n\nفي عام 1744م، عقد 'ميثاق الدرعية' الشهير مع الشيخ محمد بن عبدالوهاب، وهو الحدث الذي يُعتبر حجر الزاوية في التاريخ السعودي الحديث، حيث اجتمعت القوة والشرعية السياسية مع الرؤية الإصلاحية الواضحة.\n\nخلال فترة حكمه الطويلة والمباركة، قام بتأمين طرق الحج والتجارة التي كانت تعاني من قطاع الطرق، وبنى 'سور الدرعية' العظيم للدفاع عن العاصمة ضد أي تهديد خارجي. استطاع بحنكته توحيد معظم مناطق نجد تحت راية واحدة، ممهداً الطريق لقرون من الاستقرار والرخاء. لم يكن مجرد حاكم عادي، بل كان أباً روحياً لمشروع الوحدة الوطنية الكبرى، حيث تميز عهده بالعدل والصلابة في الحق، وترك خلفه إرثاً سياسياً جعل من آل سعود الأسرة القائدة والملهمة للجزيرة العربية قاطبة."
+                    biography: "الإمام محمد بن سعود (توفي 1765م). المؤسس الأول للدولة السعودية الأولى وباني نهضتها..."
                 },
-                en: { name: "Imam Muhammad bin Saud", scenarios: [], biography: "The First Founder of the Saudi State..." }
+                en: {
+                    name: "Imam Muhammad bin Saud",
+                    scenarios: [
+                        {
+                            title: "The Diriyah Pact (1744)",
+                            story: "The Arabian Peninsula is fractured. Sheikh Muhammad bin Abdul Wahab arrives in Diriyah. Do you form a historic pact to establish a state based on justice and unity?",
+                            decisions: [
+                                { l: "Form the Pact", f: "✅ The first Saudi State was born, and Diriyah became a powerful capital." },
+                                { l: "Protect without Political Alliance", f: "⚠️ The project lacked the political strength to unite the tribes." },
+                                { l: "Refuse the Alliance", f: "❌ The historic opportunity was lost, and Diriyah remained a small emirate." }
+                            ]
+                        }
+                    ],
+                    biography: "Imam Muhammad bin Saud (Died 1765). The first founder of the first Saudi state and the architect of its political renaissance..."
+                }
             },
             i_turki: {
                 ar: {
                     name: "الإمام تركي بن عبد الله",
                     scenarios: [
                         {
-                            title: "ملحمة استعادة الرياض (1824م)",
-                            story: "بعد سقوط الدرعية، ساد ظلام الاحتلال والشتات. بقيت في نجد تقود المقاومة ومعك سيفك 'الأجرب'. الرياض تحت قبضة الحاميات الأجنبية. هل تباغت الحصن بـ 40 رجلاً فقط في ليلة مظلمة لاستعادة ملك آبائك، أم تنتظر سنوات لجمع جيش ضخم؟",
+                            title: "استعادة الرياض (1824م)",
+                            story: "الرياض تحت الاحتلال. هل تباغت الحصن بـ 40 رجلاً فقط لاستعادة ملك آبائك؟",
                             decisions: [
-                                { l: "قيادة هجوم فدائي مباغت", f: "✅ نصر من الله! استعدت الرياض وأعلنت قيام الدولة السعودية الثانية، لتثبت أن الإرادة السعودية لا تنكسر." },
-                                { l: "الانتظار لجمع جيش ضخم", f: "⚠️ استغرق الأمر سنوات إضافية من المعاناة تحت الاحتلال، وعزز العدو حصونه مما جعل التحرير أصعب." },
-                                { l: "الانسحاب إلى المناطق البعيدة", f: "❌ ضاعت هيبة المقاومة وتفرقت القبائل، وظل الحلم السعودي غائباً لعقود طويلة." }
-                            ]
-                        },
-                        {
-                            title: "بناء الرياض كعاصمة جديدة",
-                            story: "بعد التحرير، كانت الدرعية ركاماً يصعب الدفاع عنه. أمامك قرار استراتيجي: هل تعيد إعمار الدرعية رغم ضعف موقعها العسكري، أم تعلن الرياض عاصمة جديدة وتبني فيها قصور الحكم والحصون المنيعة؟",
-                            decisions: [
-                                { l: "إعلان الرياض عاصمة للدولة", f: "✅ قرار تاريخي! أصبحت الرياض معقل العز الجديد ومركزاً إدارياً وعسكرياً لا يقهر." },
-                                { l: "إعادة إعمار الدرعية المنهارة", f: "⚠️ استنزفت الموارد في أطلال يصعب حمايتها، وتعرضت المدينة لهجمات استنزفت قوى الدولة." },
-                                { l: "البقاء في الحجاز لإدارة الحكم", f: "❌ تشتتت الولاءات في نجد وشعر الناس بغياب الإمام عن قلب الدولة، مما أضعف السلطة المركزية." }
-                            ]
-                        },
-                        {
-                            title: "تأمين العدل والقضاء",
-                            story: "الفوضى التي سبقت عودتك تركت نزاعات قبلية عميقة على المياه والمراعي. الاستقرار يتطلب قضاءً صارماً وعادلاً. كيف ستتعامل مع شيوخ القبائل الذين يرفضون الخضوع للقانون المركزي للدولة؟",
-                            decisions: [
-                                { l: "تأسيس نظام قضائي مركزي صارم", f: "✅ ساد العدل والأمان، وخضعت القبائل لسلطة القانون، مما جعل الدولة واحة للاستقرار." },
-                                { l: "ترك القضاء في يد شيوخ القبائل", f: "⚠️ استمرت النزاعات والتحيزات القبلية، وبقيت الدولة تعاني من عدم الاستقرار الداخلي." },
-                                { l: "استخدام القوة العسكرية فقط", f: "❌ ولد هذا الانفجار الشعبي والتمرد، وفقدت الدولة دعم الناس الذين رأوا في الحكم ظلماً." }
+                                { l: "قيادة هجوم فدائي مباغت", f: "✅ نصر من الله! استعدت الرياض وأعلنت قيام الدولة السعودية الثانية." },
+                                { l: "الانتظار لجمع جيش ضخم", f: "⚠️ عزز العدو حصونه مما جعل التحرير أصعب لاحقاً." }
                             ]
                         }
                     ],
-                    biography: "الإمام تركي بن عبد الله بن محمد بن سعود (1755-1834م).\n\nمؤسس الدولة السعودية الثانية ورمز الصمود الوطني المتجدد. يُعتبر من أعظم القادة العسكريين في تاريخ العرب الحديث، حيث استطاع النهوض بالدولة من الرماد بعد تدمير العاصمة الأولى في ملحمة صمود أسطورية.\n\nاشتهر بسيفه 'الأجرب' الذي صار مادة للقصائد والبطولات الخالدة. في عام 1824م، قاد ملحمة استعادة الرياض بـ 40 رجلاً فقط، في واحدة من أجرأ العمليات العسكرية المباغتة في التاريخ. قرر بجسارة أن تكون الرياض هي العاصمة الجديدة للدولة بدلاً من الدرعية المدمرة، وهو القرار الاستراتيجي الذي حدد الهوية الحضرية والسياسية للمملكة لقرون تالية.\n\nاتسم حكمه بالعدل الصارم وإعادة الأمن والأمان لربوع نجد والأحساء بعد سنوات من الفوضى. كان رجلاً متديناً وشاعراً فصيحاً، استطاع بحنكته إعادة توحيد الصفوف وبناء جيش وطني قوي مؤمن بالقضية. يُسجل له التاريخ بمداد من ذهب أنه أعاد الهيبة والسيادة لآل سعود، وأرسى قواعد إدارية وقانونية متينة مهدت الطريق لاحقاً للملك عبدالعزيز لتوحيد المملكة العربية السعودية بشكلها العظيم المعاصر."
+                    biography: "الإمام تركي بن عبد الله (1755-1834م). مؤسس الدولة السعودية الثانية ورمز الصمود بسيفه 'الأجرب'..."
                 },
-                en: { name: "Imam Turki bin Abdullah", scenarios: [], biography: "The Restorer of the Saudi State..." }
+                en: {
+                    name: "Imam Turki bin Abdullah",
+                    scenarios: [
+                        {
+                            title: "Restoring Riyadh (1824)",
+                            story: "Riyadh is under occupation. Do you lead a surprise attack with only 40 men to reclaim your ancestors' kingdom?",
+                            decisions: [
+                                { l: "Lead a Surprise Attack", f: "✅ Victory! Riyadh was reclaimed, marking the rise of the Second Saudi State." },
+                                { l: "Wait to Gather a Larger Army", f: "⚠️ The enemy reinforced their positions, making liberation much harder." }
+                            ]
+                        }
+                    ],
+                    biography: "Imam Turki bin Abdullah (1755-1834). The restorer of the Saudi State and a symbol of resilience with his sword 'Al-Ajrab'..."
+                }
             },
             k_aziz: {
                 ar: {
                     name: "الملك عبد العزيز",
                     scenarios: [
                         {
-                            title: "فتح المصمك التاريخي (1902م)",
-                            story: "ليلة 5 شوال 1319هـ. أنت الشاب عبد العزيز، تقف عند أسوار الرياض بـ 63 رجلاً لاستعادة ملك الأجداد. الحصن منيع، والحاكم عجلان يخرج كل فجر بجموعه. هل تباغته عند البوابة في مواجهة مباشرة قد تغير وجه التاريخ، أم تنسحب وتعود للكويت بانتظار دعم خارجي قد لا يأتي؟",
+                            title: "فتح المصمك (1902م)",
+                            story: "تقف عند أسوار الرياض بـ 63 رجلاً. هل تقتحم المصمك عند الفجر؟",
                             decisions: [
-                                { l: "اقتحام المصمك عند الفجر", f: "✅ 'الملك لله ثم لعبد العزيز!' سقط المصمك، وبدأت أعظم ملحمة توحيد وبناء في العصر الحديث." },
-                                { l: "حصار الحصن من الخارج", f: "⚠️ فشلت المفاجأة ووصلت تعزيزات للعدو أجهضت المحاولة في مهدها وكادت تنهي الحلم." },
-                                { l: "الانسحاب لطلب الدعم", f: "❌ ضاعت فرصة المباغتة الذهبية، وظلت الرياض بعيدة المنال لسنوات أخرى تحت وطأة الاحتلال." }
-                            ]
-                        },
-                        {
-                            title: "تأسيس الهجر وتوطين البادية",
-                            story: "لتحقيق استقرار دائم للأمة، رأيت ضرورة تحويل القبائل الرحل إلى مجتمعات مستقرة تعمل في الزراعة وتتعلم أصول الدين والعلم. المشروع ضخم ويتطلب جهداً اجتماعياً ومادياً جباراً. هل تبدأ في مشروع 'الهجر' لتوطين البادية، أم تتركهم على حياتهم التقليدية المشتتة مع فرض الضرائب والولاء فقط؟",
-                            decisions: [
-                                { l: "إطلاق مشروع الهجر الوطني", f: "✅ نجحت في تحويل القوة القبلية المشتتة إلى قوة وطنية مستقرة ومؤمنة تماماً بمشروع الدولة الموحدة." },
-                                { l: "تركهم على حياتهم التقليدية", f: "⚠️ ظلت النزاعات القبلية القديمة تهدد استقرار الدولة الناشئة وتعيق مشاريع التنمية الكبرى." },
-                                { l: "الاعتماد على القوة العسكرية فقط", f: "❌ أدى هذا لصدامات دموية أضعفت النسيج الوطني الناشئ وأخرت عملية النهضة الحضارية." }
-                            ]
-                        },
-                        {
-                            title: "اكتشاف النفط والنهضة (1938م)",
-                            story: "المملكة تعيش ظروفاً اقتصادية صعبة جداً بعد الحرب العالمية والكساد. الخبراء يقترحون التنقيب عن النفط في رمال الصحراء. الاتفاقية مع الشركات الأجنبية قرار سيادي حساس جداً. هل توقع اتفاقية الامتياز لبدء التنقيب والمخاطرة، أم ترفض خوفاً من التدخل الأجنبي في شؤون الدولة؟",
-                            decisions: [
-                                { l: "توقيع اتفاقية التنقيب التاريخية", f: "✅ تدفق الخير من بئر الخير (رقم 7)، وانتقلت المملكة بفضل الله ثم رؤيتك إلى عصر النهضة والرفاهية العالمية." },
-                                { l: "رفض دخول الشركات الأجنبية", f: "⚠️ ظلت الموارد محدودة جداً وتأخرت المملكة عن ركب التطور الاقتصادي والتقني العالمي لعقود." },
-                                { l: "تأجيل المشروع لسنوات", f: "❌ ضاعت فرص استثمارية وتنموية كبرى وبقيت الدولة تعاني من أزمات مالية خانقة أثرت على الشعب." }
+                                { l: "اقتحام المصمك عند الفجر", f: "✅ 'الملك لله ثم لعبد العزيز!' بدأت أعظم ملحمة توحيد في العصر الحديث." },
+                                { l: "الانسحاب لطلب الدعم", f: "❌ ضاعت فرصة المباغتة الذهبية وظلت الرياض بعيدة المنال." }
                             ]
                         }
                     ],
-                    biography: "الملك عبد العزيز بن عبد الرحمن آل سعود (1876-1953م).\n\nالمؤسس العظيم للمملكة العربية السعودية الحديثة وأحد أبرز قادة العالم في القرن العشرين. ولد في الرياض وشهد رحيل أسرته عنها في طفولته، لكنه عاد إليها وهو في الخامسة والعشرين من عمره ليصنع المعجزة التي أذهلت المؤرخين.\n\nبدأ رحلته باستعادة الرياض عام 1902م في مغامرة بطولية مذهلة بمساعدة مجموعة صغيرة من الرجال المخلصين. على مدار ثلاثين عاماً من الكفاح، خاض معارك التوحيد والبناء، محولاً شتات القبائل المتناحرة إلى أمة واحدة متماسكة تحت راية التوحيد. كان الملك عبدالعزيز عبقرياً في الربط بين الأصالة والمعاصرة؛ حيث حافظ على القيم العربية والإسلامية بينما أدخل التكنولوجيا والتعليم الحديث ووقع اتفاقيات النفط التي نقلت المملكة إلى مصاف الدول العظمى.\n\nعُرف بلقب 'صقر الجزيرة'، وكان يمتلك شخصية مهيبة وفذة تجمع بين الشجاعة العسكرية والدبلوماسية الرفيعة. أسس الوزارات، ومد السكك الحديدية، وأرسى قواعد الأمن والأمان التي جعلت من المملكة واحة للاستقرار في منطقة مضطربة. ترك خلفه دولة قوية وموحدة، وأبناءً بررة واصلوا مسيرة النهضة بكل اقتدار، ليظل اسمه محفوراً في ذاكرة التاريخ كباني أعظم وحدة وطنية عربية في التاريخ المعاصر."
+                    biography: "الملك عبد العزيز آل سعود (1876-1953م). المؤسس العظيم للمملكة العربية السعودية الحديثة وصقر الجزيرة..."
                 },
-                en: { name: "King Abdulaziz", scenarios: [], biography: "The Unifier of the Modern Saudi State..." }
+                en: {
+                    name: "King Abdulaziz",
+                    scenarios: [
+                        {
+                            title: "Conquering Al-Masmak (1902)",
+                            story: "You stand by Riyadh's walls with 63 men. Do you storm Al-Masmak at dawn?",
+                            decisions: [
+                                { l: "Storm Al-Masmak at Dawn", f: "✅ 'The Kingdom is for Allah, then for Abdulaziz!' The great unification began." },
+                                { l: "Withdraw to Seek Support", f: "❌ The golden opportunity was lost, and Riyadh remained under occupation." }
+                            ]
+                        }
+                    ],
+                    biography: "King Abdulaziz Al Saud (1876-1953). The legendary founder of the modern Kingdom of Saudi Arabia..."
+                }
             }
         };
 
         const LOCALIZATION = {
             ar: { 
                 g_h: "ملاحم التأسيس", g_d: "واجه مصيرك في تاريخ المجد السعودي.", s_h: "اختر القائد", sc_h: "اختر الموقف", r_h: "حكم التاريخ", a_h: "سجل الخالدين", 
-                start_btn: "ابدأ الرحلة", arch_btn: "الأرشيف", dir: "rtl" 
+                start_btn: "ابدأ الرحلة", arch_btn: "الأرشيف", retry_btn: "مسار آخر", home_btn: "الرئيسية", back_text: "عودة", dir: "rtl" 
             },
             en: { 
-                g_h: "Founding Epics", g_d: "Face your destiny in the history of Saudi glory.", s_h: "Select Leader", sc_h: "Select Scenario", r_h: "Verdict", a_h: "Archive", 
-                start_btn: "Start Journey", arch_btn: "Archive", dir: "ltr" 
+                g_h: "Founding Epics", g_d: "Face your destiny in Saudi history.", s_h: "Select Leader", sc_h: "Select Scenario", r_h: "History Verdict", a_h: "Hall of Heroes", 
+                start_btn: "Start Journey", arch_btn: "Archive", retry_btn: "Try Again", home_btn: "Home", back_text: "Back", dir: "ltr" 
             }
         };
 
@@ -269,6 +261,7 @@
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + l).classList.add('active');
 
+            // تحديث النصوص
             document.getElementById('t-gate-h').innerText = t.g_h;
             document.getElementById('t-gate-d').innerText = t.g_d;
             document.getElementById('t-btn-start').innerText = t.start_btn;
@@ -277,17 +270,36 @@
             document.getElementById('t-scen-h').innerText = t.sc_h;
             document.getElementById('t-res-h').innerText = t.r_h;
             document.getElementById('t-arch-h').innerText = t.a_h;
+            document.getElementById('t-btn-retry').innerText = t.retry_btn;
+            document.getElementById('t-btn-home').innerText = t.home_btn;
+            document.getElementById('global-back-btn').innerText = t.back_text;
 
             rebuildInteractiveGrids();
         }
 
-        function navigateTo(screenId) {
+        function navigateTo(screenId, storeHistory = true) {
             const allScreens = document.querySelectorAll('.screen');
             allScreens.forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
+            
             const target = document.getElementById(screenId);
             target.style.display = 'block';
             setTimeout(() => { target.classList.add('active'); }, 10);
+            
+            if(storeHistory) navigationHistory.push(screenId);
+            
+            // إظهار أو إخفاء زر العودة العلوي
+            const backBtn = document.getElementById('global-back-btn');
+            backBtn.style.display = (screenId === 'screen-gate') ? 'none' : 'block';
+            
             document.getElementById('app-scroller').scrollTop = 0;
+        }
+
+        function goBack() {
+            if (navigationHistory.length > 1) {
+                navigationHistory.pop(); // حذف الصفحة الحالية
+                const previousScreen = navigationHistory[navigationHistory.length - 1];
+                navigateTo(previousScreen, false);
+            }
         }
 
         function rebuildInteractiveGrids() {
@@ -296,17 +308,19 @@
             hPoint.innerHTML = ''; aPoint.innerHTML = '';
 
             Object.keys(EPIC_DATA).forEach(key => {
+                const name = EPIC_DATA[key][currentLanguage].name;
+                
                 const hBtn = document.createElement('button');
                 hBtn.className = 'btn-epic';
-                hBtn.innerText = EPIC_DATA[key][currentLanguage].name;
+                hBtn.innerText = name;
                 hBtn.onclick = () => showScenarios(key);
                 hPoint.appendChild(hBtn);
 
                 const aBtn = document.createElement('button');
                 aBtn.className = 'btn-epic';
-                aBtn.innerText = EPIC_DATA[key][currentLanguage].name;
+                aBtn.innerText = name;
                 aBtn.onclick = () => {
-                    document.getElementById('bio-hero-name').innerText = EPIC_DATA[key][currentLanguage].name;
+                    document.getElementById('bio-hero-name').innerText = name;
                     document.getElementById('bio-content-box').innerText = EPIC_DATA[key][currentLanguage].biography;
                     navigateTo('screen-biography');
                 };
@@ -347,6 +361,7 @@
             navigateTo('screen-quest');
         }
 
+        // نظام الجزيئات (الخلفية المتحركة)
         const canvas = document.getElementById('titan-engine-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
