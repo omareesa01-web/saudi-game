@@ -1,377 +1,414 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>متحف الممالك الثلاث</title>
-<style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ملحمة التأسيس - محاكي تاريخي</title>
 
-* { margin:0; padding:0; box-sizing:border-box; }
+<style>
+/* -----------------------------------------------------------
+   🟩 1) الإعدادات العامة + الثيم الداكن + الألوان السعودية
+----------------------------------------------------------- */
+:root {
+    --saudi-green: #006c35;
+    --royal-gold: #d4af37;
+    --deep-dark: #0a0f0c;
+    --glass-bg: rgba(255, 255, 255, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --text-light: #e8e8e8;
+    --danger: #ff4d4d;
+    --success: #00ff9c;
+}
 
 body {
-  background: #09070300;
-  color: #d4b896;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  min-height: 100vh;
-  background-color: #0a0802;
-  overflow-x: hidden;
+    margin: 0;
+    font-family: "Cairo", sans-serif;
+    background: var(--deep-dark);
+    color: var(--text-light);
+    overflow-x: hidden;
 }
 
-/* ── SCREENS ── */
-.screen { display:none; min-height:100vh; padding:2rem; animation: fadeIn .5s ease; }
-.screen.active { display:flex; flex-direction:column; align-items:center; justify-content:center; }
-@keyframes fadeIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-
-/* ── HOME ── */
-#home {
-  text-align:center; gap:1.4rem;
-  background: radial-gradient(ellipse at center, #1a1205 0%, #0a0802 70%);
-}
-.logo { font-size:4rem; filter:drop-shadow(0 0 24px rgba(201,168,76,.7)); }
-.main-title { font-size:clamp(2rem,6vw,3.4rem); color:#c9a84c; font-weight:bold; line-height:1.3; text-shadow:0 0 40px rgba(201,168,76,.35); }
-.main-sub   { font-size:.95rem; color:#8a7055; letter-spacing:.15em; }
-.divider    { width:120px; height:1px; background:linear-gradient(90deg,transparent,#c9a84c,transparent); }
-
-/* ── BUTTONS ── */
-.btn { padding:.85rem 2.2rem; border:none; font-size:1rem; cursor:pointer; transition:all .3s; font-family:inherit; letter-spacing:.08em; }
-.btn-gold {
-  background:linear-gradient(135deg,#8b6914,#c9a84c);
-  color:#0a0802; font-weight:bold;
-  box-shadow:0 0 28px rgba(201,168,76,.3);
-}
-.btn-gold:hover { transform:translateY(-3px); box-shadow:0 8px 36px rgba(201,168,76,.5); }
-.btn-outline {
-  background:transparent; border:1px solid rgba(201,168,76,.4); color:#c9a84c;
-}
-.btn-outline:hover { background:rgba(201,168,76,.08); border-color:#c9a84c; transform:translateY(-2px); }
-
-/* ── KINGDOM CARDS (select screen) ── */
-#select-screen { gap:2rem; }
-.screen-title { font-size:1.7rem; color:#c9a84c; font-weight:bold; }
-.screen-desc  { font-size:.9rem; color:#8a7055; max-width:500px; text-align:center; line-height:1.9; }
-
-.kingdoms-row {
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-  gap:1.4rem; max-width:920px; width:100%;
-}
-.kingdom-card {
-  border:1px solid rgba(201,168,76,.15);
-  padding:2rem 1.6rem;
-  background:linear-gradient(160deg,#1a1205,#0d0a05);
-  cursor:pointer; transition:all .35s; text-align:right; position:relative; overflow:hidden;
-}
-.kingdom-card::before {
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(135deg,rgba(201,168,76,.06),transparent);
-  opacity:0; transition:opacity .35s;
-}
-.kingdom-card:hover { transform:translateY(-7px); border-color:rgba(201,168,76,.5); }
-.kingdom-card:hover::before { opacity:1; }
-.kc-icon  { font-size:2.4rem; margin-bottom:.8rem; }
-.kc-era   { font-size:.68rem; color:#c9a84c; letter-spacing:.25em; margin-bottom:.5rem; display:block; }
-.kc-name  { font-size:1.25rem; color:#e8c97a; font-weight:bold; margin-bottom:.5rem; }
-.kc-years { font-size:.78rem; color:#8a7055; margin-bottom:.9rem; }
-.kc-desc  { font-size:.83rem; color:#a08060; line-height:1.8; }
-
-/* ── FOUNDER PROFILE ── */
-#founder-screen { gap:1.8rem; max-width:760px; margin:0 auto; }
-
-.founder-card {
-  width:100%; border:1px solid rgba(201,168,76,.2);
-  background:linear-gradient(160deg,#1a1205,#0d0a05);
-  padding:2.2rem; display:flex; gap:2rem; align-items:flex-start;
-  flex-wrap:wrap;
-}
-.founder-avatar { font-size:4rem; filter:drop-shadow(0 0 16px rgba(201,168,76,.5)); }
-.founder-info { flex:1; min-width:200px; }
-.founder-era  { font-size:.68rem; color:#c9a84c; letter-spacing:.25em; display:block; margin-bottom:.4rem; }
-.founder-name { font-size:1.8rem; color:#e8c97a; font-weight:bold; margin-bottom:.3rem; }
-.founder-role { font-size:.85rem; color:#8a7055; font-style:italic; margin-bottom:1rem; }
-.founder-bio  { font-size:.88rem; color:#b09070; line-height:2; }
-
-.founder-stats {
-  display:flex; gap:1.5rem; flex-wrap:wrap;
-  border-top:1px solid rgba(201,168,76,.1); padding-top:1.2rem; margin-top:1.2rem;
-}
-.fstat-num   { display:block; font-size:1.3rem; color:#c9a84c; font-weight:bold; }
-.fstat-label { font-size:.7rem; color:#8a7055; }
-
-/* ── DECISION ── */
-#decision-screen { gap:1.8rem; max-width:740px; margin:0 auto; }
-
-.situation-box {
-  width:100%; padding:1.5rem 1.6rem;
-  border:1px solid rgba(201,168,76,.15);
-  background:rgba(26,18,5,.7);
-  border-right:3px solid #8b6914;
-}
-.sit-label { font-size:.68rem; color:#c9a84c; letter-spacing:.3em; display:block; margin-bottom:.7rem; }
-.sit-text  { font-size:.95rem; color:#d4b896; line-height:2; }
-
-.choices-label { font-size:.68rem; color:#c9a84c; letter-spacing:.3em; align-self:flex-start; }
-.choices { display:flex; flex-direction:column; gap:.8rem; width:100%; }
-
-.choice-btn {
-  padding:1rem 1.3rem;
-  background:rgba(201,168,76,.04);
-  border:1px solid rgba(201,168,76,.15);
-  color:#d4b896; font-family:inherit; font-size:.9rem;
-  text-align:right; cursor:pointer; transition:all .3s;
-  position:relative; overflow:hidden;
-}
-.choice-btn::after {
-  content:''; position:absolute; right:0; top:0; bottom:0;
-  width:3px; background:#c9a84c; transform:scaleY(0); transition:transform .3s;
-}
-.choice-btn:hover { background:rgba(201,168,76,.1); border-color:rgba(201,168,76,.45); color:#e8c97a; transform:translateX(-4px); }
-.choice-btn:hover::after { transform:scaleY(1); }
-
-/* ── RESULT ── */
-#result-screen { gap:1.6rem; max-width:760px; margin:0 auto; }
-
-.result-header { text-align:center; }
-.result-icon   { font-size:3.5rem; animation:popIn .5s ease; }
-@keyframes popIn { from{transform:scale(0)} 60%{transform:scale(1.2)} to{transform:scale(1)} }
-.result-verdict { font-size:1.6rem; font-weight:bold; margin-top:.5rem; }
-.verdict-good { color:#c9a84c; }
-.verdict-bad  { color:#8b1a1a; }
-.verdict-mid  { color:#a07828; }
-
-.result-section {
-  width:100%; padding:1.3rem 1.6rem;
-  border:1px solid rgba(201,168,76,.12);
-  background:rgba(26,18,5,.6);
-}
-.rs-label { font-size:.65rem; color:#c9a84c; letter-spacing:.3em; display:block; margin-bottom:.6rem; }
-.rs-text  { font-size:.9rem; color:#c4a47a; line-height:2; }
-
-.today-impact {
-  width:100%; padding:1.3rem 1.6rem;
-  border:1px solid rgba(139,26,26,.3);
-  background:rgba(139,26,26,.05);
-}
-.today-impact .rs-label { color:#c97a7a; }
-.today-impact .rs-text  { color:#d4b896; }
-
-.result-btns { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
-
-/* ── SHAKE / FLASH ── */
-@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
-.shake { animation:shake .4s ease; }
-@keyframes glowGold { 0%{box-shadow:0 0 60px rgba(201,168,76,.5)} 100%{box-shadow:none} }
-.glow-gold { animation:glowGold .9s ease; }
-
-/* ── RESPONSIVE ── */
-@media(max-width:540px){
-  .founder-card { flex-direction:column; }
-  .kingdoms-row { grid-template-columns:1fr; }
+/* -----------------------------------------------------------
+   🟩 2) خلفية Particles بسيطة باستخدام CSS Animation
+----------------------------------------------------------- */
+.particles {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
 }
 
+.particles span {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--saudi-green);
+    border-radius: 50%;
+    animation: float 10s linear infinite;
+    opacity: 0.4;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-120vh) scale(0.5); }
+}
+
+/* -----------------------------------------------------------
+   🟩 3) الحاوية الرئيسية + تأثير Glassmorphism
+----------------------------------------------------------- */
+.container {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 30px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 25px rgba(0, 255, 100, 0.1);
+    transition: 0.4s;
+}
+
+/* -----------------------------------------------------------
+   🟩 4) الأزرار + تأثيرات النجاح والفشل
+----------------------------------------------------------- */
+button {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background: var(--saudi-green);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #00994a;
+}
+
+.shake {
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    50% { transform: translateX(8px); }
+    75% { transform: translateX(-8px); }
+    100% { transform: translateX(0); }
+}
+
+.glow {
+    animation: glow 1s ease-out;
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 0px var(--success); }
+    100% { box-shadow: 0 0 25px var(--success); }
+}
+
+/* -----------------------------------------------------------
+   🟩 5) الأرشيف العائم (Bio Cards)
+----------------------------------------------------------- */
+.archive-card {
+    position: fixed;
+    top: 50%;
+    right: -400px;
+    transform: translateY(-50%);
+    width: 350px;
+    padding: 20px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    transition: 0.5s;
+    z-index: 10;
+}
+
+.archive-card.show {
+    right: 20px;
+}
+
+.archive-card h3 {
+    color: var(--royal-gold);
+}
+
+/* -----------------------------------------------------------
+   🟩 6) زر تغيير اللغة
+----------------------------------------------------------- */
+.lang-switch {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: var(--royal-gold);
+    color: black;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 20;
+    font-weight: bold;
+}
 </style>
 </head>
+
 <body>
 
-<!-- ══════════ HOME ══════════ -->
-<div id="home" class="screen active">
-  <div class="logo">🌴</div>
-  <h1 class="main-title">متحف الممالك الثلاث</h1>
-  <p class="main-sub">اختر مؤسساً — اتخذ قراره — وشاهد أثره اليوم</p>
-  <div class="divider"></div>
-  <p style="font-size:.85rem;color:#8a7055;max-width:420px;text-align:center;line-height:2;">
-    هذا المتحف الرقمي يضعك في قلب لحظة تاريخية حرجة.<br>
-    قرارك سيُحاكي ما كان سيحدث للمملكة حتى يومنا هذا.
-  </p>
-  <button class="btn btn-gold" onclick="showScreen('select-screen')">ابدأ التجربة ✦</button>
+<!-- -----------------------------------------------------------
+     🟩 Particles Background
+----------------------------------------------------------- -->
+<div class="particles" id="particles"></div>
+
+<!-- -----------------------------------------------------------
+     🟩 زر تغيير اللغة
+----------------------------------------------------------- -->
+<div class="lang-switch" onclick="toggleLanguage()">EN</div>
+
+<!-- -----------------------------------------------------------
+     🟩 الأرشيف العائم
+----------------------------------------------------------- -->
+<div class="archive-card" id="archiveCard">
+    <h3 id="archiveName"></h3>
+    <p id="archiveText"></p>
 </div>
 
-<!-- ══════════ SELECT ══════════ -->
-<div id="select-screen" class="screen">
-  <h2 class="screen-title">اختر مؤسس المملكة</h2>
-  <p class="screen-desc">كل مملكة قامت على قرار واحد غيّر مسار التاريخ. أيّهم تختار؟</p>
-  <div class="kingdoms-row" id="kingdoms-row"></div>
-  <button class="btn btn-outline" onclick="showScreen('home')">← رجوع</button>
-</div>
-
-<!-- ══════════ FOUNDER ══════════ -->
-<div id="founder-screen" class="screen">
-  <div id="founder-card-wrap"></div>
-  <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
-    <button class="btn btn-gold"    onclick="showScreen('decision-screen')">انتقل للحظة القرار ←</button>
-    <button class="btn btn-outline" onclick="showScreen('select-screen')">← رجوع</button>
-  </div>
-</div>
-
-<!-- ══════════ DECISION ══════════ -->
-<div id="decision-screen" class="screen">
-  <h2 class="screen-title" id="dec-title"></h2>
-  <div class="situation-box">
-    <span class="sit-label">▸ الموقف التاريخي</span>
-    <p class="sit-text" id="sit-text"></p>
-  </div>
-  <span class="choices-label">▸ ماذا تقرر؟</span>
-  <div class="choices" id="choices-wrap"></div>
-  <button class="btn btn-outline" onclick="showScreen('founder-screen')">← رجوع</button>
-</div>
-
-<!-- ══════════ RESULT ══════════ -->
-<div id="result-screen" class="screen">
-  <div class="result-header">
-    <div class="result-icon"    id="res-icon"></div>
-    <div class="result-verdict" id="res-verdict"></div>
-  </div>
-  <div class="result-section">
-    <span class="rs-label">▸ ما الذي حدث بعد قرارك</span>
-    <p class="rs-text" id="res-immediate"></p>
-  </div>
-  <div class="result-section">
-    <span class="rs-label">▸ ما الذي حدث في الواقع</span>
-    <p class="rs-text" id="res-real"></p>
-  </div>
-  <div class="today-impact">
-    <span class="rs-label">▸ أثر قرارك على واقعنا اليوم — ٢٠٢٥م</span>
-    <p class="rs-text" id="res-today"></p>
-  </div>
-  <div class="result-btns">
-    <button class="btn btn-gold"    onclick="showScreen('decision-screen')">🔄 جرّب قراراً آخر</button>
-    <button class="btn btn-outline" onclick="showScreen('select-screen')">📋 اختر مؤسساً آخر</button>
-    <button class="btn btn-outline" onclick="showScreen('home')">🏠 الرئيسية</button>
-  </div>
-</div>
+<!-- -----------------------------------------------------------
+     🟩 الحاوية الرئيسية
+----------------------------------------------------------- -->
+<div class="container" id="app"></div>
 
 <script>
-// ══════════════════════════════════════════════
-//  DATA
-// ══════════════════════════════════════════════
-const KINGDOMS = [
-  {
-    id: 0,
-    icon: '⚔️',
-    era: 'الدولة السعودية الأولى',
-    name: 'محمد بن سعود',
-    years: '١٧٢٧ — ١٧٦٥ م',
-    role: 'مؤسس الدولة السعودية الأولى · أمير الدرعية',
-    desc: 'أمير الدرعية الذي أبرم الميثاق التاريخي مع الشيخ محمد بن عبدالوهاب وأسّس بذلك نواة الدولة السعودية، جامعاً بين السياسة والعلم في بناء كيان لم يسبق له مثيل.',
-    bio: 'نشأ في الدرعية وتولّى إمارتها، وكان يتميز بالحنكة السياسية والبُعد النظري. رأى في التحالف مع الشيخ فرصةً تاريخية لبناء دولة تقوم على أسس راسخة من العدل والشورى.',
-    stats: [
-      { num: '١٧٢٧', label: 'سنة التأسيس' },
-      { num: '٣٨', label: 'سنة إمارة' },
-      { num: '١', label: 'ميثاق خالد' },
-    ],
-    situation: 'أنت محمد بن سعود، أمير الدرعية. يطرق بابك الشيخ محمد بن عبدالوهاب مطروداً من العيينة، يطلب منك الحماية ويعرض عليك تحالفاً: أنت تحميه وتنشر دعوته، وهو يعطيك الشرعية الدينية والسلطة على القلوب. مستشاروك منقسمون — بعضهم يخشى غضب الأمراء المجاورين، وبعضهم يرى في الرجل بوابة للتوحيد.',
-    choices: [
-      {
-        text: 'أقبل التحالف وأُبرم الميثاق رسمياً — السيف والعلم معاً',
-        type: 'correct',
-        icon: '✨',
-        verdict: 'قرار غيّر التاريخ',
-        verdictClass: 'verdict-good',
-        immediate: 'قبلتَ الشيخ وعقدتَ معه الميثاق الشهير. بدأت الدرعية تنمو كمركز علمي وسياسي، وتوحّدت القبائل حول راية واحدة جمعت الدين والسياسة.',
-        real: 'هذا هو بالضبط ما فعله محمد بن سعود عام ١٧٢٧م. نشأت دولة امتدت من نجد إلى أجزاء واسعة من الجزيرة العربية خلال عقود قليلة.',
-        today: 'هذا القرار هو الجذر الذي قامت عليه المملكة العربية السعودية اليوم. بدونه لما كانت هناك دولة بهذا الثقل الديني والسياسي على خريطة العالم عام ٢٠٢٥م.'
-      },
-      {
-        text: 'أُضيّفه مؤقتاً دون ميثاق رسمي — أنتظر وأرى',
-        type: 'mid',
-        icon: '⚠️',
-        verdict: 'فرصة شبه ضائعة',
-        verdictClass: 'verdict-mid',
-        immediate: 'قبلتَ ضيافته دون التزام. مرّت الأشهر وبقي التحالف هشاً. الشيخ بدأ يبحث عن أمير آخر أكثر جرأة وحسماً في المنطقة.',
-        real: 'الميثاق الحقيقي قام على الالتزام الكامل والمتبادل. التردد كان سيجعل الشيخ يغادر نحو إمارة أخرى مستعدة للتحالف الكامل.',
-        today: 'لو حدث هذا، ربما نشأت دولة في مكان آخر، أو لم تنشأ أصلاً. نجد اليوم ربما كانت مجموعة إمارات متشرذمة بلا هوية موحدة، وبلا ثقل على الساحة الدولية.'
-      },
-      {
-        text: 'أرفض — لا أريد استعداء الأمراء المجاورين',
-        type: 'wrong',
-        icon: '💔',
-        verdict: 'خسرت الفرصة',
-        verdictClass: 'verdict-bad',
-        immediate: 'رفضتَ استقبال الشيخ خوفاً من ردود الفعل. غادر الشيخ نحو إمارة مجاورة، وبقيت الدرعية إمارة صغيرة كغيرها.',
-        real: 'لو رفض ابن سعود لانتهت الفكرة هناك. التاريخ لا يعطي الفرصة مرتين للمترددين أمام اللحظات الكبرى.',
-        today: 'لا وجود لدولة سعودية اليوم. الجزيرة العربية ربما كانت لا تزال تحت نفوذ عثماني أو مشتتة بين إمارات قبلية متناحرة، دون نفط موحّد ولا صوت مؤثر في السياسة العالمية.'
-      }
-    ]
-  },
+/* -----------------------------------------------------------
+   🟩 1) إنشاء Particles عشوائية
+----------------------------------------------------------- */
+for (let i = 0; i < 60; i++) {
+    const p = document.createElement("span");
+    p.style.left = Math.random() * 100 + "%";
+    p.style.animationDelay = Math.random() * 10 + "s";
+    p.style.animationDuration = 8 + Math.random() * 10 + "s";
+    document.getElementById("particles").appendChild(p);
+}
 
-  {
-    id: 1,
-    icon: '🏰',
-    era: 'الدولة السعودية الثانية',
-    name: 'تركي بن عبدالله',
-    years: '١٨٢٤ — ١٨٣٤ م',
-    role: 'محيي الدولة السعودية · مؤسس الرياض عاصمةً',
-    desc: 'بعد أن هدمت الحملة العثمانية الدرعية وشتّتت الأسرة الحاكمة، نهض تركي بن عبدالله من بين الركام ليُعيد بناء ما اندثر، ويختار الرياض عاصمةً جديدة لدولة أبيّة.',
-    bio: 'أمير صبور واستراتيجي بارد الأعصاب. رأى بعيون التاريخ أن هزيمة اليوم لا تعني نهاية الغد. جمع شتات القبائل وأعاد بناء الدولة بالتدريج والحكمة لا بالاندفاع.',
-    stats: [
-      { num: '١٨٢٤', label: 'إعادة التأسيس' },
-      { num: '١٠', label: 'سنوات بناء' },
-      { num: '١', label: 'عاصمة جديدة' },
-    ],
-    situation: 'أنت تركي بن عبدالله عام ١٨٢٤م. الدرعية خراب وإبراهيم باشا انسحب. لديك فرصة لإعادة البناء لكن أمامك خياران: تُعيد بناء الدرعية رمزياً عاصمةً للدولة كما كانت، أو تبني عاصمة جديدة في الرياض التي تتميز بموقع جغرافي أكثر حصانةً وأسهل للدفاع.',
-    choices: [
-      {
-        text: 'أبني الرياض عاصمةً جديدة — الموقع الجديد أحصن وأقوى',
-        type: 'correct',
-        icon: '✨',
-        verdict: 'قرار العقل والمستقبل',
-        verdictClass: 'verdict-good',
-        immediate: 'اخترتَ الرياض. موقعها في قلب نجد جعلها حصناً طبيعياً. سرعان ما أصبحت مركزاً تجارياً وسياسياً يجذب القبائل المتناثرة نحو لواء واحد.',
-        real: 'هذا ما فعله تركي تماماً. الرياض أثبتت مع الوقت أنها الاختيار الاستراتيجي الأمثل، وظلت عاصمةً حتى اليوم.',
-        today: 'الرياض عام ٢٠٢٥م هي العاصمة السياسية والاقتصادية بامتياز — مدينة بتعداد يتجاوز ٧ ملايين نسمة، ومركز القرار الخليجي والعربي. قرار تركي هو الذي رسم هذا المصير.'
-      },
-      {
-        text: 'أُعيد بناء الدرعية — رمزيتها التاريخية لا تُعوَّض',
-        type: 'mid',
-        icon: '⚠️',
-        verdict: 'العاطفة قبل الاستراتيجية',
-        verdictClass: 'verdict-mid',
-        immediate: 'أعدتَ بناء الدرعية. الرمزية التاريخية شحنت الناس معنوياً، لكن الموقع الجغرافي المكشوف جعلها عرضةً لأي هجوم قادم من الشمال أو الغرب.',
-        real: 'الدرعية كانت مكشوفة جغرافياً وهو ما سهّل هدمها أولاً. اختيار الرياض كان قراراً استراتيجياً بعيد النظر تجاوز النوستالجيا التاريخية.',
-        today: 'لو بقيت الدرعية العاصمة، لكانت أكثر هشاشة أمام التوسع العثماني لاحقاً. ربما لم تصمد الدولة الثانية طويلاً، وتأخّر توحيد المملكة عقوداً إضافية.'
-      },
-      {
-        text: 'أتفاوض مع إبراهيم باشا للحصول على اعتراف رسمي بدولتي',
-        type: 'wrong',
-        icon: '💔',
-        verdict: 'الاعتماد على العدو وهمٌ',
-        verdictClass: 'verdict-bad',
-        immediate: 'سعيتَ للتفاوض مع العثمانيين. أجابوك بشروط مهينة تجعل دولتك تابعةً لا مستقلة. القبائل رأت ضعفك فانفضّت عنك واحدة تلو الأخرى.',
-        real: 'تركي لم يطلب اعترافاً من أحد — بنى دولته بيده. الاعتماد على شرعية العدو كان سيُنهي أي مشروع استقلالي في مهده.',
-        today: 'لو نجح هذا النهج، لكانت الجزيرة العربية اليوم ربما دولة تابعة أو منقسمة بين نفوذ إقليمي ودولي، ولما كان هناك مملكة مستقلة ذات سيادة كاملة.'
-      }
-    ]
-  },
+/* -----------------------------------------------------------
+   🟩 2) إدارة اللغة (عربي / إنجليزي)
+----------------------------------------------------------- */
+let currentLang = "ar";
 
-  {
-    id: 2,
-    icon: '👑',
-    era: 'الدولة السعودية الثالثة',
-    name: 'عبدالعزيز آل سعود',
-    years: '١٩٠٢ — ١٩٥٣ م',
-    role: 'الملك المؤسس · موحّد الجزيرة العربية',
-    desc: 'بـ ٤٧ رجلاً فقط وعمر ٢١ عاماً، استرد عبدالعزيز الرياض في ليلة باردة من يناير ١٩٠٢م. وفي ثلاثة عقود، وحّد شبه الجزيرة كلها تحت راية واحدة.',
-    bio: 'جمع بين الشجاعة العسكرية والذكاء الدبلوماسي النادر. كان يستطيع أن يكسب عدوه بالحوار أحياناً أكثر مما يكسبه بالسيف. رجل رأى المملكة قبل أن توجد.',
-    stats: [
-      { num: '١٩٠٢', label: 'فتح الرياض' },
-      { num: '٥١', label: 'سنة قيادة' },
-      { num: '٢.١م', label: 'كم² وحّدها' },
-    ],
-    situation: 'أنت عبدالعزيز عام ١٩٢٦م. وحّدتَ معظم الجزيرة وفتحتَ الحجاز. الآن أمامك قرار مصيري: كيف تتعامل مع القبائل المستقلة التي لا تزال خارج سلطتك؟ بعض مستشاريك يقول اضربهم بالقوة فوراً لإنهاء الأمر، وبعضهم يقول تفاوض وأدمجهم في الدولة تدريجياً.',
-    choices: [
-      {
-        text: 'أدمجهم بالتدريج — حوار ثم اتفاقيات ثم إدماج في الجيش والإدارة',
-        type: 'correct',
-        icon: '✨',
-        verdict: 'حكمة من يبني للأبد',
-        verdictClass: 'verdict-good',
-        immediate: 'اخترتَ التدرج والحوار. أرسلتَ وفوداً وعقدتَ اتفاقيات. بعض القبائل أبدت مقاومة لكنها انضمت في نهاية المطاف لدولة منحتها الكرامة لا القهر.',
-        real: 'هذا نهج عبدالعزيز الفعلي في أغلب الأحيان. مزج بين القوة حين تلزم والإدماج السلمي حين يُجدي، وهو ما أعطى المملكة استقراراً داخلياً نادراً.',
-        today: 'النسيج القبلي السعودي اليوم متماسك بشكل لافت رغم التنوع. هذا الاستقرار الداخلي هو ما يجعل المملكة عام ٢٠٢٥م قادرةً على تنفيذ رؤية ٢٠٣٠ دون اضطرابات قبلية تُعيق التحديث.'
-      },
-      {
-        text: 'أضربهم عسكرياً الآن — القوة هي اللغة الوحيدة التي يفهمونها',
-        type: 'mid',
-        icon: '⚠️',
-        verdict: 'انتصار ثمنه غالٍ',
-        verdictClass: 'verdict-mid',
-        immediate: 'شنّيتَ حملات عسكرية. انتصرتَ في الميدان لكن بقيت جذوة الغضب تحت الرماد. القبائل المهزومة لم تنسَ الإذل​​​​​​​​​​​​​​​​
+function toggleLanguage() {
+    currentLang = currentLang === "ar" ? "en" : "ar";
+    document.documentElement.lang = currentLang;
+    document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+    document.querySelector(".lang-switch").textContent = currentLang === "ar" ? "EN" : "AR";
+    renderHome();
+}
+
+/* -----------------------------------------------------------
+   🟩 3) قاعدة بيانات القادة + السيناريوهات + الأرشيف
+----------------------------------------------------------- */
+const leaders = {
+    "mohammed": {
+        name_ar: "الإمام محمد بن سعود",
+        name_en: "Imam Mohammed bin Saud",
+        archive_ar: `
+نشأ الإمام محمد بن سعود في بيئة تتسم بالصلابة والقيادة، 
+وكانت الدرعية في عهده نواة حلم أكبر من حدود المكان. 
+امتلك رؤية سياسية واضحة، وإرادة لا تلين، وقدرة على جمع الناس حول مشروع دولة 
+تقوم على الاستقرار والعدل والنهضة.
+        `,
+        archive_en: `
+Imam Mohammed bin Saud grew up in an environment of leadership and resilience. 
+Under his rule, Diriyah became the nucleus of a vision far greater than its borders. 
+He possessed political clarity, unshakable will, and the ability to unite people 
+around a state built on justice, stability, and progress.
+        `,
+        scenarios: [
+            {
+                title_ar: "التحالف التاريخي",
+                story_ar: `
+في ليلة هادئة من ليالي الدرعية، وقف الإمام محمد بن سعود أمام مفترق طرق. 
+كانت الدعوة الإصلاحية قد وصلت إليه، ومعها فرصة لتغيير مسار الجزيرة العربية. 
+لكن التحالف يعني مسؤولية ضخمة، وقد يجر معه خصومات قبل أن يجلب الاستقرار.
+                `,
+                options_ar: [
+                    { text: "إبرام التحالف فوراً", correct: true, result: "يبدأ عهد جديد من الوحدة والاستقرار." },
+                    { text: "التردد وانتظار الظروف", correct: false, result: "تضيع الفرصة التاريخية ويزداد نفوذ الخصوم." }
+                ]
+            },
+            {
+                title_ar: "تأمين الدرعية",
+                story_ar: `
+كانت الدرعية محاطة بقبائل متنافسة، وكل خطوة خاطئة قد تشعل حرباً. 
+جلس الإمام يفكر: هل يبدأ بتقوية التحصينات أم يركز على بناء التحالفات؟
+                `,
+                options_ar: [
+                    { text: "تعزيز التحصينات أولاً", correct: true, result: "تصبح الدرعية حصناً منيعاً." },
+                    { text: "إهمال الدفاع والتركيز على السياسة", correct: false, result: "تتعرض الدرعية لهجمات مفاجئة." }
+                ]
+            }
+        ]
+    },
+
+    /* -----------------------------------------------------------
+       🟩 الإمام تركي بن عبدالله
+----------------------------------------------------------- */
+    "turki": {
+        name_ar: "الإمام تركي بن عبدالله",
+        name_en: "Imam Turki bin Abdullah",
+        archive_ar: `
+كان الإمام تركي بن عبدالله قائداً فذاً أعاد الأمل بعد سنوات من التشتت. 
+امتاز بالشجاعة والدهاء العسكري، واستطاع أن يعيد الرياض إلى الحكم السعودي 
+بخطط محكمة وروح لا تعرف الهزيمة.
+        `,
+        archive_en: `
+Imam Turki bin Abdullah was a remarkable leader who restored hope after years of fragmentation. 
+He reclaimed Riyadh with strategic brilliance and unmatched courage.
+        `,
+        scenarios: [
+            {
+                title_ar: "استعادة الرياض",
+                story_ar: `
+بعد سنوات من الغياب، عاد الإمام تركي إلى الرياض متخفياً. 
+كانت المدينة تحت سيطرة خصوم شرسين، وأي خطأ يعني نهاية المحاولة. 
+وقف أمام خيارين مصيريين.
+                `,
+                options_ar: [
+                    { text: "الهجوم الليلي المباغت", correct: true, result: "تسقط الرياض سريعاً بفضل عنصر المفاجأة." },
+                    { text: "التفاوض مع الخصوم", correct: false, result: "يستغل الخصوم الوقت ويقلبون الموازين." }
+                ]
+            }
+        ]
+    },
+
+    /* -----------------------------------------------------------
+       🟩 الملك عبدالعزيز
+----------------------------------------------------------- */
+    "abdulaziz": {
+        name_ar: "الملك عبدالعزيز",
+        name_en: "King Abdulaziz",
+        archive_ar: `
+كان الملك عبدالعزيز قائداً استثنائياً جمع بين الحكمة والقوة. 
+قاد رحلة توحيد شاقة، واجه فيها الصحراء والخصوم والظروف القاسية، 
+حتى أسس دولة حديثة تقوم على الأمن والعدل والتنمية.
+        `,
+        archive_en: `
+King Abdulaziz was an extraordinary leader who united the Arabian Peninsula 
+through wisdom, strength, and strategic brilliance.
+        `,
+        scenarios: [
+            {
+                title_ar: "فتح الرياض",
+                story_ar: `
+في فجر يوم حاسم، وقف الملك عبدالعزيز أمام أسوار الرياض. 
+كانت لحظة لا تشبه أي لحظة أخرى: إما استعادة المجد، أو خسارة كل شيء. 
+الرجال ينتظرون إشارته.
+                `,
+                options_ar: [
+                    { text: "اقتحام القصر عبر البوابة الرئيسية", correct: false, result: "يُكشف الهجوم ويفشل المخطط." },
+                    { text: "التسلل عبر البساتين", correct: true, result: "يصل الرجال إلى الداخل دون أن يشعر بهم أحد." }
+                ]
+            }
+        ]
+    }
+};
+
+/* -----------------------------------------------------------
+   🟩 4) إدارة الحالة + واجهة المستخدم
+----------------------------------------------------------- */
+function renderHome() {
+    const app = document.getElementById("app");
+    app.innerHTML = "";
+
+    const title = currentLang === "ar" ? "اختر قائدك" : "Choose Your Leader";
+
+    app.innerHTML = `<h1 style="color:var(--royal-gold); text-align:center">${title}</h1>`;
+
+    Object.keys(leaders).forEach(id => {
+        const leader = leaders[id];
+        const name = currentLang === "ar" ? leader.name_ar : leader.name_en;
+
+        const btn = document.createElement("button");
+        btn.textContent = name;
+        btn.onclick = () => renderLeader(id);
+        app.appendChild(btn);
+    });
+}
+
+function renderLeader(id) {
+    const leader = leaders[id];
+    const app = document.getElementById("app");
+
+    const title = currentLang === "ar" ? "السيناريوهات" : "Scenarios";
+
+    app.innerHTML = `
+        <h2 style="color:var(--royal-gold)">${currentLang === "ar" ? leader.name_ar : leader.name_en}</h2>
+        <button onclick="showArchive('${id}')">${currentLang === "ar" ? "عرض السيرة" : "Show Archive"}</button>
+        <h3>${title}</h3>
+    `;
+
+    leader.scenarios.forEach((sc, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = currentLang === "ar" ? sc.title_ar : sc.title_en || sc.title_ar;
+        btn.onclick = () => renderScenario(id, index);
+        app.appendChild(btn);
+    });
+}
+
+function renderScenario(id, index) {
+    const sc = leaders[id].scenarios[index];
+    const app = document.getElementById("app");
+
+    app.innerHTML = `
+        <h2 style="color:var(--royal-gold)">${currentLang === "ar" ? sc.title_ar : sc.title_en || sc.title_ar}</h2>
+        <p>${currentLang === "ar" ? sc.story_ar : sc.story_en || sc.story_ar}</p>
+    `;
+
+    sc.options_ar.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.textContent = currentLang === "ar" ? opt.text : opt.text_en || opt.text;
+        btn.onclick = () => handleOption(btn, opt);
+        app.appendChild(btn);
+    });
+}
+
+function handleOption(btn, opt) {
+    if (opt.correct) {
+        btn.classList.add("glow");
+        alert(opt.result);
+    } else {
+        btn.classList.add("shake");
+        alert(opt.result);
+    }
+}
+
+/* -----------------------------------------------------------
+   🟩 5) عرض الأرشيف العائم
+----------------------------------------------------------- */
+function showArchive(id) {
+    const card = document.getElementById("archiveCard");
+    const leader = leaders[id];
+
+    document.getElementById("archiveName").textContent =
+        currentLang === "ar" ? leader.name_ar : leader.name_en;
+
+    document.getElementById("archiveText").textContent =
+        currentLang === "ar" ? leader.archive_ar : leader.archive_en;
+
+    card.classList.add("show");
+
+    setTimeout(() => card.classList.remove("show"), 12000);
+}
+
+/* -----------------------------------------------------------
+   🟩 6) تشغيل الصفحة
+----------------------------------------------------------- */
+renderHome();
+</script>
+
+</body>
+</html>
